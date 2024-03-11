@@ -31,7 +31,6 @@ function App() {
       <Header/>
       <LeftSidebar/>
       <Main/>
-  
     </body>
   );
 }
