@@ -21,6 +21,7 @@ import './assets/fonts/nucleo-outline.woff';
 import './assets/fonts/nucleo-outline.woff2';
 import LeftSidebar from './Components/LeftSidebar';
 import Main from './Components/Main';
+import { Outlet } from 'react-router-dom';
 
 
 
@@ -30,7 +31,7 @@ function App() {
     <body class="theme-purple">
       <Header/>
       <LeftSidebar/>
-      <Main/>
+      <Outlet/>
     </body>
   );
 }

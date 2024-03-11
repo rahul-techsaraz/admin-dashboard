@@ -1,5 +1,6 @@
 import React from 'react'
 import leftLogo from '../assets/images/profile_av.jpg'
+import { Link } from 'react-router-dom'
 
 export default function LeftSidebar() {
   return (
@@ -7,8 +8,8 @@ export default function LeftSidebar() {
     
 <aside id="leftsidebar" className="sidebar">
   <ul className="nav nav-tabs">
-    <li className="nav-item"><a className="nav-link active" data-toggle="tab" href="#dashboard"><i className="zmdi zmdi-home m-r-5" />Oreo</a></li>
-    <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#user"><i className="zmdi zmdi-account m-r-5" />Agent</a></li>
+    <li className="nav-item"><Link className="nav-link active" data-toggle="tab" to={'/'}><i className="zmdi zmdi-home m-r-5" />Admission Kart</Link></li>
+    <li className="nav-item"><Link className="nav-link" data-toggle="tab" to={'/'}><i className="zmdi zmdi-account m-r-5" />Agent</Link></li>
   </ul>
   <div className="tab-content">
     <div className="tab-pane stretchRight active" id="dashboard">
@@ -16,30 +17,30 @@ export default function LeftSidebar() {
         <ul className="list">
           <li>
             <div className="user-info">
-              <div className="image"><a href="profile.html"><img src={leftLogo} alt="User" /></a></div>
+              <div className="image"><Link to={'/'}><img src={leftLogo} alt="User" /></Link></div>
               <div className="detail">
                 <h4>Michael</h4>
                 <small>Agent</small>
               </div>
-              <a title="facebook" href="javascript:void(0);"><i className="zmdi zmdi-facebook" /></a>
-              <a title="twitter" href="javascript:void(0);"><i className="zmdi zmdi-twitter" /></a>
-              <a title="instagram" href="javascript:void(0);"><i className="zmdi zmdi-instagram" /></a>                            
+              <Link title="facebook" to={'/'}><i className="zmdi zmdi-facebook" /></Link>
+              <Link title="twitter" to={'/'}><i className="zmdi zmdi-twitter" /></Link>
+              <Link title="instagram" to={'/'}><i className="zmdi zmdi-instagram" /></Link>                            
             </div>
           </li>
           <li className="header">MAIN</li>
           <li className="active open"><a href="index.html"><i className="zmdi zmdi-home" /><span>Dashboard</span></a></li>                    
-          <li><a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-city" /><span>Property</span></a>
+          <li><Link to={'/'} className="menu-toggle"><i className="zmdi zmdi-city" /><span>Property</span></Link>
             <ul className="ml-menu">
-              <li><a href="property-list.html">Property List</a></li>
-              <li><a href="property-list3.html">3 Column</a></li>
-              <li><a href="property-list4.html">4 Column</a></li>
-              <li><a href="property-add.html">Add Property</a></li>
-              <li><a href="property-detail.html">Property Detail</a></li>
+              <li><Link to={'/'}>Property List</Link></li>
+              <li><Link to={'/'}>3 Column</Link></li>
+              <li><Link to={'/'}>4 Column</Link></li>
+              <li><Link to={'/'}>Add Property</Link></li>
+              <li><Link to={'/'}>Property Detail</Link></li>
             </ul>
           </li>
-          <li><a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-city" /><span>Types</span></a>
+          <li><Link to={'/'} className="menu-toggle"><i className="zmdi zmdi-city" /><span>Types</span></Link>
             <ul className="ml-menu">
-              <li><a href="apartment.html">Apartment</a></li>
+              <li><Link to={'/'}>Apartment</Link></li>
               <li><a href="office.html">Office</a></li>
               <li><a href="shop.html">Shop</a></li>                        
               <li><a href="villa.html">Villa</a></li>

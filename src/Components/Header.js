@@ -1,5 +1,6 @@
 import React from 'react'
-import logo1 from '../assets/images/logo.svg'
+import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   return (
@@ -8,22 +9,22 @@ export default function Header() {
     <ul className="nav navbar-nav navbar-left">
         <li>
             <div className="navbar-header">
-                <a href="javascript:void(0);" className="bars"></a>
-                <a className="navbar-brand" href="index.html"><img src={logo1} width="30" alt="Oreo"/><span className="m-l-10">Oreo</span></a>
+                <Link to={'/'} className="bars"></Link>
+                <Link className="navbar-brand" to={'/'}><img src={logo1} width="80" alt="Admission Kart"/></Link>
             </div>
         </li>
-        <li><a href="javascript:void(0);" className="ls-toggle-btn" data-close="true"><i className="zmdi zmdi-swap"></i></a></li>
-        <li className="hidden-md-down"><a href="events.html" title="Events"><i className="zmdi zmdi-calendar"></i></a></li>
-        <li className="hidden-md-down"><a href="mail-inbox.html" title="Inbox"><i className="zmdi zmdi-email"></i></a></li>
-        <li><a href="contact.html" title="Contact List"><i className="zmdi zmdi-account-box-phone"></i></a></li>
-        <li className="dropdown"> <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button"><i className="zmdi zmdi-notifications"></i>
-            <div className="notify"><span className="heartbit"></span><span className="point"></span></div>
-            </a>
+        <li className="hidden-md-down"><Link to={'/'} title="Events"><i className="zmdi zmdi-calendar"></i></Link></li>
+        <li className="hidden-md-down"><Link to={'/'} title="Inbox"><i className="zmdi zmdi-email"></i></Link></li>
+        <li><Link to={'/'} title="Contact List"><i className="zmdi zmdi-account-box-phone"></i></Link></li>
+        <li className="dropdown"> <Link to={'/'} className="dropdown-toggle" data-toggle="dropdown" role="button"><i className="zmdi zmdi-notifications"></i>
+            <div className="notify">
+            </div>
+            </Link>
             <ul className="dropdown-menu pullDown">
                 <li className="body">
                     <ul className="menu list-unstyled">
                         <li>
-                            <a href="javascript:void(0);">
+                            <Link to={'/'}>
                                 <div className="media">
                                     <img className="media-object w60" src="assets/images/image-gallery/1.jpg" alt=""/>
                                     <div className="media-body">
@@ -31,10 +32,10 @@ export default function Header() {
                                         <span className="message">Relaxing Apartment</span>                                        
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="javascript:void(0);">
+                            <Link to={'/'}>
                                 <div className="media">
                                     <img className="media-object w60" src="assets/images/image-gallery/2.jpg" alt=""/>
                                     <div className="media-body">
@@ -42,10 +43,10 @@ export default function Header() {
                                         <span className="message">Co-op Apartment in Bay Terrace</span>                                        
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="javascript:void(0);">
+                            <Link to={'/'}>
                                 <div className="media">
                                     <img className="media-object w60" src="assets/images/image-gallery/3.jpg" alt=""/>
                                     <div className="media-body">
@@ -53,10 +54,10 @@ export default function Header() {
                                         <span className="message">A must see Villa on Chicago Ave</span>                                        
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="javascript:void(0);">
+                            <Link to={'/'}>
                                 <div className="media">
                                     <img className="media-object w60" src="assets/images/image-gallery/4.jpg" alt=""/>
                                     <div className="media-body">
@@ -64,10 +65,10 @@ export default function Header() {
                                         <span className="message">5 Room Apartment Special Deal</span>                                        
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="javascript:void(0);">
+                            <Link to={'/'}>
                                 <div className="media">
                                     <img className="media-object w60" src="assets/images/image-gallery/5.jpg" alt=""/>
                                     <div className="media-body">
@@ -75,11 +76,11 @@ export default function Header() {
                                         <span className="message">Real House Luxury Villa</span>                                        
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>                        
                     </ul>
                 </li>
-                <li className="footer"> <a href="javascript:void(0);">View All</a> </li>
+                <li className="footer"> <Link to={'/'}>View All</Link> </li>
             </ul>
         </li>        
         <li className="hidden-sm-down">
@@ -89,8 +90,8 @@ export default function Header() {
             </div>
         </li>        
         <li className="float-right">
-            <a href="sign-in.html" className="mega-menu" data-close="true"><i className="zmdi zmdi-power"></i></a>
-            <a href="javascript:void(0);" className="js-right-sidebar" data-close="true"><i className="zmdi zmdi-settings zmdi-hc-spin"></i></a>
+            <Link to={'/'} className="mega-menu" data-close="true"><i className="zmdi zmdi-power"></i></Link>
+            <Link to={'/'} className="js-right-sidebar" data-close="true"><i className="zmdi zmdi-settings zmdi-hc-spin"></i></Link>
         </li>
     </ul>
 </nav>

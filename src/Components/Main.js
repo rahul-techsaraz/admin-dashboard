@@ -4,6 +4,7 @@ import skyLogo from "../assets/images/weather/sky.svg";
 import cloudyLogo from "../assets/images/weather/cloudy.svg";
 import summerLogo from "../assets/images/weather/summer.svg";
 import windLogo from "../assets/images/weather/wind.svg";
+import { Link } from 'react-router-dom';
 
 
 export default function Main() {
@@ -14,23 +15,19 @@ export default function Main() {
     <div className="row">
       <div className="col-lg-5 col-md-5 col-sm-12">
         <h2>Dashboard
-          <small>Welcome to Oreo</small>
+          <small>Admission Kart</small>
         </h2>
       </div>            
       <div className="col-lg-7 col-md-7 col-sm-12 text-md-right">
         <div className="inlineblock text-center m-r-15 m-l-15 hidden-md-down">
-          <div className="sparkline" data-type="bar" data-width="97%" data-height="25px" data-bar-width={2} data-bar-spacing={5} data-bar-color="#fff">3,2,6,5,9,8,7,9,5,1,3,5,7,4,6</div>
-          <small className="col-white">Visitors</small>
         </div>
         <div className="inlineblock text-center m-r-15 m-l-15 hidden-md-down">
-          <div className="sparkline" data-type="bar" data-width="97%" data-height="25px" data-bar-width={2} data-bar-spacing={5} data-bar-color="#fff">1,3,5,7,4,6,3,2,6,5,9,8,7,9,5</div>
-          <small className="col-white">Bounce Rate</small>
         </div>
         <button className="btn btn-white btn-icon btn-round hidden-sm-down float-right ml-3" type="button">
           <i className="zmdi zmdi-plus" />
         </button>
         <ul className="breadcrumb float-md-right">
-          <li className="breadcrumb-item"><a href="index.html"><i className="zmdi zmdi-home" /> Oreo</a></li>
+          <li className="breadcrumb-item"><Link to={'/'}><i className="zmdi zmdi-home" /> Admission Kart</Link></li>
           <li className="breadcrumb-item active">Dashboard</li>
         </ul>
       </div>
@@ -51,7 +48,6 @@ export default function Main() {
                 <h2 className="mb-0">62</h2>
               </div>
             </div>
-            <span id="linecustom1">1,4,2,6,5,2,3,8,5,2</span>
           </div>
         </div>
       </div>
@@ -68,7 +64,7 @@ export default function Main() {
                 <h2 className="mb-0">20</h2>
               </div>
             </div>
-            <span id="linecustom2">2,9,5,5,8,5,4,2,6</span>
+            {/* <span id="linecustom2">2,9,5,5,8,5,4,2,6</span> */}
           </div>
         </div>
       </div>
@@ -85,7 +81,6 @@ export default function Main() {
                 <h2 className="mb-0">70</h2>
               </div>
             </div>
-            <span id="linecustom3">1,5,3,6,6,3,6,8,4,2</span>
           </div>
         </div>
       </div>
@@ -102,7 +97,6 @@ export default function Main() {
                 <h2 className="mb-0">$43M</h2>
               </div>
             </div>
-            <span id="linecustom4">1,5,3,6,6,3,6,8,4,2</span>
           </div>
         </div>
       </div>
@@ -167,15 +161,15 @@ export default function Main() {
           <div className="header">
             <h2><strong>Total</strong> Revenue</h2>
             <ul className="header-dropdown">
-              <li className="dropdown"> <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i className="zmdi zmdi-more" /> </a>
+              <li className="dropdown"> <Link to={'/'} className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i className="zmdi zmdi-more" /> </Link>
                 <ul className="dropdown-menu slideUp">
-                  <li><a href="javascript:void(0);">2017 Year</a></li>
-                  <li><a href="javascript:void(0);">2016 Year</a></li>
-                  <li><a href="javascript:void(0);">2015 Year</a></li>
+                  <li><Link to={'/'}>2017 Year</Link></li>
+                  <li><Link to={'/'}>2016 Year</Link></li>
+                  <li><Link to={'/'}>2015 Year</Link></li>
                 </ul>
               </li>
               <li className="remove">
-                <a role="button" className="boxs-close"><i className="zmdi zmdi-close" /></a>
+                <Link role="button" className="boxs-close"><i className="zmdi zmdi-close" /></Link>
               </li>
             </ul>
           </div>
@@ -187,7 +181,6 @@ export default function Main() {
                 <input type="text" className="knob dial1" defaultValue={66} data-width={100} data-height={100} data-thickness="0.1" data-fgcolor="#212121" readOnly />
                 <h6 className="m-t-20">Satisfaction Rate</h6>
                 <small className="displayblock">47% Average <i className="zmdi zmdi-trending-up" /></small>
-                <div className="sparkline m-t-20" data-type="bar" data-width="97%" data-height="35px" data-bar-width={2} data-bar-spacing={8} data-bar-color="#212121">3,2,6,5,9,8,7,8,4,5,1,2,9,5,1,3,5,7,4,6</div>
               </div>
               <div className="col-lg-5 col-md-6">
                 <div className="top-report mb-4">
@@ -214,15 +207,15 @@ export default function Main() {
           <div className="header">
             <h2><strong>Visitors</strong> Statistics</h2>
             <ul className="header-dropdown">
-              <li className="dropdown"> <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i className="zmdi zmdi-more" /> </a>
+              <li className="dropdown"> <Link to={'/'} className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i className="zmdi zmdi-more" /> </Link>
                 <ul className="dropdown-menu slideUp">
-                  <li><a href="javascript:void(0);">Action</a></li>
-                  <li><a href="javascript:void(0);">Another action</a></li>
-                  <li><a href="javascript:void(0);">Something else</a></li>
+                  <li><Link to={'/'}>Action</Link></li>
+                  <li><Link to={'/'}>Another action</Link></li>
+                  <li><Link to={'/'}>Something else</Link></li>
                 </ul>
               </li>
               <li className="remove">
-                <a role="button" className="boxs-close"><i className="zmdi zmdi-close" /></a>
+                <Link role="button" className="boxs-close"><i className="zmdi zmdi-close" /></Link>
               </li>
             </ul>                        
           </div>
@@ -290,15 +283,15 @@ export default function Main() {
           <div className="header">
             <h2><strong>Browser</strong> Usage</h2>
             <ul className="header-dropdown">
-              <li className="dropdown"> <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i className="zmdi zmdi-more" /> </a>
+              <li className="dropdown"> <Link to={'/'} className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i className="zmdi zmdi-more" /> </Link>
                 <ul className="dropdown-menu">
-                  <li><a href="javascript:void(0);">Action</a></li>
-                  <li><a href="javascript:void(0);">Another action</a></li>
-                  <li><a href="javascript:void(0);">Something else</a></li>
+                  <li><Link to={'/'}>Action</Link></li>
+                  <li><Link to={'/'}>Another action</Link></li>
+                  <li><Link to={'/'}>Something else</Link></li>
                 </ul>
               </li>
               <li className="remove">
-                <a role="button" className="boxs-close"><i className="zmdi zmdi-close" /></a>
+                <Link role="button" className="boxs-close"><i className="zmdi zmdi-close" /></Link>
               </li>
             </ul>
           </div>
