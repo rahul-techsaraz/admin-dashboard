@@ -4,30 +4,7 @@ import React from 'react'
 export default function AddCollege() {
   return (
     <>
-   <section className="content">
-  <div className="block-header">
-    <div className="row">
-      <div className="col-lg-5 col-md-5 col-sm-12">
-        <h2>Add College
-          <small>Welcome to Admission Kart</small>
-        </h2>
-      </div>            
-      <div className="col-lg-7 col-md-7 col-sm-12 text-md-right">
-        <div className="inlineblock text-center m-r-15 m-l-15 hidden-md-down">
-
-        </div>
-        <div className="inlineblock text-center m-r-15 m-l-15 hidden-md-down">
-        </div>
-        <button className="btn btn-white btn-icon btn-round hidden-sm-down float-right ml-3" type="button">
-          <i className="zmdi zmdi-plus" />
-        </button>
-        <ul className="breadcrumb float-md-right">
-          <li className="breadcrumb-item"><a href="index.html"><i className="zmdi zmdi-home" /> Admission Kart</a></li>
-          <li className="breadcrumb-item active">Property</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  
   <div className="container-fluid">
     <div className="row clearfix">
       <div className="col-lg-12">
@@ -215,7 +192,6 @@ export default function AddCollege() {
       </div>
     </div>
   </div>
-</section>
 
 
     </>

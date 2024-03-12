@@ -21,17 +21,43 @@ import './assets/fonts/nucleo-outline.woff';
 import './assets/fonts/nucleo-outline.woff2';
 import LeftSidebar from './Components/LeftSidebar';
 import Main from './Components/Main';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 
 
 function App() {
+  const { activeSubHeader } = useSelector(state => state.subheadermenu);
+  useEffect(() => {
+console.log(activeSubHeader)
+  },[activeSubHeader])
+  
   return (
-    <body class="theme-purple">
+    <body className="theme-purple">
       <Header/>
-      <LeftSidebar/>
+      <LeftSidebar />
+        <section className="content">
+    <div className="block-header">
+        <div className="row">
+            <div className="col-lg-3 col-md-3 col-sm-12">
+                <h2> 
+                <small>Welcome to Admission Kart</small>
+                </h2>
+            </div>            
+            <div className="col-lg-9 col-md-9 col-sm-12 text-md-right" >
+              {activeSubHeader.length > 0  ? activeSubHeader[0]?.navMenu.map(itemsName => (
+                <ul className="breadcrumb float-md-right" style={{marginRight:"16px"}}>
+                    <li className="breadcrumb-item"><Link to={itemsName.path}><i className="zmdi zmdi-home"></i> {itemsName.labelName}</Link></li>
+              </ul>
+              )) :''}
+               
+            </div>
+        </div>
+        </div>
       <Outlet/>
+        </section>
     </body>
   );
 }

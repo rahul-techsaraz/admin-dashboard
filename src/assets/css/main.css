@@ -2049,7 +2049,7 @@ fieldset[disabled] .btn-neutral.active {
 
 .btn-neutral:hover:not(.nav-link),
 .btn-neutral:focus:not(.nav-link) {
-    box-shadow: none
+box-shadow: none
 }
 
 .btn-neutral.btn-simple {

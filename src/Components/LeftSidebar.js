@@ -1,19 +1,29 @@
 import React, { useState } from 'react'
 import leftLogo from '../assets/images/profile_av.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useNavigation } from 'react-router-dom'
 import { constants } from '../utils/constants'
+import { useDispatch } from 'react-redux'
+import { updateActiveSubHeader } from '../features/subHeaderMenuSlice'
 
 export default function LeftSidebar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeOption, setActiveOption] = useState(0);
   const [isOpen, setOpen] = useState(false);
-
+  const handleNavigation = (path, categoryName) => {
+    if (categoryName) {
+      const filterSubHeaderArr = constants.subHeaderMenu.filter(data => data.name.toLowerCase() === categoryName.toLowerCase());
+    dispatch(updateActiveSubHeader({ subHeaderArr: filterSubHeaderArr }));
+    } 
+    
+  
+}
   return (
     <>
     
 <aside id="leftsidebar" className="sidebar">
   <ul className="nav nav-tabs">
-    <li className="nav-item"><Link className="nav-link active" data-toggle="tab" to={'/'}><i className="zmdi zmdi-home m-r-5" />Admission Kart</Link></li>
-    <li className="nav-item"><Link className="nav-link" data-toggle="tab" to={'/'}><i className="zmdi zmdi-account m-r-5" />Agent</Link></li>
+    <li className="nav-item"><span className="nav-link active" data-toggle="tab"><i className="zmdi zmdi-home m-r-5" />Admission Kart</span></li>
   </ul>
   <div className="tab-content">
     <div className="tab-pane stretchRight active" id="dashboard">
@@ -24,15 +34,11 @@ export default function LeftSidebar() {
               <div className="image"><Link to={'/'}><img src={leftLogo} alt="User" /></Link></div>
               <div className="detail">
                 <h4>Michael</h4>
-                <small>Agent</small>
-              </div>
-              <Link title="facebook" to={'/'}><i className="zmdi zmdi-facebook" /></Link>
-              <Link title="twitter" to={'/'}><i className="zmdi zmdi-twitter" /></Link>
-              <Link title="instagram" to={'/'}><i className="zmdi zmdi-instagram" /></Link>                            
+                <small>Desigantion</small>
+              </div>                           
             </div>
           </li>
           <li className="header">MAIN</li>
-                <li className="active open"><a href=""><i className="zmdi zmdi-home" /><span>Dashboard</span></a></li> 
                 {constants.sideBarMenu.map((data,i) => (
                   <li><Link className="menu-toggle" onClick={() => {
                     setActiveOption(i)
@@ -40,7 +46,7 @@ export default function LeftSidebar() {
                   }}><i className="zmdi zmdi-city" /><span>{data.heading}</span></Link>
                     <ul className="ml-menu" style={activeOption === i && isOpen ? { display: 'block' } :{display:'none'}}>
                       
-                      {data.list && data?.list.map(listName => (<li><Link to={listName.option_path}>{listName.option_name}</Link></li>))}
+                      {data.list && data?.list.map(listName => (<li><Link onClick={() => handleNavigation(listName.option_path,listName?.name)} to={listName.option_path}>{listName.option_name}</Link></li>))}
               
             </ul>
           </li>
@@ -48,74 +54,7 @@ export default function LeftSidebar() {
          
          
          
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-grid" /><span>Tables</span></a>
-            <ul className="ml-menu">                        
-              <li><a href="normal-tables.html">Normal Tables</a></li>
-              <li><a href="jquery-datatable.html">Jquery Datatables</a></li>
-              <li><a href="editable-table.html">Editable Tables</a></li>
-              <li><a href="table-color.html">Tables Color</a></li>
-            </ul>
-          </li>            
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-chart" /><span>Charts</span> </a>
-            <ul className="ml-menu">
-              <li><a href="c3chart.html">C3 Chart</a></li>
-              <li><a href="morris.html">Morris</a></li>
-              <li><a href="flot.html">Flot</a></li>
-              <li><a href="chartjs.html">ChartJS</a></li>
-              <li><a href="sparkline.html">Sparkline</a></li>
-              <li><a href="jquery-knob.html">Jquery Knob</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-delicious" /><span>Widgets</span></a>
-            <ul className="ml-menu">
-              <li><a href="widgets-app.html">Apps Widgetse</a></li>
-              <li><a href="widgets-data.html">Data Widgetse</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-lock" /><span>Authentication</span></a>
-            <ul className="ml-menu">
-              <li><a href="sign-in.html">Sign In</a></li>
-              <li><a href="sign-up.html">Sign Up</a></li>
-              <li><a href="forgot-password.html">Forgot Password</a></li>
-              <li><a href="404.html">Page 404</a></li>
-              <li><a href="500.html">Page 500</a></li>
-              <li><a href="page-offline.html">Page Offline</a></li>
-              <li><a href="locked.html">Locked Screen</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-copy" /><span>Sample Pages</span></a>
-            <ul className="ml-menu">
-              <li><a href="blank.html">Blank Page</a></li>
-              <li><a href="image-gallery.html">Image Gallery</a></li>
-              <li><a href="timeline.html">Timeline</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="search-results.html">Search Results</a></li>
-            </ul>
-          </li>
-          <li className="header">Extra</li>
-          <li>
-            <div className="progress-container progress-primary m-t-10">
-              <span className="progress-badge">Traffic this Month</span>
-              <div className="progress">
-                <div className="progress-bar progress-bar-warning" role="progressbar" aria-valuenow={67} aria-valuemin={0} aria-valuemax={100} style={{width: '67%'}}>
-                  <span className="progress-value">67%</span>
-                </div>
-              </div>
-            </div>
-            <div className="progress-container progress-info">
-              <span className="progress-badge">Server Load</span>
-              <div className="progress">
-                <div className="progress-bar progress-bar-warning" role="progressbar" aria-valuenow={86} aria-valuemin={0} aria-valuemax={100} style={{width: '86%'}}>
-                  <span className="progress-value">86%</span>
-                </div>
-              </div>
-            </div>
-          </li>
+         
         </ul>
       </div>
     </div>
@@ -124,14 +63,14 @@ export default function LeftSidebar() {
         <ul className="list">
           <li>
             <div className="user-info m-b-20 p-b-15">
-              <div className="image"><a href="profile.html"><img src={leftLogo} alt="User" /></a></div>
+              <div className="image"><Link href="profile.html"><img src={leftLogo} alt="User" /></Link></div>
               <div className="detail">
                 <h4>Michael</h4>
                 <small>Agent</small>
               </div>
-              <a title="facebook" href="javascript:void(0);"><i className="zmdi zmdi-facebook" /></a>
-              <a title="twitter" href="javascript:void(0);"><i className="zmdi zmdi-twitter" /></a>
-              <a title="instagram" href="javascript:void(0);"><i className="zmdi zmdi-instagram" /></a>
+              <Link title="facebook" href="javascript:void(0);"><i className="zmdi zmdi-facebook" /></Link>
+              <Link title="twitter" href="javascript:void(0);"><i className="zmdi zmdi-twitter" /></Link>
+              <Link title="instagram" href="javascript:void(0);"><i className="zmdi zmdi-instagram" /></Link>
               <p className="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
               <div className="row">
                 <div className="col-4">
