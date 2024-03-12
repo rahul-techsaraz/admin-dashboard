@@ -21,9 +21,14 @@ import './assets/fonts/nucleo-outline.woff';
 import './assets/fonts/nucleo-outline.woff2';
 import LeftSidebar from './Components/LeftSidebar';
 import Main from './Components/Main';
+<<<<<<< Updated upstream
 import { Link, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+=======
+import { Outlet } from 'react-router-dom';
+import ChatLauncher from './Components/ChatLauncher';
+>>>>>>> Stashed changes
 
 
 
@@ -37,6 +42,7 @@ console.log(activeSubHeader)
   return (
     <body className="theme-purple">
       <Header/>
+<<<<<<< Updated upstream
       <LeftSidebar />
         <section className="content">
     <div className="block-header">
@@ -56,6 +62,10 @@ console.log(activeSubHeader)
             </div>
         </div>
         </div>
+=======
+      <LeftSidebar/>
+      <ChatLauncher/>
+>>>>>>> Stashed changes
       <Outlet/>
         </section>
     </body>
