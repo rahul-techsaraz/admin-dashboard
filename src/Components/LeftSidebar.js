@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import leftLogo from '../assets/images/profile_av.jpg'
 import { Link } from 'react-router-dom'
+import { constants } from '../utils/constants'
 
 export default function LeftSidebar() {
+  const [activeOption, setActiveOption] = useState(0);
+  const [isOpen, setOpen] = useState(false);
+
   return (
     <>
     
@@ -28,83 +32,22 @@ export default function LeftSidebar() {
             </div>
           </li>
           <li className="header">MAIN</li>
-          <li className="active open"><a href="index.html"><i className="zmdi zmdi-home" /><span>Dashboard</span></a></li>                    
-          <li><Link to={'/'} className="menu-toggle"><i className="zmdi zmdi-city" /><span>Property</span></Link>
-            <ul className="ml-menu">
-              <li><Link to={'/'}>Property List</Link></li>
-              <li><Link to={'/'}>3 Column</Link></li>
-              <li><Link to={'/'}>4 Column</Link></li>
-              <li><Link to={'/'}>Add Property</Link></li>
-              <li><Link to={'/'}>Property Detail</Link></li>
+                <li className="active open"><a href=""><i className="zmdi zmdi-home" /><span>Dashboard</span></a></li> 
+                {constants.sideBarMenu.map((data,i) => (
+                  <li><Link className="menu-toggle" onClick={() => {
+                    setActiveOption(i)
+                    setOpen(!isOpen)
+                  }}><i className="zmdi zmdi-city" /><span>{data.heading}</span></Link>
+                    <ul className="ml-menu" style={activeOption === i && isOpen ? { display: 'block' } :{display:'none'}}>
+                      
+                      {data.list && data?.list.map(listName => (<li><Link to={listName.option_path}>{listName.option_name}</Link></li>))}
+              
             </ul>
           </li>
-          <li><Link to={'/'} className="menu-toggle"><i className="zmdi zmdi-city" /><span>Types</span></Link>
-            <ul className="ml-menu">
-              <li><Link to={'/'}>Apartment</Link></li>
-              <li><a href="office.html">Office</a></li>
-              <li><a href="shop.html">Shop</a></li>                        
-              <li><a href="villa.html">Villa</a></li>
-            </ul>
-          </li>
-          <li><a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-accounts-outline" /><span>Agents</span></a>
-            <ul className="ml-menu">
-              <li><a href="agent.html">All Agents</a></li>
-              <li><a href="add-agent.html">Add Agent</a></li>
-              <li><a href="profile.html">Agent Profile</a></li>
-              <li><a href="invoices.html">Agent Invoice</a></li>
-            </ul>
-          </li>
-          <li><a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-case-check" /><span>Contract</span></a>
-            <ul className="ml-menu">
-              <li><a href="contract-add.html">Add New</a></li>
-              <li><a href="contract-list.html">List</a></li>
-            </ul>
-          </li>
-          <li><a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-apps" /><span>App</span></a>
-            <ul className="ml-menu">
-              <li><a href="mail-inbox.html">Inbox</a></li>
-              <li><a href="chat.html">Chat</a></li>
-              <li><a href="events.html">Calendar</a></li>
-              <li><a href="contact.html">Contact list</a></li>
-              <li><a href="blog-dashboard.html">Blog</a></li>
-            </ul>
-          </li>
-          <li><a href="groups.html"><i className="zmdi zmdi-ungroup" /><span>Groups</span></a>
-          </li><li><a href="file-dashboard.html"><i className="zmdi zmdi-file-text" /><span>File Manager</span></a>
-          </li><li><a href="jvectormap.html"><i className="zmdi zmdi-map" /><span>Site Location</span></a>
-          </li><li className="header">EXTRA COMPONENTS</li>
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-swap-alt" /><span>User Interface (UI)</span></a>
-            <ul className="ml-menu">
-              <li><a href="ui_kit.html">UI KIT</a></li>                    
-              <li><a href="alerts.html">Alerts</a></li>                    
-              <li><a href="collapse.html">Collapse</a></li>
-              <li><a href="colors.html">Colors</a></li>
-              <li><a href="dialogs.html">Dialogs</a></li>
-              <li><a href="icons.html">Icons</a></li>                    
-              <li><a href="list-group.html">List Group</a></li>
-              <li><a href="media-object.html">Media Object</a></li>
-              <li><a href="modals.html">Modals</a></li>
-              <li><a href="notifications.html">Notifications</a></li>                    
-              <li><a href="progressbars.html">Progress Bars</a></li>
-              <li><a href="range-sliders.html">Range Sliders</a></li>
-              <li><a href="sortable-nestable.html">Sortable &amp; Nestable</a></li>
-              <li><a href="tabs.html">Tabs</a></li>
-              <li><a href="waves.html">Waves</a></li>
-            </ul>
-          </li>                    
-          <li>
-            <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-assignment" /><span>Forms</span></a>
-            <ul className="ml-menu">
-              <li><a href="basic-form-elements.html">Basic Elements</a> </li>
-              <li><a href="advanced-form-elements.html">Advanced Elements</a> </li>
-              <li><a href="form-examples.html">Form Examples</a> </li>
-              <li><a href="form-validation.html">Form Validation</a> </li>
-              <li><a href="form-wizard.html">Form Wizard</a> </li>
-              <li><a href="form-editors.html">Editors</a> </li>
-              <li><a href="form-upload.html">File Upload</a></li>
-            </ul>
-          </li>
+          ))}      
+         
+         
+         
           <li>
             <a href="javascript:void(0);" className="menu-toggle"><i className="zmdi zmdi-grid" /><span>Tables</span></a>
             <ul className="ml-menu">                        
