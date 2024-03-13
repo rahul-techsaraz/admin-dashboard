@@ -56,7 +56,7 @@ export default function SignIn() {
     <div className="container">
       <div className="col-md-12 content-center">
         <div className="card-plain">
-          <form className="form" method action="#">
+          <form className="form" method action="#" style={{width:"350px",margin:"auto"}}>
             <div className="header">
               <div className="logo-container">
                 <img src={logo1} width={80} alt />

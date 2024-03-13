@@ -10,6 +10,10 @@ import SignIn from "../Components/SignIn";
 import CollegeListImg from "../Components/CollegeListImg";
 import CollegeListImg2 from "../Components/CollegeListImg2";
 import CollegeDetail from "../Components/CollegeDetail";
+import Agent from "../Components/Agent";
+import AddAgent from "../Components/AddAgent";
+import AgentProfile from "../Components/AgentProfile";
+
 
 
 export const appRouter = createBrowserRouter([
@@ -58,7 +62,19 @@ export const appRouter = createBrowserRouter([
             {
                 path:'/college-detail',
                 element:<CollegeDetail/>
-            }
+            },
+           {
+            path:'/agent',
+            element:<Agent/>
+           },
+           {
+            path:'/add-agent',
+            element:<AddAgent/>
+           },
+           {
+            path:'/agent-profile',
+            element:<AgentProfile/>
+           }
         ],
         errorElement: (<>
             <body class="theme-purple">

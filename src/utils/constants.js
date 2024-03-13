@@ -45,24 +45,30 @@ export const constants = {
                 },
                   {
                     option_name: "College Detail",
-                    option_path:'/add-college'
+                    option_path:'/college-detail'
                 },
             ]
 
         },
         {
-            heading: "Types",
+            heading: "Agents",
             isOpen:false,
             list: [
                 {
-                    option_name: "Apartment",
-                    option_path: '/add-college',
-                    name:"Apartment",
+                    option_name: "Agent",
+                    option_path: '/agent',
+                    name:"Agent",
                 },
                  {
-                    option_name: "Office",
-                     option_path: '/add-college',
-                    name:"Office",
+                    option_name: "Add Agent",
+                     option_path: '/add-agent',
+                    name:"Add Agent",
+                    
+                },
+                {
+                    option_name: "Agent Profile",
+                     option_path: '/agent-profile',
+                    name:"Agent Profile",
                     
                 },
                  {
