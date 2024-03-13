@@ -4,7 +4,7 @@ import './assets/css/blog.css';
 import './assets/css/chatapp.css';
 import './assets/css/bootstrap-select.css';
 import './assets/css/color_skins.css';
-import './assets/css/dataTables.bootstrap4.min.css';
+
 import './assets/css/dropzone.css';
 import './assets/css/inbox.css';
 import './assets/css/jquery-jvectormap-2.0.3.min.css';
