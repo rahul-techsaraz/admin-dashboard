@@ -13,6 +13,7 @@ import CollegeDetail from "../Components/CollegeDetail";
 import Agent from "../Components/Agent";
 import AddAgent from "../Components/AddAgent";
 import AgentProfile from "../Components/AgentProfile";
+import AdminRequest from "../Components/AdminRequest";
 
 
 
@@ -74,6 +75,10 @@ export const appRouter = createBrowserRouter([
            {
             path:'/agent-profile',
             element:<AgentProfile/>
+           },
+           {
+            path:'/admin-dashboard',
+            element:<AdminRequest/>
            }
         ],
         errorElement: (<>

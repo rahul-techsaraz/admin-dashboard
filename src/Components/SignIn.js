@@ -1,5 +1,6 @@
 import React from 'react'
 import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
+import bgLogo from '../assets/images/login.jpg'
 import { Link } from 'react-router-dom'
 
 export default function SignIn() {
@@ -7,7 +8,7 @@ export default function SignIn() {
     <>
 
   {/* Navbar */}
-  <nav className="navbar navbar-expand-lg fixed-top navbar-transparent">
+  <nav className="navbar navbar-expand-lg fixed-top navbar-transparent ">
     <div className="container">        
       <div className="navbar-translate n_logo">
         <a className="navbar-brand" href="javascript:void(0);" title target="_blank">Admission Kart</a>
@@ -17,7 +18,7 @@ export default function SignIn() {
           <span className="navbar-toggler-bar bar3" />
         </button>
       </div>
-      <div className="navbar-collapse">
+      <div className="navbar-collapse justify-content-end">
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to={'/'}>Home</Link>
@@ -52,7 +53,7 @@ export default function SignIn() {
   </nav>
   {/* End Navbar */}
   <div className="page-header">
-    <div className="page-header-image" style={{backgroundImage: 'url(assets/images/login.jpg)'}} />
+    <div className="page-header-image" style={{backgroundImage: `url(${bgLogo})` }} />
     <div className="container">
       <div className="col-md-12 content-center">
         <div className="card-plain">
@@ -65,7 +66,7 @@ export default function SignIn() {
             </div>
             <div className="content">                                                
               <div className="input-group">
-                <input type="text" className="form-control" placeholder="Enter User Name" />
+                <input type="text" className="form-control " placeholder="Enter User Name"  />
                 <span className="input-group-addon">
                   <i className="zmdi zmdi-account-circle" />
                 </span>
@@ -79,13 +80,13 @@ export default function SignIn() {
             </div>
             <div className="footer text-center">
               <a href="index.html" className="btn btn-primary btn-round btn-lg btn-block ">SIGN IN</a>
-              <h5><a href="forgot-password.html" className="link">Forgot Password?</a></h5>
+              <h5><a href="forgot-password.html" className="link text-white">Forgot Password?</a></h5>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <footer className="footer">
+    {/* <footer className="footer">
       <div className="container">
         <nav>
           <ul>
@@ -97,10 +98,10 @@ export default function SignIn() {
         <div className="copyright">
           ©
           ,
-          <span>Designed by <Link to={'/'} target="_blank">ThemeMakker</Link></span>
+          <span>Designed by <Link to={'/'} target="_blank">Admission Cart</Link></span>
         </div>
       </div>
-    </footer>
+    </footer> */}
   </div>
 
 
