@@ -7103,9 +7103,9 @@ img {
         margin: 0
     }
 
-    .navbar-nav .nav-item:not(:last-child) {
+    /* .navbar-nav .nav-item:not(:last-child) {
         margin-right: 5px
-    }
+    } */
 
     .section-nucleo-icons .icons-container {
         margin: 0 0 0 auto
@@ -15583,7 +15583,7 @@ img {
 
 .navbar-nav>li>a {
     padding: 0px 12px;
-    line-height: 60px
+    /* line-height: 20px */
 }
 
 .col-red .navbar .navbar-brand,
@@ -22925,4 +22925,9 @@ section small {
     .file_manager .nav-tabs .nav-item {
         display: inline-block
     }
+}
+
+
+.admin-h{
+    color: #212529;
 }

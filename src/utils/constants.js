@@ -51,6 +51,20 @@ export const constants = {
 
         },
         {
+            heading: "Admin Dashboard",
+            isOpen:false,
+            list: [
+                {
+                    option_name: "Admin Dashboard",
+                    option_path: '/admin-dashboard',
+                    name:"Admin Dashboard",
+                },
+                
+                           
+            ]
+
+        },
+        {
             heading: "Agents",
             isOpen:false,
             list: [
