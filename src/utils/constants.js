@@ -1,4 +1,17 @@
 export const constants = {
+    apiEndPoint: {
+        USER_LOGIN: "https://techsaraz.in//admission-cart/api/login/adminlogin/login.php",
+        AUTHENTICATE_USER:"https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php"
+    },
+    apiHeaders: {
+        HEADER:{"Content-Type":"Application/json"}
+    },
+    httpMethod: {
+        GET: "GET",
+        POST: "POST",
+        PUT: "PUT",
+        DELETE:"DELETE"
+    },
     sideBarMenu: [
      {
             heading: "Dashboard",

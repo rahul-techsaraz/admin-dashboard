@@ -21,7 +21,7 @@ import './assets/fonts/nucleo-outline.woff';
 import './assets/fonts/nucleo-outline.woff2';
 import LeftSidebar from './Components/LeftSidebar';
 import Main from './Components/Main';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import ChatLauncher from './Components/ChatLauncher';
@@ -30,10 +30,15 @@ import ChatLauncher from './Components/ChatLauncher';
 
 
 function App() {
+  const navigate = useNavigate();
   const { activeSubHeader } = useSelector(state => state.subheadermenu);
-  useEffect(() => {
-console.log(activeSubHeader)
-  },[activeSubHeader])
+  const { isUserAuthenticated } = useSelector(state => state.user);
+
+   useEffect(() => {
+     if (!isUserAuthenticated) {
+  navigate('/sign-in')
+}
+  },[isUserAuthenticated])
   
   return (
     <body className="theme-purple">

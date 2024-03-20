@@ -15,13 +15,14 @@ import AddAgent from "../Components/AddAgent";
 import AgentProfile from "../Components/AgentProfile";
 import AdminRequest from "../Components/AdminRequest";
 import SignUp from "../Components/SignUp";
+import ProtectedRoute from "../utils/ProtectedRoute";
 
 
 
 export const appRouter = createBrowserRouter([
     {
         path:"/",
-        element: <App/>,
+        element: <ProtectedRoute><App/></ProtectedRoute>,
         children:[
             {
                 path: "/",

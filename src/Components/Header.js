@@ -1,15 +1,21 @@
 import React from 'react'
 import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice';
 
 
 export default function Header() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleLogout=()=>{
         if(window.confirm('Are you sure you want to logout?')) {
             // localStorage.clear(); // Clear local storage
-            localStorage.removeItem('token')
-          navigate('/sign-in')
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
+            dispatch(handleUserAuthentication({ flag: false }));
+            dispatch(updateUserToken({ token: '' }));
+            dispatch(updateUserInfo({ userInfo: {} }));
         }
     }
    

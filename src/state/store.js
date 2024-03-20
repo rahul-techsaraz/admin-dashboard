@@ -1,11 +1,10 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
 // import productOverviewReducers from '../features/subHeaderMenuSlice';
  import subHeaderMenuSlice from '../features/subHeaderMenuSlice';
-// import propertyDetailsReducers from '../features/propertyDetails'
+import userSlice from '../features/userSlice';
 const reducers = combineReducers({
- // productoverview:productOverviewReducers,
+  user:userSlice,
   subheadermenu:subHeaderMenuSlice,
- // propertydetails:propertyDetailsReducers
 });
 const store = configureStore({
   reducer: reducers

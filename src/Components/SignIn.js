@@ -4,36 +4,50 @@ import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
 import bgLogo from '../assets/images/login.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
+import { constants } from '../utils/constants'
+import { httpCall } from '../utils/service'
+import { useDispatch } from 'react-redux'
+import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice'
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email,setEmail] = useState('');
   const [pass, setPass] = useState('');
 
-  const handleLogin=async()=>{
-    const data = await fetch ('https://techsaraz.in//admission-cart/api/login/adminlogin/login.php',{
-    method: 'post',
-    headers:{'Content-Type':'application/json'},
-    body:  JSON.stringify({
+  const handleLogin = async () => {
+    const payload = {
       "email":email,
       "password":pass
-    })
-    })
-  
-    console.log(data)
-    const json = await data.json()
-    if(json.success==1){
+    }
+    const json = await httpCall(constants.apiEndPoint.USER_LOGIN, constants.apiHeaders.HEADER, constants.httpMethod.POST, payload);
+    if (json.success === 1) {
+      dispatch(handleUserAuthentication({ flag: true }))
+      dispatch(updateUserToken({ token: json.token }))
+      dispatch(updateUserInfo({userInfo:json}))
       localStorage.setItem('token',json.token)
       localStorage.setItem('userData',JSON.stringify(json))
       navigate('/')
-    }else{
+    } else {
+      dispatch(handleUserAuthentication({ flag: false }))
       alert(json.message);
     }
-    console.log(json)
   }
   useEffect(()=>{
-    if(localStorage.getItem('token')){
-      navigate('/')     
+    if (localStorage.getItem('token')) {
+      const headers = {...constants.apiHeaders.HEADER,"Authorization":localStorage.getItem('token')}
+      httpCall(constants.apiEndPoint.AUTHENTICATE_USER, headers, constants.httpMethod.GET)
+        .then(data => {
+         if (data.success === 1) {
+        dispatch(handleUserAuthentication({ flag: true }))
+        navigate('/')
+        
+      } else {
+        dispatch(handleUserAuthentication({ flag: false }))
+      }
+      })
+
+     
     }
   },[])
     
