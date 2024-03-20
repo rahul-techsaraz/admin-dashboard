@@ -1,7 +1,9 @@
 export const constants = {
     apiEndPoint: {
         USER_LOGIN: "https://techsaraz.in//admission-cart/api/login/adminlogin/login.php",
-        AUTHENTICATE_USER:"https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php"
+        GET_ALL_USERLIST:"https://techsaraz.in//admission-cart/api/login/adminlogin/getAllUsers.php",
+        AUTHENTICATE_USER: "https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php",
+        CATEGORY_LIST:"https://techsaraz.in//admission-cart/api/course_category_list.php"
     },
     apiHeaders: {
         HEADER:{"Content-Type":"Application/json"}

@@ -13,9 +13,10 @@ import CollegeDetail from "../Components/CollegeDetail";
 import Agent from "../Components/Agent";
 import AddAgent from "../Components/AddAgent";
 import AgentProfile from "../Components/AgentProfile";
-import AdminRequest from "../Components/AdminRequest";
 import SignUp from "../Components/SignUp";
 import ProtectedRoute from "../utils/ProtectedRoute";
+import AddNewCategory from "../Components/category_list/AddNewCategory";
+import AdminRequest from '../Components/admin/AdminRequest'
 
 
 
@@ -36,6 +37,10 @@ export const appRouter = createBrowserRouter([
             {
                 path: "/category-list",
                 element: <CategoryList/>
+            },
+            {
+                path: "/add-new-category",
+                element: <AddNewCategory />
             },
             {
                 path: "/state-list",
