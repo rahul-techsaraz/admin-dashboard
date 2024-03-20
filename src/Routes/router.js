@@ -14,6 +14,7 @@ import Agent from "../Components/Agent";
 import AddAgent from "../Components/AddAgent";
 import AgentProfile from "../Components/AgentProfile";
 import AdminRequest from "../Components/AdminRequest";
+import SignUp from "../Components/SignUp";
 
 
 
@@ -92,10 +93,13 @@ export const appRouter = createBrowserRouter([
 
     },
     {
-                path:"/sign-in",
-                element: <SignIn/>
-
-            },
+        path:"/sign-in",
+        element: <SignIn/>
+    },
+    {
+        path:"/sign-up",
+        element: <SignUp/>
+    },
            
         
     
