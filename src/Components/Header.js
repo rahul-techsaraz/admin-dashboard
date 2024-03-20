@@ -1,8 +1,18 @@
 import React from 'react'
 import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 export default function Header() {
+    const navigate = useNavigate();
+    const handleLogout=()=>{
+        if(window.confirm('Are you sure you want to logout?')) {
+            // localStorage.clear(); // Clear local storage
+            localStorage.removeItem('token')
+          navigate('/sign-in')
+        }
+    }
+   
   return (
     <>
 <nav className="navbar p-l-5 p-r-5">
@@ -90,7 +100,7 @@ export default function Header() {
             </div>
         </li>        
         <li className="float-right">
-            <Link to={'/'} className="mega-menu" data-close="true"><i className="zmdi zmdi-power"></i></Link>
+            <Link to={'/'} className="mega-menu" data-close="true"><i className="zmdi zmdi-power" onClick={()=>handleLogout()}></i></Link>
             <Link to={'/'} className="js-right-sidebar" data-close="true"><i className="zmdi zmdi-settings zmdi-hc-spin"></i></Link>
         </li>
     </ul>
