@@ -3,7 +3,9 @@ export const constants = {
         USER_LOGIN: "https://techsaraz.in//admission-cart/api/login/adminlogin/login.php",
         GET_ALL_USERLIST:"https://techsaraz.in//admission-cart/api/login/adminlogin/getAllUsers.php",
         AUTHENTICATE_USER: "https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php",
-        CATEGORY_LIST:"https://techsaraz.in//admission-cart/api/course_category_list.php"
+        CATEGORY_LIST:"https://techsaraz.in//admission-cart/api/course_category_list.php",
+        ADMIN_REGISTER: "https://techsaraz.in//admission-cart/api/login/adminlogin/register.php"
+
     },
     apiHeaders: {
         HEADER:{"Content-Type":"Application/json"}

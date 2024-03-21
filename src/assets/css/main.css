@@ -22940,3 +22940,7 @@ section small {
 .admin-h{
     color: #212529;
 }
+
+.hide{
+    display: none;
+}
