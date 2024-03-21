@@ -95,22 +95,6 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-    {/* <footer className="footer">
-      <div className="container">
-        <nav>
-          <ul>
-            <li><Link to={'/'} target="_blank">Contact Us</Link></li>
-            <li><Link to={'/'} target="_blank">About Us</Link></li>
-            <li><Link to={'/'}>FAQ</Link></li>
-          </ul>
-        </nav>
-        <div className="copyright">
-          ©
-          ,
-          <span>Designed by <Link to={'/'} target="_blank">Admission Cart</Link></span>
-        </div>
-      </div>
-    </footer> */}
   </div>
 
 
