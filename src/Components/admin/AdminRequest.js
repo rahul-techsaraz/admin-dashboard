@@ -33,7 +33,7 @@ export default function AdminRequest() {
         setFilteredUserList(userList)
       return;
     }
-    const filterUser = userList.filter(user => filterBy === user.user_status)
+    const filterUser = userList.filter(user => filterBy.toLowerCase() === user.user_status.toLowerCase())
     console.log(filterUser)
         setFilteredUserList(filterUser)
     
@@ -63,7 +63,7 @@ fetchUserList()
         <div className="body">
         {/* <h2 className='admin-h text-right'>Pending Request</h2> */}
                 <div className='row'>
-                  {filteredUserList.length > 0 ? <UserListTable userList={filteredUserList} options={options} /> : <div>No Record Found</div>}
+                  {filteredUserList.length > 0 ? <UserListTable userList={filteredUserList} onClick={(data)=>console.log(data)} options={options} /> : <div>No Record Found</div>}
         
 
          </div>

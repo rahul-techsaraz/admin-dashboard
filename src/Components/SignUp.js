@@ -23,13 +23,23 @@ export default function SignIn() {
   const [aname, setAname] = useState('');
   const [iname, setIname] = useState('');
   const [gender, setGender] = useState('');
-  const [btn, setBtnDisabled] = useState(false);
+  const [isValidEmail, setValidEmail] = useState(false);
   
 
+  // useEffect(()=>{
+  //   if(email!== ""){
+  //     if(validateEmail()){
+  //       setValidEmail(true)
+  //     }else{
+  //       setValidEmail(false)
+  //     }
+  //   }
+  
+  // },[email])
 
 const validateName =()=>{
   if(fname.length === 0 || lname.length === 0){
-    toast.error("Name can't be Empty")   
+    toast.error("Name Field can't be Empty")   
   }else{
     return true
   }
@@ -64,6 +74,8 @@ const validatePass=()=>{
     return true
   }
 }
+
+
   
    const handleRegister = async () => {
     if(validateName() && validatePhone() && validateEmail() && validatePass()){
@@ -77,13 +89,18 @@ const validatePass=()=>{
     "institute_name":iname,
     "gender":gender,
     "designation":"Admin",
-    "user_role":"admin",
-    "user_status":"Inactive",
-    "approvedBy":"Rahul"
+    "user_role":"",
+    "user_status":"inactive",
+    "approvedBy":""
 
    
     }
     const json = await httpCall(constants.apiEndPoint.ADMIN_REGISTER, constants.apiHeaders.HEADER, constants.httpMethod.POST, payload);
+    if(json.success==1){
+      navigate('/sign-in')
+    }else{
+      toast.error(json.message)
+    }
     console.log(json)
    }
   }
@@ -142,16 +159,16 @@ const validatePass=()=>{
               <div className="input-group">
                 <input type="tel"  className="form-control " placeholder="Enter Phone Number" onChange={(event)=>setPhone(event.target.value)}  />
                 <span className="input-group-addon">
-                  <i className="zmdi zmdi-account-circle" />
-                  <button type="button" class="btn btn-info hide" disabled="true" style={{height: "20px" ,width: "20px", textAlign:"center"}}>Validate</button>
+                  <i className={phone.length === 0 ? "zmdi zmdi-account-circle" : "zmdi zmdi-account-circle hide" } />
+                  <button type="button" className={phone.length === 0 ? "btn btn-info hide" : "btn btn-info" }  style={{height: "20px" ,width: "20px", textAlign:"center"}}>Validate</button>
                 </span>
                
               </div>                                               
               <div className="input-group">
-                <input type="email"  className="form-control " placeholder="Enter Email"  onChange={(event)=>setEmail(event.target.value)} />
+                <input type="email"  className="form-control " placeholder="Enter Email"  onChange={(event)=>setEmail(event.target.value)}   />
                 <span className="input-group-addon">
-                  <i className="zmdi zmdi-account-circle" />
-                  <button type="button" class="btn btn-info">Validate</button>
+                  <i className={email.length === 0 ? "zmdi zmdi-account-circle" : "zmdi zmdi-account-circle hide" } />
+                  {isValidEmail&& <button type="button" className= "btn btn-info"   style={{height: "20px" ,width: "20px", textAlign:"center"}}>Validate</button>}
                 </span>
               </div>
               <div className="input-group">
@@ -187,7 +204,7 @@ const validatePass=()=>{
             </div>
             <div className="footer text-center">
               {/* <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad " >AS ADMIN</Link> */}
-              <Link to={''} className="btn btn-primary btn-round btn-lg btn-block btn-ad" onClick={()=>handleRegister()}>Submit</Link>
+              <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad" onClick={()=>handleRegister()}>Submit</Link>
             </div>
             <div>
             {/* <h5><Link  className="link text-white">Forgot Password?</Link></h5> */}
