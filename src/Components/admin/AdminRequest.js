@@ -40,7 +40,27 @@ export default function AdminRequest() {
   }
   useEffect(() => {
 fetchUserList()
-    },[])
+  }, [])
+  
+  const handleApprovedApi = async (userData, requestType) => {
+    const payloadData = await {
+    "email":userData.email,
+    "user_status": requestType.toLowerCase() === 'approved' ? userData.user_status.value: 'decline',
+    "approvedBy":userData.approvedBy.first_name+" "+userData.approvedBy.last_name,
+    "user_role": userData.user_role.value 
+
+    }
+    const data = await httpCall(constants.apiEndPoint.UPDATE_USER_ROLE, constants.apiHeaders.HEADER, constants.httpMethod.PUT, payloadData);
+    console.log(data)
+    if (data.success === 1) {
+      fetchUserList()
+    } else {
+      alert('Something went wrong , Please try again')
+    }
+
+
+  }
+
   return (
     <>
           <div className="container-fluid">
@@ -63,7 +83,7 @@ fetchUserList()
         <div className="body">
         {/* <h2 className='admin-h text-right'>Pending Request</h2> */}
                 <div className='row'>
-                  {filteredUserList.length > 0 ? <UserListTable userList={filteredUserList} onClick={(data)=>console.log(data)} options={options} /> : <div>No Record Found</div>}
+                  {filteredUserList.length > 0 ? <UserListTable userList={filteredUserList} onClick={(data,requestType)=>handleApprovedApi(data,requestType)} options={options} /> : <div>No Record Found</div>}
         
 
          </div>

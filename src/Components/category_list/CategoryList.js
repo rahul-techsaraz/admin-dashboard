@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import AddNewCategory from './AddNewCategory'
 import { httpCall } from '../../utils/service'
 import { constants } from '../../utils/constants'
+import CustomTableData from '../../utils/CommonComponents/CustomTableData'
 
 export default function CategoryList() {
     const [categoryData,setCategoryData]= useState([])
@@ -15,7 +16,54 @@ export default function CategoryList() {
     useEffect(() => {
 fetchCatgeoryData()
     },[])
+    const addNewColumns = [
+  {
+      label:'View Details',
+      handleActionItem: (params) => {
+          // dispatch(updateDetailsView({flag:true,propertyId:params.row.property_id}))
+          console.log(params)
+      },
+      classname:'viewButton'
+  },
+  {
+      label:'Delete',
+      handleApprovedItem: (params) => {
+        },
+      classname:'deleteButton'
+
+  },
+    ]
+    const userColumns = [
+    { field: "id", headerName: "ID", width: 70 },
+    // {
+    //   field: "property_name",
+    //   headerName: "Property Name",
+    //   width: 150,
+    //   renderCell: (params) => {
+    //     return (
+    //       <div className="cellWithImg">
+    //         {/* <img className="cellImg" src={params.row.img} alt="avatar" /> */}
+    //         {params.row.property_name}
+    //       </div>
+    //     );
+    //   },
+    // },
     
+  
+    {
+      field: "category_id",
+      headerName: "Category Id",
+      width: 200,
+      
+    },
+    {
+      field: "category_name",
+      headerName: "Category Name",
+      width: 370,
+      
+    }
+    
+  ];
   return (
       <>
        
@@ -25,27 +73,11 @@ fetchCatgeoryData()
                       <div class="card">
                           <div class="body">
                               <div class="table-responsive">
-                                  <table class="table td_2 table-striped table-hover js-basic-example dataTable">
-                                      <thead>
-                                          <tr>
-                                             
-                                              <th>Category Id</th>
-                                              <th>Category Name</th>
-                                             
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                      {categoryData.map(category => (
-                                           <tr key={category.course_category_id }>
-                                              <td>{category.course_category_id }</td>
-                                              <td>{ category.category_name}</td>
-                                             
-                                          </tr>
-                                      ))}
-                                     
-                                          
-                                      </tbody>
-                                  </table>
+                                  <CustomTableData 
+          userColumns={userColumns} 
+          userRows={categoryData} 
+          actionItem={addNewColumns} 
+          label={'Category Listing'} />
                               </div>
                           </div>
                       </div>

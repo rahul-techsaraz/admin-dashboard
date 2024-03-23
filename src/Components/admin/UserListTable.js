@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
 import SelectBox from '../../utils/CommonComponents/SelectBox'
+import { toast } from 'react-toastify';
 
 export default function UserListTable({ userList,options,onClick }) {
-  const [selectRole,setSelectRole]=useState('');
+  const [selectRole, setSelectRole] = useState({id:'',value:''});
+  const [userStatus, setUserStatus] = useState({id:'',value:''});
+  const handleApproved = (userId,userEMail,requestType) =>  {
+    if (userId === selectRole.id && userId === userStatus.id && selectRole.value !== '' && userStatus.value !== '') {
+      const payloadData = { email: userEMail, user_status:userStatus , approvedBy: JSON.parse(localStorage.getItem("userData")), user_role: selectRole }
+      onClick(payloadData,requestType)
+    } else {
+      alert("Please select the the user role and user status")
+    }
+  }
+  
+ 
+ 
+ 
   const roleOption = [
     { label: 'superAdmin', value: 'superAdmin' },
    {label:'admin',value:'admin'},
@@ -30,17 +44,17 @@ export default function UserListTable({ userList,options,onClick }) {
       <td>{user.email}</td>
       <td>
       <div class="btn-group">
-                              {user.user_status.toLowerCase() === 'inactive' ? <SelectBox options={options} /> : <span>{user.user_status }</span>}
+                              {user.user_status.toLowerCase() === 'inactive' ? <SelectBox options={options} onChange={(event)=>setUserStatus({id:index,value:event.target.value})} /> : <span>{user.user_status }</span>}
  
       </div>
       </td>
       <td>
       <div class="btn-group">
-                              {user.user_status.toLowerCase() === 'inactive' ? <SelectBox onChange={(event)=>setSelectRole(event.target.value)} options={roleOption} /> : <span>{user.user_role }</span>}
+                              {user.user_status.toLowerCase() === 'inactive' ? <SelectBox onChange={(event)=>setSelectRole({id:index,value:event.target.value})} options={roleOption} /> : <span>{user.user_role }</span>}
  
       </div>
       </td>
-                      {user.user_status.toLowerCase() === 'inactive' ? <td><button  onClick={()=>onClick({email:user.email,user_status:"Active",approvedBy:JSON.parse(localStorage.getItem("userData")),user_role:selectRole})}className=' btn btn-outline-primary btn btn-danger '>Approve</button> <button className=' btn btn-outline-primary btn btn-success '>Decline</button></td> : ''}
+                  {user.user_status.toLowerCase() === 'inactive' ? <td><button onClick={() => handleApproved(index, user.email, "approved")} className=' btn btn-outline-primary btn btn-danger '>Approve</button> <button className=' btn btn-outline-primary btn btn-success ' onClick={() => handleApproved(index, user.email, "Decline")}>Decline</button></td> : ''}
     </tr>
               ))}
     

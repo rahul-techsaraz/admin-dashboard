@@ -4,7 +4,8 @@ export const constants = {
         GET_ALL_USERLIST:"https://techsaraz.in//admission-cart/api/login/adminlogin/getAllUsers.php",
         AUTHENTICATE_USER: "https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php",
         CATEGORY_LIST:"https://techsaraz.in//admission-cart/api/course_category_list.php",
-        ADMIN_REGISTER: "https://techsaraz.in//admission-cart/api/login/adminlogin/register.php"
+        ADMIN_REGISTER: "https://techsaraz.in//admission-cart/api/login/adminlogin/register.php",
+        UPDATE_USER_ROLE:"https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php"
 
     },
     apiHeaders: {
@@ -26,12 +27,7 @@ export const constants = {
                     option_path: '/category-list',
                     name:"Category",
                 },
-                {
-                    option_name: "State List",
-                    option_path: '/state-list',
-                    name:"State",
-                    
-                },
+               
                 {
                     option_name: "Course List",
                     option_path: '/course-list',
@@ -135,19 +131,7 @@ export const constants = {
                 },
             ]
         },
-         {
-            name: "State",
-            navMenu: [
-                {
-                    labelName: "State List",
-                    path:"state-list"
-                },
-                {
-                    labelName: "Add New State",
-                    path:"add-new-state"
-                },
-            ]
-        }
+        
     ]
 
 }
