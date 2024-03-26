@@ -17,6 +17,8 @@ import SignUp from "../Components/SignUp";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import AddNewCategory from "../Components/category_list/AddNewCategory";
 import AdminRequest from '../Components/admin/AdminRequest'
+import ExamList from "../Components/exam/ExamList";
+import AddNewExam from "../Components/exam/AddNewExam";
 
 
 
@@ -52,7 +54,11 @@ export const appRouter = createBrowserRouter([
             },
               {
                 path: "/exam-list",
-                element: <CategoryList/>
+                element: <ExamList/>
+            },
+            {
+                path: "/add-new-exam",
+                element: <AddNewExam/>
             },
                {
                 path:"/list-college",

@@ -6,6 +6,7 @@ import { updateACategoryInputValue } from '../../features/categorySlice';
 import CustomButton from '../../utils/CommonComponents/CustomButton';
 import { httpCall } from '../../utils/service';
 import { constants } from '../../utils/constants';
+import AddItemForm from '../AddItemForm';
 
 export default function AddNewCategory() {
   const {categoryInputValue} = useSelector(state => state.category)
@@ -26,28 +27,13 @@ export default function AddNewCategory() {
     }
     const dispatch = useDispatch();
   return (
-    <div className="container-fluid">
-          <div className="row clearfix">
-    <div className="col-lg-12">
-      <div className="card">
-        <div className="header">
-          <h2><strong>Basic</strong> Information <small>Description text here...</small> </h2>
-         
-        </div>
-        <div className="body">
-          <div className="row clearfix">
-            <div className="col-sm-12" style={{display:'flex'}}>
+    <AddItemForm>
+
+   
               
                                   <InputFieldText placeholder={'Category Name'} inputType={'text'} onChange={(e) => dispatch(updateACategoryInputValue({ data: e.target.value }))} />
                                   <CustomButton lable={'Add New Category'} isDisabled={false} onClick={() => handleClick()} />
-            </div>
-           
-          </div>
-          
-        </div>
-      </div>
-    </div>
-          </div>
-        </div>
+    </AddItemForm>
+         
   )
 }

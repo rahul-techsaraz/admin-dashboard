@@ -3,31 +3,46 @@ import AddNewCategory from './AddNewCategory'
 import { httpCall } from '../../utils/service'
 import { constants } from '../../utils/constants'
 import CustomTableData from '../../utils/CommonComponents/CustomTableData'
+import ItemList from '../ItemList'
 
 export default function CategoryList() {
     const [categoryData,setCategoryData]= useState([])
     const fetchCatgeoryData = async () => {
         const data = await httpCall(
             constants.apiEndPoint.CATEGORY_LIST,
-            constants.apiHeaders.HEADER,constants.httpMethod.GET
+            constants.apiHeaders.HEADER,
+            constants.httpMethod.GET
         )
         setCategoryData(data.data)
+    }
+    const deleteCatgeoryData = async (categoryId) => {
+        const payload = await {
+             course_category_id:categoryId
+         }
+        const data = await httpCall(
+            constants.apiEndPoint.CATEGORY_LIST,
+            constants.apiHeaders.HEADER,
+            constants.httpMethod.DELETE,
+            payload
+        )
+
+        if (data.status === "success") {
+            await fetchCatgeoryData();
+
+        } else {
+            alert("Something went wrong. Please try again!")
+        }
     }
     useEffect(() => {
 fetchCatgeoryData()
     },[])
     const addNewColumns = [
-  {
-      label:'View Details',
-      handleActionItem: (params) => {
-          // dispatch(updateDetailsView({flag:true,propertyId:params.row.property_id}))
-          console.log(params)
-      },
-      classname:'viewButton'
-  },
+ 
   {
       label:'Delete',
-      handleApprovedItem: (params) => {
+            handleDeleteItem: (rowData) => {
+                console.log(rowData)
+                deleteCatgeoryData(rowData.course_category_id)
         },
       classname:'deleteButton'
 
@@ -35,23 +50,11 @@ fetchCatgeoryData()
     ]
     const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
-    // {
-    //   field: "property_name",
-    //   headerName: "Property Name",
-    //   width: 150,
-    //   renderCell: (params) => {
-    //     return (
-    //       <div className="cellWithImg">
-    //         {/* <img className="cellImg" src={params.row.img} alt="avatar" /> */}
-    //         {params.row.property_name}
-    //       </div>
-    //     );
-    //   },
-    // },
+    
     
   
     {
-      field: "category_id",
+      field: "course_category_id",
       headerName: "Category Id",
       width: 200,
       
@@ -67,23 +70,14 @@ fetchCatgeoryData()
   return (
       <>
        
-         {categoryData.length > 0 ? (<div class="container-fluid">
-              <div class="row clearfix">
-                  <div class="col-lg-12">
-                      <div class="card">
-                          <div class="body">
-                              <div class="table-responsive">
-                                  <CustomTableData 
-          userColumns={userColumns} 
-          userRows={categoryData} 
-          actionItem={addNewColumns} 
-          label={'Category Listing'} />
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>) : <div>Loading...</div>}
+          {categoryData.length > 0 ? (
+              <ItemList
+                  userColumns={userColumns }
+                  categoryData={categoryData }
+                  addNewColumns={ addNewColumns}
+                  labe={'Category Listing'}
+              />
+          ) : <div>Loading...</div>}
       </>
   )
 }

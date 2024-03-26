@@ -5,7 +5,8 @@ export const constants = {
         AUTHENTICATE_USER: "https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php",
         CATEGORY_LIST:"https://techsaraz.in//admission-cart/api/course_category_list.php",
         ADMIN_REGISTER: "https://techsaraz.in//admission-cart/api/login/adminlogin/register.php",
-        UPDATE_USER_ROLE:"https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php"
+        UPDATE_USER_ROLE: "https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php",
+        EXAM_LIST:"https://techsaraz.in//admission-cart/api/exam.php"
 
     },
     apiHeaders: {
@@ -128,6 +129,19 @@ export const constants = {
                 {
                     labelName: "Add New Category",
                     path:"add-new-category"
+                },
+            ]
+        },
+        {
+            name: "Exam",
+            navMenu: [
+                {
+                    labelName: "Exam List",
+                    path:"exam-list"
+                },
+                {
+                    labelName: "Add New Exam",
+                    path:"add-new-exam"
                 },
             ]
         },

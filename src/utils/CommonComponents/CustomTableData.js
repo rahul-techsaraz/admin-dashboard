@@ -9,7 +9,7 @@ const AddCustomColumns = ({actionItem,params}) => {
       <div className="cellAction">
      <div
         className={item?.classname}
-        onClick={() => item.handleActionItem(params)}
+        onClick={() => item.handleDeleteItem(params.row)}
       >
         {item.label}
       </div>
@@ -40,7 +40,7 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
         {label}
         
       </div>
-      {userRows.length < 1 ? (<Typography>There is no {label}</Typography>) : (
+      {userRows.length < 1 ? (<Typography>There is no data</Typography>) : (
         <DataGrid
         className="datagrid"
         rows={userRows}
