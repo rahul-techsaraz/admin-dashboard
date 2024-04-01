@@ -8,9 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { httpCall } from '../../utils/service'
 import { constants } from '../../utils/constants'
 import Loader from '../Loader/Loader'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function AddNewExam() {
+    const navigate = useNavigate();
     const [examName, setExamName] = useState('');
     const [applicationStartDates, setApplicationStartDates] = useState('');
     const [applicationEndDates, setApplicationEndDates] = useState('');
@@ -74,7 +76,8 @@ var day = date.toLocaleString("default", { day: "2-digit" });
             setExamStartDate('');
 
             setLoading(false)
-            alert(data.data.message);
+            navigate('/add-exam-description/'+data.data.exam_id)
+            //alert(data.data.message);
             
 
         } else {

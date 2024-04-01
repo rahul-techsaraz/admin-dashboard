@@ -24,7 +24,7 @@ import Main from './Components/Main';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import ChatLauncher from './Components/ChatLauncher';
+import Loader from './Components/Loader/Loader';
 
 
 
@@ -33,7 +33,7 @@ function App() {
   const navigate = useNavigate();
   const { activeSubHeader } = useSelector(state => state.subheadermenu);
   const { isUserAuthenticated } = useSelector(state => state.user);
-
+  const {isLoading} = useSelector(state => state.common)
    useEffect(() => {
      if (!isUserAuthenticated) {
   navigate('/sign-in')
@@ -41,6 +41,8 @@ function App() {
   },[isUserAuthenticated])
   
   return (
+  <>
+    {isLoading && <Loader />}
     <body className="theme-purple">
       <Header/>
       <LeftSidebar />
@@ -64,8 +66,8 @@ function App() {
         </div>
       <Outlet/>
       </section>
-      <ChatLauncher />
-    </body>
+      </body>
+      </>
   );
 }
 

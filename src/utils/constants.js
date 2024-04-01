@@ -18,6 +18,12 @@ export const constants = {
         PUT: "PUT",
         DELETE:"DELETE"
     },
+    apiResponseStatus: {
+        SUCCESS: "success",
+        WARNING: "warning",
+        ERROR: "error",
+        NOT_FOUND:"NOT FOUND" 
+    },
     sideBarMenu: [
      {
             heading: "Dashboard",
@@ -146,6 +152,96 @@ export const constants = {
             ]
         },
         
-    ]
+    ],
+    examDescriptionInputFieldList:[
+        {
+            keyName: "exam_description",
+            label: "Exam Description",
+            style:""
+        },
+        {
+            keyName: "exam_conducting_body_description",
+            label: "Exam Conducting Body Description",
+            style:""
+        },
+        {
+            keyName: "exam_important_dates_description",
+            label: "Exam Important Dates Description",
+            style:""
+        },
+        {
+            keyName: "exam_counselling_description",
+            label: "Exam Counselling Description",
+            style:""
+        },
+        {
+            keyName: "exam_application_form_description",
+            label: "Exam Application Form Description",
+            style:""
+        },
+        {
+            keyName: "apllication_form_step1_description",
+            label: "Apllication Form Step1 Description",
+            style:""
+        },
+        {
+            keyName: "apllication_form_step2_description",
+            label: "Apllication Form Step2 Description",
+            style:""
+        },
+        {
+            keyName: "apllication_form_step3_description",
+            label: "Apllication Form Step3 Description",
+            style:""
+        },
+        {
+            keyName: "exam_intimation_slip_description",
+            label: "Exam Intimation Slip Description",
+            style:""
+        },
+        {
+            keyName: "exam_session_description",
+            label: "Exam Session Description",
+            style:""
+        },
+        {
+            keyName: "exam_admit_card_description",
+            label: "Exam Admit Card Description",
+            style:""
+        },
+        {
+            keyName: "exam_center_description",
+            label: "Exam Center Description",
+            style:""
+        },
+         {
+            keyName: "exam_pattern_description",
+            label: "Exam Pattern Description",
+            style:""
+        },
+         {
+            keyName: "exam_syllabus_description",
+            label: "Exam Syllabus Description",
+            style:""
+        },
+    ],
+    examDescriptionInitialState: {
+        initialState:{
+        exam_description: '',
+        exam_conducting_body_description: '',
+        exam_important_dates_description: '',
+        exam_session_description: '',
+        exam_counselling_description: '',
+        exam_application_form_description: '',
+        apllication_form_step1_description: '',
+        apllication_form_step2_description: '',
+        apllication_form_step3_description: '',
+        exam_intimation_slip_description: '',
+        exam_admit_card_description: '',
+        exam_center_description: '',
+        exam_pattern_description: '',
+        exam_syllabus_description: '',
+    }
+    }
 
 }

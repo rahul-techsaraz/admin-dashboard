@@ -19,6 +19,8 @@ import AddNewCategory from "../Components/category_list/AddNewCategory";
 import AdminRequest from '../Components/admin/AdminRequest'
 import ExamList from "../Components/exam/ExamList";
 import AddNewExam from "../Components/exam/AddNewExam";
+import ExamDescriptions from "../Components/exam/ExamDescriptions";
+import AddExamDetails from "../Components/exam/AddExamDetails";
 
 
 
@@ -59,6 +61,10 @@ export const appRouter = createBrowserRouter([
             {
                 path: "/add-new-exam",
                 element: <AddNewExam/>
+            },
+            {
+                path: "/add-exam-description/:examId",
+                element: <AddExamDetails/>
             },
                {
                 path:"/list-college",
