@@ -16391,11 +16391,12 @@ img {
     font-family: "Montserrat", sans-serif;
     background: #fff;
     width: 250px;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     top: 0px;
     left: 0;
-    z-index: 11
+    z-index: 11;
+    overflow:auto;
 }
 
 .sidebar .nav-tabs {
