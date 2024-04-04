@@ -4,6 +4,8 @@ import AddItemForm from '../AddItemForm'
 import { useDispatch, useSelector } from 'react-redux'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { handleExamConfigValidation, updateExamConfig } from '../../features/examSlice'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ExamOtherSetting() {
   const dispatch = useDispatch();
@@ -34,7 +36,8 @@ let day = date.toLocaleString("default", { day: "2-digit" });
         if (value >= generateTodayDate()) {
           dispatch(updateExamConfig({key,value}))
         } else {
-            alert('its invalid dates')
+            // alert('its invalid dates')
+            toast.error("its invalid dates !");
         }
     }
   useEffect(() => {
@@ -59,6 +62,7 @@ if([no_session,
     exam_conducting_email])
    
   return (
+    <>
               <div style={{gap:"20px",display:'flex',margin:"2.5rem 0px",flexWrap:"wrap"}}>
                  <InputFieldText
                   inputValue={no_session}
@@ -107,6 +111,8 @@ if([no_session,
              
                   
               </div>
+              <ToastContainer />
+              </>
              
   )
 }

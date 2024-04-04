@@ -10,6 +10,9 @@ import { updateExamTab } from '../../features/examSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton';
 import { v4 as uuid } from 'uuid'
 import { addExamConfig, addExamHighlights, addNewExam, updateExamDescription } from '../../utils/reduxThunk/examThunk'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function AddExamDetails() {
   const [isDisabled, setDisabled] = useState(true);
@@ -97,14 +100,18 @@ marking_scheme:examHighlights.marking_scheme,
       ]); 
       isAllResolved.map(resolve => {
         if (resolve.payload.status !== constants.apiResponseStatus.SUCCESS) {
-          alert('You are broken')
+          // alert('You are broken')
+          toast.error("You are broken")
         }
       })
      console.log(isAllResolved)
     } else if(examInfoResponse.payload.data.toLowerCase().includes('duplicate')){
-      alert('Exam name is already added. Please add other exam')
+      // alert('Exam name is already added. Please add other exam')
+      toast.error('Exam name is already added. Please add other exam')
+      
     }else {
-      alert('Your request can not be proccess at the moment . Please try again')
+      // alert('Your request can not be proccess at the moment . Please try again')
+      toast.error('Your request can not be proccess at the moment . Please try again')
       
     }
 
@@ -167,6 +174,7 @@ marking_scheme:examHighlights.marking_scheme,
       </div>
           
           </AddItemForm>
+          <ToastContainer />
         
       </>
   )

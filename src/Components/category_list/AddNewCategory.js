@@ -7,6 +7,9 @@ import CustomButton from '../../utils/CommonComponents/CustomButton';
 import { httpCall } from '../../utils/service';
 import { constants } from '../../utils/constants';
 import AddItemForm from '../AddItemForm';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function AddNewCategory() {
   const {categoryInputValue} = useSelector(state => state.category)
@@ -19,13 +22,16 @@ export default function AddNewCategory() {
 
         const data = await httpCall(constants.apiEndPoint.CATEGORY_LIST, constants.apiHeaders.HEADER, constants.httpMethod.POST, payload);
         if (data.status === "success") {
-            alert(data.data.message)
+            // alert(data.data.message)
+            toast.success(data.data.message);
         } else {
-            alert('Something Went wrong . Please try again')
+            // alert('Something Went wrong . Please try again')
+            toast.error("Something Went wrong . Please try again !");
         }
     }
     const dispatch = useDispatch();
   return (
+    <>
     <AddItemForm>
 
    
@@ -33,6 +39,7 @@ export default function AddNewCategory() {
                                   <InputFieldText placeholder={'Category Name'} inputType={'text'} onChange={(e) => dispatch(updateACategoryInputValue({ data: e.target.value }))} />
                                   <CustomButton lable={'Add New Category'} isDisabled={false} onClick={() => handleClick()} />
     </AddItemForm>
-         
+    <ToastContainer />
+    </>   
   )
 }

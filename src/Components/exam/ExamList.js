@@ -3,6 +3,9 @@ import { httpCall } from '../../utils/service';
 import { constants } from '../../utils/constants';
 import ItemList from '../ItemList';
 import Loader from '../Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function ExamList() {
     const [isLoading, setLoading] = useState(true);
@@ -37,7 +40,8 @@ export default function ExamList() {
 
         } else {
             setLoading(false)
-            alert("Something went wrong. Please try again!")
+            // alert("Something went wrong. Please try again!")
+            toast.error("Something Went wrong . Please try again !");
         }
     }
      const addNewColumns = [
@@ -45,6 +49,8 @@ export default function ExamList() {
   {
       label:'Delete',
              handleDeleteItem: (rowData) => {
+              // alert("Are you sure want to delete")
+              toast.error("Deleted Items Successfully !");
          deleteExamListById(rowData.exam_id)
         },
       classname:'deleteButton'
@@ -90,6 +96,7 @@ export default function ExamList() {
     },[])
   return (
       <>
+       <ToastContainer />
            {!isLoading ? (
               <ItemList
                   userColumns={userColumns }

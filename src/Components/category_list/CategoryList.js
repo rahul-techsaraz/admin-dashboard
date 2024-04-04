@@ -4,6 +4,8 @@ import { httpCall } from '../../utils/service'
 import { constants } from '../../utils/constants'
 import CustomTableData from '../../utils/CommonComponents/CustomTableData'
 import ItemList from '../ItemList'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CategoryList() {
     const [categoryData,setCategoryData]= useState([])
@@ -17,7 +19,8 @@ export default function CategoryList() {
     }
     const deleteCatgeoryData = async (categoryId) => {
         const payload = await {
-             course_category_id:categoryId
+          
+             course_category_id:categoryId,            
          }
         const data = await httpCall(
             constants.apiEndPoint.CATEGORY_LIST,
@@ -30,7 +33,8 @@ export default function CategoryList() {
             await fetchCatgeoryData();
 
         } else {
-            alert("Something went wrong. Please try again!")
+            // alert("Something went wrong. Please try again!")
+            toast.error("Something Went wrong . Please try again !")
         }
     }
     useEffect(() => {
@@ -77,6 +81,9 @@ fetchCatgeoryData()
                   labe={'Category Listing'}
               />
           ) : <div>Loading...</div>}
+          
+        <ToastContainer />
+
       </>
   )
 }

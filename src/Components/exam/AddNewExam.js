@@ -4,6 +4,8 @@ import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { constants } from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleExamInfoValidation, updateExamInfo } from '../../features/examSlice'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function AddNewExam() {
@@ -34,7 +36,8 @@ let day = date.toLocaleString("default", { day: "2-digit" });
         if (value >= generateTodayDate()) {
           dispatch(updateExamInfo({key,value}))
         } else {
-            alert('its invalid dates')
+            // alert('its invalid dates')
+            toast.error("its invalid dates !");
         }
     }
     useEffect(() => {
@@ -90,6 +93,7 @@ let day = date.toLocaleString("default", { day: "2-digit" });
               
                  
               </div>
+              <ToastContainer />
              
       </>
   )

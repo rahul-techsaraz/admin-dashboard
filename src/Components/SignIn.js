@@ -8,6 +8,8 @@ import { constants } from '../utils/constants'
 import { httpCall } from '../utils/service'
 import { useDispatch } from 'react-redux'
 import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -30,7 +32,8 @@ export default function SignIn() {
       navigate('/')
     } else {
       dispatch(handleUserAuthentication({ flag: false }))
-      alert(json.message);
+      // alert(json.message);
+      toast.error(json.message);
     }
   }
   useEffect(()=>{
@@ -54,6 +57,8 @@ export default function SignIn() {
 
   return (
     <>
+    
+ <ToastContainer />
 
   {/* Navbar */}
   <Navbar/>

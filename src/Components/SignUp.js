@@ -48,7 +48,8 @@ const validateName =()=>{
 const validatePhone = ()=>{
   const phoneRegex = /[0-9]{10}/;
   if(!phone.match(phoneRegex)){
-    alert("Invalid Phone Number ")
+    // alert("Invalid Phone Number ")
+    toast.error("Invalid Phone Number")
   }else{
     return true
   }

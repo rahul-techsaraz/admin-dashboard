@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { httpCall } from '../../utils/service';
 import { constants } from '../../utils/constants';
 import UserListTable from './UserListTable';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AdminRequest() {
   const [userList, setUserList] = useState([]);
@@ -53,7 +55,9 @@ fetchUserList()
     if (data.success === 1) {
       fetchUserList()
     } else {
-      alert('Something went wrong , Please try again')
+      // alert('Something went wrong , Please try again')
+      toast.error("Something Went wrong . Please try again !");
+      
     }
 
 
@@ -61,6 +65,7 @@ fetchUserList()
 
   return (
     <>
+     <ToastContainer />
           <div className="container-fluid">
           <div className="row clearfix">
     <div className="col-lg-12">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SelectBox from '../../utils/CommonComponents/SelectBox'
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserListTable({ userList,options,onClick }) {
   const [selectRole, setSelectRole] = useState({id:'',value:''});
@@ -10,7 +11,8 @@ export default function UserListTable({ userList,options,onClick }) {
       const payloadData = { email: userEMail, user_status:userStatus , approvedBy: JSON.parse(localStorage.getItem("userData")), user_role: selectRole }
       onClick(payloadData,requestType)
     } else {
-      alert("Please select the the user role and user status")
+      // alert("Please select the the user role and user status")
+      toast.warn("Please select the the user role and user status")
     }
   }
   
@@ -24,6 +26,7 @@ export default function UserListTable({ userList,options,onClick }) {
     
  ]
   return (
+    <>
     <table class="table">
   <thead>
     <tr>
@@ -61,5 +64,7 @@ export default function UserListTable({ userList,options,onClick }) {
   
   </tbody>
 </table>
+<ToastContainer />
+</>
   )
 }
