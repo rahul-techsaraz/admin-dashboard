@@ -23,7 +23,6 @@ export default function UserListTable({ userList,options,onClick }) {
    {label:'agent',value:'agent'},
     
  ]
-   console.log(roleOption)
   return (
     <table class="table">
   <thead>

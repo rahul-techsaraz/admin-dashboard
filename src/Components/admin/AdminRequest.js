@@ -34,7 +34,6 @@ export default function AdminRequest() {
       return;
     }
     const filterUser = userList.filter(user => filterBy.toLowerCase() === user.user_status.toLowerCase())
-    console.log(filterUser)
         setFilteredUserList(filterUser)
     
   }
@@ -51,7 +50,6 @@ fetchUserList()
 
     }
     const data = await httpCall(constants.apiEndPoint.UPDATE_USER_ROLE, constants.apiHeaders.HEADER, constants.httpMethod.PUT, payloadData);
-    console.log(data)
     if (data.success === 1) {
       fetchUserList()
     } else {

@@ -60,7 +60,7 @@ export const appRouter = createBrowserRouter([
             },
             {
                 path: "/add-new-exam",
-                element: <AddNewExam/>
+                element: <AddExamDetails />
             },
             {
                 path: "/add-exam-description/:examId",

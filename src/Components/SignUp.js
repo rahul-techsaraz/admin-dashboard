@@ -101,7 +101,6 @@ const validatePass=()=>{
     }else{
       toast.error(json.message)
     }
-    console.log(json)
    }
   }
   

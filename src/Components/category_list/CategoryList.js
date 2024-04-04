@@ -41,7 +41,6 @@ fetchCatgeoryData()
   {
       label:'Delete',
             handleDeleteItem: (rowData) => {
-                console.log(rowData)
                 deleteCatgeoryData(rowData.course_category_id)
         },
       classname:'deleteButton'

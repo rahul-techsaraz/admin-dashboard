@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchExamDescriptionById, updateExamDescription } from "./examSlice";
+import { fetchExamDescriptionById, updateExamDescription } from "../utils/reduxThunk/examThunk";
 const initialState = {
     isLoading: false,
     isError:false
@@ -15,29 +15,25 @@ const commonSlice = createSlice({
     },
     extraReducers: (builder) => {
      builder.addCase(fetchExamDescriptionById.pending, (state, { payload }) => {
-       //payload.thunkData.getState().common.isLoading = "test"
          state.isLoading = true;
      });
         builder.addCase(fetchExamDescriptionById.fulfilled, (state, { payload }) => {
-       //payload.thunkData.getState().common.isLoading = "test"
          state.isLoading = false;
      });
         builder.addCase(fetchExamDescriptionById.rejected, (state, { payload }) => {
-       //payload.thunkData.getState().common.isLoading = "test"
           state.isError = true;
           state.isLoading = false;
         });
        builder.addCase(updateExamDescription.pending, (state, { payload }) => {
-       //payload.thunkData.getState().common.isLoading = "test"
          state.isLoading = true;
      });
         builder.addCase(updateExamDescription.fulfilled, (state, { payload }) => {
-       //payload.thunkData.getState().common.isLoading = "test"
          state.isLoading = false;
      });
         builder.addCase(updateExamDescription.rejected, (state, { payload }) => {
-       //payload.thunkData.getState().common.isLoading = "test"
-         state.isError = true;
+          state.isError = true;
+         state.isLoading = false;
+          
     });
    
   }

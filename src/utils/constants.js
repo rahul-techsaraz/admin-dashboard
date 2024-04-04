@@ -242,6 +242,20 @@ export const constants = {
         exam_pattern_description: '',
         exam_syllabus_description: '',
     }
-    }
+    },
+    examDetailsTab: {
+        EXAM_INFO:'examinfo',
+        DESCRIPTION_DETAILS: 'description',
+        EXAM_HIGHLIGHTS: 'highlights',
+        EXAM_CONFIG: "config",
+        examTab: [
+            { label: "Exam Info", key: 'examinfo' },
+            {label:"Exam Descriptions",key:'description'},
+            {label:"Exam Highlights",key:'highlights'},
+            {label:"Exam Config",key:'config'},
+            
+        ]
+    },
+    examInfoSelectBox:[{"label":"Exam Year","value":""},{"label":"2024","value":"2024"},{"label":"2025","value":"2025"},{"label":"2026","value":"2026"}]
 
 }

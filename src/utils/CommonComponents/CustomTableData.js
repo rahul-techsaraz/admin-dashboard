@@ -39,7 +39,6 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
       headerName: "Complete",
       width: 200,
         renderCell: (params) => {
-          console.log(params)
         
         return (
          <Link to={'/add-exam-description/'+params.row.exam_id}>Complete</Link>

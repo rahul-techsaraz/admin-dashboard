@@ -11,7 +11,6 @@ const subHeaderMenuSlice = createSlice({
   initialState,
   reducers: {
       updateActiveSubHeader: (state, { payload }) => {
-          console.log({payload})
           state.activeSubHeader = payload.subHeaderArr;
     },
    

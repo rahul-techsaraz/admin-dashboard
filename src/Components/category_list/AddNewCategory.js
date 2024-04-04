@@ -18,7 +18,6 @@ export default function AddNewCategory() {
 }
 
         const data = await httpCall(constants.apiEndPoint.CATEGORY_LIST, constants.apiHeaders.HEADER, constants.httpMethod.POST, payload);
-        console.log(data)
         if (data.status === "success") {
             alert(data.data.message)
         } else {
