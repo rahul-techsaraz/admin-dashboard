@@ -109,3 +109,15 @@ export const fetchExamList = createAsyncThunk(
     }
   }
 );
+export const deleteExam = createAsyncThunk(
+  "exam/deleteExam",
+   async ({ url, header, method, payload }, thunkApi) => {
+    try {
+      const data = await httpCall(url, header, method, payload);
+      return data;
+
+    } catch (error) {
+     console.log(error)
+    }
+  }
+);

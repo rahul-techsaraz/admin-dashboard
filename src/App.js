@@ -22,27 +22,50 @@ import './assets/fonts/nucleo-outline.woff2';
 import LeftSidebar from './Components/LeftSidebar';
 import Main from './Components/Main';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Loader from './Components/Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import { updateError } from './features/commonSlice';
+import { constants } from './utils/constants';
 
 
 
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { activeSubHeader } = useSelector(state => state.subheadermenu);
   const { isUserAuthenticated } = useSelector(state => state.user);
-  const {isLoading} = useSelector(state => state.common)
+  const {isLoading,isError,errorMessage,errorType} = useSelector(state => state.common)
    useEffect(() => {
      if (!isUserAuthenticated) {
   navigate('/sign-in')
 }
-  },[isUserAuthenticated])
+   }, [isUserAuthenticated])
+  const notify = (errorMessage) => toast(errorMessage)
+  useEffect(() => {
+      console.log(isError,errorType,errorMessage)
+
+    if (isError) {
+      notify(errorMessage);
+      setTimeout(() => {
+        dispatch(updateError({
+                    errorType: '',
+                    errorMessage: "",
+                    flag:false
+                  }))
+              },4500)
+    }
+    
+  },[isError,errorMessage,errorType])
   
   return (
   <>
-    {isLoading && <Loader />}
+      {isLoading && <Loader />}
+      <ToastContainer />
+      
+      
     <body className="theme-purple">
       <Header/>
       <LeftSidebar />

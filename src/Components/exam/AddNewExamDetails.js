@@ -6,16 +6,15 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid';
 import { addExamConfig, addExamHighlights, addNewExam, updateExamDescription } from '../../utils/reduxThunk/examThunk';
 import { constants } from '../../utils/constants';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import CustomButton from '../../utils/CommonComponents/CustomButton';
 import AddItemForm from '../AddItemForm';
+import { updateError } from '../../features/commonSlice';
 export default function AddNewExamDetails() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDisabled, setDisabled] = useState(true);
 
-  const { activeExamTab,examInfo,examDescriptionOptions,examHighlights,examConfig,isEdit } = useSelector(state => state.exam);
+  const { examInfo,examDescriptionOptions,examHighlights,examConfig } = useSelector(state => state.exam);
  const createNewExam = async () => {
    try {
       const examId = await uuid();
@@ -97,28 +96,46 @@ marking_scheme:examHighlights.marking_scheme,
       ]); 
       isAllResolved.map(resolve => {
         if (resolve.payload.status !== constants.apiResponseStatus.SUCCESS) {
-          // alert('You are broken')
-          toast.error("You are broken");
+          dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag:true
+                  }))
           dispatch(reset())
         } else {
-          toast.success("Exam has been added successfully");
+           dispatch(updateError({
+                    errorType: constants.apiResponseStatus.SUCCESS,
+                    errorMessage: "Exam has been added successfully",
+                    flag:true
+                  }))
           dispatch(reset())
           navigate('/exam-list');
         }
       })
      console.log(isAllResolved)
     } else if(examInfoResponse.payload.data.toLowerCase().includes('duplicate')){
-      // alert('Exam name is already added. Please add other exam')
-      toast.error('Exam name is already added. Please add other exam')
+       dispatch(updateError({
+                    errorType: constants.apiResponseStatus.WARNING,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag:true
+                  }))
+      
       
     }else {
-      // alert('Your request can not be proccess at the moment . Please try again')
-      toast.error('Your request can not be proccess at the moment . Please try again');
+       dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag:true
+                  }))
       
     }
    }
    catch (err) {
-      toast.error('Your request can not be proccess at the moment . Please try again');
+        dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag:true
+                  }))
      
    }
 

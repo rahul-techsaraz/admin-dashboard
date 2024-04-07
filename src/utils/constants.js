@@ -24,6 +24,9 @@ export const constants = {
         ERROR: "error",
         NOT_FOUND:"NOT FOUND" 
     },
+    apiResponseMessage: {
+        ERROR_MESSAGE:"Your Request could not be processed at the moment. Please try again!"
+    },
     sideBarMenu: [
      {
             heading: "Dashboard",

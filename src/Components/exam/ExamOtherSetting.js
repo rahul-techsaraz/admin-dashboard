@@ -4,13 +4,12 @@ import AddItemForm from '../AddItemForm'
 import { useDispatch, useSelector } from 'react-redux'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { handleExamConfigValidation, toggelExamInfoEdit, updateExamConfig } from '../../features/examSlice'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { constants } from '../../utils/constants'
 import ExamInfoData from './ExamInfoData'
 import { useParams } from 'react-router-dom'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addExamConfig, fetchExamConfigById } from '../../utils/reduxThunk/examThunk'
+import { updateError } from '../../features/commonSlice'
 
 export default function ExamOtherSetting() {
   const dispatch = useDispatch();
@@ -50,7 +49,11 @@ let day = date.toLocaleString("default", { day: "2-digit" });
           dispatch(updateExamConfig({key,value}))
         } else {
             // alert('its invalid dates')
-            toast.error("its invalid dates !");
+          dispatch(updateError({
+                    errorType: constants.apiResponseStatus.WARNING,
+                    errorMessage: "Please Select valid date",
+                    flag:true
+                  }))
         }
     }
   useEffect(() => {
@@ -94,18 +97,30 @@ if([no_session,
           payload: examConfigPayload
         }))
       if (examConfigResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
-           // toast.success("Your exam description has been updated successfully!");
+         dispatch(updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: "Your exam description has been updated successfully!",
+            flag:true
+          }))
             await dispatch(fetchExamConfigById({
             url: constants.apiEndPoint.EXAM_LIST + "?requestType=examImpDetails&exam_id=" + examId,
             header: constants.apiHeaders.HEADER,
             method:constants.httpMethod.GET
             }))
         } else {
-           // toast.error("Something went wrong while update the record, Please try again");
+                    dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
         }
         }
      catch(err){
-           // toast.error("Something went wrong while update the record, Please try again");
+             dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
       
     }
   }
@@ -147,7 +162,6 @@ if([no_session,
               </div>
       )}
     
-              <ToastContainer />
               </>
              
   )

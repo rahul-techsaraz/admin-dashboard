@@ -4,12 +4,11 @@ import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { constants } from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleExamInfoValidation, toggelExamInfoEdit, updateExamInfo } from '../../features/examSlice'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom'
 import ExamInfoData from './ExamInfoData'
-import { addNewExam, fetchExamDescriptionById, fetchExamInfoById } from '../../utils/reduxThunk/examThunk'
+import { addNewExam, fetchExamInfoById } from '../../utils/reduxThunk/examThunk'
 import CustomButton from '../../utils/CommonComponents/CustomButton';
+import { updateError } from '../../features/commonSlice'
 
 
 export default function AddNewExam() {
@@ -42,12 +41,15 @@ let day = date.toLocaleString("default", { day: "2-digit" });
         return formattedDate;
     },[])
     const validateDates = (key, value) => {
-        console.log(value)
         if (value >= generateTodayDate()) {
           dispatch(updateExamInfo({key,value}))
         } else {
             // alert('its invalid dates')
-            toast.error("its invalid dates !");
+            dispatch(updateError({
+                    errorType: constants.apiResponseStatus.WARNING,
+                    errorMessage: "Please Select valid date",
+                    flag:true
+                  }))
         }
     }
     useEffect(() => {
@@ -87,7 +89,11 @@ let day = date.toLocaleString("default", { day: "2-digit" });
       payload:examInfoPayload
          }))
         if (examInfoResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
-            toast.success("Your exam info has been updated successfully!");
+             dispatch(updateError({
+                    errorType: constants.apiResponseStatus.SUCCESS,
+                    errorMessage: "Your exam info has been updated successfully!",
+                    flag:true
+                  }))
 
             await dispatch(fetchExamInfoById({
             url: constants.apiEndPoint.EXAM_LIST + "?requestType=basicExamDetails&exam_id=" + examId,
@@ -95,11 +101,19 @@ let day = date.toLocaleString("default", { day: "2-digit" });
             method:constants.httpMethod.GET
             }))
         } else {
-            toast.error("Something went wrong while update the record, Please try again");
+           dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag:true
+                  }))
         }
         }
         catch (err) {
-            toast.error("Something went wrong while update the record, Please try again");
+            dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag:true
+                  }))
             
         }
            
@@ -172,7 +186,6 @@ let day = date.toLocaleString("default", { day: "2-digit" });
          
           </div>
               
-              <ToastContainer />
              
       </>
   )

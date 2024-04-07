@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import ExamInfoData from './ExamInfoData'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addExamHighlights, fetchExamHighlightsById } from '../../utils/reduxThunk/examThunk'
+import { updateError } from '../../features/commonSlice'
 
 
 export default function ExamHighlights() {
@@ -69,18 +70,30 @@ export default function ExamHighlights() {
           payload: examHighlightsPayload
       }))
       if (examHighlightsResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
-           // toast.success("Your exam description has been updated successfully!");
+         dispatch(updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: "Your exam description has been updated successfully!",
+            flag:true
+          }))
             await dispatch(fetchExamHighlightsById({
             url: constants.apiEndPoint.EXAM_LIST + "?requestType=examHighlightsDetails&exam_id=" + examId,
             header: constants.apiHeaders.HEADER,
             method:constants.httpMethod.GET
             }))
         } else {
-           // toast.error("Something went wrong while update the record, Please try again");
+           dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
         }
         }
      catch(err){
-           // toast.error("Something went wrong while update the record, Please try again");
+           dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
       
     }
   }

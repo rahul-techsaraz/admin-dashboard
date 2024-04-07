@@ -7,14 +7,18 @@ import { RouterProvider } from 'react-router-dom';
 import { appRouter } from './Routes/router';
 import { Provider } from 'react-redux';
 import store from './state/store';
+import 'react-toastify/dist/ReactToastify.css';
+import ErrorBoundary from './Components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={ store}>
+ <Provider store={ store}>
     <RouterProvider router={appRouter}/>
 
     </Provider>
+   
+   
   </React.StrictMode>
 );
 

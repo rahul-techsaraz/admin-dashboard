@@ -5,8 +5,6 @@ import ExamOtherSetting from './ExamOtherSetting'
 import AddNewExam from './AddNewExam'
 import { constants } from '../../utils/constants'
 import { updateExamTab } from '../../features/examSlice'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function AddExamDetails() {
@@ -40,7 +38,6 @@ export default function AddExamDetails() {
         }[activeExamTab]
           }
       </div>
-          <ToastContainer />
         
       </>
   )

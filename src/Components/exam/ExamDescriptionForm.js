@@ -1,14 +1,14 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect } from 'react'
 import TextArea from '../../utils/CommonComponents/TextArea'
 import { constants } from '../../utils/constants';
-import {  handleExamDescriptionValidation, handleExamInfoValidation, toggelExamInfoEdit, updateDescriptionsOptions } from '../../features/examSlice';
+import {  handleExamDescriptionValidation, toggelExamInfoEdit, updateDescriptionsOptions } from '../../features/examSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ExamInfoData from './ExamInfoData';
 import { useParams } from 'react-router-dom';
 import CustomButton from '../../utils/CommonComponents/CustomButton';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { fetchExamDescriptionById, fetchExamInfoById, updateExamDescription } from '../../utils/reduxThunk/examThunk';
+
+import { fetchExamDescriptionById, updateExamDescription } from '../../utils/reduxThunk/examThunk';
+import { updateError } from '../../features/commonSlice';
 
 export default function ExamDescriptionForm() {
     
@@ -60,24 +60,35 @@ export default function ExamDescriptionForm() {
           payload: examDescriptionOptionsPayload
         }))
         if (examDescResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
-           // toast.success("Your exam description has been updated successfully!");
+             reduxDispatch(updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: "Your exam description has been updated successfully",
+            flag:true
+          }))
             await reduxDispatch(fetchExamDescriptionById({
             url: constants.apiEndPoint.EXAM_LIST + "?requestType=examDescriptionsDetails&exam_id=" + examId,
             header: constants.apiHeaders.HEADER,
             method:constants.httpMethod.GET
             }))
         } else {
-           // toast.error("Something went wrong while update the record, Please try again");
+             reduxDispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
         }
         }
         catch (err) {
-           // toast.error("Something went wrong while update the record, Please try again"); 
+           reduxDispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          })) 
         }
            
     }
     return (
         <>
-              <ToastContainer />
             
             {!isEdit && examId ? <ExamInfoData examInfoData={examInfoData} /> : (
                 <div style={{ display: " flex", flexWrap: "wrap", gap: '3rem', margin: 'auto', padding: 'auto' }}>

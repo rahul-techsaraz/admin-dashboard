@@ -7,7 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { reset } from '../../features/examSlice';
-import { fetchExamList } from '../../utils/reduxThunk/examThunk';
+import { deleteExam, fetchExamList } from '../../utils/reduxThunk/examThunk';
+import { updateError } from '../../features/commonSlice';
 
 
 
@@ -36,22 +37,33 @@ export default function ExamList() {
    const payload = await {
              exam_id:examId
          }
-        const data = await httpCall(
-            constants.apiEndPoint.EXAM_LIST+"?requestType=basicExamDetails",
-            constants.apiHeaders.HEADER,
-            constants.httpMethod.DELETE,
+        const data = await dispatch(deleteExam({
+           url:constants.apiEndPoint.EXAM_LIST+"?requestType=basicExamDetails",
+            header:constants.apiHeaders.HEADER,
+            method:constants.httpMethod.DELETE,
             payload
-
-        );
-        if (data.status === "success") {
+        }))
+        if (data.payload.status === constants.apiResponseStatus.SUCCESS) {
+          dispatch(updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: "Exam deleted successfully!",
+            flag:true
+          }))
             await fetchAllExamList();
-
         } else {
-            // alert("Something went wrong. Please try again!")
-            toast.error("Something Went wrong . Please try again !");
+          // alert("Something went wrong. Please try again!")
+           dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
         }
       } catch (err) {
-            toast.error("Something Went wrong . Please try again !");
+            dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag:true
+          }))
 }
        
     }
@@ -61,7 +73,6 @@ export default function ExamList() {
       label:'Delete',
              handleDeleteItem: (rowData) => {
               // alert("Are you sure want to delete")
-              toast.error("Deleted Items Successfully !");
          deleteExamListById(rowData.exam_id)
         },
       classname:'deleteButton'
@@ -112,7 +123,6 @@ export default function ExamList() {
     }, [])
   return (
       <>
-       <ToastContainer />
            <ItemList
                   userColumns={userColumns }
                   categoryData={examList }
