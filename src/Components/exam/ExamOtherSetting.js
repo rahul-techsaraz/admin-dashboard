@@ -3,22 +3,35 @@ import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import AddItemForm from '../AddItemForm'
 import { useDispatch, useSelector } from 'react-redux'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
-import { handleExamConfigValidation, updateExamConfig } from '../../features/examSlice'
+import { handleExamConfigValidation, toggelExamInfoEdit, updateExamConfig } from '../../features/examSlice'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { constants } from '../../utils/constants'
+import ExamInfoData from './ExamInfoData'
+import { useParams } from 'react-router-dom'
+import CustomButton from '../../utils/CommonComponents/CustomButton'
+import { addExamConfig, fetchExamConfigById } from '../../utils/reduxThunk/examThunk'
 
 export default function ExamOtherSetting() {
   const dispatch = useDispatch();
+  const { examId } = useParams();
+  const { examConfigInputFieldList } = constants;
+  const {examConfig,isEdit} = useSelector(state => state.exam)
   const {
     no_session,
     session_name,
     is_counselling_announced,
     counselling_date,
     exam_conducting_address,
-    exam_conducting_email
+    exam_conducting_email,
+    isValidationError
   } = useSelector(state => state.exam.examConfig)
   const handleChange = (key, value) => {
+    if (key === 'counselling_date') {
+      validateDates(key,value)
+    } else {
     dispatch(updateExamConfig({ key, value }));
+    }
   }
    const generateTodayDate = useCallback(() => {
          let date = new Date();
@@ -60,57 +73,80 @@ if([no_session,
     counselling_date,
     exam_conducting_address,
     exam_conducting_email])
-   
+  const examConfigInfo = examConfigInputFieldList.map(config => {
+     return {lable:config.label,value:examConfig[config.keyName]}
+  })
+  const handleUpdateExamConfig = async () => {
+    try {
+      const examConfigPayload = await{
+      exam_id: examId,
+      no_of_session: examConfig.no_session,
+      session_name:examConfig.session_name,
+      is_counselling_announced:examConfig.is_counselling_announced,
+      counselling_dates:examConfig.counselling_date,
+      exam_conducting_address:examConfig.exam_conducting_address,
+      exam_conducting_email:examConfig.exam_conducting_email, 
+    };
+      const examConfigResponse = dispatch(addExamConfig({
+          url: constants.apiEndPoint.EXAM_LIST + "?requestType=examImpDetails",
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.PUT,
+          payload: examConfigPayload
+        }))
+      if (examConfigResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
+           // toast.success("Your exam description has been updated successfully!");
+            await dispatch(fetchExamConfigById({
+            url: constants.apiEndPoint.EXAM_LIST + "?requestType=examImpDetails&exam_id=" + examId,
+            header: constants.apiHeaders.HEADER,
+            method:constants.httpMethod.GET
+            }))
+        } else {
+           // toast.error("Something went wrong while update the record, Please try again");
+        }
+        }
+     catch(err){
+           // toast.error("Something went wrong while update the record, Please try again");
+      
+    }
+  }
   return (
     <>
-              <div style={{gap:"20px",display:'flex',margin:"2.5rem 0px",flexWrap:"wrap"}}>
-                 <InputFieldText
-                  inputValue={no_session}
-                  onChange={(e) => handleChange('no_session',e.target.value)}
-                  inputType="text"
+      {!isEdit && examId ? <ExamInfoData examInfoData={examConfigInfo} /> : (
+  <div style={{ gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap" }}>
+        {examConfigInputFieldList.map(config => {
+          return config.type === 'text' || config.type === 'date' ? 
+            (<InputFieldText
+                  inputValue={examConfig[config.keyName]}
+                  onChange={(e) => handleChange(config.keyName,e.target.value)}
+                  inputType={config.type}
                   styles={{ width: '280px' }}
-                  placeholder="No Of Session"
-                  />
-      <InputFieldText
-        inputValue={session_name}
-                  onChange={(e) => handleChange('session_name',e.target.value)}
-                  inputType="text"
-                  styles={{ width: '380px' }}
-                  placeholder="Session Name"
-                  />
-                    <SelectBox
-                  options={[{label:"Counselling Announced",value:""},{label:"Yes",value:"Yes"},{label:"No",value:"No"}]}
-                  inputValue={is_counselling_announced}
-                  onChange={(e) => handleChange('is_counselling_announced',e.target.value)}
+                  placeholder={config.label}
+            />)
+            : (
+              <SelectBox
+                label={config.label}
+                  options={config?.options}
+                  inputValue={examConfig[config.keyName]}
+                  onChange={(e) => handleChange(config.keyName,e.target.value)}
                   styles={{ width: '280px',height:"38px" }}
                   />
-      {is_counselling_announced === 'Yes' && <InputFieldText
-        inputValue={counselling_date}
-        onChange={(e) => validateDates('counselling_date', e.target.value)}
-        inputType="date"
-        styles={{ width: '280px' }}
-        placeholder="counselling_dates"
-      />}
-                                    <InputFieldText
-                    inputType="text"
-                    inputValue={exam_conducting_address}
-                    onChange={(e) => handleChange('exam_conducting_address', e.target.value)}
-                  styles={{ width: '480px' }}
-                  placeholder="Exam Conducting Address"
-                  />
-      <InputFieldText
-                      inputValue={exam_conducting_email}
-                    onChange={(e) => handleChange('exam_conducting_email', e.target.value)}
-                  inputType="text"
-                  styles={{ width: '280px' }}
-                  placeholder="Exam Conducting Email"
-                  />
-                 
-                 
-                   
-             
-                  
+            )
+        })}  
+        {isEdit && examId && <div style={{ display: 'flex',margin:'auto' }}>
+                      <CustomButton
+                          isDisabled={isValidationError}
+                          lable={'Update'}
+                          onClick={() => handleUpdateExamConfig()}
+              />
+              <CustomButton
+                          isDisabled={isValidationError}
+                          lable={'Cancel'}
+                          onClick={() => dispatch(toggelExamInfoEdit())}
+                      />
+                  </div>}  
               </div>
+      )}
+    
               <ToastContainer />
               </>
              

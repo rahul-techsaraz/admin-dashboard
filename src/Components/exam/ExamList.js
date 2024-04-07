@@ -5,26 +5,35 @@ import ItemList from '../ItemList';
 import Loader from '../Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { reset } from '../../features/examSlice';
+import { fetchExamList } from '../../utils/reduxThunk/examThunk';
+
 
 
 export default function ExamList() {
-    const [isLoading, setLoading] = useState(true);
-    const [examList, setExamList] = useState([])
+ // const [examList, setExamList] = useState([]);
+  const dispatch = useDispatch();
+
+  const {examList} = useSelector(state => state.exam)
     //Fetch all exam basic details data
-    const fetchExamList = async () => {
-        setLoading(true)
-        const data = await httpCall(
-            constants.apiEndPoint.EXAM_LIST+"?requestType=basicExamDetails",
-            constants.apiHeaders.HEADER,
-            constants.httpMethod.GET
-        );
-        setExamList(data.data);
-        setLoading(false)
+  const fetchAllExamList = async () => {
+    try {
+      dispatch(reset());
+    dispatch(fetchExamList({
+            url: constants.apiEndPoint.EXAM_LIST+"?requestType=basicExamDetails",
+            header: constants.apiHeaders.HEADER,
+            method:constants.httpMethod.GET
+    }))
+    }
+    catch(err) {
+       toast.error("Something Went wrong . Please try again !");   
+    }
+    
     }
     const deleteExamListById = async (examId) => {
-            setLoading(true)
-
-        const payload = await {
+      try {
+   const payload = await {
              exam_id:examId
          }
         const data = await httpCall(
@@ -35,14 +44,16 @@ export default function ExamList() {
 
         );
         if (data.status === "success") {
-            await fetchExamList();
-            setLoading(false)
+            await fetchAllExamList();
 
         } else {
-            setLoading(false)
             // alert("Something went wrong. Please try again!")
             toast.error("Something Went wrong . Please try again !");
         }
+      } catch (err) {
+            toast.error("Something Went wrong . Please try again !");
+}
+       
     }
      const addNewColumns = [
 
@@ -92,20 +103,22 @@ export default function ExamList() {
     
     ];
     useEffect(() => {
-        fetchExamList()
-    },[])
+      fetchAllExamList();
+       return () => {
+         // cleanup when component unmounts
+         console.log('Leaving');
+         dispatch(reset());
+    }
+    }, [])
   return (
       <>
        <ToastContainer />
-           {!isLoading ? (
-              <ItemList
+           <ItemList
                   userColumns={userColumns }
                   categoryData={examList }
                   addNewColumns={ addNewColumns}
                   labe={'Exam Listing'}
               />
-          ) : <Loader />
-          }
       </>
   )
 }

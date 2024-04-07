@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react'
 import AddItemForm from '../AddItemForm'
 import InputFieldText from '../../utils/CommonComponents/InputFieldText'
-import { handleExamHighlightsValidation, updateExamHighlights } from '../../features/examSlice'
+import { handleExamHighlightsValidation, toggelExamInfoEdit, updateExamHighlights } from '../../features/examSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { constants } from '../../utils/constants'
+import { useParams } from 'react-router-dom'
+import ExamInfoData from './ExamInfoData'
+import CustomButton from '../../utils/CommonComponents/CustomButton'
+import { addExamHighlights, fetchExamHighlightsById } from '../../utils/reduxThunk/examThunk'
+
 
 export default function ExamHighlights() {
-  const dispatch = useDispatch();
+      const dispatch = useDispatch();
+      const { examHighlightsInputFieldList } = constants;
+      const { examHighlights, isEdit } = useSelector(state => state.exam);
+      const { examId } = useParams();
   const {
     conducting_body,
     exam_level,
@@ -13,7 +22,8 @@ export default function ExamHighlights() {
     exam_mode,
     exam_duration,
     paper_marks,
-    marking_scheme
+    marking_scheme,
+    isValidationError
   } = useSelector(state => state.exam.examHighlights);
 
   useEffect(() => {
@@ -36,73 +46,76 @@ export default function ExamHighlights() {
     exam_mode,
     exam_duration,
     paper_marks,
-    marking_scheme])
+        marking_scheme])
+      const examHighlightInfo = examHighlightsInputFieldList.map(highlights => {
+            return {lable:highlights.label,value:examHighlights[highlights.keyName]}
+      })
+  const handleUpdateExamHighlights = async () => {
+    try {
+      const examHighlightsPayload = await { 
+      exam_id: examId,
+      conducting_body: examHighlights.conducting_body,
+      exam_level:examHighlights.exam_level,
+      exam_frequency:examHighlights.exam_frequency,
+      model_of_exam:examHighlights.exam_mode,
+      exam_duration:examHighlights.exam_duration,
+      paper_marks: examHighlights.paper_marks,
+      marking_scheme:examHighlights.marking_scheme,
+      };
+      const examHighlightsResponse = dispatch(addExamHighlights({
+          url: constants.apiEndPoint.EXAM_LIST + "?requestType=examHighlightsDetails",
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.PUT,
+          payload: examHighlightsPayload
+      }))
+      if (examHighlightsResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
+           // toast.success("Your exam description has been updated successfully!");
+            await dispatch(fetchExamHighlightsById({
+            url: constants.apiEndPoint.EXAM_LIST + "?requestType=examHighlightsDetails&exam_id=" + examId,
+            header: constants.apiHeaders.HEADER,
+            method:constants.httpMethod.GET
+            }))
+        } else {
+           // toast.error("Something went wrong while update the record, Please try again");
+        }
+        }
+     catch(err){
+           // toast.error("Something went wrong while update the record, Please try again");
+      
+    }
+  }
+      
   return (
-      <>
-              <div style={{gap:"20px",display:'flex',margin:"2.5rem 0px",flexWrap:"wrap"}}>
-                   <InputFieldText
+        <>
+              {!isEdit && examId ? <ExamInfoData examInfoData={examHighlightInfo} /> : (
+                   <div style={{ gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap" }}>
+                    {examHighlightsInputFieldList.map(highlights => (
+                          <InputFieldText
             inputType="text"
-            inputValue={conducting_body}
+            inputValue={examHighlights[highlights.keyName]}
                   styles={{ width: '280px' }}
-            placeholder="Conducting Body"
-            onChange={(e) => dispatch(updateExamHighlights({key:'conducting_body',value:e.target.value}))}
+            placeholder={highlights.label}
+            onChange={(e) => dispatch(updateExamHighlights({key:highlights.keyName,value:e.target.value}))}
                   />
-                   <InputFieldText
-            inputType="text"
-            inputValue={exam_level}
-                  styles={{ width: '280px' }}
-            placeholder="Exam Level"
-             onChange={(e) => dispatch(updateExamHighlights({key:'exam_level',value:e.target.value}))}
-                  />
-                    <InputFieldText
-            inputType="text"
-            inputValue={exam_frequency}
-            
-                  styles={{ width: '280px' }}
-            placeholder="Exam Frequency"
-             onChange={(e) => dispatch(updateExamHighlights({key:'exam_frequency',value:e.target.value}))}
-            
-                  />
-                  <InputFieldText
-            inputType="text"
-            inputValue={exam_mode}
-            
-                  styles={{ width: '280px' }}
-            placeholder="Model of Exam"
-             onChange={(e) => dispatch(updateExamHighlights({key:'exam_mode',value:e.target.value}))}
-            
-                  />
-                  <InputFieldText
-            inputType="text"
-            inputValue={exam_duration}
-            
-                  styles={{ width: '280px' }}
-            placeholder="Exam Duration"
-             onChange={(e) => dispatch(updateExamHighlights({key:'exam_duration',value:e.target.value}))}
-            
-                  />
-                  <InputFieldText
-            inputType="text"
-            inputValue={paper_marks}
-            
-                  styles={{ width: '480px' }}
-            placeholder="Number of Papers and Total Marks"
-             onChange={(e) => dispatch(updateExamHighlights({key:'paper_marks',value:e.target.value}))}
-            
-                  />
-                  <InputFieldText
-            inputType="text"
-            inputValue={marking_scheme}
-            
-                  styles={{ width: '280px' }}
-            placeholder="Marking Scheme"
-             onChange={(e) => dispatch(updateExamHighlights({key:'marking_scheme',value:e.target.value}))}
-            
-                  />
+                    ))}
+                  {isEdit && examId && <div style={{ display: 'flex',margin:'auto' }}>
+                      <CustomButton
+                          isDisabled={isValidationError}
+                          lable={'Update'}
+                          onClick={() => handleUpdateExamHighlights()}
+              />
+              <CustomButton
+                          isDisabled={isValidationError}
+                          lable={'Cancel'}
+                          onClick={() => dispatch(toggelExamInfoEdit())}
+                      />
+                  </div>}
                  
              
                   
-              </div>
+              </div>  
+              )}
+             
              
       </>
   )

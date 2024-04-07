@@ -147,7 +147,7 @@ export const constants = {
                 },
                 {
                     labelName: "Add New Exam",
-                    path:"add-new-exam"
+                    path: "add-new-exam",
                 },
             ]
         },
@@ -224,6 +224,77 @@ export const constants = {
             label: "Exam Syllabus Description",
             style:""
         },
+    ],
+    examHighlightsInputFieldList:[
+        {
+            keyName: "conducting_body",
+            label: "Conducting_Body",
+            style:""
+        },
+        {
+            keyName: "exam_level",
+            label: "Exam Level",
+            style:""
+        },
+        {
+            keyName: "exam_frequency",
+            label: "Exam Frequency",
+            style:""
+        },
+        {
+            keyName: "exam_mode",
+            label: "Exam Mode",
+            style:""
+        },
+        {
+            keyName: "exam_duration",
+            label: "Exam Duration",
+            style:""
+        },
+        {
+            keyName: "paper_marks",
+            label: "Number of Papers and Total Marks",
+            style:""
+        },
+        {
+            keyName: "marking_scheme",
+            label: "Marking Scheme",
+            style:""
+        }
+    ],
+    examConfigInputFieldList:[
+        {
+            keyName: "no_session",
+            label: "No Of Session",
+            type:"text"
+        },
+        {
+            keyName: "session_name",
+            label: "Session Name",
+            type:"text"
+        },
+        {
+            keyName: "is_counselling_announced",
+            label: "Is Counselling Announced",
+            type: "select",
+            options:[{label:"Counselling Announced",value:""},{label:"Yes",value:"Yes"},{label:"No",value:"No"}]
+        },
+        {
+            keyName: "counselling_date",
+            label: "Counselling Dates",
+            type:"date"
+        },
+        {
+            keyName: "exam_conducting_address",
+            label: "Exam Conducting Address",
+            type:"text"
+        },
+        {
+            keyName: "exam_conducting_email",
+            label: "Exam Conducting Email",
+            type:"text"
+        },
+       
     ],
     examDescriptionInitialState: {
         initialState:{

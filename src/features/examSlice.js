@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { constants } from "../utils/constants";
 import { httpCall, thunkAPICall } from '../utils/service';
-import { fetchExamDescriptionById, updateExamDescription } from "../utils/reduxThunk/examThunk";
+import { fetchExamConfigById, fetchExamDescriptionById, fetchExamHighlightsById, fetchExamInfoById, fetchExamList, updateExamDescription } from "../utils/reduxThunk/examThunk";
 
-const { initialState } = constants.examDescriptionInitialState;
 
  
 
-const initialStates = {
+const initialState = {
   activeExamTab: constants.examDetailsTab.EXAM_INFO,
   examDescriptionsById: {},
   isEdit: false,
+  examList:[],
   isValidationError:true,
   examInfo: {
     isValidationError: true,
+    isEdit:true,
     examName:'',
     applicationStartDates:'',
     applicationEndDates:'',
@@ -62,7 +63,7 @@ const initialStates = {
 
 const examSlice = createSlice({
   name: "exam",
-  initialState:initialStates,
+  initialState,
   reducers: {
       updateExamTab: (state, { payload }) => {
           state.activeExamTab = payload.tabName;
@@ -97,36 +98,87 @@ const examSlice = createSlice({
     handleValidation: (state, { payload }) => {
       state.isValidationError = payload.flag;
     },
+    reset: () => initialState,
+    toggelExamInfoEdit: (state, { payload }) => {
+       state.isEdit = !state.isEdit
+     }
   },
    extraReducers: (builder) => {
-     builder.addCase(fetchExamDescriptionById.fulfilled, (state, { payload }) => {
+     builder.addCase(fetchExamInfoById.fulfilled, (state, { payload }) => {
        if (payload.data) {
-         state.examDescriptionsById = payload.data
-         const examDescriptionsKeys = Object.keys(payload.data);
-         let prepareDescriptionsObj = {}
-         examDescriptionsKeys.map((description) => {
-           if (!['id', 'exam_id', 'updated_at', 'created_at'].includes(description)) {
-          return prepareDescriptionsObj = {...prepareDescriptionsObj,[description]:payload.data[description]}
-           }
-         }) 
-         state.examDescriptionOptions = {...state.examDescriptionOptions,...prepareDescriptionsObj};
-         state.isEdit = false;
+         state.examInfo.examName = payload.data.exam_name;
+         state.examInfo.applicationStartDates = payload.data.application_start_date;
+         state.examInfo.applicationEndDates = payload.data.application_end_date;
+         state.examInfo.examStartDates = payload.data.exam_start_date;
+         state.examInfo.examEndDates = payload.data.exam_end_date;
+         state.examInfo.examYear = payload.data.exam_year;
        } else {
-          const examDescriptionsKeys = Object.keys(payload.data);
-         let prepareDescriptionsObj = {}
-         examDescriptionsKeys.map((description) => {
-           if (!['id', 'exam_id', 'updated_at', 'created_at'].includes(description)) {
-          return prepareDescriptionsObj = {...prepareDescriptionsObj,[description]:''}
-           }
-         }) 
-         state.examDescriptionOptions = {...state.examDescriptionOptions,...prepareDescriptionsObj};
-         state.examDescriptionsById = false
-         state.isEdit = true;
+           state.examInfo.examName = '';
+         state.examInfo.applicationStartDates = '';
+         state.examInfo.applicationEndDates = '';
+         state.examInfo.examStartDates = '';
+         state.examInfo.examEndDates = '';
+         state.examInfo.examYear = '';
+       }
+     });
+       builder.addCase(fetchExamDescriptionById.fulfilled, (state, { payload }) => {
+       if (payload.data) {
+         const objKeys = Object.keys(payload.data);
+         objKeys.map(description => {
+           state.examDescriptionOptions[description]=payload.data[description]
+         })
+       } else {
+           const objKeys = Object.keys(payload.data);
+         objKeys.map(description => {
+           state.examDescriptionOptions[description]=""
+         })
+       }
+       });
+      builder.addCase(fetchExamHighlightsById.fulfilled, (state, { payload }) => {
+       if (payload.data) {
+         state.examHighlights.conducting_body = payload.data.conducting_body;
+         state.examHighlights.exam_level = payload.data.exam_level;
+         state.examHighlights.exam_frequency = payload.data.exam_frequency;
+         state.examHighlights.exam_mode = payload.data.model_of_exam;
+         state.examHighlights.exam_duration = payload.data.exam_duration;
+         state.examHighlights.paper_marks = payload.data.paper_marks;
+         state.examHighlights.marking_scheme = payload.data.marking_scheme;
+       } else {
+           state.examHighlights.conducting_body = '';
+         state.examHighlights.exam_level = '';
+         state.examHighlights.exam_frequency = '';
+         state.examHighlights.exam_mode = '';
+         state.examHighlights.exam_duration = '';
+         state.examHighlights.paper_marks = '';
+         state.examHighlights.marking_scheme = '';
+       }
+      });
+      builder.addCase(fetchExamConfigById.fulfilled, (state, { payload }) => {
+       if (payload.data) {
+         state.examConfig.no_session = payload.data.no_of_session;
+         state.examConfig.session_name = payload.data.session_name;
+         state.examConfig.is_counselling_announced = payload.data.is_counselling_announced;
+         state.examConfig.counselling_date = payload.data.counselling_dates;
+         state.examConfig.exam_conducting_address = payload.data.exam_conducting_address;
+         state.examConfig.exam_conducting_email = payload.data.exam_conducting_email;
+       } else {
+           state.examConfig.no_session = '';
+         state.examConfig.session_name = '';
+         state.examConfig.is_counselling_announced = '';
+         state.examConfig.counselling_date = '';
+         state.examConfig.exam_conducting_address = '';
+         state.examConfig.exam_conducting_email = '';
        }
      });
      builder.addCase(updateExamDescription.fulfilled, (state, { payload }) => {
        if (payload.status === constants.apiResponseStatus.SUCCESS) {
           state.isEdit = false;
+       }       
+     });
+     builder.addCase(fetchExamList.fulfilled, (state, { payload }) => {
+       if (payload.status === constants.apiResponseStatus.SUCCESS) {
+         state.isEdit = false;
+         state.examList = payload.data;
        }       
     });
    
@@ -144,7 +196,9 @@ export const {
   updateExamHighlights,
   updateExamConfig,
   handleExamConfigValidation,
-  handleValidation
+  handleValidation,
+  reset,
+  toggelExamInfoEdit
  } = examSlice.actions;
 
 export default examSlice.reducer;

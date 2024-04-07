@@ -3,23 +3,33 @@ import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { constants } from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { handleExamInfoValidation, updateExamInfo } from '../../features/examSlice'
+import { handleExamInfoValidation, toggelExamInfoEdit, updateExamInfo } from '../../features/examSlice'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom'
+import ExamInfoData from './ExamInfoData'
+import { addNewExam, fetchExamDescriptionById, fetchExamInfoById } from '../../utils/reduxThunk/examThunk'
+import CustomButton from '../../utils/CommonComponents/CustomButton';
 
 
 export default function AddNewExam() {
     const dispatch = useDispatch();
-    const {examInfoSelectBox} = constants
+    const { examInfoSelectBox } = constants;
+    const { examId } = useParams();
+    
     const {
         examName,
         applicationStartDates,
         applicationEndDates,
         examStartDates,
         examEndDates,
-        examYear
-    } = useSelector(state => state.exam.examInfo)
-
+        examYear,
+        isValidationError
+    } = useSelector(state => state.exam.examInfo);
+     const {
+        isEdit
+    } = useSelector(state => state.exam);
+   
     const generateTodayDate = useCallback(() => {
          let date = new Date();
 // Get year, month, and day part from the date
@@ -42,57 +52,126 @@ let day = date.toLocaleString("default", { day: "2-digit" });
     }
     useEffect(() => {
         if (!examName || !applicationStartDates || !applicationEndDates || !examStartDates || !examEndDates || !examYear) {
-        dispatch(handleExamInfoValidation({flag:true}))
-        }
+            dispatch(handleExamInfoValidation({ flag: true }));
+        } else {
         dispatch(handleExamInfoValidation({flag:false}))
+            
+        }
 
-    }, [examName, applicationStartDates, applicationEndDates, examStartDates,examEndDates, examYear])
+    }, [examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear])
     
+    const examInfoData = [
+        { lable: 'Exam Name', value: examName },
+        { lable: 'Exam Application Start Date', value: applicationStartDates },
+        { lable: 'Exam Application End Date', value: applicationEndDates },
+        { lable: 'Exam Start Date', value: examStartDates },
+        { lable: 'Exam Start Date', value: examEndDates },
+        { lable: 'Exam Year', value: examYear },
+    ];
+    const handleUpdateExamInfo = async () => {
+        try {
+             const examInfoPayload = await {
+      exam_id: examId,
+      exam_name: examName,
+      exam_year: examYear,
+      application_start_date: applicationStartDates,
+      application_end_date: applicationEndDates,
+      exam_start_date: examStartDates,
+      exam_end_date: examEndDates
+        };
+        console.log(examInfoPayload)
+         const examInfoResponse = await dispatch(addNewExam({
+      url: constants.apiEndPoint.EXAM_LIST + "?requestType=basicExamDetails",
+      header: constants.apiHeaders.HEADER,
+      method: constants.httpMethod.PUT,
+      payload:examInfoPayload
+         }))
+        if (examInfoResponse.payload.status === constants.apiResponseStatus.SUCCESS) { 
+            toast.success("Your exam info has been updated successfully!");
+
+            await dispatch(fetchExamInfoById({
+            url: constants.apiEndPoint.EXAM_LIST + "?requestType=basicExamDetails&exam_id=" + examId,
+            header: constants.apiHeaders.HEADER,
+            method:constants.httpMethod.GET
+            }))
+        } else {
+            toast.error("Something went wrong while update the record, Please try again");
+        }
+        }
+        catch (err) {
+            toast.error("Something went wrong while update the record, Please try again");
+            
+        }
+           
+    }
   return (
       <>
-              <div style={{gap:"20px",display:'flex',margin:"2.5rem 0px",flexWrap:"wrap"}}>
-                   <InputFieldText
+          {!isEdit && examId ?
+              (<ExamInfoData examInfoData={examInfoData} />)
+              :
+              (<div style={{ gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap" }}>
+              <InputFieldText
                   inputType="text"
-                  onChange={(e) => dispatch(updateExamInfo({key:"examName",value:e.target.value}))}
+                  inputValue={examName}
+                  onChange={(e) => dispatch(updateExamInfo({ key: "examName", value: e.target.value }))}
                   styles={{ width: '280px' }}
                   placeholder="Exam Name"
               />
-              <SelectBox
+                  <SelectBox
+                      label={'Exam Year'}
                   options={examInfoSelectBox}
-                  onChange={(e) => dispatch(updateExamInfo({key:"examYear",value:e.target.value}))}
-                  styles={{ width: '280px', height:'38px' }}
-                  />
-                     <InputFieldText
+                  onChange={(e) => dispatch(updateExamInfo({ key: "examYear", value: e.target.value }))}
+                  styles={{ width: '280px', height: '38px' }}
+              />
+              <InputFieldText
                   inputType="date"
                   inputValue={applicationStartDates}
-                  onChange={(e) => validateDates('applicationStartDates',e.target.value)}
+                  onChange={(e) => validateDates('applicationStartDates', e.target.value)}
                   styles={{ width: '280px' }}
                   placeholder="Application Start Date"
-                  />
-                   <InputFieldText
+              />
+              <InputFieldText
                   inputType="date"
                   inputValue={applicationEndDates}
-                 onChange={(e) => validateDates('applicationEndDates',e.target.value)}
-                  styles={{ width: '280px' }}
-                  placeholder="Application End Date"
-                  />
-                   <InputFieldText
-                  inputType="date"
-                  inputValue={examStartDates}
-                 onChange={(e) => validateDates('examStartDates',e.target.value)}
-                  styles={{ width: '280px' }}
-                  placeholder="Exam Start Date"
-                  />
-                   <InputFieldText
-                  inputType="date"
-                  inputValue={examEndDates}
-                  onChange={(e) => validateDates('examEndDates',e.target.value)}
+                  onChange={(e) => validateDates('applicationEndDates', e.target.value)}
                   styles={{ width: '280px' }}
                   placeholder="Application End Date"
               />
-              
+              <InputFieldText
+                  inputType="date"
+                  inputValue={examStartDates}
+                  onChange={(e) => validateDates('examStartDates', e.target.value)}
+                  styles={{ width: '280px' }}
+                  placeholder="Exam Start Date"
+              />
+              <InputFieldText
+                  inputType="date"
+                  inputValue={examEndDates}
+                  onChange={(e) => validateDates('examEndDates', e.target.value)}
+                  styles={{ width: '280px' }}
+                  placeholder="Application End Date"
+              />
+                  
                  
-              </div>
+              </div>)}
+          {isEdit && examId && <div style={{ display: 'flex',margin:'auto' }}>
+                      <CustomButton
+                          isDisabled={isValidationError}
+                          lable={'Update'}
+                          onClick={() => handleUpdateExamInfo()}
+              />
+              <CustomButton
+                          isDisabled={isValidationError}
+                          lable={'Cancel'}
+                          onClick={() => dispatch(toggelExamInfoEdit())}
+                      />
+                  </div>}
+          <div>
+              
+         
+         
+          </div>
+              
               <ToastContainer />
              
       </>
