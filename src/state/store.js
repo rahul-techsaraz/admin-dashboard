@@ -5,12 +5,14 @@ import subHeaderMenuSlice from '../features/subHeaderMenuSlice';
  
 import userSlice from '../features/userSlice';
 import commonSlice from "../features/commonSlice";
+import courseSlice from "../features/courseSlice";
 const reducers = combineReducers({
   user:userSlice,
   subheadermenu: subHeaderMenuSlice,
   category: categorySlice,
   exam: examSlice,
-  common:commonSlice
+  common:commonSlice,
+  course:courseSlice
 });
 const store = configureStore({
   reducer: reducers

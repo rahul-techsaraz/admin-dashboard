@@ -23,6 +23,8 @@ import ExamDescriptions from "../Components/exam/ExamDescriptions";
 import AddExamDetails from "../Components/exam/AddExamDetails";
 import ViewExamDetails from "../Components/exam/ViewExamDetails";
 import AddNewExamDetails from "../Components/exam/AddNewExamDetails";
+import CourseList from "../Components/course_list/CourseList";
+import AddNewCourse from "../Components/course_list/AddNewCourse";
 
 
 
@@ -54,7 +56,11 @@ export const appRouter = createBrowserRouter([
             },
              {
                 path: "/course-list",
-                element: <CategoryList/>
+                element: <CourseList/>
+            },
+            {
+                path: "/add-new-course",
+                element: <AddNewCourse/>
             },
               {
                 path: "/exam-list",

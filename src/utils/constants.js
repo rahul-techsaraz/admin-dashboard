@@ -6,7 +6,8 @@ export const constants = {
         CATEGORY_LIST:"https://techsaraz.in//admission-cart/api/course_category_list.php",
         ADMIN_REGISTER: "https://techsaraz.in//admission-cart/api/login/adminlogin/register.php",
         UPDATE_USER_ROLE: "https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php",
-        EXAM_LIST:"https://techsaraz.in//admission-cart/api/exam.php"
+        EXAM_LIST:"https://techsaraz.in//admission-cart/api/exam.php",
+        COURSE_DETAILS: "https://techsaraz.in//admission-cart/api/courses.php"
 
     },
     apiHeaders: {
@@ -151,6 +152,19 @@ export const constants = {
                 {
                     labelName: "Add New Exam",
                     path: "add-new-exam",
+                },
+            ]
+        },
+        {
+            name: "Course",
+            navMenu: [
+                {
+                    labelName: "Course List",
+                    path:"course-list"
+                },
+                {
+                    labelName: "Add New Course",
+                    path: "add-new-course",
                 },
             ]
         },
@@ -330,6 +344,85 @@ export const constants = {
             
         ]
     },
-    examInfoSelectBox:[{"label":"Exam Year","value":""},{"label":"2024","value":"2024"},{"label":"2025","value":"2025"},{"label":"2026","value":"2026"}]
-
+    examInfoSelectBox:[{"label":"Exam Year","value":""},{"label":"2024","value":"2024"},{"label":"2025","value":"2025"},{"label":"2026","value":"2026"}],
+    addNewCourseTab: [
+        {label:"Course Basic Details", value: '1' },
+        {label:"Course Description Details", value:'2'},
+        {label:"Course Details", value:'3'},
+        {label:"Sallabus Details", value:'4'},
+    ],
+    
+    courseDescriptionInputFieldList:[
+        {
+            label: "Course Overview",
+            style:""
+        },
+        {
+            label: "Course Entrance Exam Description",
+            style:""
+        },
+        {
+            label: "Course Fee Description",
+            style:""
+        },
+        {
+            label: "Course Placement Description",
+            style:""
+        },
+        {
+            label: "Course Pdmission Process Description",
+            style:""
+        },
+        {
+            label: "Course Eligibility Criteria Description",
+            style:""
+        },
+    ],
+    courseDetailsInputFieldList:[
+        {
+            label: "Eligiblity Criteria",
+            style:""
+        },
+        {
+            label: "Career Options",
+            style:""
+        },
+    ],
+    courseLevelSelectBox:[
+        {"label":"Course Level","value":""},
+        {"label":"Option 1","value":"Option 1"},
+        {"label":"Option 2","value":"Option 2"},
+        {"label":"Option 3","value":"Option 3"},
+    ],
+    courseDurationSelectBox:[
+        {"label":"Course Duration","value":""},
+        {"label":"Option 1","value":"Option 1"},
+        {"label":"Option 2","value":"Option 2"},
+        {"label":"Option 3","value":"Option 3"},
+    ],
+    courseExamTypeSelectBox:[
+        {"label":"Exam Type","value":""},
+        {"label":"Option 1","value":"Option 1"},
+        {"label":"Option 2","value":"Option 2"},
+        {"label":"Option 3","value":"Option 3"},
+    ],
+    courseTopCourseCollegesSelectBox:[
+        {"label":"Top Course Colleges","value":""},
+        {"label":"Option 1","value":"College 1"},
+        {"label":"Option 2","value":"College 2"},
+        {"label":"Option 3","value":"College 3"},
+    ],
+    courseBasicDetailsCourseModeSelectBox:[
+        {"label":"Course Mode", "value":""},
+        {"label":"Regular", "value":"Regular"},
+        {"label":"Distance", "value":"Distance"},
+    ],
+    courseBasicDetailsExamNameSelectBox:[
+        {"label":"Exam Name", "value":""},
+        {"label":"Exam 1", "value":"Exam 1"},
+        {"label":"Exam 2", "value":"Exam 2"},
+        {"label":"Exam 3", "value":"Exam 3"},
+        {"label":"Exam 4", "value":"Exam 4"},
+        {"label":"Exam 5", "value":"Exam 5"},
+    ]
 }

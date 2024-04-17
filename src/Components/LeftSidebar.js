@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import leftLogo from '../assets/images/profile_av.jpg'
 import { Link, useNavigate, useNavigation } from 'react-router-dom'
 import { constants } from '../utils/constants'
@@ -15,9 +15,18 @@ export default function LeftSidebar() {
       const filterSubHeaderArr = constants.subHeaderMenu.filter(data => data.name.toLowerCase() === categoryName.toLowerCase());
     dispatch(updateActiveSubHeader({ subHeaderArr: filterSubHeaderArr }));
     } 
-    
+  }
+  const handleClick = (i)=>{
+    if(i===activeOption){
+      setOpen(!isOpen)
+    }
+    else{
+      setOpen(false)
+      setActiveOption(i)
+      setOpen(true)  
+    }
+  }
   
-}
   return (
     <>
     
@@ -41,8 +50,7 @@ export default function LeftSidebar() {
           <li className="header">MAIN</li>
                 {constants.sideBarMenu.map((data,i) => (
                   <li><Link className="menu-toggle" onClick={() => {
-                    setActiveOption(i)
-                    setOpen(!isOpen)
+                    handleClick(i)
                   }}><i className="zmdi zmdi-city" /><span>{data.heading}</span></Link>
                     <ul className="ml-menu" style={activeOption === i && isOpen ? { display: 'block' } :{display:'none'}}>
                       
