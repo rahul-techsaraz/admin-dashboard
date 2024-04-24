@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import { useStyles } from './courseCss';
 
 function valuetext(value) {
   return value;
@@ -15,7 +16,7 @@ function valuetext(value) {
 export default function CourseBasicDetails() {
   const [examName, setExamName]= useState([])
   const [value, setValue] = useState([20, 37]);
-
+  const classes = useStyles();
   const handleDelete = (e) => {
     const filteredData = examName.filter((data)=>data.exam_name !== e.target.parentElement.parentElement.childNodes[0].innerText)
     // console.log(e.target.parentElement.parentElement.childNodes[0].innerText);
@@ -30,7 +31,7 @@ export default function CourseBasicDetails() {
   },[examName])
   return (
     <>
-      <div style={{gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap", justifyContent: "space-between"}}>
+      <div className={classes.courseBasicDetailsRoot}>
         <InputFieldText
             inputType="text"
             placeholder="Course Name"
@@ -78,7 +79,7 @@ export default function CourseBasicDetails() {
             options={constants.courseBasicDetailsExamNameSelectBox}
             onChange={(e)=>setExamName([...examName, {exam_name:e.target.value}])}
           />
-          <div className="form-group"  style={examName.length > 0 ?  {border:'solid #e83e8c 1px',borderRadius:"1rem", display:"flex", justifyContent:"space-between", flexWrap:"wrap", maxWidth:"400px"} : {border:'solid #e83e8c 1px',borderRadius:"1rem", display:"none"}}>
+          <div className="form-group"  style={examName.length > 0 ?   classes.courseBasicDetailsChip: classes.courseBasicDetailsEmptyChip}>
             <Stack direction="column" spacing={1}>
               {examName.map((value)=>(
                 <Chip label={value.exam_name} variant="outlined" onDelete={handleDelete} />
