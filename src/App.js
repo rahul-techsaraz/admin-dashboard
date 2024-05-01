@@ -45,8 +45,6 @@ function App() {
    }, [isUserAuthenticated])
   const notify = (errorMessage) => toast(errorMessage)
   useEffect(() => {
-      console.log(isError,errorType,errorMessage)
-
     if (isError) {
       notify(errorMessage);
       setTimeout(() => {
