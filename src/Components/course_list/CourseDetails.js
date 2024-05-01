@@ -7,7 +7,7 @@ import { updateCourseInfo } from '../../features/courseSlice'
 import { Chip, Stack } from '@mui/material'
 import { updateError } from '../../features/commonSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
-import { addCourseDetails } from '../../utils/reduxThunk/courseThunk'
+import { addCourseDetails, fetchCourseDetailsById } from '../../utils/reduxThunk/courseThunk'
 
 export default function CourseDetails({courseId}) {
     const {
@@ -77,6 +77,31 @@ export default function CourseDetails({courseId}) {
             }))
         }
     }
+    const handleCancle = async ()=>{
+        try{
+          const response = await dispatch(fetchCourseDetailsById({
+            url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails&course_id="+courseId,
+            header : constants.apiHeaders.HEADER,
+            method : constants.httpMethod.GET,
+          }))
+          if(response.payload.status === constants.apiResponseStatus.SUCCESS){
+            dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))
+          }else{
+            dispatch(updateError({
+              errorType : constants.apiResponseStatus.ERROR,
+              errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+              flag : true
+            }))
+          }
+        }
+        catch(error){
+          dispatch(updateError({
+            errorType : constants.apiResponseStatus.ERROR,
+            errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+            flag : true
+          }))
+        }
+      }
     
     useEffect(()=>{
         if(course_level !== '' && course_duration !== '' && exam_type !== '' && eligiblity_criteria !== '' && top_course_colleges !== ''){
@@ -151,7 +176,7 @@ export default function CourseDetails({courseId}) {
             <CustomButton
               isDisabled={isValidationError}
               lable={'Cancle'}
-              onClick={() => dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))}
+              onClick={() => handleCancle()}
             />
           </> 
           }
