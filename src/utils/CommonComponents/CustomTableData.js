@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Typography } from "@mui/material";
 import '../../assets/css/customtable.css';
 import { Link } from 'react-router-dom';
+
 const AddCustomColumns = ({actionItem,params}) => {
   return (
     <>
@@ -21,8 +22,8 @@ const AddCustomColumns = ({actionItem,params}) => {
 
   )
 }
-export default function CustomTableData({ userColumns, userRows, actionItem, label }) {
-    const actionColumn = [
+export default function CustomTableData({ userColumns, userRows, actionItem, label, path, id }) {
+  const actionColumn = [
     {
       field: "action",
       headerName: "Action",
@@ -36,12 +37,11 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
       },
       {
       field: "status",
-      headerName: "Complete",
+      headerName: "Action",
       width: 200,
         renderCell: (params) => {
-        
         return (
-         <Link to={'/add-exam-description/'+params.row.exam_id}>Complete</Link>
+         <Link to={path + params.row[`${id}`]}>Edit</Link>
         );
       },
     },

@@ -128,6 +128,8 @@ export default function ExamList() {
                   categoryData={examList }
                   addNewColumns={ addNewColumns}
                   labe={'Exam Listing'}
+                  path={'/add-exam-description/'}
+                  id={'exam_id'}
               />
       </>
   )

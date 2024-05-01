@@ -1,7 +1,8 @@
 import React from 'react'
 import CustomTableData from '../utils/CommonComponents/CustomTableData'
 
-export default function ItemList({userColumns,categoryData,addNewColumns,label}) {
+export default function ItemList({userColumns,categoryData,addNewColumns,label,path,id}) {
+    
   return (
      <div class="container-fluid">
               <div class="row clearfix">
@@ -13,7 +14,9 @@ export default function ItemList({userColumns,categoryData,addNewColumns,label})
           userColumns={userColumns} 
           userRows={categoryData} 
           actionItem={addNewColumns} 
-          label={label} />
+          label={label}
+          path={path}
+          id={id} />
                               </div>
                           </div>
                       </div>

@@ -346,7 +346,7 @@ export const constants = {
     },
     examInfoSelectBox:[{"label":"Exam Year","value":""},{"label":"2024","value":"2024"},{"label":"2025","value":"2025"},{"label":"2026","value":"2026"}],
     addNewCourseTab: [
-        {label:"Course Basic Details", value: '1' },
+        {label:"Course Basic Details", value: '1'},
         {label:"Course Description Details", value:'2'},
         {label:"Course Details", value:'3'},
         {label:"Sallabus Details", value:'4'},
@@ -354,37 +354,47 @@ export const constants = {
     
     courseDescriptionInputFieldList:[
         {
+            classKey:"courseDescriptions",
+            key:"course_overview_description",
             label: "Course Overview",
             style:""
         },
         {
+            classKey:"courseDescriptions",
+            key:"course_entrance_exam_description",
             label: "Course Entrance Exam Description",
             style:""
         },
         {
+            classKey:"courseDescriptions",
+            key:"course_fee_description",
             label: "Course Fee Description",
             style:""
         },
         {
+            classKey:"courseDescriptions",
+            key:"course_placement_description",
             label: "Course Placement Description",
             style:""
         },
         {
-            label: "Course Pdmission Process Description",
+            classKey:"courseDescriptions",
+            key:"course_admission_process_description",
+            label: "Course Admission Process Description",
             style:""
         },
         {
+            classKey:"courseDescriptions",
+            key:"course_eligibility_criteria_description",
             label: "Course Eligibility Criteria Description",
             style:""
         },
     ],
     courseDetailsInputFieldList:[
         {
+            classKey:'courseDetails',
+            key:'eligiblity_criteria',
             label: "Eligiblity Criteria",
-            style:""
-        },
-        {
-            label: "Career Options",
             style:""
         },
     ],
@@ -408,9 +418,12 @@ export const constants = {
     ],
     courseTopCourseCollegesSelectBox:[
         {"label":"Top Course Colleges","value":""},
-        {"label":"Option 1","value":"College 1"},
-        {"label":"Option 2","value":"College 2"},
-        {"label":"Option 3","value":"College 3"},
+        {"label":"Option 1","value":"Option 1"},
+        {"label":"Option 2","value":"Option 2"},
+        {"label":"Option 3","value":"Option 3"},
+        {"label":"Option 4","value":"Option 4"},
+        {"label":"Option 5","value":"Option 5"},
+        {"label":"Option 6","value":"Option 6"},
     ],
     courseBasicDetailsCourseModeSelectBox:[
         {"label":"Course Mode", "value":""},
@@ -419,10 +432,65 @@ export const constants = {
     ],
     courseBasicDetailsExamNameSelectBox:[
         {"label":"Exam Name", "value":""},
-        {"label":"Exam 1", "value":"Exam 1"},
-        {"label":"Exam 2", "value":"Exam 2"},
-        {"label":"Exam 3", "value":"Exam 3"},
-        {"label":"Exam 4", "value":"Exam 4"},
-        {"label":"Exam 5", "value":"Exam 5"},
-    ]
+    ],
+    courseSyllabusDetailsYearSelectBox:[
+        {"label":"Year", "value":""},
+        {"label":"2024", "value":"2024"},
+        {"label":"2025", "value":"2025"},
+        {"label":"2026", "value":"2026"},
+    ],
+    courseSyllabusDetailsSemesterSelectBox:[
+        {"label":"Semester", "value":""},
+        {"label":"Semester 1", "value":"Semester 1"},
+        {"label":"Semester 2", "value":"Semester 2"},
+        {"label":"Semester 3", "value":"Semester 3"},
+        {"label":"Semester 4", "value":"Semester 4"},
+        {"label":"Semester 5", "value":"Semester 5"},
+        {"label":"Semester 6", "value":"Semester 6"},
+        {"label":"Semester 7", "value":"Semester 7"},
+        {"label":"Semester 8", "value":"Semester 8"},
+    ],
+    courseIsPublished :{
+        notPublished : "NOT PUBLISHED",
+        published : "PUBLISHED",
+    },
+    SyllabusDetailsUserColumns : [
+        {
+            field: "year_name",
+            headerName: "Year",
+            width: 100,
+        },
+        {
+          field: "semester_name",
+          headerName: "Semester Name",
+          width: 150,
+        },
+        {
+          field: "list_of_subject",
+          headerName: "List of Subject",
+          width: 150,
+        },
+    ],
+    courseListUserColumns : [
+        {
+            field: "course_name",
+            headerName: "Course Name",
+            width: 200,
+        },
+        {
+            field: "course_mode",
+            headerName: "Course Mode",
+            width: 200,
+        },
+        {
+            field: "course_duration",
+            headerName: "Course Duration",
+            width: 200,
+        },
+        {
+            field: "course_fee",
+            headerName: "Course Fee",
+            width: 200,
+        },
+    ],
 }
