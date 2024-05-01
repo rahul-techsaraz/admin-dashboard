@@ -18,7 +18,7 @@ export default function AddNewExamDetails() {
  const createNewExam = async () => {
    try {
       const examId = await uuid();
-    const examInfoPayload = await {
+      const examInfoPayload = await {
       exam_id: examId,
       exam_name: examInfo.examName,
       exam_year: examInfo.examYear,
@@ -158,19 +158,18 @@ marking_scheme:examHighlights.marking_scheme,
     }, [])
   return (
     <>
-          <AddItemForm label={'Add New Exam'}>
+      <AddItemForm label={'Add New Exam'}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-<AddExamDetails />
-        <div style={{display:'flex'}}>
-    <CustomButton
+          <AddExamDetails />
+          <div style={{display:'flex'}}>
+            <CustomButton
               isDisabled={isDisabled}
               lable={'Submit'}
               onClick={() => createNewExam()}
-          />
+            />
           </div>
         </div>
-        
-        </AddItemForm>
-      </>
+      </AddItemForm>
+    </>
   )
 }

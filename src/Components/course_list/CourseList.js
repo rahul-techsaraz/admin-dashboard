@@ -1,66 +1,101 @@
 import React, { useEffect } from 'react'
-import { fetchCourseDetails } from '../../utils/reduxThunk/courseThunk';
+import { deleteCourseBasicDetails, fetchCourseDetails } from '../../utils/reduxThunk/courseThunk';
 import { constants } from '../../utils/constants';
 import ItemList from '../ItemList';
 import { useDispatch, useSelector } from 'react-redux';
+import { resetCourse } from '../../features/courseSlice';
+import { fetchExamList } from '../../utils/reduxThunk/examThunk';
+import { toast } from 'react-toastify';
+import { reset } from '../../features/examSlice';
+import { updateError } from '../../features/commonSlice';
 
 
 export default function CourseList() {
     const dispatch = useDispatch()
     const{allCourseDetails} = useSelector(state=>state.course)
-    const userColumns = [
-        {
-            field: "course_name",
-            headerName: "Course Name",
-            width: 200,
-        },
-        {
-            field: "course_mode",
-            headerName: "Course Mode",
-            width: 200,
-        },
-        {
-            field: "course_duration",
-            headerName: "Course Duration",
-            width: 200,
-        },
-        {
-            field: "course_fee",
-            headerName: "Course Fee",
-            width: 200,
-        },
-        {
-            field: "course_accepting_exam",
-            headerName: "Course Accepting Exam",
-            width: 200,
-        },
-    ]
+    
     const addNewColumns = [
         {
             label:'Delete',
-            // handleDeleteItem: (rowData) => {
-            //   // alert("Are you sure want to delete")
-            //     deleteExamListById(rowData.exam_id)
-            // },
+            handleDeleteItem: (rowData) => {
+              deleteCourseListById(rowData.course_id)
+            },
             classname:'deleteButton'
         }
     ]
+    const deleteCourseListById = async (courseId)=>{
+        try{
+            const payload = { course_id : courseId}
+            const data = await dispatch(deleteCourseBasicDetails({
+                url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseListing",
+                header : constants.apiHeaders.HEADER,
+                method : constants.httpMethod.DELETE,
+                payload
+            }))
+            if(data.payload.status === constants.apiResponseStatus.SUCCESS){
+                dispatch(updateError({
+                    errorType: constants.apiResponseStatus.SUCCESS,
+                    errorMessage: "Course deleted successfully!",
+                    flag:true
+                }))
+                await fetchAllCourseDetails()
+            }
+            else{
+                dispatch(updateError({
+                    errorType : constants.apiResponseStatus.WARNING,
+                    errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag : true,
+                }))
+            }
+        }
+        catch(error){
+            dispatch(updateError({
+                errorType : constants.apiResponseStatus.WARNING,
+                errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+                flag : true,
+            }))
+        }
+    }
+    const fetchAllCourseDetails = async ()=>{
+        try{
+            dispatch(resetCourse())
+            dispatch(fetchCourseDetails({
+                url: constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseListing",
+                header: constants.apiHeaders.HEADER,
+                method: constants.httpMethod.GET
+            }))
+        }
+        catch(err){
+            toast.error("Something Went wrong . Please try again !");
+        }
+    }
+    const fetchAllExamList = async () => {
+        try {
+            dispatch(reset());
+            dispatch(fetchExamList({
+                url: constants.apiEndPoint.EXAM_LIST+"?requestType=basicExamDetails",
+                header: constants.apiHeaders.HEADER,
+                method:constants.httpMethod.GET
+            }))
+        }
+        catch(err){
+           toast.error("Something Went wrong . Please try again !");   
+        }
+    }
     useEffect(()=>{
-        dispatch(fetchCourseDetails({
-            url: constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails",
-            header: constants.apiHeaders.HEADER,
-            method: constants.httpMethod.GET
-    }))
-    // console.log(courseDetails)
-  },[])
+        fetchAllCourseDetails();
+        fetchAllExamList();
+    },[])
     
   return (
     <>
         <ItemList
-            userColumns={userColumns}
+            userColumns={constants.courseListUserColumns}
             categoryData={allCourseDetails}
             addNewColumns={addNewColumns}
             labe={'Course Details'}
+            path={'/add-new-course/'}
+            id={'course_id'}
         />
     </>
     

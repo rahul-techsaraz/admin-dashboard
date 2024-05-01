@@ -62,6 +62,11 @@ export const appRouter = createBrowserRouter([
                 path: "/add-new-course",
                 element: <AddNewCourse/>
             },
+            {
+                path: "/add-new-course/:courseId",
+                element: <AddNewCourse/>,
+            },
+            
               {
                 path: "/exam-list",
                 element: <ExamList/>

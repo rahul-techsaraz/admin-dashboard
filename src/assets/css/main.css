@@ -22945,3 +22945,9 @@ section small {
 .hide{
     display: none;
 }
+/* chip related CSS modified */
+.css-m69qwo-MuiStack-root{
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}

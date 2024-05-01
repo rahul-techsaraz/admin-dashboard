@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addExamConfig, addExamHighlights, addNewExam, deleteExam, fetchExamConfigById, fetchExamDescriptionById, fetchExamHighlightsById, fetchExamInfoById, fetchExamList, updateExamDescription } from "../utils/reduxThunk/examThunk";
 import { constants } from "../utils/constants";
-import { fetchCourseDetails } from "../utils/reduxThunk/courseThunk";
+import { fetchCourseBasicDetailsById, fetchCourseDescriptionById, fetchCourseDetails, fetchCourseDetailsById, fetchSyllabusDetailsById } from "../utils/reduxThunk/courseThunk";
 
 const {ERROR_MESSAGE} = constants.apiResponseMessage
 const initialState = {
@@ -195,6 +195,42 @@ const commonSlice = createSlice({
       state.isLoading = false
     });
     builder.addCase(fetchCourseDetails.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseDetailsById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCourseDetailsById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseDetailsById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseDescriptionById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCourseDescriptionById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseDescriptionById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseBasicDetailsById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCourseBasicDetailsById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseBasicDetailsById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchSyllabusDetailsById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchSyllabusDetailsById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchSyllabusDetailsById.rejected, (state, {payload})=>{
       state.isLoading = false
     });
   }
