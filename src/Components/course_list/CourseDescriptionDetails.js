@@ -4,7 +4,7 @@ import TextArea from '../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateCourseInfo } from '../../features/courseSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
-import { addCourseDescription } from '../../utils/reduxThunk/courseThunk'
+import { addCourseDescription, fetchCourseDescriptionById } from '../../utils/reduxThunk/courseThunk'
 import { updateError } from '../../features/commonSlice'
 
 export default function CourseDescriptionDetails({courseId}) {
@@ -60,6 +60,31 @@ export default function CourseDescriptionDetails({courseId}) {
       }))
     }
   }
+  const handleCancle = async ()=>{
+    try{
+      const response = await dispatch(fetchCourseDescriptionById({
+        url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDescriptionsDetails&course_id="+courseId,
+        header : constants.apiHeaders.HEADER,
+        method : constants.httpMethod.GET,
+      }))
+      if(response.payload.status === constants.apiResponseStatus.SUCCESS){
+        dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))
+      }else{
+        dispatch(updateError({
+          errorType : constants.apiResponseStatus.ERROR,
+          errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+          flag : true
+        }))
+      }
+    }
+    catch(error){
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+        flag : true
+      }))
+    }
+  }
   useEffect(()=>{
     if(course_overview_description !== '' && course_entrance_exam_description !== '' && course_fee_description !== '' && course_placement_description !== '' && course_admission_process_description !== '' && course_eligibility_criteria_description !== ''){
       dispatch(updateCourseInfo({classKey : 'courseDescriptions', key : 'isValidationError', value : false}))
@@ -94,7 +119,7 @@ export default function CourseDescriptionDetails({courseId}) {
             <CustomButton
               isDisabled={isValidationError}
               lable={'Cancle'}
-              onClick={() => dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))}
+              onClick={() => handleCancle()}
             />
           </> 
           }

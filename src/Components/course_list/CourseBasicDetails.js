@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateCourseInfo } from '../../features/courseSlice'
 import { updateError } from '../../features/commonSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
-import { addNewCourse } from '../../utils/reduxThunk/courseThunk'
+import { addNewCourse, fetchCourseBasicDetailsById } from '../../utils/reduxThunk/courseThunk'
 
 function valuetext(value) {
 	return value;
@@ -324,6 +324,31 @@ export default function CourseBasicDetails({courseId}) {
       }))
     }
   }
+  const handleCancle = async ()=>{
+    try{
+      const response = await dispatch(fetchCourseBasicDetailsById({
+        url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseListing&course_id="+courseId,
+        header : constants.apiHeaders.HEADER,
+        method : constants.httpMethod.GET,
+      }))
+      if(response.payload.status === constants.apiResponseStatus.SUCCESS){
+        dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))
+      }else{
+        dispatch(updateError({
+          errorType : constants.apiResponseStatus.ERROR,
+          errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+          flag : true
+        }))
+      }
+    }
+    catch(error){
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+        flag : true
+      }))
+    }
+  }
   useEffect(()=>{
     if(course_name !== '' && course_mode!== '' && course_duration !== '' && course_fee_min !== '' && course_fee_max !== '' && course_description!=='' && course_accepting_exam.length > 0){
       dispatch(updateCourseInfo({classKey : "courseInfo", key : 'isValidationError', value : false}))
@@ -336,11 +361,7 @@ export default function CourseBasicDetails({courseId}) {
     const newExamList = [...examName, ...examNameList ]
     setExamName(newExamList)
   },[])
-  // useEffect(()=>{
-  //   if(!isEdit){
-  //     dispatch(resetCourse())
-  //   }
-  // },[isEdit])
+  
   return (
     <>
       <div>
@@ -422,7 +443,7 @@ export default function CourseBasicDetails({courseId}) {
             <CustomButton
               isDisabled={isValidationError}
               lable={'Cancle'}
-              onClick={() => dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))}
+              onClick={() => handleCancle()}
             />
           </> 
           }

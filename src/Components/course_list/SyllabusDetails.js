@@ -112,6 +112,31 @@ export default function SyllabusDetails({courseId}) {
             }))
         }
     }
+    const handleCancle = async ()=>{
+        try{
+          const response = await dispatch(fetchSyllabusDetailsById({
+            url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicSyllabusDetails&course_id="+courseId,
+            header : constants.apiHeaders.HEADER,
+            method : constants.httpMethod.GET,
+          }))
+          if(response.payload.status === constants.apiResponseStatus.SUCCESS){
+            dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))
+          }else{
+            dispatch(updateError({
+              errorType : constants.apiResponseStatus.ERROR,
+              errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+              flag : true
+            }))
+          }
+        }
+        catch(error){
+          dispatch(updateError({
+            errorType : constants.apiResponseStatus.ERROR,
+            errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+            flag : true
+          }))
+        }
+      }
 
     useEffect(()=>{
         if(year_name !== '' && semester_name !== '' && list_of_subject !== ''){
@@ -235,7 +260,7 @@ export default function SyllabusDetails({courseId}) {
             <CustomButton
               isDisabled={isValidationError}
               lable={'Cancle'}
-              onClick={() => dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))}
+              onClick={() => handleCancle()}
             />
           </> 
           }
