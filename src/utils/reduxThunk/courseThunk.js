@@ -1,7 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {httpCall} from '../service';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {httpCall} from '../service';
 
 export const fetchCourseDetails = createAsyncThunk(
 	'coures/fetchCourseDetails',

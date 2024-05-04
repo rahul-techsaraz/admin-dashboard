@@ -1,6 +1,5 @@
 import {createBrowserRouter, RouterProvider, Route} from 'react-router-dom';
 import App from '../App';
-import Main from '../Components/Main';
 import AddCollege from '../Components/AddCollege';
 import Header from '../Components/Header';
 import LeftSidebar from '../Components/LeftSidebar';
@@ -27,31 +26,6 @@ import CourseList from '../Components/course_list/CourseList';
 import AddNewCourse from '../Components/course_list/AddNewCourse';
 import AddNewCollegeDetails from '../Components/AddNewCollegeDetails';
 import Main from '../Components/Main';
-import AddCollege from '../Components/AddCollege';
-import Header from '../Components/Header';
-import LeftSidebar from '../Components/LeftSidebar';
-import CategoryList from '../Components/category_list/CategoryList';
-import CollegeList from '../Components/CollegeList';
-import SignIn from '../Components/SignIn';
-import CollegeListImg from '../Components/CollegeListImg';
-import CollegeListImg2 from '../Components/CollegeListImg2';
-import CollegeDetail from '../Components/CollegeDetail';
-import Agent from '../Components/Agent';
-import AddAgent from '../Components/AddAgent';
-import AgentProfile from '../Components/AgentProfile';
-import SignUp from '../Components/SignUp';
-import ProtectedRoute from '../utils/ProtectedRoute';
-import AddNewCategory from '../Components/category_list/AddNewCategory';
-import AdminRequest from '../Components/admin/AdminRequest';
-import ExamList from '../Components/exam/ExamList';
-import AddNewExam from '../Components/exam/AddNewExam';
-import ExamDescriptions from '../Components/exam/ExamDescriptions';
-import AddExamDetails from '../Components/exam/AddExamDetails';
-import ViewExamDetails from '../Components/exam/ViewExamDetails';
-import AddNewExamDetails from '../Components/exam/AddNewExamDetails';
-import CourseList from '../Components/course_list/CourseList';
-import AddNewCourse from '../Components/course_list/AddNewCourse';
-import AddNewCollegeDetails from '../Components/AddNewCollegeDetails';
 
 export const appRouter = createBrowserRouter([
 	{
@@ -103,6 +77,7 @@ export const appRouter = createBrowserRouter([
 				path: '/add-new-exam',
 				element: <AddNewExamDetails />,
 			},
+
 			{
 				path: '/add-exam-description/:examId',
 				element: <ViewExamDetails />,
@@ -114,6 +89,10 @@ export const appRouter = createBrowserRouter([
 			{
 				path: '/college-list-img',
 				element: <CollegeListImg />,
+			},
+			{
+				path: 'add-new-college',
+				element: <AddNewCollegeDetails />,
 			},
 			{
 				path: '/college-list-img2',
