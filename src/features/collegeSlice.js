@@ -25,7 +25,6 @@ const collegeSlice = createSlice({
 	reducers: {},
 	extraReducers: builder => {
 		builder.addCase(fetchCollegeDetails.fulfilled, (state, {payload}) => {
-			console.log(payload.data);
 			if (payload.status === constants.apiResponseStatus.SUCCESS) {
 				state.isEdit = false;
 				state.collegeList = payload.data;

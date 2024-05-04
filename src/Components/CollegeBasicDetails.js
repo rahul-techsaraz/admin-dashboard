@@ -23,9 +23,7 @@ export default function CollegeBasicDetails() {
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
-	useEffect(() => {
-		console.log(collegeName);
-	}, [collegeName]);
+	
 	return (
 		<>
 			<div

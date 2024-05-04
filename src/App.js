@@ -25,16 +25,13 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Loader from './Components/Loader/Loader';
-import { ToastContainer, toast } from 'react-toastify';
-import { updateError } from './features/commonSlice';
-import { constants } from './utils/constants';
+import CustomAllert from './utils/CommonComponents/CustomAllert';
 
 
 
 
 function App() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { activeSubHeader } = useSelector(state => state.subheadermenu);
   const { isUserAuthenticated } = useSelector(state => state.user);
   const {isLoading,isError,errorMessage,errorType} = useSelector(state => state.common)
@@ -43,25 +40,11 @@ function App() {
   navigate('/sign-in')
 }
    }, [isUserAuthenticated])
-  const notify = (errorMessage) => toast(errorMessage)
-  useEffect(() => {
-    if (isError) {
-      notify(errorMessage);
-      setTimeout(() => {
-        dispatch(updateError({
-                    errorType: '',
-                    errorMessage: "",
-                    flag:false
-                  }))
-              },4500)
-    }
-    
-  },[isError,errorMessage,errorType])
   
   return (
   <>
       {isLoading && <Loader />}
-      <ToastContainer />
+      {isError && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
       
       
     <body className="theme-purple">

@@ -112,7 +112,6 @@ marking_scheme:examHighlights.marking_scheme,
           navigate('/exam-list');
         }
       })
-     console.log(isAllResolved)
     } else if(examInfoResponse.payload.data.toLowerCase().includes('duplicate')){
        dispatch(updateError({
                     errorType: constants.apiResponseStatus.WARNING,
@@ -152,7 +151,6 @@ marking_scheme:examHighlights.marking_scheme,
      useEffect(() => {
        return () => {
          // cleanup when component unmounts
-         console.log('AddNewExamDetails Leaving');
          dispatch(reset());
     }
     }, [])

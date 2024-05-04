@@ -11,7 +11,6 @@ export const httpCall = async (url, headers, method, body) => {
 	const options = await prepareOption(headers, method, body);
 	const data = await fetch(url, options);
 	const json = await data.json();
-	console.log(json);
 	return json;
 };
 const prepareOption = (headers, method, body) => {

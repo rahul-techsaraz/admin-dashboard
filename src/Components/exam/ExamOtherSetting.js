@@ -44,7 +44,6 @@ let day = date.toLocaleString("default", { day: "2-digit" });
         return formattedDate;
     },[])
     const validateDates = (key, value) => {
-        console.log(value)
         if (value >= generateTodayDate()) {
           dispatch(updateExamConfig({key,value}))
         } else {

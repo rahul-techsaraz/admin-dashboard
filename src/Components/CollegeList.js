@@ -3,10 +3,7 @@ import ItemList from './ItemList';
 import {useDispatch, useSelector} from 'react-redux';
 import {constants} from '../utils/constants';
 import {toast} from 'react-toastify';
-import {
-	deleteCollege,
-	fetchCollegeDetails,
-} from '../utils/reduxThunk/collegeThunk';
+import {deleteCollege, fetchCollegeDetails} from '../utils/reduxThunk/collegeThunk';
 import {updateError} from '../features/commonSlice';
 
 export default function CollegeList() {
@@ -130,9 +127,7 @@ export default function CollegeList() {
 		fetchCollegeList();
 	}, []);
 
-	useEffect(() => {
-		console.log(collegeList);
-	}, [collegeList]);
+	
 	return (
 		<>
 			<ItemList

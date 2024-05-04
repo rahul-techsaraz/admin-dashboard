@@ -28,113 +28,113 @@ import AddNewCollegeDetails from '../Components/AddNewCollegeDetails';
 import Main from '../Components/Main';
 
 export const appRouter = createBrowserRouter([
-	{
-		path: '/',
-		element: (
-			<ProtectedRoute>
-				<App />
-			</ProtectedRoute>
-		),
-		children: [
-			{
-				path: '/',
-				element: <Main />,
-			},
-			{
-				path: '/add-college',
-				element: <AddCollege />,
-			},
-			{
-				path: '/category-list',
-				element: <CategoryList />,
-			},
-			{
-				path: '/add-new-category',
-				element: <AddNewCategory />,
-			},
-			{
-				path: '/state-list',
-				element: <CategoryList />,
-			},
-			{
-				path: '/course-list',
-				element: <CourseList />,
-			},
-			{
-				path: '/add-new-course',
-				element: <AddNewCourse />,
-			},
-			{
-				path: '/add-new-course/:courseId',
-				element: <AddNewCourse />,
-			},
+    {
+        path:"/",
+        element: <ProtectedRoute><App/></ProtectedRoute>,
+        children:[
+            {
+                path: "/",
+                element: <Main/>
 
-			{
-				path: '/exam-list',
-				element: <ExamList />,
-			},
-			{
-				path: '/add-new-exam',
-				element: <AddNewExamDetails />,
-			},
+            },
+            {
+                path: "/add-college",
+                element: <AddCollege/>
+            },
+            {
+                path: "/category-list",
+                element: <CategoryList/>
+            },
+            {
+                path: "/add-new-category",
+                element: <AddNewCategory />
+            },
+            {
+                path: "/add-new-category/:categoryId",
+                element: <AddNewCategory />
+            },
+            {
+                path: "/state-list",
+                element: <CategoryList/>
+            },
+             {
+                path: "/course-list",
+                element: <CourseList/>
+            },
+            {
+                path: "/add-new-course",
+                element: <AddNewCourse/>
+            },
+            {
+                path: "/add-new-course/:courseId",
+                element: <AddNewCourse/>,
+            },
+            
+              {
+                path: "/exam-list",
+                element: <ExamList/>
+            },
+            {
+                path: "/add-new-exam",
+                element: <AddNewExamDetails />
+            },
+            {
+                path: "/add-exam-description/:examId",
+                element: <ViewExamDetails/>
+            },
+               {
+                path:"/list-college",
+                element: <CollegeList/>
 
-			{
-				path: '/add-exam-description/:examId',
-				element: <ViewExamDetails />,
-			},
-			{
-				path: '/list-college',
-				element: <CollegeList />,
-			},
-			{
-				path: '/college-list-img',
-				element: <CollegeListImg />,
-			},
-			{
-				path: 'add-new-college',
-				element: <AddNewCollegeDetails />,
-			},
-			{
-				path: '/college-list-img2',
-				element: <CollegeListImg2 />,
-			},
-			{
-				path: '/college-detail',
-				element: <CollegeDetail />,
-			},
-			{
-				path: '/agent',
-				element: <Agent />,
-			},
-			{
-				path: '/add-agent',
-				element: <AddAgent />,
-			},
-			{
-				path: '/agent-profile',
-				element: <AgentProfile />,
-			},
-			{
-				path: '/admin-dashboard',
-				element: <AdminRequest />,
-			},
-		],
-		errorElement: (
-			<>
-				<body class="theme-purple">
-					<Header />
-					<LeftSidebar />
-					<div style={{margin: 300}}>Error</div>
-				</body>
-			</>
-		),
-	},
-	{
-		path: '/sign-in',
-		element: <SignIn />,
-	},
-	{
-		path: '/sign-up',
-		element: <SignUp />,
-	},
-]);
+            },
+            {
+                path:'/college-list-img',
+                element:<CollegeListImg/>
+            },
+            {
+                path:'/college-list-img2',
+                element:<CollegeListImg2/>
+            },
+            {
+                path:'/college-detail',
+                element:<CollegeDetail/>
+            },
+           {
+            path:'/agent',
+            element:<Agent/>
+           },
+           {
+            path:'/add-agent',
+            element:<AddAgent/>
+           },
+           {
+            path:'/agent-profile',
+            element:<AgentProfile/>
+           },
+           {
+            path:'/admin-dashboard',
+            element:<AdminRequest/>
+           }
+        ],
+        errorElement: (<>
+            <body class="theme-purple">
+                <Header />
+           <LeftSidebar />
+           <div style={{margin:300}}>Error</div>
+             </body>
+            
+       </>)
+
+    },
+    {
+        path:"/sign-in",
+        element: <SignIn/>
+    },
+    {
+        path:"/sign-up",
+        element: <SignUp/>
+    },
+           
+        
+    
+])

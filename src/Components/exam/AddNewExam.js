@@ -81,8 +81,7 @@ let day = date.toLocaleString("default", { day: "2-digit" });
       exam_start_date: examStartDates,
       exam_end_date: examEndDates
         };
-        console.log(examInfoPayload)
-         const examInfoResponse = await dispatch(addNewExam({
+        const examInfoResponse = await dispatch(addNewExam({
       url: constants.apiEndPoint.EXAM_LIST + "?requestType=basicExamDetails",
       header: constants.apiHeaders.HEADER,
       method: constants.httpMethod.PUT,

@@ -39,9 +39,7 @@ export default function CourseBasicDetails({courseId}) {
 	} = useSelector(state => state.course.courseInfo);
 	const {isEdit} = useSelector(state => state.course);
 
-	useEffect(() => {
-		console.log(examName);
-	}, [examName]);
+	
 
 	const handleDelete = value => {
 		const filteredData = course_accepting_exam.filter(data => data !== value);
