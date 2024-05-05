@@ -3,7 +3,7 @@ import ItemList from './ItemList';
 import {useDispatch, useSelector} from 'react-redux';
 import {constants} from '../utils/constants';
 import {toast} from 'react-toastify';
-import {deleteCollege, fetchCollegeDetails} from '../utils/reduxThunk/collegeThunk';
+// import {deleteCollege, fetchCollegeDetails} from '../utils/reduxThunk/collegeThunk';
 import {updateError} from '../features/commonSlice';
 
 export default function CollegeList() {
@@ -62,7 +62,7 @@ export default function CollegeList() {
 			label: 'Delete',
 			handleDeleteItem: rowData => {
 				// alert("Are you sure want to delete")
-				deleteCollegeListById(rowData.college_id);
+				// deleteCollegeListById(rowData.college_id);
 			},
 			classname: 'deleteButton',
 		},
@@ -70,13 +70,14 @@ export default function CollegeList() {
 
 	const fetchCollegeList = async () => {
 		try {
-			dispatch(
-				fetchCollegeDetails({
-					url: constants.apiEndPoint.COLLEGE_DETAILS,
-					header: constants.apiHeaders.HEADER,
-					method: constants.httpMethod.GET,
-				}),
-			);
+			// dispatch(
+			// 	fetchCollegeDetails({
+			// 		url: constants.apiEndPoint.COLLEGE_DETAILS,
+			// 		header: constants.apiHeaders.HEADER,
+			// 		method: constants.httpMethod.GET,
+			// 	}),
+			console.log('')
+			//);
 		} catch (error) {
 			toast.error('Something Went wrong . Please try again !');
 		}
@@ -87,12 +88,12 @@ export default function CollegeList() {
 				college_id: collegeId,
 			};
 			const data = await dispatch(
-				deleteCollege({
-					url: constants.apiEndPoint.COLLEGE_DETAILS,
-					header: constants.apiHeaders.HEADER,
-					method: constants.httpMethod.DELETE,
-					payload,
-				}),
+				// deleteCollege({
+				// 	url: constants.apiEndPoint.COLLEGE_DETAILS,
+				// 	header: constants.apiHeaders.HEADER,
+				// 	method: constants.httpMethod.DELETE,
+				// 	payload,
+				// }),
 			);
 			if (data.payload.status === constants.apiResponseStatus.SUCCESS) {
 				dispatch(

@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className="navbar-collapse justify-content-end">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to={'/'}>Home</Link>
+              <Link className="nav-link" to={'/'}>login</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to={'/'}>Search Result</Link>

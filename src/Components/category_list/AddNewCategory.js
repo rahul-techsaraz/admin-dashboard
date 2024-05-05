@@ -52,10 +52,10 @@ export default function AddNewCategory() {
             }))
         }
       } 
-      else if(response.payload.data.message.toLowerCase().includes('duplicate')){
+      else if(response.payload.data.toLowerCase().includes('duplicate')){
         dispatch(updateError({
           errorType : constants.apiResponseStatus.ERROR,
-          errorMessage : response.payload.data.message,
+          errorMessage : 'Duplicate Category Not Allowed',
           flag : true
         }))
       }
@@ -170,7 +170,7 @@ export default function AddNewCategory() {
   return (
     <>
     <AddItemForm>
-      <div style={{display:"flex", alignItems:"baseline"}}>
+      <div className = 'd-flex align-items-center'>
         {categoryId === '' || categoryId === undefined ?
         <>
           <InputFieldText inputValue={categoryInputValue} placeholder={'Category Name'} inputType={'text'} onChange={(e) => dispatch(updateACategoryInputValue({ data: e.target.value }))} />
