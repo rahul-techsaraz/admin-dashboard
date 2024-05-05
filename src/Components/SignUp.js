@@ -144,89 +144,118 @@ const validatePass=()=>{
   <Navbar/>
   {/* End Navbar */}
   <div className="page-header">
-    <div className="page-header-image" style={{backgroundImage: `url(${bgLogo})` }} />
-    <div className="container">
-      <div className="col-md-12 content-center">
-        <div className="card-plain">
-          <form className="form" method action="#" style={{width:"350px",margin:"auto"}}>
-            <div className="header">
-              <div className="logo-container">
-                <img src={logo1} width={80} alt />
-              </div>
-              <h5>SignUp</h5>
-            </div>
-            <div className="content"> 
-            <div className="input-group">
-                <input type="text"  className="form-control " placeholder="Enter First Name"  onChange={(event)=>setFname(event.target.value)} />
-                <span className="input-group-addon">
-                  <i className="zmdi zmdi-account-circle" />
-                </span>
-              </div>
-              <div className="input-group">
-                <input type="text"  className="form-control " placeholder="Enter Last Name"  onChange={(event)=>setLname(event.target.value)} />
-                <span className="input-group-addon">
-                  <i className="zmdi zmdi-account-circle" />
-                </span>
-              </div>
-              <div className="input-group">
-                <input type="tel"  className="form-control " placeholder="Enter Phone Number" onChange={(event)=>setPhone(event.target.value)}  />
-                <span className="input-group-addon">
-                  <i className={phone.length === 0 ? "zmdi zmdi-account-circle" : "zmdi zmdi-account-circle hide" } />
-                  <button type="button" className={phone.length === 0 ? "btn btn-info hide" : "btn btn-info" }  style={{height: "20px" ,width: "20px", textAlign:"center"}}>Validate</button>
-                </span>
-               
-              </div>                                               
-              <div className="input-group">
-                <input type="email"  className="form-control " placeholder="Enter Email"  onChange={(event)=>setEmail(event.target.value)}   />
-                <span className="input-group-addon">
-                  <i className={email.length === 0 ? "zmdi zmdi-account-circle" : "zmdi zmdi-account-circle hide" } />
-                  {isValidEmail&& <button type="button" className= "btn btn-info"   style={{height: "20px" ,width: "20px", textAlign:"center"}}>Validate</button>}
-                </span>
-              </div>
-              <div className="input-group">
-                <input type="password" placeholder="Password" className="form-control"  onChange={(event)=>setPass(event.target.value)} />
-                <span className="input-group-addon">
-                  <i className="zmdi zmdi-lock" />
-                </span>
-              </div>
-              <div className="input-group">
-                <input type="password" placeholder="Confirm Password" className="form-control" onChange={(event)=>setCpass(event.target.value)}  />
-                <span className="input-group-addon">
-                  <i className="zmdi zmdi-lock" />
-                </span>
-              </div>
-              <div className="input-group">              
-              <div className="flex items-center  gap-2"><p className='text-left'>Gender</p>
-              <input type="radio" name="status" class="mx-2 w-[20px] h-[20px] text-[20px]" style={{width:"16px", height:"16px", fontSize:"20px"}} value="Female" onChange={(event)=>setGender(event.target.value)} /> Female
-              <input type="radio" name="status" className="mx-2 w-[20px] h-[20px] text-[20px]" style={{width:"16px", height:"16px", fontSize:"20px"}} value="Male" onChange={(event)=>setGender(event.target.value)} /> Male</div>
-              </div>
-              <div className="input-group">
-                <input type="password" placeholder="account name" className="form-control" onChange={(event)=>setAname(event.target.value)}  />
-                <span className="input-group-addon">
-                  <i className="zmdi zmdi-lock" />
-                </span>
-              </div>
-              <div className="input-group">
-                <input type="password" placeholder="institute name" className="form-control" onChange={(event)=>setIname(event.target.value)}  />
-                <span className="input-group-addon">
-                  <i className="zmdi zmdi-lock" />
-                </span>
-              </div>
-           
-            </div>
-            <div className="footer text-center">
-              {/* <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad " >AS ADMIN</Link> */}
-              <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad" onClick={()=>handleRegister()}>Submit</Link>
-            </div>
-            <div>
-            {/* <h5><Link  className="link text-white">Forgot Password?</Link></h5> */}
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  
-  </div>
+				<div
+					className="page-header-image"
+					style={{backgroundImage: `url(${bgLogo})`}}
+				/>
+				<div className="container">
+					<div className="col-md-12 content-center">
+						<div className="card-plain">
+							<form
+								className="form "
+								method
+								action="#"
+								style={{width: '450px', margin: 'auto'}}
+							>
+								<div className="header">
+									<div className="logo-container">
+										<img src={logo1} width={80} alt />
+									</div>
+									<h5>SignUp</h5>
+								</div>
+								<div className="content">
+									<div className="row g-3 mb-3">
+										<div className="col-md-6 ">
+											<input
+												type="text"
+												className="form-control py-2"
+												placeholder="Enter First Name"
+												onChange={event => setFname(event.target.value)}
+											/>
+										</div>
+										<div className="col-md-6">
+											<input
+												type="text"
+												className="form-control py-2"
+												placeholder="Enter Last Name"
+												onChange={event => setLname(event.target.value)}
+											/>
+										</div>
+									</div>
+									<div className="row  mb-3">
+										<div className="col-md-6 ">
+											<input
+												type="tel"
+												className="form-control py-2 "
+												placeholder="Enter Phone Number"
+												onChange={event => setPhone(event.target.value)}
+											/>
+										</div>
+										<div className="col-md-6">
+											<input
+												type="email"
+												className="form-control py-2"
+												placeholder="Enter Email"
+												onChange={event => setEmail(event.target.value)}
+											/>
+										</div>
+									</div>
+									<div className="row  mb-3">
+										<div className="col-md-6">
+											<div className="d-flex">
+												<input
+													type="password"
+													className="form-control py-2 "
+													placeholder="Password"
+													onChange={event => setPass(event.target.value)}
+												/>
+												</div>
+										</div>
+										<div className="col-md-6">
+											<input
+												type="password"
+												className="form-control py-2"
+												placeholder="Confirm Password"
+												onChange={event => setCpass(event.target.value)}
+											/>
+											</div>
+									</div>
+									<div className="row  mb-3">
+										<div className="col-md-6">
+											<input
+												type="text"
+												placeholder="account name"
+												className="form-control py-2"
+												onChange={event => setAname(event.target.value)}
+											/>
+										</div>
+										<div className="col-md-6">
+											<input
+												type="text"
+												placeholder="institute name"
+												className="form-control py-2"
+												onChange={event => setIname(event.target.value)}
+											/>
+										</div>
+									</div>
+									</div>
+								<div className="footer text-center">
+									{/* <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad " >AS ADMIN</Link> */}
+									<Link
+										className="btn btn-primary btn-round btn-lg btn-block btn-ad"
+										onClick={() => handleRegister()}
+									>
+										Submit
+									</Link>
+								</div>
+								<div>
+									{/* <h5><Link  className="link text-white">Forgot Password?</Link></h5> */}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
   
 
 

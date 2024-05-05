@@ -120,7 +120,7 @@ export default function SignIn() {
               </div>
             </div>
             <div className="footer text-center">
-              <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad " onClick={()=>handleLogin()}>AS ADMIN</Link>
+              <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad " onClick={()=>handleLogin()}>Login</Link>
               {/* <Link to={'/'} className="btn btn-primary btn-round btn-lg btn-block btn-ad">AS AGENT</Link> */}
             </div>
             <div>
