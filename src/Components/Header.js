@@ -6,7 +6,6 @@ import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../fe
 
 
 export default function Header() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout=()=>{
         if(window.confirm('Are you sure you want to logout?')) {
@@ -25,17 +24,11 @@ export default function Header() {
     <ul className="nav navbar-nav navbar-left">
         <li>
             <div className="navbar-header">
-                <Link to={'/'} className="bars"></Link>
                 <Link className="navbar-brand" to={'/'}><img src={logo1} width="80" alt="Admission Kart"/></Link>
             </div>
         </li>
-        <li className="hidden-md-down"><Link to={'/'} title="Events"><i className="zmdi zmdi-calendar"></i></Link></li>
-        <li className="hidden-md-down"><Link to={'/'} title="Inbox"><i className="zmdi zmdi-email"></i></Link></li>
-        <li><Link to={'/'} title="Contact List"><i className="zmdi zmdi-account-box-phone"></i></Link></li>
-        <li className="dropdown"> <Link to={'/'} className="dropdown-toggle" data-toggle="dropdown" role="button"><i className="zmdi zmdi-notifications"></i>
-            <div className="notify">
-            </div>
-            </Link>
+       
+        <li className="dropdown"> 
             <ul className="dropdown-menu pullDown">
                 <li className="body">
                     <ul className="menu list-unstyled">
@@ -99,15 +92,9 @@ export default function Header() {
                 <li className="footer"> <Link to={'/'}>View All</Link> </li>
             </ul>
         </li>        
-        <li className="hidden-sm-down">
-            <div className="input-group">
-                <input type="text" className="form-control" placeholder="Search..."/>
-                <span className="input-group-addon"><i className="zmdi zmdi-search"></i></span>
-            </div>
-        </li>        
-        <li className="float-right">
+              
+        <li className="float-right" style={{padding:'1rem'}}>
             <Link to={'/'} className="mega-menu" data-close="true"><i className="zmdi zmdi-power" onClick={()=>handleLogout()}></i></Link>
-            <Link to={'/'} className="js-right-sidebar" data-close="true"><i className="zmdi zmdi-settings zmdi-hc-spin"></i></Link>
         </li>
     </ul>
 </nav>
