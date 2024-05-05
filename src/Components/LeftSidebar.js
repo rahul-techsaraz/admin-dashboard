@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import leftLogo from '../assets/images/profile_av.jpg'
+import leftLogo from '../assets/images/profile_avatar.jpg'
 import { Link, useNavigate, useNavigation } from 'react-router-dom'
 import { constants } from '../utils/constants'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateActiveSubHeader } from '../features/subHeaderMenuSlice'
 
 export default function LeftSidebar() {
@@ -10,6 +10,7 @@ export default function LeftSidebar() {
   const navigate = useNavigate();
   const [activeOption, setActiveOption] = useState(0);
   const [isOpen, setOpen] = useState(false);
+  const {userInfo}  = useSelector(state=> state.user)
   const handleNavigation = (path, categoryName) => {
     if (categoryName) {
       const filterSubHeaderArr = constants.subHeaderMenu.filter(data => data.name.toLowerCase() === categoryName.toLowerCase());
@@ -42,8 +43,8 @@ export default function LeftSidebar() {
             <div className="user-info">
               <div className="image"><Link to={'/'}><img src={leftLogo} alt="User" /></Link></div>
               <div className="detail">
-                <h4>Michael</h4>
-                <small>Desigantion</small>
+                <h4>{userInfo.first_name}</h4>
+                <small>{userInfo.designation}</small>
               </div>                           
             </div>
           </li>

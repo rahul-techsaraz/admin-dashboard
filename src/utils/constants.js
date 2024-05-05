@@ -75,13 +75,13 @@ export const constants = {
 
         // },
         {
-            heading: "Admin Dashboard",
+            heading: "Admin",
             isOpen:false,
             list: [
                 {
-                    option_name: "Admin Dashboard",
+                    option_name: "Users",
                     option_path: '/admin-dashboard',
-                    name:"Admin Dashboard",
+                    name:"Users",
                 },
                 
                            

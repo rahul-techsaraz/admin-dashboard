@@ -8,11 +8,10 @@ import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { constants } from '../../utils/constants'
 import { v4 as uuid } from 'uuid'
 import { updateError } from '../../features/commonSlice'
-import { addSyllabusDetails, fetchCourseDetails, fetchSyllabusDetailsById } from '../../utils/reduxThunk/courseThunk'
+import { addSyllabusDetails, fetchSyllabusDetailsById } from '../../utils/reduxThunk/courseThunk'
 
 export default function SyllabusDetails({courseId}) {
     const id = uuid();
-    const [isDisabled, setDisabled] = useState(true)
     const dispatch = useDispatch()
     const {
         isValidationError,
@@ -23,7 +22,6 @@ export default function SyllabusDetails({courseId}) {
         accumulated_data,
     } = useSelector(state=>state.course.syllabusDetails)
     const {isEdit, isEditSyllabus} = useSelector(state=>state.course)
-    const [updatedAccumulatedData, setUpdatedAccumulatedData] = useState(accumulated_data)
     
     const addNewColumns = [
         {
@@ -141,10 +139,8 @@ export default function SyllabusDetails({courseId}) {
     useEffect(()=>{
         if(year_name !== '' && semester_name !== '' && list_of_subject !== ''){
             dispatch(updateCourseInfo({classKey : 'syllabusDetails', key : 'isValidationError', value : false}))
-            setDisabled(false)
         }else{
             dispatch(updateCourseInfo({classKey : 'syllabusDetails', key : 'isValidationError', value : true}))
-            setDisabled(true)
         }
     },[year_name, semester_name, list_of_subject])
     
