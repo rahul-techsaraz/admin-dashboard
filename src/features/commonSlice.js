@@ -4,12 +4,12 @@ import { constants } from "../utils/constants";
 import { fetchCourseBasicDetailsById, fetchCourseDescriptionById, fetchCourseDetails, fetchCourseDetailsById, fetchSyllabusDetailsById } from "../utils/reduxThunk/courseThunk";
 import { addNewCategory, approveUser, deleteCategory, fetchAllUserList, fetchCategory, fetchCategoryById, loginUsers } from "../utils/reduxThunk/commonThunk";
 
-const {ERROR_MESSAGE} = constants.apiResponseMessage;
+const {ERROR_MESSAGE} = constants.apiResponseMessage
 const initialState = {
-	isLoading: false,
-	isError: false,
-	errorMessage: '',
-	errorType: '',
+   isLoading: false,
+   isError: false,
+   errorMessage: "",
+   errorType:""
 };
 
 const commonSlice = createSlice({

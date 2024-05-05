@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {useState} from 'react';
-import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg';
-import bgLogo from '../assets/images/login.jpg';
-import {Link, useNavigate} from 'react-router-dom';
-import {constants} from '../utils/constants';
-import {httpCall} from '../utils/service';
-import Navbar from './Navbar';
-import {ToastContainer, toast} from 'react-toastify';
+import React, { useEffect } from 'react'
+import {useState} from 'react'
+import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
+import bgLogo from '../assets/images/login.jpg'
+import { Link, useNavigate } from 'react-router-dom'
+import { constants } from '../utils/constants'
+import { httpCall } from '../utils/service'
+import Navbar from './Navbar'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { handleUserAuthentication } from '../features/userSlice'
