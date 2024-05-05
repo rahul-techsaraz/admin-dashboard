@@ -349,7 +349,7 @@ export const constants = {
         {label:"Course Basic Details", value: '1'},
         {label:"Course Description Details", value:'2'},
         {label:"Course Details", value:'3'},
-        {label:"Sallabus Details", value:'4'},
+        {label:"Syllabus Details", value:'4'},
     ],
     
     courseDescriptionInputFieldList:[

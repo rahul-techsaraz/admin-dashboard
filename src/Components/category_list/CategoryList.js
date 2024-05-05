@@ -83,16 +83,6 @@ fetchCatgeoryData()
   },
     ]
     const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
-    
-    
-  
-    {
-      field: "course_category_id",
-      headerName: "Category Id",
-      width: 200,
-      
-    },
     {
       field: "category_name",
       headerName: "Category Name",
