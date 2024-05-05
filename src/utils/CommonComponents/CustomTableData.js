@@ -19,7 +19,7 @@ const AddCustomColumns = ({actionItem,params,path,id}) => {
         <Button
           variant="contained"
           color="success">
-            <Link to={path + params.row[`${id}`]} style={{color:'white'}}>Edit</Link>
+            <Link to={path + params.row[`${id}`]} style={{color:'white'}}>View Details</Link>
           </Button>
          
     </div>
@@ -33,7 +33,7 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 350,
       renderCell: (params) => {
         return (
           
