@@ -27,7 +27,7 @@ export default function AddCourse({courseId}) {
         { lable: 'Course Fee Min', value: courseInfo.course_fee_min },
         { lable: 'Course Fee Max', value: courseInfo.course_fee_max },
         { lable: 'Course Description', value: courseInfo.course_description },
-        { lable: 'Course Accepting Exam', value: courseInfo.course_accepting_exam },
+        { lable: 'Course Accepting Exam', value: courseInfo.course_accepting_exam.join(', ') },
     ]
     const courseDescriptionData = [
         { lable: 'Course Overview Description', value: courseDescriptions.course_overview_description },

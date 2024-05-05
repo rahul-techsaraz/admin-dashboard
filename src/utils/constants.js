@@ -17,7 +17,7 @@ export const constants = {
         GET: "GET",
         POST: "POST",
         PUT: "PUT",
-        DELETE:"DELETE"
+        DELETE:"DELETE",
     },
     apiResponseStatus: {
         SUCCESS: "success",
@@ -54,26 +54,26 @@ export const constants = {
             ]
 
         },
-        {
-            heading: "Colleges",
-            isOpen:false,
-            list: [
-                {
-                    option_name: "College List",
-                    option_path:'/add-college'
-                },
+        // {
+        //     heading: "Colleges",
+        //     isOpen:false,
+        //     list: [
+        //         {
+        //             option_name: "College List",
+        //             option_path:'/add-college'
+        //         },
                  
-                 {
-                    option_name: "Add New College",
-                    option_path:'/add-college'
-                },
-                  {
-                    option_name: "College Detail",
-                    option_path:'/college-detail'
-                },
-            ]
+        //          {
+        //             option_name: "Add New College",
+        //             option_path:'/add-college'
+        //         },
+        //           {
+        //             option_name: "College Detail",
+        //             option_path:'/college-detail'
+        //         },
+        //     ]
 
-        },
+        // },
         {
             heading: "Admin Dashboard",
             isOpen:false,
@@ -88,43 +88,43 @@ export const constants = {
             ]
 
         },
-        {
-            heading: "Agents",
-            isOpen:false,
-            list: [
-                {
-                    option_name: "Agent",
-                    option_path: '/agent',
-                    name:"Agent",
-                },
-                 {
-                    option_name: "Add Agent",
-                     option_path: '/add-agent',
-                    name:"Add Agent",
+        // {
+        //     heading: "Agents",
+        //     isOpen:false,
+        //     list: [
+        //         {
+        //             option_name: "Agent",
+        //             option_path: '/agent',
+        //             name:"Agent",
+        //         },
+        //          {
+        //             option_name: "Add Agent",
+        //              option_path: '/add-agent',
+        //             name:"Add Agent",
                     
-                },
-                {
-                    option_name: "Agent Profile",
-                     option_path: '/agent-profile',
-                    name:"Agent Profile",
+        //         },
+        //         {
+        //             option_name: "Agent Profile",
+        //              option_path: '/agent-profile',
+        //             name:"Agent Profile",
                     
-                },
-                 {
-                    option_name: "Shop",
-                     option_path: '/add-college',
-                    name:"Shop"
-                },
-                 {
-                    option_name: "Villa",
-                    option_path:'/add-college'
-                },
-                  {
-                    option_name: "Property Detail",
-                    option_path:'/add-college'
-                },
-            ]
+        //         },
+        //          {
+        //             option_name: "Shop",
+        //              option_path: '/add-college',
+        //             name:"Shop"
+        //         },
+        //          {
+        //             option_name: "Villa",
+        //             option_path:'/add-college'
+        //         },
+        //           {
+        //             option_name: "Property Detail",
+        //             option_path:'/add-college'
+        //         },
+        //     ]
 
-        },
+        // },
        
     ],
     subHeaderMenu: [

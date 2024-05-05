@@ -4,43 +4,67 @@ import { constants } from '../../utils/constants';
 import UserListTable from './UserListTable';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { approveUser, fetchAllUserList } from '../../utils/reduxThunk/commonThunk';
+import { updateError } from '../../features/commonSlice';
+import { updateUserList, updatefilteredUserList } from '../../features/userSlice';
 
 export default function AdminRequest() {
-  const [userList, setUserList] = useState([]);
-  const [filteredUserList,setFilteredUserList] = useState([])
-  const [activeLable, setActiveLable] = useState('Pending Request');
+  // const [userList, setUserList] = useState([]);
+  // const [filteredUserList,setFilteredUserList] = useState([])
+  const [activeLable, setActiveLable] = useState('Pending');
+  const {userList,filteredUserList} = useSelector(state=>state.user)
+  const dispatch = useDispatch()
+  
   const options = [
-    { label: 'active', value: 'active' },
-   {label:'inactive',value:'inactive'},
-   {label:'decline',value:'decline'},
+    { label: 'User Status', value: '' },
+    { label: 'Active', value: 'active' },
+    { label:'Inactive', value:'inactive'},
+    { label:'Decline',  value:'decline'},
     
  ]
 
   const fetchUserList = async () => {
-    const userData = await httpCall(
-      constants.apiEndPoint.GET_ALL_USERLIST,
-      constants.apiHeaders.HEADER,
-      constants.httpMethod.GET
-    );
-    if (userData.status === 200) {
-      await setUserList(userData.userlist) 
-      const filteredUser = userList.filter(user => user.user_status.toLowerCase() === 'inactive')
-      setFilteredUserList(filteredUser)
+    try{
+      const response = await dispatch(fetchAllUserList({
+          url : constants.apiEndPoint.GET_ALL_USERLIST,
+          header : constants.apiHeaders.HEADER,
+          method : constants.httpMethod.GET,
+      }))
+      if(response.payload.success === 1){
+        dispatch(updateError({
+          errorType : constants.apiResponseStatus.SUCCESS,
+          errorMessage : 'Users List Fetched',
+          flag : true
+        }))
+      }
+      else{
+        dispatch(updateError({
+          errorType : constants.apiResponseStatus.ERROR,
+          errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+          flag : true
+        }))
+      }
     }
-    
-
+    catch(error){
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+        flag : true
+      }))
+    }
   }
   const filterUserList = (filterBy) => {
+    setActiveLable(filterBy)
     if (filterBy === 'all') {
-        setFilteredUserList(userList)
+      dispatch(updatefilteredUserList({filteredUserList : userList}))
       return;
     }
     const filterUser = userList.filter(user => filterBy.toLowerCase() === user.user_status.toLowerCase())
-        setFilteredUserList(filterUser)
-    
+    dispatch(updatefilteredUserList({filteredUserList : filterUser}))
   }
   useEffect(() => {
-fetchUserList()
+    fetchUserList()
   }, [])
   
   const handleApprovedApi = async (userData, requestType) => {
@@ -51,16 +75,22 @@ fetchUserList()
     "user_role": userData.user_role.value 
 
     }
-    const data = await httpCall(constants.apiEndPoint.UPDATE_USER_ROLE, constants.apiHeaders.HEADER, constants.httpMethod.PUT, payloadData);
-    if (data.success === 1) {
+    const response = await dispatch(approveUser({
+        url : constants.apiEndPoint.UPDATE_USER_ROLE,
+        header : constants.apiHeaders.HEADER,
+        method : constants.httpMethod.PUT,
+        payload : payloadData
+    }))
+    if(response.payload.success === 1){
       fetchUserList()
-    } else {
-      // alert('Something went wrong , Please try again')
-      toast.error("Something Went wrong . Please try again !");
-      
     }
-
-
+    else{
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+        flag : true
+      }))
+    }
   }
 
   return (
@@ -74,7 +104,7 @@ fetchUserList()
           {/* <h2><strong>Basic</strong> Information <small>Description text here...</small> </h2> */}
           <div className='row align-items-center justify-content-between'>
           
-          <h2 className='admin-h '>Pending Request</h2>
+          <h2 className='admin-h '>{activeLable[0].toUpperCase() + activeLable.slice(1).toLowerCase()} Request</h2>
                   <div className='d-flex justify-end'>
                     <button className=' btn btn-outline-primary btn btn-primary 'onClick={() => filterUserList('inactive')}>PENDING</button>
                     <button className=' btn btn-outline-primary btn btn-success ' onClick={() => filterUserList('active')}>APPROVED</button>

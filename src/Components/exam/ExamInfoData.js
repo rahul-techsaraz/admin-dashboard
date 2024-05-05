@@ -22,9 +22,7 @@ export default function ExamInfoData({ examInfoData }) {
 ))}
               </div>
                     
-              {/* <div className='model-grid-parent'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem vestibulum, volutpat lacus id, elementum sapien. Fusce varius lectus at lacus accumsan, non blandit urna fermentum. Praesent iaculis feugiat nisl, in commodo mauris. Pellentesque blandit dignissim lacus, in posuere sapien
-              </div> */}
+              
               </div>
   )
 }

@@ -51,6 +51,10 @@ export const appRouter = createBrowserRouter([
                 element: <AddNewCategory />
             },
             {
+                path: "/add-new-category/:categoryId",
+                element: <AddNewCategory />
+            },
+            {
                 path: "/state-list",
                 element: <CategoryList/>
             },

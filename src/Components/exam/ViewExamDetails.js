@@ -42,7 +42,6 @@ export default function ViewExamDetails() {
         }
        return () => {
          // cleanup when component unmounts
-         console.log('ViewExamDetails Leaving');
          dispatch(reset());
     }
     }, [])
@@ -50,13 +49,7 @@ export default function ViewExamDetails() {
         <AddItemForm label={'Add New Exam'}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
 <AddExamDetails />
-        {/* <div style={{display:'flex'}}>
-          <CustomButton
-              isDisabled={true}
-              lable={'Update'}
-              onClick={() => {}}
-          />
-          </div> */}
+        
         </div>
         
         </AddItemForm>

@@ -8,10 +8,14 @@ import { httpCall } from '../utils/service'
 import Navbar from './Navbar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { handleUserAuthentication } from '../features/userSlice'
+import Loader from './Loader/Loader'
+import CustomAllert from '../utils/CommonComponents/CustomAllert'
+import { updateError } from '../features/commonSlice'
 
 export default function SignIn() {
+  const {isLoading,isError,errorMessage,errorType} = useSelector(state=>state.common)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [fname,setFname] = useState('');
@@ -26,20 +30,13 @@ export default function SignIn() {
   const [isValidEmail, setValidEmail] = useState(false);
   
 
-  // useEffect(()=>{
-  //   if(email!== ""){
-  //     if(validateEmail()){
-  //       setValidEmail(true)
-  //     }else{
-  //       setValidEmail(false)
-  //     }
-  //   }
-  
-  // },[email])
-
 const validateName =()=>{
   if(fname.length === 0 || lname.length === 0){
-    toast.error("Name Field can't be Empty")   
+    dispatch(updateError({
+      errorType : constants.apiResponseStatus.ERROR,
+      errorMessage : "Name Field can't be Empty",
+      flag : true
+    }))   
   }else{
     return true
   }
@@ -48,8 +45,11 @@ const validateName =()=>{
 const validatePhone = ()=>{
   const phoneRegex = /[0-9]{10}/;
   if(!phone.match(phoneRegex)){
-    // alert("Invalid Phone Number ")
-    toast.error("Invalid Phone Number")
+    dispatch(updateError({
+      errorType : constants.apiResponseStatus.ERROR,
+      errorMessage : "Invalid Phone Number",
+      flag : true
+    }))
   }else{
     return true
   }
@@ -59,7 +59,11 @@ const validatePhone = ()=>{
 const validateEmail = ()=>{
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
   if(!email.match(emailRegex)){
-    toast.success("Invalid Email")
+    dispatch(updateError({
+      errorType : constants.apiResponseStatus.ERROR,
+      errorMessage : "Invalid Email",
+      flag : true
+    }))
   }else{
     return true;
   }
@@ -68,9 +72,17 @@ const validateEmail = ()=>{
 
 const validatePass=()=>{
   if(pass.length<8){
-    toast.error("Your password must be at least 8 characters long!")
+    dispatch(updateError({
+      errorType : constants.apiResponseStatus.ERROR,
+      errorMessage : "Your password must be at least 8 characters long!",
+      flag : true
+    }))
   }else if(pass!==cPass){
-    toast.error("Password Missmatch")
+    dispatch(updateError({
+      errorType : constants.apiResponseStatus.ERROR,
+      errorMessage : "Password Missmatch",
+      flag : true
+    }))
   }else{
     return true
   }
@@ -78,7 +90,7 @@ const validatePass=()=>{
 
 
   
-   const handleRegister = async () => {
+  const handleRegister = async () => {
     if(validateName() && validatePhone() && validateEmail() && validatePass()){
     const payload = {
     "first_name":fname,
@@ -88,19 +100,25 @@ const validatePass=()=>{
     "password":pass,
     "account_name":aname,
     "institute_name":iname,
-    "gender":gender,
     "designation":"Admin",
     "user_role":"",
     "user_status":"inactive",
     "approvedBy":""
-
-   
-    }
+  }
     const json = await httpCall(constants.apiEndPoint.ADMIN_REGISTER, constants.apiHeaders.HEADER, constants.httpMethod.POST, payload);
     if(json.success==1){
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.SUCCESS,
+        errorMessage : json.message,
+        flag : true
+      }))
       navigate('/sign-in')
     }else{
-      toast.error(json.message)
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : json.message,
+        flag : true
+      }))
     }
    }
   }
@@ -113,21 +131,15 @@ const validatePass=()=>{
         .then(data => {
          if (data.success === 1) {
         dispatch(handleUserAuthentication({ flag: false }))
-        // navigate('/')
-        
       }
-      //  else {
-      //   dispatch(handleUserAuthentication({ flag: false }))
-      // }
       })
-
-     
     }
   },[])
 
   return (
     <>
-
+      {isLoading && <Loader />}
+      {isError && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
   {/* Navbar */}
   <Navbar/>
   {/* End Navbar */}
@@ -215,7 +227,7 @@ const validatePass=()=>{
     </div>
   
   </div>
-  <ToastContainer />
+  
 
 
     </>

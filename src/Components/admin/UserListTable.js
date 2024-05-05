@@ -20,9 +20,10 @@ export default function UserListTable({ userList,options,onClick }) {
  
  
   const roleOption = [
+    { label: 'User Role', value: '' },
     { label: 'superAdmin', value: 'superAdmin' },
-   {label:'admin',value:'admin'},
-   {label:'agent',value:'agent'},
+    { label:'admin', value:'admin'},
+    { label:'agent', value:'agent'},
     
  ]
   return (

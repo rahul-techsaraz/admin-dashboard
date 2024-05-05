@@ -117,7 +117,6 @@ export default function ExamList() {
       fetchAllExamList();
        return () => {
          // cleanup when component unmounts
-         console.log('Leaving');
          dispatch(reset());
     }
     }, [])

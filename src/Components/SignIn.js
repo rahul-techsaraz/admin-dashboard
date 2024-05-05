@@ -6,59 +6,89 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 import { constants } from '../utils/constants'
 import { httpCall } from '../utils/service'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticateUsers, loginUsers } from '../utils/reduxThunk/commonThunk'
+import { updateError } from '../features/commonSlice'
+import CustomAllert from '../utils/CommonComponents/CustomAllert'
+import Loader from './Loader/Loader'
 
 export default function SignIn() {
+  const {isLoading,isError,errorMessage,errorType} = useSelector(state=>state.common)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email,setEmail] = useState('');
   const [pass, setPass] = useState('');
-
+  
   const handleLogin = async () => {
-    const payload = {
+    try{
+      const payload = {
       "email":email,
       "password":pass
+      }
+      const response = await dispatch(loginUsers({
+        url : constants.apiEndPoint.USER_LOGIN,
+        header : constants.apiHeaders.HEADER,
+        method : constants.httpMethod.POST,
+        payload : payload,
+      }))
+      if(response.payload.success === 1){
+        dispatch(handleUserAuthentication({ flag: true }))
+        localStorage.setItem('token',response.payload.token)
+        localStorage.setItem('userData',JSON.stringify(response.payload))
+        dispatch(updateError({
+          errorType : constants.apiResponseStatus.SUCCESS,
+          errorMessage : response.payload.message,
+          flag : true
+        }))
+        navigate('/')
+      }
+      else{
+        dispatch(updateError({
+          errorType : constants.apiResponseStatus.ERROR,
+          errorMessage : response.payload.message,
+          flag : true
+        }))
+        dispatch(handleUserAuthentication({ flag: false }))
+      }
     }
-    const json = await httpCall(constants.apiEndPoint.USER_LOGIN, constants.apiHeaders.HEADER, constants.httpMethod.POST, payload);
-    if (json.success === 1) {
+    catch(error){
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+        flag : true
+      }))
+    }
+  }
+  const authenticateUser = async(headers)=>{
+    const response = await dispatch(authenticateUsers({
+      url : constants.apiEndPoint.AUTHENTICATE_USER,
+      header : headers,
+      method : constants.httpMethod.GET,
+    }))
+    if(response.payload.success === 1){
       dispatch(handleUserAuthentication({ flag: true }))
-      dispatch(updateUserToken({ token: json.token }))
-      dispatch(updateUserInfo({userInfo:json}))
-      localStorage.setItem('token',json.token)
-      localStorage.setItem('userData',JSON.stringify(json))
       navigate('/')
-    } else {
+    }
+    else{
       dispatch(handleUserAuthentication({ flag: false }))
-      // alert(json.message);
-      toast.error(json.message);
     }
   }
   useEffect(()=>{
     if (localStorage.getItem('token')) {
       const headers = {...constants.apiHeaders.HEADER,"Authorization":localStorage.getItem('token')}
-      httpCall(constants.apiEndPoint.AUTHENTICATE_USER, headers, constants.httpMethod.GET)
-        .then(data => {
-         if (data.success === 1) {
-        dispatch(handleUserAuthentication({ flag: true }))
-        navigate('/')
-        
-      } else {
-        dispatch(handleUserAuthentication({ flag: false }))
-      }
-      })
-
-     
+      authenticateUser(headers)
     }
   },[])
     
 
   return (
     <>
-    
- <ToastContainer />
+    {isLoading && <Loader />}
+    {isError && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
+ 
 
   {/* Navbar */}
   <Navbar/>
@@ -91,7 +121,7 @@ export default function SignIn() {
             </div>
             <div className="footer text-center">
               <Link  className="btn btn-primary btn-round btn-lg btn-block btn-ad " onClick={()=>handleLogin()}>AS ADMIN</Link>
-              <Link to={'/'} className="btn btn-primary btn-round btn-lg btn-block btn-ad">AS AGENT</Link>
+              {/* <Link to={'/'} className="btn btn-primary btn-round btn-lg btn-block btn-ad">AS AGENT</Link> */}
             </div>
             <div>
             <h5><Link  className="link text-white">Forgot Password?</Link></h5>

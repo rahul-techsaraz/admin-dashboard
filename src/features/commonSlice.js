@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addExamConfig, addExamHighlights, addNewExam, deleteExam, fetchExamConfigById, fetchExamDescriptionById, fetchExamHighlightsById, fetchExamInfoById, fetchExamList, updateExamDescription } from "../utils/reduxThunk/examThunk";
 import { constants } from "../utils/constants";
 import { fetchCourseBasicDetailsById, fetchCourseDescriptionById, fetchCourseDetails, fetchCourseDetailsById, fetchSyllabusDetailsById } from "../utils/reduxThunk/courseThunk";
+import { addNewCategory, approveUser, deleteCategory, fetchAllUserList, fetchCategory, fetchCategoryById, loginUsers } from "../utils/reduxThunk/commonThunk";
 
 const {ERROR_MESSAGE} = constants.apiResponseMessage
 const initialState = {
@@ -231,6 +232,69 @@ const commonSlice = createSlice({
       state.isLoading = false
     });
     builder.addCase(fetchSyllabusDetailsById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(loginUsers.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(loginUsers.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(loginUsers.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchAllUserList.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchAllUserList.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchAllUserList.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(approveUser.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(approveUser.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(approveUser.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCategory.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCategory.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCategory.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCategoryById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCategoryById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCategoryById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(deleteCategory.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(deleteCategory.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(deleteCategory.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addNewCategory.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addNewCategory.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addNewCategory.rejected, (state, {payload})=>{
       state.isLoading = false
     });
   }
