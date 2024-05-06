@@ -83,48 +83,32 @@ export const constants = {
                     option_path: '/admin-dashboard',
                     name:"Users",
                 },
-                
-                           
+                {
+                    option_name: "Colleges",
+                    option_path: '/list-college',
+                    name:"Users",
+                },
             ]
 
         },
-        // {
-        //     heading: "Agents",
-        //     isOpen:false,
-        //     list: [
-        //         {
-        //             option_name: "Agent",
-        //             option_path: '/agent',
-        //             name:"Agent",
-        //         },
-        //          {
-        //             option_name: "Add Agent",
-        //              option_path: '/add-agent',
-        //             name:"Add Agent",
+        {
+            heading: "Agents",
+            isOpen:false,
+            list: [
+                {
+                    option_name: "College List",
+                    option_path: '/list-college',
+                    name:"Agent",
+                },
+                 {
+                    option_name: "Add New College",
+                     option_path: '/add-college',
+                    name:"Add Agent",
                     
-        //         },
-        //         {
-        //             option_name: "Agent Profile",
-        //              option_path: '/agent-profile',
-        //             name:"Agent Profile",
-                    
-        //         },
-        //          {
-        //             option_name: "Shop",
-        //              option_path: '/add-college',
-        //             name:"Shop"
-        //         },
-        //          {
-        //             option_name: "Villa",
-        //             option_path:'/add-college'
-        //         },
-        //           {
-        //             option_name: "Property Detail",
-        //             option_path:'/add-college'
-        //         },
-        //     ]
+                },
+            ]
 
-        // },
+        },
        
     ],
     subHeaderMenu: [

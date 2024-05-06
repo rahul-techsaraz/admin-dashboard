@@ -102,6 +102,7 @@ fetchCatgeoryData()
                   labe={'Category Listing'}
                   path={'/add-new-category/'}
                   id={'course_category_id'}
+                  isVewdetails={true}
               />
           ) : <div>Loading...</div>}
           

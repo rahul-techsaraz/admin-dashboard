@@ -11,6 +11,7 @@ import { updateError } from '../../features/commonSlice'
 import { addSyllabusDetails, fetchSyllabusDetailsById } from '../../utils/reduxThunk/courseThunk'
 
 export default function SyllabusDetails({courseId}) {
+    const [isEditSyllabusDetails, setIsEditSyllabusDetails] = useState(false)
     const id = uuid();
     const dispatch = useDispatch()
     const {
@@ -50,6 +51,7 @@ export default function SyllabusDetails({courseId}) {
         dispatch(updateCourseInfo({classKey : "syllabusDetails", key : 'semester_name', value : filteredData[0].semester_name}))
         dispatch(updateCourseInfo({classKey : "syllabusDetails", key : 'list_of_subject', value : filteredData[0].list_of_subject}))
         dispatch(updateCourseInfo({classKey : "isEditSyllabus", value : true}))
+        console.log(isEditSyllabus)
     }
     
     const addSylabusDetails = ()=>{
@@ -188,6 +190,7 @@ export default function SyllabusDetails({courseId}) {
                 labe={'Syllabus Listing'}
                 path={'/add-new-course/'}
                 id={'semester_name'}
+                isVewdetails={false}
             />
         </div>
     </> 
