@@ -135,4 +135,6 @@ export const appRouter = createBrowserRouter([
            
         
     
-])
+], {
+    basename:"/admin"
+})
