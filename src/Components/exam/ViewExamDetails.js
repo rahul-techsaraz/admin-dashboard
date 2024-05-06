@@ -6,7 +6,6 @@ import { fetchExamConfigById, fetchExamDescriptionById, fetchExamHighlightsById,
 import { constants } from '../../utils/constants';
 import { useParams } from 'react-router-dom'
 import AddItemForm from '../AddItemForm';
-import CustomButton from '../../utils/CommonComponents/CustomButton';
 
 export default function ViewExamDetails() {
   const {isEdit} = useSelector(state => state.exam)

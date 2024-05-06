@@ -13,7 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 export default function AddNewCourse() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {isDisabled, isValidationError, courseInfo, courseDescriptions, courseDetails, syllabusDetails, isEdit} = useSelector(state=>state.course)
+  const {isDisabled, courseInfo, courseDescriptions, courseDetails, syllabusDetails} = useSelector(state=>state.course)
   const {courseId} = useParams()
   const createNewCourse = async ()=>{
     try{
@@ -152,49 +152,51 @@ export default function AddNewCourse() {
     }
   }
   useEffect(()=>{
-    if(courseInfo.isValidationError === false && courseDescriptions.isValidationError === false && courseDetails.isValidationError === false && syllabusDetails.isValidationError === false){
+    if(!courseInfo.isValidationError && !courseDescriptions.isValidationError && !courseDetails.isValidationError && !syllabusDetails.isValidationError){
       dispatch(updateCourseInfo({classKey : 'isDisabled', value : false}))
     }else{
       dispatch(updateCourseInfo({classKey : 'isDisabled', value : true}))
     }
   },[courseInfo.isValidationError, courseDescriptions.isValidationError, courseDetails.isValidationError, syllabusDetails.isValidationError])
-  useEffect(()=>{
-    if(courseId !== ''){
-      dispatch(fetchCourseBasicDetailsById({
-        url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseListing&course_id="+courseId,
-        header : constants.apiHeaders.HEADER,
-        method : constants.httpMethod.GET,
-      }))
-      dispatch(fetchCourseDescriptionById({
-        url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDescriptionsDetails&course_id="+courseId,
-        header : constants.apiHeaders.HEADER,
-        method : constants.httpMethod.GET,
-      }))
-      dispatch(fetchCourseDetailsById({
-        url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails&course_id="+courseId,
-        header : constants.apiHeaders.HEADER,
-        method : constants.httpMethod.GET,
-      }))
-      dispatch(fetchSyllabusDetailsById({
-        url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicSyllabusDetails&course_id="+courseId,
-        header : constants.apiHeaders.HEADER,
-        method : constants.httpMethod.GET,
-      }))
-    }
-  },[courseId])
-  
+  // useEffect(()=>{
+  //   if(courseId !== ''){
+  //     dispatch(fetchCourseBasicDetailsById({
+  //       url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseListing&course_id="+courseId,
+  //       header : constants.apiHeaders.HEADER,
+  //       method : constants.httpMethod.GET,
+  //     }))
+  //     dispatch(fetchCourseDescriptionById({
+  //       url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDescriptionsDetails&course_id="+courseId,
+  //       header : constants.apiHeaders.HEADER,
+  //       method : constants.httpMethod.GET,
+  //     }))
+  //     dispatch(fetchCourseDetailsById({
+  //       url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails&course_id="+courseId,
+  //       header : constants.apiHeaders.HEADER,
+  //       method : constants.httpMethod.GET,
+  //     }))
+  //     dispatch(fetchSyllabusDetailsById({
+  //       url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicSyllabusDetails&course_id="+courseId,
+  //       header : constants.apiHeaders.HEADER,
+  //       method : constants.httpMethod.GET,
+  //     }))
+  //   }
+  // },[courseId])
+  useEffect(() => {
+      return () => dispatch(resetCourse())
+
+  },[])
   return (
     <>
-      <AddItemForm label={courseId ? 'Update Course' : 'Add New Course'}>
+      <AddItemForm label={'Add New Course'}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <AddCourse courseId={courseId}/>
           <div style={{display:'flex'}}>
-            {!courseId && 
             <CustomButton
               isDisabled={isDisabled}
               lable={'Submit'}
               onClick={() => createNewCourse()}
-            />}
+            />
           </div>
         </div>
       </AddItemForm>

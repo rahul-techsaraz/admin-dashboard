@@ -6,6 +6,7 @@ import { updateCourseInfo } from '../../features/courseSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addCourseDescription, fetchCourseDescriptionById } from '../../utils/reduxThunk/courseThunk'
 import { updateError } from '../../features/commonSlice'
+import DataToDisplay from './DataToDisplay'
 
 export default function CourseDescriptionDetails({courseId}) {
   const {
@@ -92,10 +93,19 @@ export default function CourseDescriptionDetails({courseId}) {
       dispatch(updateCourseInfo({classKey : 'courseDescriptions', key : 'isValidationError', value : true}))
     }
   },[course_overview_description, course_entrance_exam_description, course_fee_description, course_placement_description, course_admission_process_description, course_eligibility_criteria_description])
-  
+  const courseDescriptionData = [
+        { lable: 'Course Overview Description', value: course_overview_description },
+        { lable: 'Course Entrance Exam Description', value: course_entrance_exam_description },
+        { lable: 'Course Fee Description', value: course_fee_description },
+        { lable: 'Course Placement Description', value: course_placement_description },
+        { lable: 'Course Admission Process Description', value: course_admission_process_description },
+        { lable: 'Course Eligibility Criteria Description', value: course_eligibility_criteria_description },
+    ]
   return (
     <>
-        <div style={{ display: " flex", flexWrap: "wrap", justifyContent: "space-between", gap: '3rem', margin: 'auto', padding: 'auto' }}>
+      {!isEdit && courseId ? <DataToDisplay dataToDisplay={courseDescriptionData} />
+        : (
+          <div style={{ display: " flex", flexWrap: "wrap", justifyContent: "space-between", gap: '3rem', margin: 'auto', padding: 'auto' }}>
             {constants.courseDescriptionInputFieldList.map((description,index)=>(
                 <TextArea
                     placeholder={description.label}
@@ -108,6 +118,9 @@ export default function CourseDescriptionDetails({courseId}) {
                 />
             ))}
         </div>
+        )
+        }
+        
         <div style={{display:'flex', gap:"1.5rem"}}>
           {isEdit && courseId &&
           <>

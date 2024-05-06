@@ -8,6 +8,7 @@ import { Chip, Stack } from '@mui/material'
 import { updateError } from '../../features/commonSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addCourseDetails, fetchCourseDetailsById } from '../../utils/reduxThunk/courseThunk'
+import DataToDisplay from './DataToDisplay'
 
 export default function CourseDetails({courseId}) {
     const {
@@ -111,10 +112,18 @@ export default function CourseDetails({courseId}) {
         }
     },[course_level, course_duration, exam_type, eligiblity_criteria, top_course_colleges])
     
-    
+    const courseDetailsData = [
+        { lable: 'Course Level', value: course_level },
+        { lable: 'Course Duration', value: course_duration },
+        { lable: 'Exam Type', value: exam_type },
+        { lable: 'Eligiblity Criteria', value: eligiblity_criteria },
+        { lable: 'Top Course Colleges', value: top_course_colleges.join(', ') },
+    ]
   return (
-    <>
-        <div style={{gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap"}}>
+      <>
+          {!isEdit && courseId ? <DataToDisplay dataToDisplay={courseDetailsData} />
+              : (
+                  <div style={{gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap"}}>
             <SelectBox
                 label={constants.courseLevelSelectBox[0].label}
                 options={constants.courseLevelSelectBox}
@@ -165,6 +174,8 @@ export default function CourseDetails({courseId}) {
             </div>
             
         </div>
+              )}
+        
         <div style={{display:'flex', gap:"1.5rem"}}>
           {isEdit && courseId &&
           <>

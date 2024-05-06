@@ -14,7 +14,7 @@ const initialState ={
         course_name: '',
         course_mode: '',
         course_duration: '',
-        course_fee_min: 0,
+        course_fee_min: 1,
         course_fee_max: 10,
         course_description: '',
         course_accepting_exam: [],

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -20,23 +20,7 @@ export default function AddCourse({courseId}) {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const courseInfoData = [
-        { lable: 'Course Name', value: courseInfo.course_name },
-        { lable: 'Course Mode', value: courseInfo.course_mode },
-        { lable: 'Course Duration', value: courseInfo.course_duration },
-        { lable: 'Course Fee Min', value: courseInfo.course_fee_min },
-        { lable: 'Course Fee Max', value: courseInfo.course_fee_max },
-        { lable: 'Course Description', value: courseInfo.course_description },
-        { lable: 'Course Accepting Exam', value: courseInfo.course_accepting_exam.join(', ') },
-    ]
-    const courseDescriptionData = [
-        { lable: 'Course Overview Description', value: courseDescriptions.course_overview_description },
-        { lable: 'Course Entrance Exam Description', value: courseDescriptions.course_entrance_exam_description },
-        { lable: 'Course Fee Description', value: courseDescriptions.course_fee_description },
-        { lable: 'Course Placement Description', value: courseDescriptions.course_placement_description },
-        { lable: 'Course Admission Process Description', value: courseDescriptions.course_admission_process_description },
-        { lable: 'Course Eligibility Criteria Description', value: courseDescriptions.course_eligibility_criteria_description },
-    ]
+  
     const courseDetailsData = [
         { lable: 'Course Level', value: courseDetails.course_level },
         { lable: 'Course Duration', value: courseDetails.course_duration },
@@ -49,7 +33,11 @@ export default function AddCourse({courseId}) {
                     { lable : 'Semester Name', value : data.semester_name },
                     { lable : 'List of Subjects', value : data.list_of_subject}]
         })
-    
+    useEffect(() => {
+        if (!courseId) {
+    return () => console.log('leveing the components')
+}
+    },[courseId])
   return (
     <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -60,11 +48,20 @@ export default function AddCourse({courseId}) {
                             <Tab label={data.label} value={data.value}/>    
                         ))}
                     </TabList>
-                </Box>
-                <TabPanel value="1">{!isEdit && courseId ? <DataToDisplay dataToDisplay={courseInfoData}></DataToDisplay> : <CourseBasicDetails courseId={courseId}/>}</TabPanel>
+                  </Box>
+                  {
+                      {
+                          "1": <TabPanel value='1'><CourseBasicDetails courseId={courseId} /></TabPanel>,
+                          "2": <TabPanel value='2'><CourseDescriptionDetails courseId={courseId}/></TabPanel>,
+                          "3": <TabPanel value='3'><CourseDetails courseId={courseId}/></TabPanel>,
+                          "4": <TabPanel value='4'><SyllabusDetails courseId={courseId}/></TabPanel>,
+                          
+                      }[value]
+                  }
+                {/* <TabPanel value="1">{!isEdit && courseId ? <DataToDisplay dataToDisplay={courseInfoData}></DataToDisplay> : <CourseBasicDetails courseId={courseId}/>}</TabPanel>
                 <TabPanel value="2">{!isEdit && courseId ? <DataToDisplay dataToDisplay={courseDescriptionData}></DataToDisplay> : <CourseDescriptionDetails courseId={courseId}/>}</TabPanel>
                 <TabPanel value="3">{!isEdit && courseId ? <DataToDisplay dataToDisplay={courseDetailsData}></DataToDisplay> : <CourseDetails courseId={courseId}/>}</TabPanel>
-                <TabPanel value="4">{!isEdit && courseId ? <DataToDisplay dataToDisplay={syllabusDetailsData}></DataToDisplay> : <SyllabusDetails courseId={courseId}/>}</TabPanel>
+                <TabPanel value="4">{!isEdit && courseId ? <DataToDisplay dataToDisplay={syllabusDetailsData}></DataToDisplay> : <SyllabusDetails courseId={courseId}/>}</TabPanel> */}
             </TabContext>
         </Box>
     </>

@@ -12,6 +12,7 @@ import { updateCourseInfo } from '../../features/courseSlice'
 import { updateError } from '../../features/commonSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addNewCourse, fetchCourseBasicDetailsById } from '../../utils/reduxThunk/courseThunk'
+import DataToDisplay from './DataToDisplay'
 
 function valuetext(value) {
   return value;
@@ -20,7 +21,8 @@ function valuetext(value) {
 export default function CourseBasicDetails({courseId}) {
   const [examName, setExamName] = useState(constants.courseBasicDetailsExamNameSelectBox)
   const dispatch = useDispatch()
-  const {examList} = useSelector(state=>state.exam)
+  const { examList } = useSelector(state => state.exam)
+  
   const {
     isValidationError,
     course_id,
@@ -132,10 +134,19 @@ export default function CourseBasicDetails({courseId}) {
     const newExamList = [...examName, ...examNameList ]
     setExamName(newExamList)
   },[])
-  
+  const courseInfoData = [
+        { lable: 'Course Name', value:course_name },
+        { lable: 'Course Mode', value:course_mode },
+        { lable: 'Course Duration', value:course_duration },
+        { lable: 'Course Fee Min', value:course_fee_min },
+        { lable: 'Course Fee Max', value:course_fee_max },
+        { lable: 'Course Description', value:course_description },
+        { lable: 'Course Accepting Exam', value:course_accepting_exam.join(', ') },
+    ]
   return (
     <>
-      <div>
+      {!isEdit && courseId ? <DataToDisplay dataToDisplay={courseInfoData} />
+        : <div>
         <div style={{gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap", justifyContent: "space-between"}}>
           <InputFieldText
               inputType="text"
@@ -220,6 +231,8 @@ export default function CourseBasicDetails({courseId}) {
           }
         </div>
       </div>
+      }
+     
       
     </>
   )
