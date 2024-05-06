@@ -129,6 +129,7 @@ export default function ExamList() {
                   labe={'Exam Listing'}
                   path={'/add-exam-description/'}
                   id={'exam_id'}
+                  isVewdetails={true}
               />
       </>
   )

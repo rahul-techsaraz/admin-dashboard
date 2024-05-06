@@ -80,10 +80,13 @@ export const appRouter = createBrowserRouter([
                 path: "/add-exam-description/:examId",
                 element: <ViewExamDetails/>
             },
-               {
+            {
                 path:"/list-college",
+                element: <AdminRequest/>
+            },
+            {
+                path:"/add-college",
                 element: <CollegeList/>
-
             },
             {
                 path:'/college-list-img',

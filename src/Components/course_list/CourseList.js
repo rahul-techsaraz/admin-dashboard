@@ -96,6 +96,7 @@ export default function CourseList() {
             labe={'Course Details'}
             path={'/add-new-course/'}
             id={'course_id'}
+            isVewdetails={true}
         />
     </>
     

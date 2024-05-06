@@ -4,7 +4,7 @@ import { Button, Typography } from "@mui/material";
 import '../../assets/css/customtable.css';
 import { Link } from 'react-router-dom';
 
-const AddCustomColumns = ({actionItem,params,path,id}) => {
+const AddCustomColumns = ({actionItem,params,path,id,isVewdetails}) => {
   return (
     <>
     {actionItem.map(item => (
@@ -16,11 +16,11 @@ const AddCustomColumns = ({actionItem,params,path,id}) => {
         >
   {item.label}
         </Button>
-        <Button
+        {isVewdetails && <Button
           variant="contained"
           color="success">
             <Link to={path + params.row[`${id}`]} style={{color:'white'}}>View Details</Link>
-          </Button>
+          </Button>}
          
     </div>
     ))}
@@ -28,7 +28,7 @@ const AddCustomColumns = ({actionItem,params,path,id}) => {
 
   )
 }
-export default function CustomTableData({ userColumns, userRows, actionItem, label, path, id }) {
+export default function CustomTableData({ userColumns, userRows, actionItem, label, path, id, isVewdetails }) {
   const actionColumn = [
     {
       field: "action",
@@ -37,7 +37,7 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
       renderCell: (params) => {
         return (
           
-          <AddCustomColumns actionItem={actionItem} params={params} path={path} id={id} />
+          <AddCustomColumns actionItem={actionItem} params={params} path={path} id={id} isVewdetails={isVewdetails}/>
         );
       },
       },
