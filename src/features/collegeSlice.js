@@ -1,11 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchCollegeDetails} from '../utils/reduxThunk/collegeThunk';
+import {fetchAgentCollegeList} from '../utils/reduxThunk/collegeThunk';
 import {constants} from '../utils/constants';
+
+
 
 const initialState = {
 	collegeDescriptionsById: {},
 	isEdit: false,
 	collegeList: [],
+	agentCollegeList: [],
 	isValidationError: true,
 	collegeInfo: {
 		collegeName: '',
@@ -24,10 +27,9 @@ const collegeSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(fetchCollegeDetails.fulfilled, (state, {payload}) => {
+		builder.addCase(fetchAgentCollegeList.fulfilled, (state, {payload}) => {
 			if (payload.status === constants.apiResponseStatus.SUCCESS) {
-				state.isEdit = false;
-				state.collegeList = payload.data;
+				state.agentCollegeList = payload.data;
 			}
 		});
 	},

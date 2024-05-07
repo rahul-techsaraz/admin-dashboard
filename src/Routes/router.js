@@ -23,6 +23,7 @@ import AddNewExamDetails from "../Components/exam/AddNewExamDetails";
 import CourseList from "../Components/course_list/CourseList";
 import AddNewCourse from "../Components/course_list/AddNewCourse";
 import ViewCourseDetails from "../Components/course_list/ViewCourseDetails";
+import College_list from "../Components/agent_college/College_list";
 
 
 
@@ -35,10 +36,6 @@ export const appRouter = createBrowserRouter([
                 path: "/",
                 element: <Main/>
 
-            },
-            {
-                path: "/add-college",
-                element: <AddCollege/>
             },
             {
                 path: "/category-list",
@@ -86,8 +83,12 @@ export const appRouter = createBrowserRouter([
                 element: <AdminRequest/>
             },
             {
-                path:"/add-college",
-                element: <CollegeList/>
+                path:"/list-agent-college",
+                element: <College_list/>
+            },
+            {
+                path: "/add-college",
+                element: <AddCollege/>
             },
             {
                 path:'/college-list-img',
