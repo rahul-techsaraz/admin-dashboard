@@ -7,7 +7,8 @@ export const constants = {
         ADMIN_REGISTER: "https://techsaraz.in//admission-cart/api/login/adminlogin/register.php",
         UPDATE_USER_ROLE: "https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php",
         EXAM_LIST:"https://techsaraz.in//admission-cart/api/exam.php",
-        COURSE_DETAILS: "https://techsaraz.in//admission-cart/api/courses.php"
+        COURSE_DETAILS: "https://techsaraz.in//admission-cart/api/courses.php",
+        COLLEGE_LIST: "https://techsaraz.in//admission-cart/api/colleges.php",
 
     },
     apiHeaders: {
@@ -97,8 +98,8 @@ export const constants = {
             list: [
                 {
                     option_name: "College List",
-                    option_path: '/list-college',
-                    name:"Agent",
+                    option_path: '/list-agent-college',
+                    name:"College",
                 },
                  {
                     option_name: "Add New College",
@@ -149,6 +150,19 @@ export const constants = {
                 {
                     labelName: "Add New Course",
                     path: "add-new-course",
+                },
+            ]
+        },
+        {
+            name: "College",
+            navMenu: [
+                {
+                    labelName: "College List",
+                    path:"list-agent-college"
+                },
+                {
+                    labelName: "Add New College",
+                    path:"add-college"
                 },
             ]
         },
@@ -476,5 +490,18 @@ export const constants = {
             headerName: "Course Fee",
             width: 200,
         },
+    ],
+    collegeListUserColumns : [
+        {
+            field: "college_id",
+            headerName: "College Id",
+            width: 200,
+        },
+        {
+            field: "college_name",
+            headerName: "College Name",
+            width: 200,
+        },
+        
     ],
 }

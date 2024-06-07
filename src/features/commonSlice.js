@@ -3,6 +3,7 @@ import { addExamConfig, addExamHighlights, addNewExam, deleteExam, fetchExamConf
 import { constants } from "../utils/constants";
 import { fetchCourseBasicDetailsById, fetchCourseDescriptionById, fetchCourseDetails, fetchCourseDetailsById, fetchSyllabusDetailsById } from "../utils/reduxThunk/courseThunk";
 import { addNewCategory, approveUser, deleteCategory, fetchAllUserList, fetchCategory, fetchCategoryById, loginUsers } from "../utils/reduxThunk/commonThunk";
+import { fetchAgentCollegeList } from "../utils/reduxThunk/collegeThunk";
 
 const {ERROR_MESSAGE} = constants.apiResponseMessage
 const initialState = {
@@ -295,6 +296,15 @@ const commonSlice = createSlice({
       state.isLoading = false
     });
     builder.addCase(addNewCategory.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchAgentCollegeList.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchAgentCollegeList.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchAgentCollegeList.rejected, (state, {payload})=>{
       state.isLoading = false
     });
   }
