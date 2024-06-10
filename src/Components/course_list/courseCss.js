@@ -20,6 +20,6 @@ export const useStyles = makeStyles({
     courseBasicDetailsEmptyChip: {
         border: 'solid #e83e8c 1px',
         borderRadius: "1rem",
-        display: "none"
+        display: "none",
     }
 });

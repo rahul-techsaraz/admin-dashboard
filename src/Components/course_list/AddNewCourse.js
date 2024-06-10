@@ -19,11 +19,11 @@ export default function AddNewCourse() {
     try{
       const courseID = await uuid();  
       const courseDeletePayload = await{
-        course_id : courseID
+      course_id : courseID
       }
       const courseInfoPayload = await{
         course_id : courseID,
-        course_name : courseInfo.course_name,
+        course_name : courseInfo.course_name + " - " + courseInfo.sub_course_name,
         course_mode : courseInfo.course_mode,
         course_duration : parseInt(courseInfo.course_duration),
         course_fee_min : courseInfo.course_fee_min,
@@ -34,7 +34,7 @@ export default function AddNewCourse() {
       };
       const courseInfoUpdatePayload = await{
         course_id : courseID,
-        course_name : courseInfo.course_name,
+        course_name : courseInfo.course_name + " - " + courseInfo.sub_course_name,
         course_mode : courseInfo.course_mode,
         course_duration : courseInfo.course_duration,
         course_fee_min : courseInfo.course_fee_min,
@@ -55,10 +55,9 @@ export default function AddNewCourse() {
       const courseDetailsPayload = await{
         course_id : courseID,
         course_level : courseDetails.course_level,
-        course_duration : courseDetails.course_duration,
         exam_type : courseDetails.exam_type,
         eligiblity_criteria : courseDetails.eligiblity_criteria,
-        top_course_colleges : courseDetails.top_course_colleges.join(','),
+        //top_course_colleges : courseDetails.top_course_colleges.join(','),
       };
       const syllabusDetailsPayload = await{
         data : syllabusDetails.accumulated_data.map((data) => {return {...data, course_id:courseID}})
@@ -113,7 +112,7 @@ export default function AddNewCourse() {
               payload : courseInfoUpdatePayload,
             }))
             dispatch(updateError({
-              errorType : constants.apiResponseStatus.ERROR,
+              errorType : constants.apiResponseStatus.SUCCESS,
               errorMessage : "Course Added Sucessfully",
               flag : true
             }))

@@ -15,39 +15,35 @@ export default function CourseDetails({courseId}) {
         isValidationError,
         course_id,
         course_level,
-        course_duration,
         exam_type,
         eligiblity_criteria,
-        top_course_colleges,
     } = useSelector(state=>state.course.courseDetails)
     const {courseDetails, isEdit} = useSelector(state=>state.course)
     const dispatch = useDispatch()
 
-    const handleValidate = (e)=>{
-        if(e.target.value !== '' && !JSON.stringify(top_course_colleges).includes(e.target.value)){
-            dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : [...top_course_colleges, e.target.value]}))
-        }else{
-            dispatch(updateError({
-                errorType: constants.apiResponseStatus.WARNING,
-                errorMessage: "Invalid Option Selected or College already Selected",
-                flag:true
-            }))
-        }
-    }
+    // const handleValidate = (e)=>{
+    //     if(e.target.value !== '' && !JSON.stringify(top_course_colleges).includes(e.target.value)){
+    //         dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : [...top_course_colleges, e.target.value]}))
+    //     }else{
+    //         dispatch(updateError({
+    //             errorType: constants.apiResponseStatus.WARNING,
+    //             errorMessage: "Invalid Option Selected or College already Selected",
+    //             flag:true
+    //         }))
+    //     }
+    // }
 
-    const handleDelete = (value) => {
-        const filteredData = top_course_colleges.filter((data)=>data !== value)
-        dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : filteredData}))
-      };
+    // const handleDelete = (value) => {
+    //     const filteredData = top_course_colleges.filter((data)=>data !== value)
+    //     dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : filteredData}))
+    //   };
     const updateCourse = async()=>{
         try{
             const courseDetailsPayload = await{
                 course_id : course_id,
                 course_level : course_level,
-                course_duration : course_duration,
                 exam_type : exam_type,
                 eligiblity_criteria : eligiblity_criteria,
-                top_course_colleges : top_course_colleges.join(','),
             };
             const response = await dispatch(addCourseDetails({
                 url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails",
@@ -105,19 +101,18 @@ export default function CourseDetails({courseId}) {
       }
     
     useEffect(()=>{
-        if(course_level !== '' && course_duration !== '' && exam_type !== '' && eligiblity_criteria !== '' && top_course_colleges !== ''){
+        if(course_level !== '' && exam_type !== '' && eligiblity_criteria !== ''){
             dispatch(updateCourseInfo({classKey : "courseDetails", key : "isValidationError", value : false}))
         }else{
             dispatch(updateCourseInfo({classKey : "courseDetails", key : "isValidationError", value : true}))
         }
-    },[course_level, course_duration, exam_type, eligiblity_criteria, top_course_colleges])
+    },[course_level, exam_type, eligiblity_criteria])
     
     const courseDetailsData = [
         { lable: 'Course Level', value: course_level },
-        { lable: 'Course Duration', value: course_duration },
         { lable: 'Exam Type', value: exam_type },
         { lable: 'Eligiblity Criteria', value: eligiblity_criteria },
-        { lable: 'Top Course Colleges', value: top_course_colleges.join(', ') },
+        // { lable: 'Top Course Colleges', value: top_course_colleges.join(', ') },
     ]
   return (
       <>
@@ -130,13 +125,6 @@ export default function CourseDetails({courseId}) {
                 styles={{width: '280px', height: '38px'}}
                 onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseDetails", key : "course_level", value : e.target.value}))}
                 inputValue={course_level}
-            />
-            <SelectBox
-                label={'Course Duration'}
-                options={constants.courseDurationSelectBox}
-                styles={{width: '280px', height: '38px'}}
-                onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseDetails", key : "course_duration", value : e.target.value}))}
-                inputValue={course_duration}
             />
             <SelectBox
                 label={'Exam Type'}
@@ -156,7 +144,7 @@ export default function CourseDetails({courseId}) {
                     inputValue={courseDetails[description.key]}
                 />  
             ))}
-            <div style={{display:'flex', flexDirection:'column', gap:"1.5rem"}}>
+            {/* <div style={{display:'flex', flexDirection:'column', gap:"1.5rem"}}>
                 <SelectBox
                     label={'Top Course Colleges'}
                     options={constants.courseTopCourseCollegesSelectBox}
@@ -171,7 +159,7 @@ export default function CourseDetails({courseId}) {
                         ))}
                     </Stack>
                 </div>
-            </div>
+            </div> */}
             
         </div>
               )}

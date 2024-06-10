@@ -5,7 +5,7 @@ import { fetchAllUserList, loginUsers } from "../utils/reduxThunk/commonThunk";
 const initialState = {
   isUserAuthenticated: false,
   userToken: localStorage.getItem('token') ? localStorage.getItem('token') : '',
-  userInfo:localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : '',
+  userInfo: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : '',
   userList : [],
   filteredUserList : [],
  

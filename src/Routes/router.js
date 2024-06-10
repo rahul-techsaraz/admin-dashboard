@@ -1,7 +1,7 @@
 import { createBrowserRouter} from "react-router-dom";
 import App from "../App";
 import Main from "../Components/Main";
-import AddCollege from "../Components/AddCollege";
+import AddCollege from "../Components/agent_college/AddCollege";
 import Header from "../Components/Header";
 import LeftSidebar from "../Components/LeftSidebar";
 import CategoryList from "../Components/category_list/CategoryList";
@@ -24,6 +24,7 @@ import CourseList from "../Components/course_list/CourseList";
 import AddNewCourse from "../Components/course_list/AddNewCourse";
 import ViewCourseDetails from "../Components/course_list/ViewCourseDetails";
 import College_list from "../Components/agent_college/College_list";
+import AddNewCollege from "../Components/agent_college/AddNewCollege";
 
 
 
@@ -88,7 +89,7 @@ export const appRouter = createBrowserRouter([
             },
             {
                 path: "/add-college",
-                element: <AddCollege/>
+                element: <AddNewCollege/>
             },
             {
                 path:'/college-list-img',

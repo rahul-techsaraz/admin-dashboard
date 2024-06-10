@@ -26,7 +26,7 @@ export default function AddCourse({courseId}) {
         { lable: 'Course Duration', value: courseDetails.course_duration },
         { lable: 'Exam Type', value: courseDetails.exam_type },
         { lable: 'Eligiblity Criteria', value: courseDetails.eligiblity_criteria },
-        { lable: 'Top Course Colleges', value: courseDetails.top_course_colleges.join(', ') },
+        // { lable: 'Top Course Colleges', value: courseDetails.top_course_colleges.join(', ') },
     ]
     const syllabusDetailsData = syllabusDetails.accumulated_data.map(data =>{ 
             return  [{ lable : 'Year Name', value : data.year_name },

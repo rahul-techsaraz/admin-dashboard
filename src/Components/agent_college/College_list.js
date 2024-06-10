@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../utils/constants'
 import { updateError } from '../../features/commonSlice'
 import ItemList from '../ItemList'
-import { fetchAgentCollegeList } from '../../utils/reduxThunk/collegeThunk'
+import { deleteCollegeBasicDetails, fetchAgentCollegeList } from '../../utils/reduxThunk/collegeThunk'
+import { updateAgentCollegeList } from '../../features/collegeSlice'
 
 export default function College_list() {
     const dispatch = useDispatch()
@@ -13,19 +14,51 @@ export default function College_list() {
         {
             label:'Delete',
             handleDeleteItem: (rowData) => {
-            //   deleteCourseListById(rowData.course_id)
+              deleteCollegeListById(rowData.college_id)
             },
             classname:'deleteButton'
         }
     ]
+    const deleteCollegeListById = async (collegeId)=>{
+        try{
+            const payload = { college_id : collegeId}
+            const data = await dispatch(deleteCollegeBasicDetails({
+                url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
+                header : constants.apiHeaders.HEADER,
+                method : constants.httpMethod.DELETE,
+                payload
+            }))
+            if(data.payload.status === constants.apiResponseStatus.SUCCESS){
+                dispatch(updateError({
+                    errorType: constants.apiResponseStatus.SUCCESS,
+                    errorMessage: "College deleted successfully!",
+                    flag:true
+                }))
+                await fetchCollegeList()
+            }
+            else{
+                dispatch(updateError({
+                    errorType : constants.apiResponseStatus.WARNING,
+                    errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag : true,
+                }))
+            }
+        }
+        catch(error){
+            dispatch(updateError({
+                errorType : constants.apiResponseStatus.WARNING,
+                errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
+                flag : true,
+            }))
+        }
+    }
     const fetchCollegeList = async()=>{
         try{
             const response = await dispatch(fetchAgentCollegeList({
-                url : constants.apiEndPoint.COLLEGE_LIST,
+                url : constants.apiEndPoint.COLLEGE_LIST+'?requestType=basicCollegeListing',
                 header : constants.apiHeaders.HEADER,
                 method : constants.httpMethod.GET,
             }))
-            console.log(response)
             if(response.payload.status === constants.apiResponseStatus.SUCCESS){
                 dispatch(updateError({
                     errorType : constants.apiResponseStatus.SUCCESS,
@@ -49,9 +82,7 @@ export default function College_list() {
             }))
         }
     }
-    // const firteredAgentCollegeList = (userInfo)=>{
-    //     const filteredData = agentCollegeList.filter(data=>data.author === )
-    // }
+    
     useEffect(()=>{
         fetchCollegeList()
     },[])
@@ -64,7 +95,7 @@ export default function College_list() {
             addNewColumns={addNewColumns}
             labe={'College Details'}
             path={'/add-college/'}
-            id={'course_id'}
+            id={'college_id'}
             isVewdetails={true}
         />
     </>

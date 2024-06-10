@@ -1,11 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addExamConfig, addExamHighlights, addNewExam, deleteExam, fetchExamConfigById, fetchExamDescriptionById, fetchExamHighlightsById, fetchExamInfoById, fetchExamList, updateExamDescription } from "../utils/reduxThunk/examThunk";
-import { constants } from "../utils/constants";
 import { fetchCourseBasicDetailsById, fetchCourseDescriptionById, fetchCourseDetails, fetchCourseDetailsById, fetchSyllabusDetailsById } from "../utils/reduxThunk/courseThunk";
 import { addNewCategory, approveUser, deleteCategory, fetchAllUserList, fetchCategory, fetchCategoryById, loginUsers } from "../utils/reduxThunk/commonThunk";
-import { fetchAgentCollegeList } from "../utils/reduxThunk/collegeThunk";
+import { addCollegeBasicDetails, addCollegeCourseOffered, addCollegeDescription, addCollegeFacilities, addCollegeGallary, addCollegeHighlight, deleteCollegeBasicDetails, fetchAgentCollegeList, fetchCityList, fetchCourseList, fetchStateList, fileUpload, fileUploadGallary, fileUploadThumbnail, fileUploadlogo } from "../utils/reduxThunk/collegeThunk";
 
-const {ERROR_MESSAGE} = constants.apiResponseMessage
 const initialState = {
    isLoading: false,
    isError: false,
@@ -305,6 +303,124 @@ const commonSlice = createSlice({
       state.isLoading = false
     });
     builder.addCase(fetchAgentCollegeList.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchStateList.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchStateList.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchStateList.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCityList.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCityList.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCityList.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    
+    builder.addCase(fetchCourseList.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCourseList.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseList.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeBasicDetails.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addCollegeBasicDetails.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeBasicDetails.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fileUploadlogo.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fileUploadlogo.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fileUploadlogo.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fileUploadThumbnail.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fileUploadThumbnail.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fileUploadThumbnail.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fileUploadGallary.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fileUploadGallary.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fileUploadGallary.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(deleteCollegeBasicDetails.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(deleteCollegeBasicDetails.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(deleteCollegeBasicDetails.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeDescription.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addCollegeDescription.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeDescription.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeHighlight.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addCollegeHighlight.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeHighlight.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeFacilities.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addCollegeFacilities.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeFacilities.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeCourseOffered.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addCollegeCourseOffered.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeCourseOffered.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeGallary.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(addCollegeGallary.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(addCollegeGallary.rejected, (state, {payload})=>{
       state.isLoading = false
     });
   }

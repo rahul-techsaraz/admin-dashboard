@@ -27,6 +27,7 @@ export default function CourseBasicDetails({courseId}) {
     isValidationError,
     course_id,
     course_name,
+    sub_course_name,
     course_mode,
     course_duration,
     course_fee_min,
@@ -59,7 +60,7 @@ export default function CourseBasicDetails({courseId}) {
     try{
       const courseInfoPayload = await{
         course_id : course_id,
-        course_name : course_name,
+        course_name : course_name +' - '+ sub_course_name,
         course_mode : course_mode,
         course_duration : parseInt(course_duration),
         course_fee_min : course_fee_min,
@@ -123,19 +124,19 @@ export default function CourseBasicDetails({courseId}) {
     }
   }
   useEffect(()=>{
-    if(course_name !== '' && course_mode!== '' && course_duration !== '' && course_fee_min !== '' && course_fee_max !== '' && course_description!=='' && course_accepting_exam.length > 0){
+    if(course_name !== '' && sub_course_name !== '' && course_mode !== '' && course_duration !== '' && course_fee_min !== '' && course_fee_max !== '' && course_description!=='' && course_accepting_exam.length > 0){
       dispatch(updateCourseInfo({classKey : "courseInfo", key : 'isValidationError', value : false}))
     }else{
       dispatch(updateCourseInfo({classKey : "courseInfo", key : 'isValidationError', value : true}))
     }
-  },[course_name, course_mode, course_duration, course_fee_min, course_fee_max, course_description, course_accepting_exam])
+  },[course_name, sub_course_name, course_mode, course_duration, course_fee_min, course_fee_max, course_description, course_accepting_exam])
   useEffect(()=>{
     const examNameList = examList.map((data)=>{return {'label' : data.exam_name, 'value' : data.exam_name}})
     const newExamList = [...examName, ...examNameList ]
     setExamName(newExamList)
   },[])
   const courseInfoData = [
-        { lable: 'Course Name', value:course_name },
+        { lable: 'Course Name', value:course_name +' - '+ sub_course_name},
         { lable: 'Course Mode', value:course_mode },
         { lable: 'Course Duration', value:course_duration },
         { lable: 'Course Fee Min', value:course_fee_min },
@@ -154,6 +155,15 @@ export default function CourseBasicDetails({courseId}) {
               styles={{width: '280px'}}
               onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_name", value : e.target.value}))}
               inputValue={course_name}
+              disabled={isEdit}
+          />
+          <InputFieldText
+              inputType="text"
+              placeholder="Sub Course Name"
+              styles={{width: '280px'}}
+              onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseInfo", key : "sub_course_name", value : e.target.value}))}
+              inputValue={sub_course_name}
+              disabled={isEdit}
           />
           <SelectBox
               label={'Course Mode'}
@@ -161,13 +171,6 @@ export default function CourseBasicDetails({courseId}) {
               styles={{width: '280px', height: '38px'}}
               onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_mode", value : e.target.value}))}
               inputValue={course_mode}
-          />
-          <InputFieldText
-            inputType={"text"}
-            placeholder={"Course Duration"}
-            styles={{width: '280px'}}
-            onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_duration", value : e.target.value}))}
-            inputValue={course_duration}
           />
           <TextArea
             placeholder={"Course Description"}
@@ -196,6 +199,13 @@ export default function CourseBasicDetails({courseId}) {
                 </div>
             </div>
           </div>
+          <InputFieldText
+            inputType={"text"}
+            placeholder={"Course Duration"}
+            styles={{width: '280px'}}
+            onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_duration", value : e.target.value}))}
+            inputValue={course_duration}
+          />
           <div style={{display:'flex', gap:"1.5rem"}}>
             <SelectBox
               label={"Course Accepting Exam"}
