@@ -8,8 +8,11 @@ export const constants = {
         UPDATE_USER_ROLE: "https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php",
         EXAM_LIST:"https://techsaraz.in//admission-cart/api/exam.php",
         COURSE_DETAILS: "https://techsaraz.in//admission-cart/api/courses.php",
-        COLLEGE_LIST: "https://techsaraz.in//admission-cart/api/colleges.php",
-
+        COLLEGE_LIST: "https://techsaraz.in/admission-cart/api/colleges.php",
+        STATE_LIST: "https://countriesnow.space/api/v0.1/countries/states",
+        CITY_LIST: "https://countriesnow.space/api/v0.1/countries/state/cities",
+        COURSE_DETAILS_COLLEGE:"https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails",
+        UPLOAD_FILE: "https://techsaraz.in/admission-cart/api/fileupload/upload.php",
     },
     apiHeaders: {
         HEADER:{"Content-Type":"Application/json"}
@@ -493,15 +496,104 @@ export const constants = {
     ],
     collegeListUserColumns : [
         {
-            field: "college_id",
-            headerName: "College Id",
-            width: 200,
-        },
-        {
             field: "college_name",
             headerName: "College Name",
             width: 200,
         },
+        {
+            field: "is_publish",
+            headerName: "status",
+            width: 200,
+        },
+        {
+            field: "comment",
+            headerName: "Comment",
+            width: 200,
+        },
         
+    ],
+    addNewCollegeTab: [
+        {label:"College Basic Details", value: '1'},
+        {label:"Course Offered", value:'2'},
+        {label:"College Description", value:'3'},
+        {label:"College Highlight", value:'4'},
+        {label:"Common", value:'5'},
+        {label:"Gallary", value:'6'},
+    ],
+    collegeType:[
+        {label:"College Type", value:""},
+        {label:"Private", value:"Private"},
+        {label:"Government", value:"Government"},
+    ],
+    collegeDescriptionInputFieldList:[
+        {
+            classKey:"collegeDescriptions",
+            key:"college_description",
+            label: "College Description",
+            style:""
+        },
+        {
+            classKey:"collegeDescriptions",
+            key:"college_course_description",
+            label: "College Course Description",
+            style:""
+        },
+        {
+            classKey:"collegeDescriptions",
+            key:"college_highlights_description",
+            label: "College Highlights Description",
+            style:""
+        },
+        {
+            classKey:"collegeDescriptions",
+            key:"college_campus_description",
+            label: "College Campus Description",
+            style:""
+        },
+        
+    ],
+    highlightsUserColumns : [
+        {
+            field: "course_name",
+            headerName: "Course Name",
+            width: 150,
+        },
+        {
+          field: "fees_annually",
+          headerName: "Fees Annually",
+          width: 150,
+        },
+        {
+          field: "eligibility_criteria",
+          headerName: "Eligibility Criteria",
+          width: 150,
+        },
+        {
+            field: "course_duration",
+            headerName: "Course Duration",
+            width: 100,
+          },
+    ],
+    courseOfferedUserColumns : [
+        {
+            field: "course_name",
+            headerName: "Course Name",
+            width: 150,
+        },
+        {
+          field: "sub_course_fee",
+          headerName: "Sub Course Fee",
+          width: 150,
+        },
+        {
+          field: "course_accepting_exam",
+          headerName: "Course Accepting Exam",
+          width: 250,
+        },
+        {
+            field: "sub_course_duration",
+            headerName: "Course Duration",
+            width: 150,
+          },
     ],
 }

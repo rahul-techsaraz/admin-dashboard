@@ -12,6 +12,7 @@ const initialState ={
         isValidationError: true,
         course_id: '',
         course_name: '',
+        sub_course_name: '',
         course_mode: '',
         course_duration: '',
         course_fee_min: 1,
@@ -33,10 +34,9 @@ const initialState ={
         isValidationError: true,
         course_id: '',
         course_level:'',
-        course_duration:'',
         exam_type:'',
         eligiblity_criteria:'',
-        top_course_colleges:[],
+        // top_course_colleges:[],
     },
     syllabusDetails : {
         isValidationError: true,
@@ -76,7 +76,8 @@ const courseSlice = createSlice({
                 //     state.courseInfo[description] = payload.data[description]
                 // })
                 state.courseInfo.course_id = payload.data.course_id
-                state.courseInfo.course_name = payload.data.course_name
+                state.courseInfo.course_name = payload.data.course_name.split('-')[0]
+                state.courseInfo.sub_course_name = payload.data.course_name.split('-')[1]
                 state.courseInfo.course_mode = payload.data.course_mode
                 state.courseInfo.course_duration = payload.data.course_duration
                 state.courseInfo.course_fee_min = payload.data.course_fee_min
@@ -121,10 +122,9 @@ const courseSlice = createSlice({
                 // })
                 state.courseDetails.course_id = payload.data.course_id
                 state.courseDetails.course_level = payload.data.course_level
-                state.courseDetails.course_duration = payload.data.course_duration
                 state.courseDetails.exam_type = payload.data.exam_type
                 state.courseDetails.eligiblity_criteria = payload.data.eligiblity_criteria
-                state.courseDetails.top_course_colleges = payload.data.top_course_colleges.split(',')
+                // state.courseDetails.top_course_colleges = payload.data.top_course_colleges.split(',')
             }
             else{
                 // const objKeys = Object.keys(payload.data)
@@ -133,10 +133,9 @@ const courseSlice = createSlice({
                 // })
                 state.courseDetails.course_id = ''
                 state.courseDetails.course_level = ''
-                state.courseDetails.course_duration = ''
                 state.courseDetails.exam_type = ''
                 state.courseDetails.eligiblity_criteria = ''
-                state.courseDetails.top_course_colleges = []
+                // state.courseDetails.top_course_colleges = []
             }
         });
         builder.addCase(fetchSyllabusDetailsById.fulfilled, (state, {payload})=>{

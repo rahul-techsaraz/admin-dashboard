@@ -38,6 +38,7 @@ export default function SignIn() {
         dispatch(handleUserAuthentication({ flag: true }))
         localStorage.setItem('token',response.payload.token)
         localStorage.setItem('userData',JSON.stringify(response.payload))
+        dispatch(updateUserInfo({userInfo : response.payload}))
         dispatch(updateError({
           errorType : constants.apiResponseStatus.SUCCESS,
           errorMessage : response.payload.message,

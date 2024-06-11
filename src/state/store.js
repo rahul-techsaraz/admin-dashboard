@@ -1,8 +1,7 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
- import categorySlice from '../features/categorySlice';
+import categorySlice from '../features/categorySlice';
 import subHeaderMenuSlice from '../features/subHeaderMenuSlice';
- import examSlice from '../features/examSlice';
- 
+import examSlice from '../features/examSlice';
 import userSlice from '../features/userSlice';
 import commonSlice from "../features/commonSlice";
 import courseSlice from "../features/courseSlice";
@@ -14,7 +13,7 @@ const reducers = combineReducers({
   exam: examSlice,
   common:commonSlice,
   course:courseSlice,
-  college:collegeSlice
+  college:collegeSlice,
 });
 const store = configureStore({
   reducer: reducers
