@@ -25,6 +25,7 @@ import AddNewCourse from "../Components/course_list/AddNewCourse";
 import ViewCourseDetails from "../Components/course_list/ViewCourseDetails";
 import College_list from "../Components/agent_college/College_list";
 import AddNewCollege from "../Components/agent_college/AddNewCollege";
+import ViewCollegeDetails from "../Components/agent_college/ViewCollegeDetails";
 
 
 
@@ -90,6 +91,10 @@ export const appRouter = createBrowserRouter([
             {
                 path: "/add-college",
                 element: <AddNewCollege/>
+            },
+            {
+                path: "/add-college/:collegeId",
+                element: <ViewCollegeDetails/>
             },
             {
                 path:'/college-list-img',
