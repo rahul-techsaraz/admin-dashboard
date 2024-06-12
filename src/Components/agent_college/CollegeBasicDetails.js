@@ -11,15 +11,13 @@ import { updateError } from '../../features/commonSlice';
 import { constants } from '../../utils/constants';
 import { fetchCityList, fetchStateList } from '../../utils/reduxThunk/collegeThunk';
 
-function valuetext(value) {
-  return value;
-}
-
 export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
   const [collegeLogo, setCollegeLogo] = useState([]);
   const [collegeThumbnail, setCollegeThumbnail] = useState([]);
   const allowedFileTypes = ['jpg','jpeg','png','pdf']
   const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
+  const [componentState, setComponentState] = useState('')
+  const [componentCity, setComponentCity] = useState('')
   const dispatch = useDispatch()
   const {collegeBasicDetails, stateList, cityList} = useSelector(state=>state.college)
   const {
@@ -31,16 +29,9 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
 		state,
 		city,
 		college_type,
-		fee_range_min,
-		fee_range_max,
-		logo,
-		thumbnail,
+		college_logo,
+		college_thumbnail,
   } = useSelector(state=>state.college.collegeBasicDetails)
-  
-  const handleChange = (event, newValue) => {
-    dispatch(updateCollegeInfo({classKey : "collegeBasicDetails", key : "fee_range_min", value : newValue[0]}))
-    dispatch(updateCollegeInfo({classKey : "collegeBasicDetails", key : "fee_range_max", value : newValue[1]}))
-  };
   
   const fetchState = async ()=> {
     try{
@@ -163,12 +154,12 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
   },[collegeLogo, collegeThumbnail])
 
   useEffect(()=>{
-    if(college_name !== '' && location !== '' && affiliate_by !== '' && ratings !== '' && state !== '' && city !== '' && college_type !== '' && fee_range_min !== '' && fee_range_max !== '' && collegeLogo.length > 0 && collegeThumbnail.length > 0){
+    if(college_name !== '' && location !== '' && affiliate_by !== '' && ratings !== '' && state !== '' && city !== '' && college_type !== '' && collegeLogo.length > 0 && collegeThumbnail.length > 0){
       dispatch(updateCollegeInfo({classKey : "collegeBasicDetails", key : 'isValitadeError', value : false}))
     }else{
       dispatch(updateCollegeInfo({classKey : "collegeBasicDetails", key : 'isValitadeError', value : true}))
     }
-  },[college_name, location, affiliate_by, ratings, state, city, college_type, fee_range_min, fee_range_max, collegeLogo, collegeThumbnail])
+  },[college_name, location, affiliate_by, ratings, state, city, college_type, collegeLogo, collegeThumbnail])
 
   return (
     <div style={{gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap", justifyContent: "space-between"}}>
@@ -197,14 +188,16 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
       label='State'
       options={stateList}
       onChange={(e,value)=>setState(value)}
-      inputValue={collegeBasicDetails.state}
+      onInputChange={(e,value)=>setComponentState(value)}
+      inputValue={componentState ? componentState : collegeBasicDetails.state}
       />
       <SearchSelectBox
       label='City'
       options={cityList}
       onChange={(e,value)=>dispatch(updateCollegeInfo({classKey : 'collegeBasicDetails', key : 'city', value : value}))}
+      onInputChange={(e,value)=>setComponentCity(value)}
       disabled={searchSelectDisabled}
-      inputValue={collegeBasicDetails.city}
+      inputValue={componentCity ? componentCity : collegeBasicDetails.city}
       />
       <InputFieldText
       placeholder='College Location'
@@ -234,24 +227,6 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
       styles={{width: '280px', height: '45px', display: 'flex', justifyContent: 'spaceBetween'}}
       multiple={false}
       />
-      <div className="form-group">
-            <label>{"Fee Range" }</label>
-            <div className='form-control'>
-              <Box sx={{ width: 400 }}>
-                  <Slider
-                    getAriaLabel={() => 'College Fee Range'}
-                    value={[collegeBasicDetails.fee_range_min, collegeBasicDetails.fee_range_max]}
-                    onChange={handleChange}
-                    valueLabelDisplay="auto"
-                    getAriaValueText={valuetext}
-                  />
-                </Box>
-                <div style={{display:'flex', justifyContent:"space-between"}}>
-                  <label>{"Min Fees : " + collegeBasicDetails.fee_range_min }</label>
-                  <label>{"Max Fees : " + collegeBasicDetails.fee_range_max}</label>
-                </div>
-            </div>
-      </div>
     </div>
   )
 }

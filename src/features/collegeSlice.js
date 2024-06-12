@@ -24,8 +24,6 @@ const initialState = {
 		state : '',
 		city : '',
 		college_type : '',
-		fee_range_min : 1,
-		fee_range_max : 10,
 		college_logo : '',
 		college_thumbnail : '',
 	},
