@@ -9,11 +9,13 @@ import { constants } from '../../utils/constants'
 import { resetCollege, updateCollegeInfo } from '../../features/collegeSlice'
 import { addCollegeBasicDetails, addCollegeCourseOffered, addCollegeDescription, addCollegeFacilities, addCollegeGallary, addCollegeHighlight, deleteCollegeBasicDetails, fileUpload, fileUploadGallary, fileUploadThumbnail, fileUploadlogo } from '../../utils/reduxThunk/collegeThunk'
 import { useNavigate } from 'react-router-dom'
+import { FileUpload } from '../../utils/FileUpload'
 
 export default function AddNewCollege() {
   const [collegeLogo, setCollegeLogo] = useState([]);
   const [collegeThumbnail, setCollegeThumbnail] = useState([]);
   const [collegeGallary, setCollegeGallary] = useState([]);
+  const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {
@@ -213,7 +215,10 @@ export default function AddNewCollege() {
   return (
     <AddItemForm label={'Add New College'}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <AddCollege logoSetter={(e)=>setCollegeLogo(e)} thumbnailSetter={(e)=>setCollegeThumbnail(e)} gallarySetter={(e)=>setCollegeGallary(e)}/>
+        <FileUpload.Provider value={{collegeLogo, setCollegeLogo, collegeThumbnail, setCollegeThumbnail, collegeGallary, setCollegeGallary, collegeGallaryUrl, setCollegeGallaryUrl}}>
+          <AddCollege logoSetter={(e)=>setCollegeLogo(e)} thumbnailSetter={(e)=>setCollegeThumbnail(e)} gallarySetter={(e)=>setCollegeGallary(e)}/>
+        </FileUpload.Provider>
+        
         <div style={{display:'flex'}}>
             <CustomButton
               isDisabled={isDisabled}

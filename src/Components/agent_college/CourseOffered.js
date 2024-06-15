@@ -164,8 +164,8 @@ useEffect(()=>{
                   onBlur={handleBlur}
                   inputProps={{
                     step: 1,
-                    min: 0,
-                    max: 100,
+                    min: Number(course_fee_min),
+                    max: Number(course_fee_max),
                     type: 'number',
                     'aria-labelledby': 'input-slider',
                   }}

@@ -22973,3 +22973,6 @@ section small {
 .font_white{
     color:#fff
 }
+input[type='file'] {
+    color: transparent;
+  }

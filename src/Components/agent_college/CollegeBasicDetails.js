@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 import UploadFile from '../../utils/CommonComponents/UploadFile';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox';
@@ -10,11 +8,10 @@ import { updateCollegeInfo } from '../../features/collegeSlice';
 import { updateError } from '../../features/commonSlice';
 import { constants } from '../../utils/constants';
 import { fetchCityList, fetchStateList } from '../../utils/reduxThunk/collegeThunk';
+import { FileUpload } from '../../utils/FileUpload';
 
-export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
-  const [collegeLogo, setCollegeLogo] = useState([]);
-  const [collegeThumbnail, setCollegeThumbnail] = useState([]);
-  const allowedFileTypes = ['jpg','jpeg','png','pdf']
+export default function CollegeBasicDetails() {
+  const {collegeLogo, collegeThumbnail} = useContext(FileUpload)
   const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
   const [componentState, setComponentState] = useState('')
   const [componentCity, setComponentCity] = useState('')
@@ -29,9 +26,7 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
 		state,
 		city,
 		college_type,
-		college_logo,
-		college_thumbnail,
-  } = useSelector(state=>state.college.collegeBasicDetails)
+	} = useSelector(state=>state.college.collegeBasicDetails)
   
   const fetchState = async ()=> {
     try{
@@ -115,23 +110,6 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
     }
   }
 
-  const validateSelectedFiles = (e, type)=>{
-    const fileType = e.target.files[0].type.split('/')
-      if(!allowedFileTypes.includes(fileType[1])){
-        alert("Selected File Type is not Supported")
-        return false
-      }else if(e.target.files[0].size > 2097152){
-        alert("Selected File Size exceeds the limite")
-        return false
-      }else{
-        if(type === 'logo'){
-          setCollegeLogo(e.target.files)
-        }else{
-          setCollegeThumbnail(e.target.files)
-        }
-      }
-  }
-
   useEffect(()=>{
     fetchState();
   },[])
@@ -145,13 +123,6 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
       setSearchSelectDisabled(true)
     }
   },[collegeBasicDetails.state])
-
-  useEffect(()=>{
-    if(collegeLogo.length > 0 || collegeThumbnail.length > 0){
-      logoGetter(collegeLogo)
-      thumbnailGetter(collegeThumbnail)
-    }
-  },[collegeLogo, collegeThumbnail])
 
   useEffect(()=>{
     if(college_name !== '' && location !== '' && affiliate_by !== '' && ratings !== '' && state !== '' && city !== '' && college_type !== '' && collegeLogo.length > 0 && collegeThumbnail.length > 0){
@@ -215,16 +186,12 @@ export default function CollegeBasicDetails({logoGetter, thumbnailGetter}) {
       />
       <UploadFile
       label={'College Logo'}
-      onChange={(e)=>validateSelectedFiles(e, 'logo')}
-      onClick={()=>console.log("Upload Logo Clicked")}
-      styles={{width: '280px', height: '45px', display: 'flex', justifyContent: 'spaceBetween'}}
+      styles={{width: '138px', height: '45px', display: 'flex', justifyContent: 'spaceBetween'}}
       multiple={false}
       />
       <UploadFile
       label={'College Thumbnail'}
-      onChange={(e)=>validateSelectedFiles(e, 'thumbnail')}
-      onClick={()=>console.log("Upload Thumbnail Clicked")}
-      styles={{width: '280px', height: '45px', display: 'flex', justifyContent: 'spaceBetween'}}
+      styles={{width: '138px', height: '45px', display: 'flex', justifyContent: 'spaceBetween'}}
       multiple={false}
       />
     </div>
