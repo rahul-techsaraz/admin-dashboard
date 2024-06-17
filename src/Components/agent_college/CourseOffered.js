@@ -68,7 +68,6 @@ export default function CourseOffered() {
   };
 
   const handleBlur = () => {
-    console.log(typeof value)
     if (value < Number(course_fee_min)) {
       setValue(Number(course_fee_min));
       dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_min)}))
