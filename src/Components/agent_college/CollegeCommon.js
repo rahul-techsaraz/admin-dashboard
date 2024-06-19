@@ -7,7 +7,7 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-export default function CollegeCommon() {
+export default function CollegeCommon({collegeId}) {
   const dispatch = useDispatch()
   const [isDisabled, setisDisabled] = useState(true)
   const {common, facultyList} = useSelector(state=>state.college)

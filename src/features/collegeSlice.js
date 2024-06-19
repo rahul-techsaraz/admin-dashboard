@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchAgentCollegeList, fetchCityList, fetchCourseList, fetchStateList, fileUpload, fileUploadGallary, fileUploadThumbnail, fileUploadlogo} from '../utils/reduxThunk/collegeThunk';
+import {fetchAgentCollegeList, fetchCityList, fetchCollegeById, fetchCourseList, fetchStateList, fileUploadGallary, fileUploadThumbnail, fileUploadlogo} from '../utils/reduxThunk/collegeThunk';
 import {constants} from '../utils/constants';
 
 
@@ -8,6 +8,7 @@ const initialState = {
 	agentCollegeList : [],
 	allCourseDetails : [],
 	isDisabled : true,
+	isEdit : false,
 	courseList : [],
 	stateList : [],
 	cityList : [],
@@ -103,9 +104,9 @@ const collegeSlice = createSlice({
 			}
 		});
 		builder.addCase(fileUploadlogo.fulfilled, (state, {payload}) => {
-			if(payload.status === 200){
-				state.collegeBasicDetails.college_logo = payload.data[0].fileName
-			}
+			console.log(payload.data[0].fileName)
+			state.collegeBasicDetails.college_logo = "Test"
+			// payload?.data[0]?.fileName
 		});
 		builder.addCase(fileUploadThumbnail.fulfilled, (state, {payload}) => {
 			if(payload.status === 200){
@@ -115,6 +116,19 @@ const collegeSlice = createSlice({
 		builder.addCase(fileUploadGallary.fulfilled, (state, {payload}) => {
 			if(payload.status === 200){
 				state.gallary.image_path = payload.data.map(filePath=>filePath.fileName).join(', ')
+			}
+		});
+		builder.addCase(fetchCollegeById.fulfilled, (state, {payload}) => {
+			if(payload.data){
+				state.collegeBasicDetails.college_name = payload.data.college_name
+				state.collegeBasicDetails.college_type = payload.data.college_type
+				state.collegeBasicDetails.affiliate_by = payload.data.affiliate_by
+				state.collegeBasicDetails.state = payload.data.state
+				state.collegeBasicDetails.city = payload.data.city
+				state.collegeBasicDetails.location = payload.data.location
+				state.collegeBasicDetails.ratings = payload.data.ratings
+				state.collegeBasicDetails.college_logo = payload.data.college_logo
+				state.collegeBasicDetails.college_thumbnail = payload.data.college_thumbnail
 			}
 		});
 	},

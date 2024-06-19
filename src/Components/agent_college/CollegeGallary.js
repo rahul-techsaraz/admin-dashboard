@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { updateCollegeInfo } from '../../features/collegeSlice';
 import { FileUpload } from '../../utils/FileUpload';
 
-export default function CollegeGallary() {
+export default function CollegeGallary({collegeId}) {
   const {collegeGallary, collegeGallaryUrl} = useContext(FileUpload)
   const dispatch = useDispatch()
   

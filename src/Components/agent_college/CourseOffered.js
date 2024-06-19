@@ -23,7 +23,7 @@ import ItemList from '../ItemList';
 const Input = styled(MuiInput)`width: 42px;`;
 
 
-export default function CourseOffered() {
+export default function CourseOffered({collegeId}) {
   useCourseDetails();
   const {allCourseDetails, courseOffered, courseOfferedList} = useSelector(state=>state.college)
   const {

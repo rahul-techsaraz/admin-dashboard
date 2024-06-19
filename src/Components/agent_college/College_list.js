@@ -86,6 +86,10 @@ export default function College_list() {
     useEffect(()=>{
         fetchCollegeList()
     },[])
+
+    // useEffect(()=>{
+    //     console.log(agentCollegeList)
+    // },[agentCollegeList])
   return (
     <>
         <div>College List</div>

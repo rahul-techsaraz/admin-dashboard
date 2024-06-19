@@ -9,7 +9,7 @@ import { constants } from '../../utils/constants'
 import ItemList from '../ItemList'
 import { v4 as uuid } from 'uuid'
 
-export default function CollegeHighlights() {
+export default function CollegeHighlights({collegeId}) {
   useCourseDetails();
   const dispatch = useDispatch()
   const {allCourseDetails, collegeHighlights, highlightList} = useSelector(state=>state.college)

@@ -12,8 +12,9 @@ export const httpCall2 = async (url, body) => {
     // }
     // const options = await prepareOption(headers, method, body);
     const data = await axios.post(url, body);
-    // const json = await data.json();
-    return data;
+    const json = {}
+
+    return {...json, data:data.data, status:data.status};
 }
 const prepareOption = (headers, method, body) => {
       const options = {

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { updateCourseInfo } from '../../features/courseSlice'
 import { useDispatch } from 'react-redux'
+import { updateCollegeInfo } from '../../features/collegeSlice'
 
-export default function DataToDisplay({dataToDisplay}) {
+export default function DataToDisplay({dataToDisplay, type}) {
     const dispatch = useDispatch()
     
   return (
@@ -10,7 +11,7 @@ export default function DataToDisplay({dataToDisplay}) {
         {/* <div>Data to display</div> */}
         <div className='full-contain'>
             <div className='edit-btn-flex'>
-                <button onClick={() => dispatch(updateCourseInfo({classKey : 'isEdit', value : true}))} className='edit-btn'>Edit</button>    
+                <button onClick={() => type === 'college' ? dispatch(updateCollegeInfo({classKey : 'isEdit', value : true})) : dispatch(updateCourseInfo({classKey : 'isEdit', value : true}))} className='edit-btn'>Edit</button>    
             </div>
             <div className='grid-parent'>
                 {dataToDisplay.map(data => (
