@@ -23,7 +23,7 @@ import ItemList from '../ItemList';
 const Input = styled(MuiInput)`width: 42px;`;
 
 
-export default function CourseOffered() {
+export default function CourseOffered({collegeId}) {
   useCourseDetails();
   const {allCourseDetails, courseOffered, courseOfferedList} = useSelector(state=>state.college)
   const {
@@ -42,25 +42,25 @@ export default function CourseOffered() {
   const id = uuid();
 
   const handleSliderChange = (event, newValue) => {
-    if(newValue < course_fee_min){
+    if(Number(newValue) < Number(course_fee_min)){
       setValue(Number(course_fee_min));
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : course_fee_min}))
-    }else if(newValue > course_fee_max){
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_min)}))
+    }else if(Number(newValue) > Number(course_fee_max)){
       setValue(Number(course_fee_max));
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : course_fee_max}))
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_max)}))
     }else{
       setValue(Number(newValue))
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : newValue}))
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(newValue)}))
     }
   };
 
   const handleInputChange = (event) => {
-    if(event.target.value < course_fee_min){
+    if(Number(event.target.value) < Number(course_fee_min)){
       setValue(Number(course_fee_min))
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : course_fee_min}))
-    }else if(event.target.value > course_fee_max){
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_min)}))
+    }else if(Number(event.target.value) > Number(course_fee_max)){
       setValue(Number(course_fee_max))
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : course_fee_max}))
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_max)}))
     }else{
       setValue(Number(event.target.value))
       dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(event.target.value)}))
@@ -68,12 +68,12 @@ export default function CourseOffered() {
   };
 
   const handleBlur = () => {
-    if (value < course_fee_min) {
+    if (value < Number(course_fee_min)) {
       setValue(Number(course_fee_min));
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : course_fee_min}))
-    } else if (value > course_fee_max) {
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_min)}))
+    } else if (value > Number(course_fee_max)) {
       setValue(Number(course_fee_max));
-      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : course_fee_max}))
+      dispatch(updateCollegeInfo({classKey : 'courseOffered', key : 'sub_course_fee', value : Number(course_fee_max)}))
     }
   };
   
@@ -164,8 +164,8 @@ useEffect(()=>{
                   onBlur={handleBlur}
                   inputProps={{
                     step: 1,
-                    min: 0,
-                    max: 100,
+                    min: Number(course_fee_min),
+                    max: Number(course_fee_max),
                     type: 'number',
                     'aria-labelledby': 'input-slider',
                   }}

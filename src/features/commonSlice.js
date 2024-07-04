@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addExamConfig, addExamHighlights, addNewExam, deleteExam, fetchExamConfigById, fetchExamDescriptionById, fetchExamHighlightsById, fetchExamInfoById, fetchExamList, updateExamDescription } from "../utils/reduxThunk/examThunk";
 import { fetchCourseBasicDetailsById, fetchCourseDescriptionById, fetchCourseDetails, fetchCourseDetailsById, fetchSyllabusDetailsById } from "../utils/reduxThunk/courseThunk";
 import { addNewCategory, approveUser, deleteCategory, fetchAllUserList, fetchCategory, fetchCategoryById, loginUsers } from "../utils/reduxThunk/commonThunk";
-import { addCollegeBasicDetails, addCollegeCourseOffered, addCollegeDescription, addCollegeFacilities, addCollegeGallary, addCollegeHighlight, deleteCollegeBasicDetails, fetchAgentCollegeList, fetchCityList, fetchCourseList, fetchStateList, fileUpload, fileUploadGallary, fileUploadThumbnail, fileUploadlogo } from "../utils/reduxThunk/collegeThunk";
+import { addCollegeBasicDetails, addCollegeCourseOffered, addCollegeDescription, addCollegeFacilities, addCollegeGallary, addCollegeHighlight, deleteCollegeBasicDetails, fetchAgentCollegeList, fetchCityList, fetchCollegeById, fetchCollegeCommonById, fetchCollegeDiscriptionById, fetchCollegeGallaryById, fetchCollegeHighlightsById, fetchCourseList, fetchCourseOfferedById, fetchStateList, fileUpload, fileUploadGallary, fileUploadThumbnail, fileUploadlogo } from "../utils/reduxThunk/collegeThunk";
 
 const initialState = {
    isLoading: false,
@@ -421,6 +421,60 @@ const commonSlice = createSlice({
       state.isLoading = false
     });
     builder.addCase(addCollegeGallary.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCollegeById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseOfferedById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCourseOfferedById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCourseOfferedById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeDiscriptionById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCollegeDiscriptionById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeDiscriptionById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeHighlightsById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCollegeHighlightsById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeHighlightsById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeCommonById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCollegeCommonById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeCommonById.rejected, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeGallaryById.pending, (state, {payload})=>{
+      state.isLoading = true
+    });
+    builder.addCase(fetchCollegeGallaryById.fulfilled, (state, {payload})=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchCollegeGallaryById.rejected, (state, {payload})=>{
       state.isLoading = false
     });
   }

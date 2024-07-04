@@ -99,7 +99,7 @@ export const fileUploadGallary = createAsyncThunk(
     }
 );
 export const deleteCollegeBasicDetails = createAsyncThunk(
-    "course/deleteCollegeBasicDetails",
+    "college/deleteCollegeBasicDetails",
     async({url, header, method, payload}, thunkApi)=>{
         try{
             const data = await httpCall(url, header, method, payload);
@@ -111,7 +111,7 @@ export const deleteCollegeBasicDetails = createAsyncThunk(
     }
 );
 export const addCollegeDescription = createAsyncThunk(
-    "course/addCollegeDescription",
+    "college/addCollegeDescription",
     async({url, header, method, payload}, thunkApi)=>{
         try{
             const data = await httpCall(url, header, method, payload);
@@ -123,7 +123,7 @@ export const addCollegeDescription = createAsyncThunk(
     }
 );
 export const addCollegeHighlight = createAsyncThunk(
-    "course/addCollegeHighlight",
+    "college/addCollegeHighlight",
     async({url, header, method, payload}, thunkApi)=>{
         try{
             const data = await httpCall(url, header, method, payload);
@@ -135,7 +135,7 @@ export const addCollegeHighlight = createAsyncThunk(
     }
 );
 export const addCollegeFacilities = createAsyncThunk(
-    "course/addCollegeFacilities",
+    "college/addCollegeFacilities",
     async({url, header, method, payload}, thunkApi)=>{
         try{
             const data = await httpCall(url, header, method, payload);
@@ -147,7 +147,7 @@ export const addCollegeFacilities = createAsyncThunk(
     }
 );
 export const addCollegeCourseOffered = createAsyncThunk(
-    "course/addCollegeCourseOffered",
+    "college/addCollegeCourseOffered",
     async({url, header, method, payload}, thunkApi)=>{
         try{
             const data = await httpCall(url, header, method, payload);
@@ -159,7 +159,79 @@ export const addCollegeCourseOffered = createAsyncThunk(
     }
 );
 export const addCollegeGallary = createAsyncThunk(
-    "course/addCollegeGallary",
+    "college/addCollegeGallary",
+    async({url, header, method, payload}, thunkApi)=>{
+        try{
+            const data = await httpCall(url, header, method, payload);
+            return data;
+        }
+        catch(error){
+            return thunkApi.rejectWithError(error)
+        }
+    }
+);
+export const fetchCollegeById = createAsyncThunk(
+    "college/fetchCollegeById",
+    async({url, header, method, payload}, thunkApi)=>{
+        try{
+            const data = await httpCall(url, header, method, payload);
+            return data;
+        }
+        catch(error){
+            return thunkApi.rejectWithError(error)
+        }
+    }
+);
+export const fetchCourseOfferedById = createAsyncThunk(
+    "college/fetchCourseOfferedById",
+    async({url, header, method, payload}, thunkApi)=>{
+        try{
+            const data = await httpCall(url, header, method, payload);
+            return data;
+        }
+        catch(error){
+            return thunkApi.rejectWithError(error)
+        }
+    }
+);
+export const fetchCollegeDiscriptionById = createAsyncThunk(
+    "college/fetchCollegeDiscriptionById",
+    async({url, header, method, payload}, thunkApi)=>{
+        try{
+            const data = await httpCall(url, header, method, payload);
+            return data;
+        }
+        catch(error){
+            return thunkApi.rejectWithError(error)
+        }
+    }
+);
+export const fetchCollegeHighlightsById = createAsyncThunk(
+    "college/fetchCollegeHighlightsById",
+    async({url, header, method, payload}, thunkApi)=>{
+        try{
+            const data = await httpCall(url, header, method, payload);
+            return data;
+        }
+        catch(error){
+            return thunkApi.rejectWithError(error)
+        }
+    }
+);
+export const fetchCollegeCommonById = createAsyncThunk(
+    "college/fetchCollegeCommonById",
+    async({url, header, method, payload}, thunkApi)=>{
+        try{
+            const data = await httpCall(url, header, method, payload);
+            return data;
+        }
+        catch(error){
+            return thunkApi.rejectWithError(error)
+        }
+    }
+);
+export const fetchCollegeGallaryById = createAsyncThunk(
+    "college/fetchCollegeGallaryById",
     async({url, header, method, payload}, thunkApi)=>{
         try{
             const data = await httpCall(url, header, method, payload);

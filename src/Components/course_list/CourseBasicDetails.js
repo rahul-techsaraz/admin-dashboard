@@ -42,8 +42,8 @@ export default function CourseBasicDetails({courseId}) {
     dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_accepting_exam", value : filteredData}))
   };
   const handleChange = (event, newValue) => {
-    dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_fee_min", value : newValue[0]}))
-    dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_fee_max", value : newValue[1]}))
+    dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_fee_min", value : Number(newValue[0])}))
+    dispatch(updateCourseInfo({classKey : "courseInfo", key : "course_fee_max", value : Number(newValue[1])}))
   };
   const handleValidate = (e)=>{
     if(e.target.value !== '' && !JSON.stringify(course_accepting_exam).includes(e.target.value)){

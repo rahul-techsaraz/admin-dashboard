@@ -4,7 +4,7 @@ import TextArea from '../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateCollegeInfo } from '../../features/collegeSlice'
 
-export default function CollegeDescription() {
+export default function CollegeDescription({collegeId}) {
   const {collegeDescriptions} = useSelector(state=>state.college)
   const {
     isValitadeError,

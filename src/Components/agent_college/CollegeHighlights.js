@@ -9,12 +9,13 @@ import { constants } from '../../utils/constants'
 import ItemList from '../ItemList'
 import { v4 as uuid } from 'uuid'
 
-export default function CollegeHighlights() {
+export default function CollegeHighlights({collegeId}) {
   useCourseDetails();
   const dispatch = useDispatch()
   const {allCourseDetails, collegeHighlights, highlightList} = useSelector(state=>state.college)
   const {isValitadeError, course_name, fees_annually, eligibility_criteria, course_duration} = useSelector(state=>state.college.collegeHighlights)
   const [isDisabled, setisDisabled] = useState(true)
+  const [componentCourse, setComponentCourse] = useState('')
   const id = uuid();
 
   const setDetails = (e,value)=>{
@@ -74,7 +75,8 @@ export default function CollegeHighlights() {
           label='Course Name'
           options={allCourseDetails.map(course=> {return {'label' : course.course_name, 'course_id' : course.course_id}})}
           onChange={(e,value)=>setDetails(e,value)}
-          inputValue={collegeHighlights.course_name}
+          onInputChange={(e, value)=>setComponentCourse(value)}
+          inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
         />
         <InputFieldText
         placeholder='Course Duration'
