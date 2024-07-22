@@ -132,9 +132,7 @@ export default function AddNewCollege() {
             payload : courseOfferedPayload,
           })),
         ])
-        console.log(isresolved)
         const response = await isresolved.map((status=> status.payload.status)).some((status)=> [constants.apiResponseStatus.SUCCESS, 200].includes(status) )
-        console.log(response)
         if(!response){
           dispatch(updateError({
             errorType : constants.apiResponseStatus.ERROR,
@@ -147,13 +145,10 @@ export default function AddNewCollege() {
             method : constants.httpMethod.DELETE,
             payload : collegeDeletePayload,
           }))
-          // dispatch(resetCollege())
+          dispatch(resetCollege())
           return false;
         }
-        console.log(collegeBasicDetails.college_logo)
-    console.log(collegeBasicDetails.college_thumbnail)
-    console.log(gallary.image_path)
-    const collegeInfoUpdatedPayload = await{
+      const collegeInfoUpdatedPayload = await{
       college_id : collegeID,
       college_name : collegeBasicDetails.college_name,
       location : collegeBasicDetails.location,
@@ -200,7 +195,7 @@ export default function AddNewCollege() {
         method : constants.httpMethod.DELETE,
         payload : collegeDeletePayload,
       }))
-      // dispatch(resetCollege())
+      dispatch(resetCollege())
       return false;
     }else{
       dispatch(updateError({
@@ -236,17 +231,12 @@ export default function AddNewCollege() {
       }
     }
     catch(error){
-      console.log('From catch')
       dispatch(updateError({
         errorType : constants.apiResponseStatus.ERROR,
         errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
         flag : true
       }))
     }
-  }
-
-  const UpdateBasicDetails = async (collegeID, collegeDeletePayload)=>{
-    
   }
 
   useEffect(()=>{
@@ -256,18 +246,6 @@ export default function AddNewCollege() {
       dispatch(updateCollegeInfo({classKey : 'isDisabled', value : true}))
     }
   },[collegeBasicDetails.isValitadeError, courseOffered.isValitadeError, collegeDescriptions.isValitadeError, collegeHighlights.isValitadeError, common.isValitadeError, gallary.isValitadeError])
-
-  // useEffect(()=>{
-  //   console.log(collegeBasicDetails.college_logo)
-  // },[collegeBasicDetails.college_logo])
-
-  // useEffect(()=>{
-  //   console.log(collegeBasicDetails.college_thumbnail)
-  // },[collegeBasicDetails.college_thumbnail])
-
-  // useEffect(()=>{
-  //   console.log(gallary.image_path)
-  // },[gallary.image_path])
 
   return (
     <AddItemForm label={'Add New College'}>
