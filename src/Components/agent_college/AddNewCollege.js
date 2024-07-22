@@ -95,7 +95,7 @@ export default function AddNewCollege() {
           collegeGallaryData.append("file[]", collegeGallary[i])
         }
         const isresolved = await Promise.all([
-          await dispatch(fileUploadlogo({
+          dispatch(fileUploadlogo({
             url : constants.apiEndPoint.UPLOAD_FILE+`?dir=${collegeBasicDetails.college_name}`,
             payload : collegeLogoData,
           })),
@@ -133,82 +133,85 @@ export default function AddNewCollege() {
           })),
         ])
         console.log(isresolved)
-        isresolved.map(resolve=>{
-          if(resolve.payload.status !== constants.apiResponseStatus.SUCCESS && resolve.payload.status !== 200){
-            dispatch(updateError({
-              errorType : constants.apiResponseStatus.ERROR,
-              errorMessage : "Something went wrong",
-              flag : true
-            }))
-            dispatch(deleteCollegeBasicDetails({
-              url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
-              header : constants.apiHeaders.HEADER,
-              method : constants.httpMethod.DELETE,
-              payload : collegeDeletePayload,
-            }))
-            dispatch(resetCollege())
-            return false;
-          }
-          else{
-            const collegeInfoUpdatedPayload = {
-              college_id : collegeID,
-              college_name : collegeBasicDetails.college_name,
-              location : collegeBasicDetails.location,
-              affiliate_by : collegeBasicDetails.affiliate_by,
-              ratings : collegeBasicDetails.ratings,
-              college_logo : collegeBasicDetails.college_logo,
-              college_thumbnail : collegeBasicDetails.college_thumbnail,
-              state : collegeBasicDetails.state,
-              city : collegeBasicDetails.city,
-              college_type : collegeBasicDetails.college_type,
-              account_name : JSON.parse(localStorage.getItem('userData')).account_name,
-              is_publish : constants.courseIsPublished.notPublished,
-            }
-            const gallaryPayload = {
-              college_id : collegeID,
-              image_path : gallary.image_path,
-              video_path : gallary.video_path,
-            }
-            console.log(collegeInfoUpdatedPayload)
-            console.log(gallaryPayload)
-            const response = dispatch(addCollegeBasicDetails({
-              url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
-              header : constants.apiHeaders.HEADER,
-              method : constants.httpMethod.PUT,
-              payload : collegeInfoUpdatedPayload,
-            }))
-            const response1 = dispatch(addCollegeGallary({
-              url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=collegeGallary",
-              header : constants.apiHeaders.HEADER,
-              method : constants.httpMethod.POST,
-              payload : gallaryPayload,
-            }))
-            if(response !== constants.apiResponseStatus.SUCCESS && response1 !== constants.apiResponseStatus.SUCCESS){
-              dispatch(updateError({
-                errorType : constants.apiResponseStatus.ERROR,
-                errorMessage : "Something went Wrong",
-                flag : true
-              }))
-              dispatch(deleteCollegeBasicDetails({
-                url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
-                header : constants.apiHeaders.HEADER,
-                method : constants.httpMethod.DELETE,
-                payload : collegeDeletePayload,
-              }))
-              dispatch(resetCollege())
-              return false;
-            }
-            else{
-              dispatch(updateError({
-                errorType : constants.apiResponseStatus.SUCCESS,
-                errorMessage : "College Added Sucessfully",
-                flag : true
-              }))
-              dispatch(resetCollege())
-              navigate('/list-agent-college')
-            }
-          }
-        })
+        const response = await isresolved.map((status=> status.payload.status)).some((status)=> [constants.apiResponseStatus.SUCCESS, 200].includes(status) )
+        console.log(response)
+        if(!response){
+          dispatch(updateError({
+            errorType : constants.apiResponseStatus.ERROR,
+            errorMessage : "Something went wrong",
+            flag : true
+          }))
+          dispatch(deleteCollegeBasicDetails({
+            url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
+            header : constants.apiHeaders.HEADER,
+            method : constants.httpMethod.DELETE,
+            payload : collegeDeletePayload,
+          }))
+          // dispatch(resetCollege())
+          return false;
+        }
+        console.log(collegeBasicDetails.college_logo)
+    console.log(collegeBasicDetails.college_thumbnail)
+    console.log(gallary.image_path)
+    const collegeInfoUpdatedPayload = await{
+      college_id : collegeID,
+      college_name : collegeBasicDetails.college_name,
+      location : collegeBasicDetails.location,
+      affiliate_by : collegeBasicDetails.affiliate_by,
+      ratings : collegeBasicDetails.ratings,
+      college_logo : collegeBasicDetails.college_logo,
+      college_thumbnail : collegeBasicDetails.college_thumbnail,
+      state : collegeBasicDetails.state,
+      city : collegeBasicDetails.city,
+      college_type : collegeBasicDetails.college_type,
+      account_name : JSON.parse(localStorage.getItem('userData')).account_name,
+      is_publish : constants.courseIsPublished.notPublished,
+    }
+    const gallaryPayload = await{
+      college_id : collegeID,
+      image_path : gallary.image_path,
+      video_path : gallary.video_path,
+    }
+    console.log(collegeInfoUpdatedPayload)
+    console.log(gallaryPayload)
+    const response1 = await dispatch(addCollegeBasicDetails({
+      url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
+      header : constants.apiHeaders.HEADER,
+      method : constants.httpMethod.PUT,
+      payload : collegeInfoUpdatedPayload,
+    }))
+    const response2 = await dispatch(addCollegeGallary({
+      url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=collegeGallary",
+      header : constants.apiHeaders.HEADER,
+      method : constants.httpMethod.POST,
+      payload : gallaryPayload,
+    }))
+    console.log(response1)
+    console.log(response2)
+    if(response1.payload.status !== constants.apiResponseStatus.SUCCESS && response2.payload.status !== constants.apiResponseStatus.SUCCESS){
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.ERROR,
+        errorMessage : "Something went Wrong",
+        flag : true
+      }))
+      dispatch(deleteCollegeBasicDetails({
+        url : constants.apiEndPoint.COLLEGE_LIST+"?requestType=basicCollegeListing",
+        header : constants.apiHeaders.HEADER,
+        method : constants.httpMethod.DELETE,
+        payload : collegeDeletePayload,
+      }))
+      // dispatch(resetCollege())
+      return false;
+    }else{
+      dispatch(updateError({
+        errorType : constants.apiResponseStatus.SUCCESS,
+        errorMessage : "College Added Sucessfully",
+        flag : true
+      }))
+      dispatch(resetCollege())
+      navigate('/list-agent-college')
+    }
+        
       }
       else if(addNewCollegeResponse.payload.data.message.toLowerCase().includes('duplicate')){
         dispatch(updateError({
@@ -240,6 +243,10 @@ export default function AddNewCollege() {
         flag : true
       }))
     }
+  }
+
+  const UpdateBasicDetails = async (collegeID, collegeDeletePayload)=>{
+    
   }
 
   useEffect(()=>{

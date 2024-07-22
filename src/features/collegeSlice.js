@@ -104,9 +104,10 @@ const collegeSlice = createSlice({
 			}
 		});
 		builder.addCase(fileUploadlogo.fulfilled, (state, {payload}) => {
-			console.log(payload.data[0].fileName)
-			state.collegeBasicDetails.college_logo = "Test"
-			// payload?.data[0]?.fileName
+			console.log(payload)
+			if(payload.status === 200){
+			state.collegeBasicDetails.college_logo = payload.data[0].fileName
+			}
 		});
 		builder.addCase(fileUploadThumbnail.fulfilled, (state, {payload}) => {
 			if(payload.status === 200){
