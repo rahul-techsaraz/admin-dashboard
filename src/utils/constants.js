@@ -169,6 +169,19 @@ export const constants = {
                 },
             ]
         },
+        {
+            name: "Agents",
+            navMenu: [
+                {
+                    labelName: "College List",
+                    path:"list-agent-college"
+                },
+                {
+                    labelName: "Add New College",
+                    path:"add-college"
+                },
+            ]
+        }
         
     ],
     examDescriptionInputFieldList:[
