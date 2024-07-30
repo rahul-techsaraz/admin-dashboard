@@ -10,141 +10,148 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addCourseDetails, fetchCourseDetailsById } from '../../utils/reduxThunk/courseThunk'
 import DataToDisplay from './DataToDisplay'
 
-export default function CourseDetails({courseId}) {
-    const {
-        isValidationError,
-        course_id,
-        course_level,
-        exam_type,
-        eligiblity_criteria,
-    } = useSelector(state=>state.course.courseDetails)
-    const {courseDetails, isEdit} = useSelector(state=>state.course)
-    const dispatch = useDispatch()
+export default function CourseDetails({ courseId }) {
+  const { isValidationError, course_id, course_level, exam_type, eligiblity_criteria } = useSelector((state) => state.course.courseDetails)
+  const { courseDetails, isEdit } = useSelector((state) => state.course)
+  const dispatch = useDispatch()
 
-    // const handleValidate = (e)=>{
-    //     if(e.target.value !== '' && !JSON.stringify(top_course_colleges).includes(e.target.value)){
-    //         dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : [...top_course_colleges, e.target.value]}))
-    //     }else{
-    //         dispatch(updateError({
-    //             errorType: constants.apiResponseStatus.WARNING,
-    //             errorMessage: "Invalid Option Selected or College already Selected",
-    //             flag:true
-    //         }))
-    //     }
-    // }
+  // const handleValidate = (e)=>{
+  //     if(e.target.value !== '' && !JSON.stringify(top_course_colleges).includes(e.target.value)){
+  //         dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : [...top_course_colleges, e.target.value]}))
+  //     }else{
+  //         dispatch(updateError({
+  //             errorType: constants.apiResponseStatus.WARNING,
+  //             errorMessage: "Invalid Option Selected or College already Selected",
+  //             flag:true
+  //         }))
+  //     }
+  // }
 
-    // const handleDelete = (value) => {
-    //     const filteredData = top_course_colleges.filter((data)=>data !== value)
-    //     dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : filteredData}))
-    //   };
-    const updateCourse = async()=>{
-        try{
-            const courseDetailsPayload = await{
-                course_id : course_id,
-                course_level : course_level,
-                exam_type : exam_type,
-                eligiblity_criteria : eligiblity_criteria,
-            };
-            const response = await dispatch(addCourseDetails({
-                url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails",
-                header : constants.apiHeaders.HEADER,
-                method : constants.httpMethod.PUT,
-                payload : courseDetailsPayload
-            }))
-            if(response.payload.status === constants.apiResponseStatus.SUCCESS){
-                dispatch(updateError({
-                    errorType : constants.apiResponseStatus.ERROR,
-                    errorMessage : "Course Details Updated Sucessfully",
-                    flag : true
-                }))
-                dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))
-            }else{
-                dispatch(updateError({
-                    errorType : constants.apiResponseStatus.ERROR,
-                    errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
-                    flag : true
-                }))
-            }
-        }
-        catch(error){
-            dispatch(updateError({
-                errorType : constants.apiResponseStatus.ERROR,
-                errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
-                flag : true
-            }))
-        }
-    }
-    const handleCancle = async ()=>{
-        try{
-          const response = await dispatch(fetchCourseDetailsById({
-            url : constants.apiEndPoint.COURSE_DETAILS+"?requestType=basicCourseDetails&course_id="+courseId,
-            header : constants.apiHeaders.HEADER,
-            method : constants.httpMethod.GET,
-          }))
-          if(response.payload.status === constants.apiResponseStatus.SUCCESS){
-            dispatch(updateCourseInfo({classKey : 'isEdit', value : false}))
-          }else{
-            dispatch(updateError({
-              errorType : constants.apiResponseStatus.ERROR,
-              errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
-              flag : true
-            }))
-          }
-        }
-        catch(error){
-          dispatch(updateError({
-            errorType : constants.apiResponseStatus.ERROR,
-            errorMessage : constants.apiResponseMessage.ERROR_MESSAGE,
-            flag : true
-          }))
-        }
+  // const handleDelete = (value) => {
+  //     const filteredData = top_course_colleges.filter((data)=>data !== value)
+  //     dispatch(updateCourseInfo({classKey : "courseDetails", key : "top_course_colleges", value : filteredData}))
+  //   };
+  const updateCourse = async () => {
+    try {
+      const courseDetailsPayload = await {
+        course_id: course_id,
+        course_level: course_level,
+        exam_type: exam_type,
+        eligiblity_criteria: eligiblity_criteria
       }
-    
-    useEffect(()=>{
-        if(course_level !== '' && exam_type !== '' && eligiblity_criteria !== ''){
-            dispatch(updateCourseInfo({classKey : "courseDetails", key : "isValidationError", value : false}))
-        }else{
-            dispatch(updateCourseInfo({classKey : "courseDetails", key : "isValidationError", value : true}))
-        }
-    },[course_level, exam_type, eligiblity_criteria])
-    
-    const courseDetailsData = [
-        { lable: 'Course Level', value: course_level },
-        { lable: 'Exam Type', value: exam_type },
-        { lable: 'Eligiblity Criteria', value: eligiblity_criteria },
-        // { lable: 'Top Course Colleges', value: top_course_colleges.join(', ') },
-    ]
+      const response = await dispatch(
+        addCourseDetails({
+          url: constants.apiEndPoint.COURSE_DETAILS + '?requestType=basicCourseDetails',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.PUT,
+          payload: courseDetailsPayload
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Course Details Updated Sucessfully',
+            flag: true
+          })
+        )
+        dispatch(updateCourseInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+  const handleCancle = async () => {
+    try {
+      const response = await dispatch(
+        fetchCourseDetailsById({
+          url: constants.apiEndPoint.COURSE_DETAILS + '?requestType=basicCourseDetails&course_id=' + courseId,
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.GET
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(updateCourseInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (course_level !== '' && exam_type !== '' && eligiblity_criteria !== '') {
+      dispatch(updateCourseInfo({ classKey: 'courseDetails', key: 'isValidationError', value: false }))
+    } else {
+      dispatch(updateCourseInfo({ classKey: 'courseDetails', key: 'isValidationError', value: true }))
+    }
+  }, [course_level, exam_type, eligiblity_criteria])
+
+  const courseDetailsData = [
+    { lable: 'Course Level', value: course_level },
+    { lable: 'Exam Type', value: exam_type },
+    { lable: 'Eligiblity Criteria', value: eligiblity_criteria }
+    // { lable: 'Top Course Colleges', value: top_course_colleges.join(', ') },
+  ]
   return (
-      <>
-          {!isEdit && courseId ? <DataToDisplay dataToDisplay={courseDetailsData} />
-              : (
-                  <div style={{gap: "20px", display: 'flex', margin: "2.5rem 0px", flexWrap: "wrap"}}>
-            <SelectBox
-                label={constants.courseLevelSelectBox[0].label}
-                options={constants.courseLevelSelectBox}
-                styles={{width: '280px', height: '38px'}}
-                onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseDetails", key : "course_level", value : e.target.value}))}
-                inputValue={course_level}
+    <>
+      {!isEdit && courseId ? (
+        <DataToDisplay dataToDisplay={courseDetailsData} />
+      ) : (
+        <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap' }}>
+          <SelectBox
+            label={constants.courseLevelSelectBox[0].label}
+            options={constants.courseLevelSelectBox}
+            styles={{ width: '280px', height: '38px' }}
+            onChange={(e) => dispatch(updateCourseInfo({ classKey: 'courseDetails', key: 'course_level', value: e.target.value }))}
+            inputValue={course_level}
+          />
+          <SelectBox
+            label={'Exam Type'}
+            options={constants.courseExamTypeSelectBox}
+            styles={{ width: '280px', height: '38px' }}
+            onChange={(e) => dispatch(updateCourseInfo({ classKey: 'courseDetails', key: 'exam_type', value: e.target.value }))}
+            inputValue={exam_type}
+          />
+          {constants.courseDetailsInputFieldList.map((description) => (
+            <TextArea
+              placeholder={description.label}
+              noOfROws={6}
+              noOfCols={55}
+              fieldName={description.label}
+              styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
+              onChange={(e) => dispatch(updateCourseInfo({ classKey: description.classKey, key: description.key, value: e.target.value }))}
+              inputValue={courseDetails[description.key]}
             />
-            <SelectBox
-                label={'Exam Type'}
-                options={constants.courseExamTypeSelectBox}
-                styles={{width: '280px', height: '38px'}}
-                onChange={(e)=>dispatch(updateCourseInfo({classKey : "courseDetails", key : "exam_type", value : e.target.value}))}
-                inputValue={exam_type}
-            />
-            {constants.courseDetailsInputFieldList.map((description)=>(
-                <TextArea
-                    placeholder={description.label}
-                    noOfROws={6}
-                    noOfCols={55}
-                    fieldName={description.label}
-                    styles={{border:'solid #e83e8c 1px',borderRadius:"1rem"}}
-                    onChange={(e)=>dispatch(updateCourseInfo({classKey : description.classKey, key : description.key, value : e.target.value}))}
-                    inputValue={courseDetails[description.key]}
-                />  
-            ))}
-            {/* <div style={{display:'flex', flexDirection:'column', gap:"1.5rem"}}>
+          ))}
+          {/* <div style={{display:'flex', flexDirection:'column', gap:"1.5rem"}}>
                 <SelectBox
                     label={'Top Course Colleges'}
                     options={constants.courseTopCourseCollegesSelectBox}
@@ -160,26 +167,17 @@ export default function CourseDetails({courseId}) {
                     </Stack>
                 </div>
             </div> */}
-            
         </div>
-              )}
-        
-        <div style={{display:'flex', gap:"1.5rem"}}>
-          {isEdit && courseId &&
+      )}
+
+      <div style={{ display: 'flex', gap: '1.5rem' }}>
+        {isEdit && courseId && (
           <>
-            <CustomButton
-              isDisabled={isValidationError}
-              lable={'Update'}
-              onClick={() => updateCourse()}
-            />
-            <CustomButton
-              isDisabled={isValidationError}
-              lable={'Cancle'}
-              onClick={() => handleCancle()}
-            />
-          </> 
-          }
-        </div>
+            <CustomButton isDisabled={isValidationError} lable={'Update'} onClick={() => updateCourse()} />
+            <CustomButton isDisabled={isValidationError} lable={'Cancle'} onClick={() => handleCancle()} />
+          </>
+        )}
+      </div>
     </>
   )
 }

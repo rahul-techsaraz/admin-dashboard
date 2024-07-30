@@ -7,11 +7,10 @@ import { useParams } from 'react-router-dom'
 import ExamDescriptionForm from './ExamDescriptionForm'
 import DescriptionsDetailsData from './DescriptionsDetailsData'
 
-
 export default function ExamDescriptions() {
   return (
-      <>
-                   <ExamDescriptionForm />
-      </>
+    <>
+      <ExamDescriptionForm />
+    </>
   )
 }

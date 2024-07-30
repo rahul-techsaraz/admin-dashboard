@@ -1,41 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { constants } from "../utils/constants";
-import { addNewCategory, fetchCategory, fetchCategoryById } from "../utils/reduxThunk/commonThunk";
+import { createSlice } from '@reduxjs/toolkit'
+import { constants } from '../utils/constants'
+import { addNewCategory, fetchCategory, fetchCategoryById } from '../utils/reduxThunk/commonThunk'
 
 const initialState = {
   categoryData: [],
   categoryInputValue: '',
   isValidateError: true
-  
- 
-};
+}
 
 const categorySlice = createSlice({
-  name: "category",
+  name: 'category',
   initialState,
   reducers: {
-      updateACategoryInputValue: (state, { payload }) => {
-          state.categoryInputValue = payload.data;
+    updateACategoryInputValue: (state, { payload }) => {
+      state.categoryInputValue = payload.data
     },
     updateIsValidateError: (state, { payload }) => {
-      state.isValidateError = payload.data;
+      state.isValidateError = payload.data
     },
-    resetCategory: ()=> initialState,
-
+    resetCategory: () => initialState
   },
-  extraReducers: (builder)=>{
-    builder.addCase(fetchCategory.fulfilled, (state, {payload})=>{
+  extraReducers: (builder) => {
+    builder.addCase(fetchCategory.fulfilled, (state, { payload }) => {
       state.categoryData = payload.data
     })
-    builder.addCase(fetchCategoryById.fulfilled, (state, {payload})=>{
+    builder.addCase(fetchCategoryById.fulfilled, (state, { payload }) => {
       state.categoryData = payload.data
     })
   }
-});
-  
+})
 
-export const { 
-    updateACategoryInputValue, updateIsValidateError, resetCategory,
- } = categorySlice.actions;
+export const { updateACategoryInputValue, updateIsValidateError, resetCategory } = categorySlice.actions
 
-export default categorySlice.reducer;
+export default categorySlice.reducer

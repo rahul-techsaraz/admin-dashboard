@@ -1,25 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { constants } from "../utils/constants";
+import { createSlice } from '@reduxjs/toolkit'
+import { constants } from '../utils/constants'
 
 const initialState = {
-    activeSubHeader: '',
- 
-};
+  activeSubHeader: ''
+}
 
 const subHeaderMenuSlice = createSlice({
-  name: "subheadermenu",
+  name: 'subheadermenu',
   initialState,
   reducers: {
-      updateActiveSubHeader: (state, { payload }) => {
-          state.activeSubHeader = payload.subHeaderArr;
-    },
-   
+    updateActiveSubHeader: (state, { payload }) => {
+      state.activeSubHeader = payload.subHeaderArr
+    }
+  }
+})
 
-  },
-});
+export const { updateActiveSubHeader } = subHeaderMenuSlice.actions
 
-export const { 
-    updateActiveSubHeader,
- } = subHeaderMenuSlice.actions;
-
-export default subHeaderMenuSlice.reducer;
+export default subHeaderMenuSlice.reducer

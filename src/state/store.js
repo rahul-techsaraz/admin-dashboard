@@ -1,22 +1,22 @@
-import { configureStore,combineReducers } from "@reduxjs/toolkit";
-import categorySlice from '../features/categorySlice';
-import subHeaderMenuSlice from '../features/subHeaderMenuSlice';
-import examSlice from '../features/examSlice';
-import userSlice from '../features/userSlice';
-import commonSlice from "../features/commonSlice";
-import courseSlice from "../features/courseSlice";
-import collegeSlice from "../features/collegeSlice";
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import categorySlice from '../features/categorySlice'
+import subHeaderMenuSlice from '../features/subHeaderMenuSlice'
+import examSlice from '../features/examSlice'
+import userSlice from '../features/userSlice'
+import commonSlice from '../features/commonSlice'
+import courseSlice from '../features/courseSlice'
+import collegeSlice from '../features/collegeSlice'
 const reducers = combineReducers({
-  user:userSlice,
+  user: userSlice,
   subheadermenu: subHeaderMenuSlice,
   category: categorySlice,
   exam: examSlice,
-  common:commonSlice,
-  course:courseSlice,
-  college:collegeSlice,
-});
+  common: commonSlice,
+  course: courseSlice,
+  college: collegeSlice
+})
 const store = configureStore({
   reducer: reducers
-});
+})
 
-export default store;
+export default store
