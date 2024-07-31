@@ -43,7 +43,6 @@ export default function ViewCollegeDetails() {
   ])
 
   useEffect(() => {
-    console.log(collegeId)
     if (collegeId) {
       dispatch(
         fetchCollegeById({

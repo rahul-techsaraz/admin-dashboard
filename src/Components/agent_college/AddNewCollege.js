@@ -15,7 +15,6 @@ import {
   addCollegeGallary,
   addCollegeHighlight,
   deleteCollegeBasicDetails,
-  fileUpload,
   fileUploadGallary,
   fileUploadThumbnail,
   fileUploadlogo
@@ -23,13 +22,8 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { FileUpload } from '../../utils/FileUpload'
 
+
 export default function AddNewCollege() {
-  const [collegeLogo, setCollegeLogo] = useState([])
-  const [collegeThumbnail, setCollegeThumbnail] = useState([])
-  const [collegeGallary, setCollegeGallary] = useState([])
-  const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const {
     isDisabled,
     collegeBasicDetails,
@@ -42,7 +36,47 @@ export default function AddNewCollege() {
     facultyList,
     courseOfferedList
   } = useSelector((state) => state.college)
-
+  const {
+    college_name,
+    location,
+    affiliate_by,
+    ratings,
+    state,
+    city,
+    college_type,
+    college_logo,
+    college_thumbnail } = useSelector((state) => state.college.collegeBasicDetails)
+  // console.log("Redux state of Logo " + college_logo)
+  // console.log("Redux state of Thumbnail " + college_thumbnail)
+  const {
+    image_path,
+    video_path } = useSelector((state) => state.college.gallary)
+  // console.log("Redux state of Gallary " + image_path)
+  const [collegeLogo, setCollegeLogo] = useState([])
+  const [collegeThumbnail, setCollegeThumbnail] = useState([])
+  const [collegeGallary, setCollegeGallary] = useState([])
+  const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  console.log("Redux state of Logo " + college_logo)
+  console.log("Redux state of Thumbnail " + college_thumbnail)
+  // const createPayload = (collegeID) => {
+  //   const newPayload = {
+  //     college_id: collegeID,
+  //     college_name: college_name,
+  //     location: location,
+  //     affiliate_by: affiliate_by,
+  //     ratings: ratings,
+  //     college_logo: college_logo,
+  //     college_thumbnail: college_thumbnail,
+  //     state: state,
+  //     city: city,
+  //     college_type: college_type,
+  //     account_name: JSON.parse(localStorage.getItem('userData')).account_name,
+  //     is_publish: constants.courseIsPublished.notPublished
+  //   }
+  //   return newPayload
+  // }
   const createNewCollege = async () => {
     try {
       const collegeID = await uuid()
@@ -186,77 +220,61 @@ export default function AddNewCollege() {
           dispatch(resetCollege())
           return false
         }
-        const collegeInfoUpdatedPayload = await {
-          college_id: collegeID,
-          college_name: collegeBasicDetails.college_name,
-          location: collegeBasicDetails.location,
-          affiliate_by: collegeBasicDetails.affiliate_by,
-          ratings: collegeBasicDetails.ratings,
-          college_logo: collegeBasicDetails.college_logo,
-          college_thumbnail: collegeBasicDetails.college_thumbnail,
-          state: collegeBasicDetails.state,
-          city: collegeBasicDetails.city,
-          college_type: collegeBasicDetails.college_type,
-          account_name: JSON.parse(localStorage.getItem('userData')).account_name,
-          is_publish: constants.courseIsPublished.notPublished
-        }
-        const gallaryPayload = await {
-          college_id: collegeID,
-          image_path: gallary.image_path,
-          video_path: gallary.video_path
-        }
-        console.log(collegeInfoUpdatedPayload)
-        console.log(gallaryPayload)
-        const response1 = await dispatch(
-          addCollegeBasicDetails({
-            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-            header: constants.apiHeaders.HEADER,
-            method: constants.httpMethod.PUT,
-            payload: collegeInfoUpdatedPayload
-          })
-        )
-        const response2 = await dispatch(
-          addCollegeGallary({
-            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeGallary',
-            header: constants.apiHeaders.HEADER,
-            method: constants.httpMethod.POST,
-            payload: gallaryPayload
-          })
-        )
-        console.log(response1)
-        console.log(response2)
-        if (
-          response1.payload.status !== constants.apiResponseStatus.SUCCESS &&
-          response2.payload.status !== constants.apiResponseStatus.SUCCESS
-        ) {
-          dispatch(
-            updateError({
-              errorType: constants.apiResponseStatus.ERROR,
-              errorMessage: 'Something went Wrong',
-              flag: true
-            })
-          )
-          dispatch(
-            deleteCollegeBasicDetails({
-              url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-              header: constants.apiHeaders.HEADER,
-              method: constants.httpMethod.DELETE,
-              payload: collegeDeletePayload
-            })
-          )
-          dispatch(resetCollege())
-          return false
-        } else {
-          dispatch(
-            updateError({
-              errorType: constants.apiResponseStatus.SUCCESS,
-              errorMessage: 'College Added Sucessfully',
-              flag: true
-            })
-          )
-          dispatch(resetCollege())
-          navigate('/list-agent-college')
-        }
+        console.log("Redux state of Logo for Payload " + college_logo)
+        console.log("Redux state of Thumbnail for Payload " + college_thumbnail)
+        // const gallaryPayload = await {
+        //   college_id: collegeID,
+        //   image_path: image_path,
+        //   video_path: video_path
+        // }
+        // const response1 = await dispatch(
+        //   addCollegeBasicDetails({
+        //     url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+        //     header: constants.apiHeaders.HEADER,
+        //     method: constants.httpMethod.PUT,
+        //     payload: createPayload(collegeID)
+        //   })
+        // )
+        // const response2 = await dispatch(
+        //   addCollegeGallary({
+        //     url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeGallary',
+        //     header: constants.apiHeaders.HEADER,
+        //     method: constants.httpMethod.POST,
+        //     payload: gallaryPayload
+        //   })
+        // )
+        // if (
+        //   response1.payload.status !== constants.apiResponseStatus.SUCCESS &&
+        //   response2.payload.status !== constants.apiResponseStatus.SUCCESS
+        // ) {
+        //   dispatch(
+        //     updateError({
+        //       errorType: constants.apiResponseStatus.ERROR,
+        //       errorMessage: 'Something went Wrong',
+        //       flag: true
+        //     })
+        //   )
+        //   dispatch(
+        //     deleteCollegeBasicDetails({
+        //       url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+        //       header: constants.apiHeaders.HEADER,
+        //       method: constants.httpMethod.DELETE,
+        //       payload: collegeDeletePayload
+        //     })
+        //   )
+        //   //dispatch(resetCollege())
+        //   return false
+        // } else {
+        //   dispatch(
+        //     updateError({
+        //       errorType: constants.apiResponseStatus.SUCCESS,
+        //       errorMessage: 'College Added Sucessfully',
+        //       flag: true
+        //     })
+        //   )
+        //   dispatch(resetCollege())
+        //   navigate('/list-agent-college')
+        // }
       } else if (addNewCollegeResponse.payload.data.message.toLowerCase().includes('duplicate')) {
         dispatch(
           updateError({

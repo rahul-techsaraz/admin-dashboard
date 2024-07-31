@@ -18,9 +18,8 @@ export default function CollegeBasicDetails({ collegeId }) {
   const [componentCity, setComponentCity] = useState('')
   const dispatch = useDispatch()
   const { collegeBasicDetails, stateList, cityList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_name, location, affiliate_by, ratings, state, city, college_type } = useSelector(
-    (state) => state.college.collegeBasicDetails
-  )
+  const { isValitadeError, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail } =
+    useSelector((state) => state.college.collegeBasicDetails)
 
   const fetchState = async () => {
     try {
@@ -148,6 +147,10 @@ export default function CollegeBasicDetails({ collegeId }) {
     }
   }, [college_name, location, affiliate_by, ratings, state, city, college_type, collegeLogo, collegeThumbnail])
 
+  // useEffect(() => {
+  //   console.log(collegeLogo)
+  // }, [collegeId])
+
   const collegeInfoData = [
     { lable: 'College Name', value: college_name },
     { lable: 'College Type', value: college_type },
@@ -155,9 +158,9 @@ export default function CollegeBasicDetails({ collegeId }) {
     { lable: 'State', value: state },
     { lable: 'City', value: city },
     { lable: 'College Location', value: location },
-    { lable: 'Ratings', value: ratings }
-    // { lable: 'College Logo', value: collegeLogo },
-    // { lable: 'College Thumbnail', value: collegeThumbnail },
+    { lable: 'Ratings', value: ratings },
+    { lable: 'College Logo', value: college_logo },
+    { lable: 'College Thumbnail', value: college_thumbnail }
   ]
 
   return (

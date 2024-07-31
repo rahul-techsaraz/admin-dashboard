@@ -6,11 +6,12 @@ import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
+import DataToDisplay from '../course_list/DataToDisplay'
 
 export default function CollegeCommon({ collegeId }) {
   const dispatch = useDispatch()
   const [isDisabled, setisDisabled] = useState(true)
-  const { common, facultyList } = useSelector((state) => state.college)
+  const { common, facultyList, isEdit } = useSelector((state) => state.college)
 
   const createFacultyList = () => {
     const faculty_name = common.faculty_name.concat('-', common.department)
@@ -40,32 +41,35 @@ export default function CollegeCommon({ collegeId }) {
 
   return (
     <>
-      <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
-        <InputFieldText
-          placeholder='Faculty Name'
-          inputValue={common.faculty_name}
-          inputType='text'
-          onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'faculty_name', value: e.target.value }))}
-          styles={{ width: '280px' }}
-        />
-        <InputFieldText
-          placeholder='Department'
-          inputValue={common.department}
-          inputType='text'
-          onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'department', value: e.target.value }))}
-          styles={{ width: '280px' }}
-        />
-        <CustomButton
-          isDisabled={isDisabled}
-          lable={'Submit'}
-          onClick={() => createFacultyList()}
-          styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-        />
-        <div
-          className='form-group'
-          style={
-            facultyList.length > 0
-              ? {
+      {!isEdit && collegeId ? (
+        <DataToDisplay dataToDisplay={''} type={'college'} />
+      ) : (
+        <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
+          <InputFieldText
+            placeholder='Faculty Name'
+            inputValue={common.faculty_name}
+            inputType='text'
+            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'faculty_name', value: e.target.value }))}
+            styles={{ width: '280px' }}
+          />
+          <InputFieldText
+            placeholder='Department'
+            inputValue={common.department}
+            inputType='text'
+            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'department', value: e.target.value }))}
+            styles={{ width: '280px' }}
+          />
+          <CustomButton
+            isDisabled={isDisabled}
+            lable={'Submit'}
+            onClick={() => createFacultyList()}
+            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+          />
+          <div
+            className='form-group'
+            style={
+              facultyList.length > 0
+                ? {
                   border: 'solid #e83e8c 1px',
                   borderRadius: '1rem',
                   display: 'flex',
@@ -74,25 +78,26 @@ export default function CollegeCommon({ collegeId }) {
                   maxWidth: '400px',
                   padding: '7px'
                 }
-              : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
-          }
-        >
-          <Stack direction='row' spacing={0}>
-            {facultyList.map((value) => (
-              <Chip label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
-            ))}
-          </Stack>
+                : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
+            }
+          >
+            <Stack direction='row' spacing={0}>
+              {facultyList.map((value) => (
+                <Chip label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
+              ))}
+            </Stack>
+          </div>
+          <TextArea
+            placeholder={'Facilities'}
+            noOfROws={6}
+            noOfCols={55}
+            fieldName={'Facilities'}
+            styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
+            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
+            inputValue={common.facilities}
+          />
         </div>
-        <TextArea
-          placeholder={'Facilities'}
-          noOfROws={6}
-          noOfCols={55}
-          fieldName={'Facilities'}
-          styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
-          onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
-          inputValue={common.facilities}
-        />
-      </div>
+      )}
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { constants } from '../utils/constants'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import InputFieldText from '../utils/CommonComponents/InputFieldText'
 import TextArea from '../utils/CommonComponents/TextArea'
 import SelectBox from '../utils/CommonComponents/SelectBox'
