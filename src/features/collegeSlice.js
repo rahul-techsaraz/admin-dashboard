@@ -115,13 +115,11 @@ const collegeSlice = createSlice({
 			}
 		})
 		builder.addCase(fileUploadlogo.fulfilled, (state, { payload }) => {
-			if (payload.status === 200) {
-				state.collegeBasicDetails.college_logo = payload.data[0].fileName
-			}
+				state.collegeBasicDetails.college_logo = payload?.data[0]?.fileName
 		})
 		builder.addCase(fileUploadThumbnail.fulfilled, (state, { payload }) => {
 			if (payload.status === 200) {
-				state.collegeBasicDetails.college_thumbnail = payload.data[0].fileName
+				state.collegeBasicDetails.college_thumbnail = payload?.data[0]?.fileName
 			}
 		})
 		builder.addCase(fileUploadGallary.fulfilled, (state, { payload }) => {
