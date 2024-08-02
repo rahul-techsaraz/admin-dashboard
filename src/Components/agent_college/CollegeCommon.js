@@ -70,14 +70,14 @@ export default function CollegeCommon({ collegeId }) {
             style={
               facultyList.length > 0
                 ? {
-                  border: 'solid #e83e8c 1px',
-                  borderRadius: '1rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  maxWidth: '400px',
-                  padding: '7px'
-                }
+                    border: 'solid #e83e8c 1px',
+                    borderRadius: '1rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    maxWidth: '400px',
+                    padding: '7px'
+                  }
                 : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
             }
           >
