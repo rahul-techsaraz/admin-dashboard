@@ -7,7 +7,7 @@ export default function UploadFile({ label, styles, multiple }) {
   const allowedFileTypes = ['jpg', 'jpeg', 'png']
   const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeThumbnail } = useContext(FileUpload)
   const validateSelectedFiles = (e) => {
-    console.log("upload File onchange Fired")
+    console.log('upload File onchange Fired')
     let file = []
     let url = []
     for (let i = 0; i < e.target.files.length; i++) {
