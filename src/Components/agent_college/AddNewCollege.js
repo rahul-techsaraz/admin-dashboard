@@ -402,7 +402,7 @@ export default function AddNewCollege() {
         </FileUpload.Provider>
 
         <div style={{ display: 'flex' }}>
-          <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewCollege()} />
+          <CustomButton isDisabled={false} lable={'Submit'} onClick={() => createNewCollege()} />
         </div>
       </div>
     </AddItemForm>

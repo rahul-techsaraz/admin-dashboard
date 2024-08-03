@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { httpCall } from '../service'
 import { httpCall2 } from '../service2'
+import { constants } from '../constants'
 
 export const fetchAgentCollegeList = createAsyncThunk('college/fetchAgentCollegeList', async ({ url, header, method }, thunkApi) => {
   try {
@@ -47,17 +48,26 @@ export const addCollegeBasicDetails = createAsyncThunk(
 )
 export const fileUploadlogo = createAsyncThunk('college/fileUploadlogo', async ({ url, payload }, thunkApi) => {
   try {
-    const data = await httpCall2(url, payload)
+    const {data} = await httpCall2(url, payload);
+    console.log({data})
+    if (data[0].error || data.status !== constants.apiResponseStatus.SUCCESS) {
+      throw new Error("File upload unsuccessfull");
+    }
     return data
   } catch (error) {
+    console.log(error)
     return thunkApi.rejectWithError(error)
   }
 })
 export const fileUploadThumbnail = createAsyncThunk('college/fileUploadThumbnail', async ({ url, payload }, thunkApi) => {
   try {
-    const data = await httpCall2(url, payload)
+    const { data } = await httpCall2(url, payload);
+    if (data[0]?.error || data.status !== constants.apiResponseStatus.SUCCESS) {
+      throw new Error("File upload unsuccessfull");
+    }
     return data
   } catch (error) {
+    console.log(error)
     return thunkApi.rejectWithError(error)
   }
 })
