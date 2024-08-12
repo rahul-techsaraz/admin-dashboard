@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { updateCourseInfo } from '../../features/courseSlice'
 import { useDispatch } from 'react-redux'
 import { updateCollegeInfo } from '../../features/collegeSlice'
+import { constants } from '../../utils/constants'
 
 export default function DataToDisplay({ dataToDisplay, type }) {
   const dispatch = useDispatch()
-
+  console.log(dataToDisplay)
   return (
     <>
       {/* <div>Data to display</div> */}
@@ -27,7 +28,7 @@ export default function DataToDisplay({ dataToDisplay, type }) {
             !Array.isArray(data) ? (
               <div className='grid-parent-child' key={data.lable}>
                 <span className='exam-text'>{data.lable}</span>
-                <div className='exam-list-p'>{!/.jpg||.png||.jpeg/.test(data.value) ? data.value : <img src='' alt='Image' />}</div>
+                <div className='exam-list-p'>{/.jpg|.png|.jpeg/.test(data.value) ? <img className='aspect-[3/2] mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' /> : data.value}</div>
               </div>
             ) : (
               <div className='grid-parent-child' key={data.lable}>
