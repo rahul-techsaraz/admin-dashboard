@@ -19,6 +19,7 @@ import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { v4 as uuid } from 'uuid'
 import ItemList from '../ItemList'
+import DataToDisplay from '../course_list/DataToDisplay'
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -26,7 +27,7 @@ const Input = styled(MuiInput)`
 
 export default function CourseOffered({ collegeId }) {
   useCourseDetails()
-  const { allCourseDetails, courseOffered, courseOfferedList } = useSelector((state) => state.college)
+  const { allCourseDetails, courseOffered, courseOfferedList, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration } =
     useSelector((state) => state.college.courseOffered)
   const dispatch = useDispatch()
@@ -129,87 +130,95 @@ export default function CourseOffered({ collegeId }) {
     }
   }, [course_name, course_accepting_exam, sub_course_fee, sub_course_duration])
 
+  const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).map((lable, index) => { return { 'lable': lable, 'value': data[lable] } }))
+
   return (
     <>
-      <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        <SearchSelectBox
-          label='Course Name'
-          options={allCourseDetails.map((course) => {
-            return { label: course.course_name, course_id: course.course_id }
-          })}
-          onChange={(e, value) => setDetails(e, value)}
-          onInputChange={(e, value) => setComponentCourse(value)}
-          inputValue={componentCourse ? componentCourse : courseOffered.course_name}
-        />
-
-        {courseOffered.course_name && (
-          <>
-            <Box sx={{ width: 250 }}>
-              <Typography id='input-slider' gutterBottom>
-                Course Fee (min : {courseOffered.course_fee_min} , max : {courseOffered.course_fee_max})
-              </Typography>
-              <Grid container spacing={2} alignItems='center'>
-                <Grid item></Grid>
-                <Grid item xs>
-                  <Slider value={typeof value === 'number' ? value : 0} onChange={handleSliderChange} aria-labelledby='input-slider' />
-                </Grid>
-                <Grid item>
-                  <Input
-                    value={value}
-                    size='small'
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    inputProps={{
-                      step: 1,
-                      min: Number(course_fee_min),
-                      max: Number(course_fee_max),
-                      type: 'number',
-                      'aria-labelledby': 'input-slider'
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-            {/* <div className='full-contain'>
-              <div className='grid-parent'> */}
-            <InputFieldText
-              placeholder='Exam Accepted'
-              inputValue={courseOffered.course_accepting_exam}
-              inputType='text'
-              styles={{ width: '280px' }}
-              disabled={true}
-            />
-            <InputFieldText
-              placeholder='Course Duration'
-              inputValue={courseOffered.sub_course_duration}
-              inputType='text'
-              styles={{ width: '280px' }}
-              disabled={true}
-            />
-            <CustomButton
-              isDisabled={isDisabled}
-              lable={'Add to Course Offered'}
-              onClick={() => createCourseOfferedList()}
-              styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-            />
-            {/* </div>
-            </div> */}
-          </>
-        )}
-      </div>
-      {courseOfferedList.length > 0 && (
-        <div>
-          <ItemList
-            userColumns={constants.courseOfferedUserColumns}
-            categoryData={courseOfferedList}
-            addNewColumns={addNewColumns}
-            labe={'Course Offered Listing'}
-            // path={'/add-new-course/'}
-            // id={'course_id'}
-            isVewdetails={false}
+      {!isEdit && collegeId ? (
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+      ) : (
+        <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <SearchSelectBox
+            label='Course Name'
+            options={allCourseDetails.map((course) => {
+              return { label: course.course_name, course_id: course.course_id }
+            })}
+            onChange={(e, value) => setDetails(e, value)}
+            onInputChange={(e, value) => setComponentCourse(value)}
+            inputValue={componentCourse ? componentCourse : courseOffered.course_name}
           />
+
+          {courseOffered.course_name && (
+            <>
+              <Box sx={{ width: 250 }}>
+                <Typography id='input-slider' gutterBottom>
+                  Course Fee (min : {courseOffered.course_fee_min} , max : {courseOffered.course_fee_max})
+                </Typography>
+                <Grid container spacing={2} alignItems='center'>
+                  <Grid item></Grid>
+                  <Grid item xs>
+                    <Slider value={typeof value === 'number' ? value : 0} onChange={handleSliderChange} aria-labelledby='input-slider' />
+                  </Grid>
+                  <Grid item>
+                    <Input
+                      value={value}
+                      size='small'
+                      onChange={handleInputChange}
+                      onBlur={handleBlur}
+                      inputProps={{
+                        step: 1,
+                        min: Number(course_fee_min),
+                        max: Number(course_fee_max),
+                        type: 'number',
+                        'aria-labelledby': 'input-slider'
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+              {/* <div className='full-contain'>
+              <div className='grid-parent'> */}
+              <InputFieldText
+                placeholder='Exam Accepted'
+                inputValue={courseOffered.course_accepting_exam}
+                inputType='text'
+                styles={{ width: '280px' }}
+                disabled={true}
+              />
+              <InputFieldText
+                placeholder='Course Duration'
+                inputValue={courseOffered.sub_course_duration}
+                inputType='text'
+                styles={{ width: '280px' }}
+                disabled={true}
+              />
+              <CustomButton
+                isDisabled={isDisabled}
+                lable={'Add to Course Offered'}
+                onClick={() => createCourseOfferedList()}
+                styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+              />
+              {/* </div>
+            </div> */}
+            </>
+          )}
+
+          {courseOfferedList.length > 0 && (
+            <div>
+              <ItemList
+                userColumns={constants.courseOfferedUserColumns}
+                categoryData={courseOfferedList}
+                addNewColumns={addNewColumns}
+                labe={'Course Offered Listing'}
+                // path={'/add-new-course/'}
+                // id={'course_id'}
+                isVewdetails={false}
+              />
+            </div>
+          )}
         </div>
-      )}
+      )
+      }
     </>
   )
 }

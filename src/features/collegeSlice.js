@@ -30,6 +30,7 @@ const initialState = {
   isValitadeError: true,
   collegeBasicDetails: {
     isValitadeError: true,
+    college_id: '',
     college_name: '',
     location: '',
     affiliate_by: '',
@@ -42,6 +43,7 @@ const initialState = {
   },
   courseOffered: {
     isValitadeError: true,
+    college_id: '',
     course_name: '',
     course_fee_min: '',
     course_fee_max: '',
@@ -51,6 +53,7 @@ const initialState = {
   },
   collegeDescriptions: {
     isValitadeError: true,
+    college_id: '',
     college_description: '',
     college_course_description: '',
     college_highlights_description: '',
@@ -58,6 +61,7 @@ const initialState = {
   },
   collegeHighlights: {
     isValitadeError: true,
+    college_id: '',
     course_name: '',
     Specialisations_offered: '',
     fees_annually: '',
@@ -66,12 +70,14 @@ const initialState = {
   },
   common: {
     isValitadeError: true,
+    college_id: '',
     facilities: '',
     faculty_name: '',
     department: ''
   },
   gallary: {
     isValitadeError: true,
+    college_id: '',
     image_path: '',
     video_path: ''
   }
@@ -143,6 +149,7 @@ const collegeSlice = createSlice({
       }
     })
     builder.addCase(fetchCollegeCommonById.fulfilled, (state, { payload }) => {
+      console.log(payload)
       if (payload.data) {
         state.common.facilities = payload.data.facilities
         state.common.faculty_name = payload.data.faculty_name
@@ -157,12 +164,15 @@ const collegeSlice = createSlice({
       }
     })
     builder.addCase(fetchCourseOfferedById.fulfilled, (state, { payload }) => {
-      console.log(payload)
       if (payload.data) {
+        state.courseOfferedList = payload.data
       }
     })
     builder.addCase(fetchCollegeHighlightsById.fulfilled, (state, { payload }) => {
       console.log(payload)
+      if (payload.data) {
+        state.highlightList = payload.data
+      }
     })
     builder.addCase(fetchCollegeGallaryById.fulfilled, (state, { payload }) => {
       if (payload.data) {

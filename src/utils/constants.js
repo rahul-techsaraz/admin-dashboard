@@ -14,6 +14,7 @@ export const constants = {
     COURSE_DETAILS_COLLEGE: 'https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails',
     UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php'
   },
+  imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   apiHeaders: {
     HEADER: { 'Content-Type': 'Application/json' }
   },

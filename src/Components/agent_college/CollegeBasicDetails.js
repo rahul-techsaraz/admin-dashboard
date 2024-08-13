@@ -130,21 +130,40 @@ export default function CollegeBasicDetails({ collegeId }) {
   }, [collegeBasicDetails.state])
 
   useEffect(() => {
-    if (
-      college_name !== '' &&
-      location !== '' &&
-      affiliate_by !== '' &&
-      ratings !== '' &&
-      state !== '' &&
-      city !== '' &&
-      college_type !== '' &&
-      collegeLogo.length > 0 &&
-      collegeThumbnail.length > 0
-    ) {
-      dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: false }))
+    if (collegeId) {
+      if (
+        college_name !== '' &&
+        location !== '' &&
+        affiliate_by !== '' &&
+        ratings !== '' &&
+        state !== '' &&
+        city !== '' &&
+        college_type !== '' &&
+        college_logo !== '' &&
+        college_thumbnail !== ''
+      ) {
+        dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: false }))
+      } else {
+        dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: true }))
+      }
     } else {
-      dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: true }))
+      if (
+        college_name !== '' &&
+        location !== '' &&
+        affiliate_by !== '' &&
+        ratings !== '' &&
+        state !== '' &&
+        city !== '' &&
+        college_type !== '' &&
+        collegeLogo.length > 0 &&
+        collegeThumbnail.length > 0
+      ) {
+        dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: false }))
+      } else {
+        dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: true }))
+      }
     }
+
   }, [college_name, location, affiliate_by, ratings, state, city, college_type, collegeLogo, collegeThumbnail])
 
   // useEffect(() => {

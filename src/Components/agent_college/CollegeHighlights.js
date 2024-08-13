@@ -8,11 +8,12 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { constants } from '../../utils/constants'
 import ItemList from '../ItemList'
 import { v4 as uuid } from 'uuid'
+import DataToDisplay from '../course_list/DataToDisplay'
 
 export default function CollegeHighlights({ collegeId }) {
   useCourseDetails()
   const dispatch = useDispatch()
-  const { allCourseDetails, collegeHighlights, highlightList } = useSelector((state) => state.college)
+  const { allCourseDetails, collegeHighlights, highlightList, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, course_name, fees_annually, eligibility_criteria, course_duration } = useSelector(
     (state) => state.college.collegeHighlights
   )
@@ -96,57 +97,63 @@ export default function CollegeHighlights({ collegeId }) {
     }
   }, [highlightList])
 
+  const collegeInfoData = highlightList.map((data) => Object.keys(data).map((lable, index) => { return { 'lable': lable, 'value': data[lable] } }))
+
   return (
     <>
-      <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
-        <SearchSelectBox
-          label='Course Name'
-          options={allCourseDetails.map((course) => {
-            return { label: course.course_name, course_id: course.course_id }
-          })}
-          onChange={(e, value) => setDetails(e, value)}
-          onInputChange={(e, value) => setComponentCourse(value)}
-          inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
-        />
-        <InputFieldText
-          placeholder='Course Duration'
-          inputValue={collegeHighlights.course_duration}
-          inputType='text'
-          styles={{ width: '280px' }}
-          disabled={true}
-        />
-        <InputFieldText
-          placeholder='Fees Annually'
-          inputValue={collegeHighlights.fees_annually}
-          inputType='text'
-          styles={{ width: '280px' }}
-          disabled={true}
-        />
-        <InputFieldText
-          placeholder='Eligibility Criteria'
-          inputValue={collegeHighlights.eligibility_criteria}
-          inputType='text'
-          styles={{ width: '280px' }}
-          disabled={true}
-        />
-        <CustomButton
-          isDisabled={isDisabled}
-          lable={'Add to Highlights'}
-          onClick={() => createHighlightsList()}
-          styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-        />
-      </div>
-      {highlightList.length > 0 && (
-        <div>
-          <ItemList
-            userColumns={constants.highlightsUserColumns}
-            categoryData={highlightList}
-            addNewColumns={addNewColumns}
-            labe={'Highlights Listing'}
-            // path={'/add-new-course/'}
-            // id={'course_id'}
-            isVewdetails={false}
+      {!isEdit && collegeId ? (
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+      ) : (
+        <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
+          <SearchSelectBox
+            label='Course Name'
+            options={allCourseDetails.map((course) => {
+              return { label: course.course_name, course_id: course.course_id }
+            })}
+            onChange={(e, value) => setDetails(e, value)}
+            onInputChange={(e, value) => setComponentCourse(value)}
+            inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
           />
+          <InputFieldText
+            placeholder='Course Duration'
+            inputValue={collegeHighlights.course_duration}
+            inputType='text'
+            styles={{ width: '280px' }}
+            disabled={true}
+          />
+          <InputFieldText
+            placeholder='Fees Annually'
+            inputValue={collegeHighlights.fees_annually}
+            inputType='text'
+            styles={{ width: '280px' }}
+            disabled={true}
+          />
+          <InputFieldText
+            placeholder='Eligibility Criteria'
+            inputValue={collegeHighlights.eligibility_criteria}
+            inputType='text'
+            styles={{ width: '280px' }}
+            disabled={true}
+          />
+          <CustomButton
+            isDisabled={isDisabled}
+            lable={'Add to Highlights'}
+            onClick={() => createHighlightsList()}
+            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+          />
+          {highlightList.length > 0 && (
+            <div>
+              <ItemList
+                userColumns={constants.highlightsUserColumns}
+                categoryData={highlightList}
+                addNewColumns={addNewColumns}
+                labe={'Highlights Listing'}
+                // path={'/add-new-course/'}
+                // id={'course_id'}
+                isVewdetails={false}
+              />
+            </div>
+          )}
         </div>
       )}
     </>

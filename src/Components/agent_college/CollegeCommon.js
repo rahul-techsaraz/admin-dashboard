@@ -39,10 +39,15 @@ export default function CollegeCommon({ collegeId }) {
     }
   }, [facultyList, common.facilities])
 
+  const collegeInfoData = [
+    { 'lable': 'Faculty Name & Department', 'value': common.faculty_name },
+    { 'lable': 'Facilities', 'value': common.facilities },
+  ]
+
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={''} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
       ) : (
         <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
           <InputFieldText
@@ -70,14 +75,14 @@ export default function CollegeCommon({ collegeId }) {
             style={
               facultyList.length > 0
                 ? {
-                    border: 'solid #e83e8c 1px',
-                    borderRadius: '1rem',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    maxWidth: '400px',
-                    padding: '7px'
-                  }
+                  border: 'solid #e83e8c 1px',
+                  borderRadius: '1rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  maxWidth: '400px',
+                  padding: '7px'
+                }
                 : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
             }
           >
