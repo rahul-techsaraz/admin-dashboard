@@ -97,7 +97,11 @@ export default function CollegeHighlights({ collegeId }) {
     }
   }, [highlightList])
 
-  const collegeInfoData = highlightList.map((data) => Object.keys(data).map((lable, index) => { return { 'lable': lable, 'value': data[lable] } }))
+  const collegeInfoData = highlightList.map((data) =>
+    Object.keys(data).map((lable, index) => {
+      return { lable: lable, value: data[lable] }
+    })
+  )
 
   return (
     <>

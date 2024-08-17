@@ -163,7 +163,6 @@ export default function CollegeBasicDetails({ collegeId }) {
         dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: true }))
       }
     }
-
   }, [college_name, location, affiliate_by, ratings, state, city, college_type, collegeLogo, collegeThumbnail])
 
   // useEffect(() => {

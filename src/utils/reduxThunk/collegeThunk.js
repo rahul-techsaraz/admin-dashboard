@@ -48,10 +48,10 @@ export const addCollegeBasicDetails = createAsyncThunk(
 )
 export const fileUploadlogo = createAsyncThunk('college/fileUploadlogo', async ({ url, payload }, thunkApi) => {
   try {
-    const {data} = await httpCall2(url, payload);
-    console.log({data})
+    const { data } = await httpCall2(url, payload)
+    console.log({ data })
     if (data[0].error || data.status !== constants.apiResponseStatus.SUCCESS) {
-      throw new Error("File upload unsuccessfull");
+      throw new Error('File upload unsuccessfull')
     }
     return data
   } catch (error) {
@@ -61,9 +61,9 @@ export const fileUploadlogo = createAsyncThunk('college/fileUploadlogo', async (
 })
 export const fileUploadThumbnail = createAsyncThunk('college/fileUploadThumbnail', async ({ url, payload }, thunkApi) => {
   try {
-    const { data } = await httpCall2(url, payload);
+    const { data } = await httpCall2(url, payload)
     if (data[0]?.error || data.status !== constants.apiResponseStatus.SUCCESS) {
-      throw new Error("File upload unsuccessfull");
+      throw new Error('File upload unsuccessfull')
     }
     return data
   } catch (error) {

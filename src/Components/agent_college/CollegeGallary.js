@@ -7,7 +7,7 @@ import DataToDisplay from '../course_list/DataToDisplay'
 
 export default function CollegeGallary({ collegeId }) {
   const { collegeGallary, collegeGallaryUrl } = useContext(FileUpload)
-  const { isEdit, gallary } = useSelector(state => state.college)
+  const { isEdit, gallary } = useSelector((state) => state.college)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -26,7 +26,9 @@ export default function CollegeGallary({ collegeId }) {
     }
   }, [collegeGallary])
 
-  const collegeInfoData = gallary.image_path.split(',').map((path, index) => { return { 'lable': 'Gallary Image' + (index + 1), 'value': path.trim() } })
+  const collegeInfoData = gallary.image_path.split(',').map((path, index) => {
+    return { lable: 'Gallary Image' + (index + 1), value: path.trim() }
+  })
 
   return (
     <>

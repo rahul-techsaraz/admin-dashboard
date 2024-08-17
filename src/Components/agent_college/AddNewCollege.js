@@ -23,7 +23,6 @@ import { useNavigate } from 'react-router-dom'
 import { FileUpload } from '../../utils/FileUpload'
 import { fileTouploadPayload } from '../../utils/fileUploadService'
 
-
 export default function AddNewCollege() {
   const {
     isDisabled,
@@ -37,21 +36,10 @@ export default function AddNewCollege() {
     facultyList,
     courseOfferedList
   } = useSelector((state) => state.college)
-  const {
-    college_name,
-    location,
-    affiliate_by,
-    ratings,
-    state,
-    city,
-    college_type,
-    college_logo,
-    college_thumbnail,
-  } = useSelector((state) => state.college.collegeBasicDetails)
-  const {
-    image_path,
-    video_path,
-  } = useSelector((state) => state.college.gallary)
+  const { college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail } = useSelector(
+    (state) => state.college.collegeBasicDetails
+  )
+  const { image_path, video_path } = useSelector((state) => state.college.gallary)
   const [collegeLogo, setCollegeLogo] = useState([])
   const [collegeThumbnail, setCollegeThumbnail] = useState([])
   const [collegeGallary, setCollegeGallary] = useState([])
@@ -59,7 +47,7 @@ export default function AddNewCollege() {
   const [promiseResponse, setPromiseResponse] = useState({
     college_id: '',
     p_response: false,
-    gallaryUpdateResponse: false,
+    gallaryUpdateResponse: false
   })
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -74,12 +62,14 @@ export default function AddNewCollege() {
       const collegeDeletePayload = await {
         college_id: promiseResponse.college_id
       }
-      const response = await dispatch(addCollegeGallary({
-        url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeGallary',
-        header: constants.apiHeaders.HEADER,
-        method: constants.httpMethod.POST,
-        payload: gallaryPayload
-      }))
+      const response = await dispatch(
+        addCollegeGallary({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeGallary',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.POST,
+          payload: gallaryPayload
+        })
+      )
       if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
         dispatch(
           updateError({
@@ -109,8 +99,7 @@ export default function AddNewCollege() {
         dispatch(resetCollege())
         navigate('/list-agent-college')
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -252,8 +241,7 @@ export default function AddNewCollege() {
         return false
       }
       setPromiseResponse({ ...promiseResponse, gallaryUpdateResponse: response2, p_response: false })
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -328,8 +316,7 @@ export default function AddNewCollege() {
         )
         dispatch(resetCollege())
         return false
-      }
-      else if (isresolved.map((status) => status.payload.status).includes('duplicate')) {
+      } else if (isresolved.map((status) => status.payload.status).includes('duplicate')) {
         dispatch(
           updateError({
             errorType: constants.apiResponseStatus.ERROR,
@@ -337,12 +324,10 @@ export default function AddNewCollege() {
             flag: true
           })
         )
-      }
-      else {
+      } else {
         setPromiseResponse({ ...promiseResponse, college_id: collegeID, p_response: response })
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,

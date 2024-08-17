@@ -23,6 +23,9 @@
   background-color: #7e6990;
   color: #fff;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .edit-btn-flex{
   display: flex;
@@ -38,6 +41,15 @@
 .exam-list-p{
   padding-top: 10px;
   opacity: .89;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.grid-parent-child img{
+  width: 50%;
+  margin: 0 auto;
+  display: inline-block;
 }
 @media screen and (max-width: 920px){
   .grid-parent{
