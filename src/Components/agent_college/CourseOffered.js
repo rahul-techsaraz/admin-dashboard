@@ -130,7 +130,11 @@ export default function CourseOffered({ collegeId }) {
     }
   }, [course_name, course_accepting_exam, sub_course_fee, sub_course_duration])
 
-  const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).map((lable, index) => { return { 'lable': lable, 'value': data[lable] } }))
+  const collegeInfoData = courseOfferedList.map((data) =>
+    Object.keys(data).map((lable, index) => {
+      return { lable: lable, value: data[lable] }
+    })
+  )
 
   return (
     <>
@@ -217,8 +221,7 @@ export default function CourseOffered({ collegeId }) {
             </div>
           )}
         </div>
-      )
-      }
+      )}
     </>
   )
 }

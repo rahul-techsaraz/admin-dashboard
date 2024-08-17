@@ -25,12 +25,11 @@ export default function CollegeDescription({ collegeId }) {
   }, [college_description, college_course_description, college_highlights_description, college_campus_description])
 
   const collegeInfoData = [
-    { 'lable': 'College Description', 'value': college_description },
-    { 'lable': 'Course Description', 'value': college_course_description },
-    { 'lable': 'Highlights Description', 'value': college_highlights_description },
-    { 'lable': 'Campus Description', 'value': college_campus_description }
+    { lable: 'College Description', value: college_description },
+    { lable: 'Course Description', value: college_course_description },
+    { lable: 'Highlights Description', value: college_highlights_description },
+    { lable: 'Campus Description', value: college_campus_description }
   ]
-
 
   return (
     <>

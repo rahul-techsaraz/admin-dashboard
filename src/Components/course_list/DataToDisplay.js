@@ -28,7 +28,13 @@ export default function DataToDisplay({ dataToDisplay, type }) {
             !Array.isArray(data) ? (
               <div className='grid-parent-child' key={data.lable}>
                 <span className='exam-text'>{data.lable}</span>
-                <div className='exam-list-p'>{/.jpg|.png|.jpeg/.test(data.value) ? <img className='aspect-[3/2] mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' /> : data.value}</div>
+                <div className='exam-list-p'>
+                  {/.jpg|.png|.jpeg/.test(data.value) ? (
+                    <img className='mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' />
+                  ) : (
+                    data.value
+                  )}
+                </div>
               </div>
             ) : (
               <div className='grid-parent-child' key={data.lable}>
