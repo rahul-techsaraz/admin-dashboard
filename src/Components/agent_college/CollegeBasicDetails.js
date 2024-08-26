@@ -7,9 +7,10 @@ import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
 import { updateCollegeInfo } from '../../features/collegeSlice'
 import { updateError } from '../../features/commonSlice'
 import { constants } from '../../utils/constants'
-import { fetchCityList, fetchStateList } from '../../utils/reduxThunk/collegeThunk'
+import { addCollegeBasicDetails, fetchCityList, fetchCollegeById, fetchStateList } from '../../utils/reduxThunk/collegeThunk'
 import { FileUpload } from '../../utils/FileUpload'
 import DataToDisplay from '../course_list/DataToDisplay'
+import CustomButton from '../../utils/CommonComponents/CustomButton'
 
 export default function CollegeBasicDetails({ collegeId }) {
   const { collegeLogo, collegeThumbnail } = useContext(FileUpload)
@@ -18,7 +19,7 @@ export default function CollegeBasicDetails({ collegeId }) {
   const [componentCity, setComponentCity] = useState('')
   const dispatch = useDispatch()
   const { collegeBasicDetails, stateList, cityList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail } =
+  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail } =
     useSelector((state) => state.college.collegeBasicDetails)
 
   const fetchState = async () => {
@@ -114,6 +115,88 @@ export default function CollegeBasicDetails({ collegeId }) {
       )
     }
   }
+  const updateCollege = async () => {
+    try {
+      const collegeInfoPayload = await {
+        college_id: collegeId,
+        college_name: college_name,
+        location: location,
+        affiliate_by: affiliate_by,
+        ratings: ratings,
+        college_logo: college_logo,
+        college_thumbnail: college_thumbnail,
+        state: state,
+        city: city,
+        college_type: college_type,
+        account_name: JSON.parse(localStorage.getItem('userData')).account_name,
+        is_publish: constants.courseIsPublished.notPublished
+      }
+      const response = await dispatch(
+        addCollegeBasicDetails({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.PUT,
+          payload: collegeInfoPayload
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'College Basic Details Updated Sucessfully',
+            flag: true
+          })
+        )
+        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+  const handleCancle = async () => {
+    try {
+      const response = await dispatch(
+        fetchCollegeById({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing&college_id=' + collegeId,
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.GET
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
 
   useEffect(() => {
     fetchState()
@@ -164,10 +247,6 @@ export default function CollegeBasicDetails({ collegeId }) {
       }
     }
   }, [college_name, location, affiliate_by, ratings, state, city, college_type, collegeLogo, collegeThumbnail])
-
-  // useEffect(() => {
-  //   console.log(collegeLogo)
-  // }, [collegeId])
 
   const collegeInfoData = [
     { lable: 'College Name', value: college_name },
@@ -247,6 +326,14 @@ export default function CollegeBasicDetails({ collegeId }) {
             styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
             multiple={false}
           />
+          <div style={{ display: 'flex', gap: '1.5rem' }}>
+            {isEdit && collegeId && (
+              <>
+                <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
+                <CustomButton isDisabled={isValitadeError} lable={'Cancle'} onClick={() => handleCancle()} />
+              </>
+            )}
+          </div>
         </div>
       )}
     </>

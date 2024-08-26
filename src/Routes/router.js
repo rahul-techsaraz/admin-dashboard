@@ -26,6 +26,7 @@ import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
 import AddNewCollege from '../Components/agent_college/AddNewCollege'
 import ViewCollegeDetails from '../Components/agent_college/ViewCollegeDetails'
+import ParentWrapper from '../Components/agent_college/ParentWrapper'
 
 export const appRouter = createBrowserRouter(
   [
@@ -92,11 +93,11 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-college',
-          element: <AddNewCollege />
+          element: <ParentWrapper />
         },
         {
           path: '/add-college/:collegeId',
-          element: <ViewCollegeDetails />
+          element: <ParentWrapper />
         },
         {
           path: '/college-list-img',

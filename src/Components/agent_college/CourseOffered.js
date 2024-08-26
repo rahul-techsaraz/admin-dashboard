@@ -20,6 +20,7 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { v4 as uuid } from 'uuid'
 import ItemList from '../ItemList'
 import DataToDisplay from '../course_list/DataToDisplay'
+import { addCollegeBasicDetails, fetchCollegeById } from '../../utils/reduxThunk/collegeThunk'
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -28,7 +29,7 @@ const Input = styled(MuiInput)`
 export default function CourseOffered({ collegeId }) {
   useCourseDetails()
   const { allCourseDetails, courseOffered, courseOfferedList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration } =
+  const { isValitadeError, college_id, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration } =
     useSelector((state) => state.college.courseOffered)
   const dispatch = useDispatch()
   const [value, setValue] = useState(Number(course_fee_min))
@@ -115,6 +116,83 @@ export default function CourseOffered({ collegeId }) {
     dispatch(updateCollegeInfo({ classKey: 'courseOfferedList', value: filteredData }))
   }
 
+  const updateCollege = async () => {
+    try {
+      const collegeInfoPayload = await {
+        college_id: college_id,
+        course_name: courseOffered.course_name,
+        course_accepting_exam: courseOffered.course_accepting_exam,
+        sub_course_fee: courseOffered.sub_course_fee,
+        sub_course_duration: courseOffered.sub_course_duration
+      }
+      const response = await dispatch(
+        addCollegeBasicDetails({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.PUT,
+          payload: collegeInfoPayload
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'College Basic Details Updated Sucessfully',
+            flag: true
+          })
+        )
+        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+
+  const handleCancle = async () => {
+    try {
+      const response = await dispatch(
+        fetchCollegeById({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing&college_id=' + collegeId,
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.GET
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+
   useEffect(() => {
     setValue(Number(course_fee_min))
     dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: course_fee_min }))
@@ -130,16 +208,12 @@ export default function CourseOffered({ collegeId }) {
     }
   }, [course_name, course_accepting_exam, sub_course_fee, sub_course_duration])
 
-  const collegeInfoData = courseOfferedList.map((data) =>
-    Object.keys(data).map((lable, index) => {
-      return { lable: lable, value: data[lable] }
-    })
-  )
+  const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).filter((key) => key.toLowerCase() !== 'college_id').map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
 
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} />
       ) : (
         <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <SearchSelectBox
@@ -220,6 +294,14 @@ export default function CourseOffered({ collegeId }) {
               />
             </div>
           )}
+          <div style={{ display: 'flex', gap: '1.5rem' }}>
+            {isEdit && collegeId && (
+              <>
+                <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
+                <CustomButton isDisabled={isValitadeError} lable={'Cancle'} onClick={() => handleCancle()} />
+              </>
+            )}
+          </div>
         </div>
       )}
     </>
