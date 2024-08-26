@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AddItemForm from '../AddItemForm'
 import AddCollege from './AddCollege'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,10 +20,12 @@ import {
   fileUploadlogo
 } from '../../utils/reduxThunk/collegeThunk'
 import { useNavigate } from 'react-router-dom'
-import { FileUpload } from '../../utils/FileUpload'
 import { fileTouploadPayload } from '../../utils/fileUploadService'
+import { FileUpload } from '../../utils/FileUpload'
+
 
 export default function AddNewCollege() {
+  const { collegeLogo, collegeThumbnail, collegeGallary } = useContext(FileUpload)
   const {
     isDisabled,
     collegeBasicDetails,
@@ -36,14 +38,22 @@ export default function AddNewCollege() {
     facultyList,
     courseOfferedList
   } = useSelector((state) => state.college)
-  const { college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail } = useSelector(
-    (state) => state.college.collegeBasicDetails
-  )
-  const { image_path, video_path } = useSelector((state) => state.college.gallary)
-  const [collegeLogo, setCollegeLogo] = useState([])
-  const [collegeThumbnail, setCollegeThumbnail] = useState([])
-  const [collegeGallary, setCollegeGallary] = useState([])
-  const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
+  const {
+    college_name,
+    location,
+    affiliate_by,
+    ratings,
+    state,
+    city,
+    college_type,
+    college_logo,
+    college_thumbnail,
+  } = useSelector((state) => state.college.collegeBasicDetails)
+  const {
+    image_path,
+    video_path,
+  } = useSelector((state) => state.college.gallary)
+
   const [promiseResponse, setPromiseResponse] = useState({
     college_id: '',
     p_response: false,
@@ -371,20 +381,8 @@ export default function AddNewCollege() {
   return (
     <AddItemForm label={'Add New College'}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <FileUpload.Provider
-          value={{
-            collegeLogo,
-            setCollegeLogo,
-            collegeThumbnail,
-            setCollegeThumbnail,
-            collegeGallary,
-            setCollegeGallary,
-            collegeGallaryUrl,
-            setCollegeGallaryUrl
-          }}
-        >
-          <AddCollege />
-        </FileUpload.Provider>
+
+        <AddCollege />
 
         <div style={{ display: 'flex' }}>
           <CustomButton isDisabled={false} lable={'Submit'} onClick={() => createNewCollege()} />

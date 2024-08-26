@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { updateCourseInfo } from '../../features/courseSlice'
 import { useDispatch } from 'react-redux'
 import { updateCollegeInfo } from '../../features/collegeSlice'
 import { constants } from '../../utils/constants'
 
-export default function DataToDisplay({ dataToDisplay, type }) {
+export default function DataToDisplay({ dataToDisplay, type, switchClass }) {
   const dispatch = useDispatch()
   console.log(dataToDisplay)
   return (
@@ -23,21 +23,20 @@ export default function DataToDisplay({ dataToDisplay, type }) {
             Edit
           </button>
         </div>
-        <div className='grid-parent'>
+        <div className={switchClass ? 'grid-parent-changed' : 'grid-parent'}>
           {dataToDisplay.map((data) =>
             !Array.isArray(data) ? (
               <div className='grid-parent-child' key={data.lable}>
                 <span className='exam-text'>{data.lable}</span>
-                <div className='exam-list-p'>
-                  {/.jpg|.png|.jpeg/.test(data.value) ? (
-                    <img className='mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' />
-                  ) : (
-                    data.value
-                  )}
-                </div>
+                <div className='exam-list-p'>{/.jpg|.png|.jpeg/.test(data.value) ? <img className='w-1/2 aspect-[3/2] mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' /> : data.value}</div>
+                {/.jpg|.png|.jpeg/.test(data.value) &&
+                  <div className='remove-btn-flex'>
+                    <button className='remove-btn'>Remove</button>
+                  </div>
+                }
               </div>
             ) : (
-              <div className='grid-parent-child' key={data.lable}>
+              <div className={switchClass ? 'grid-parent-child-changed' : 'grid-parent-child'} key={data.lable}>
                 {data.map((childArrayData) => (
                   <div>
                     <span className='exam-text'>{childArrayData.lable}</span>

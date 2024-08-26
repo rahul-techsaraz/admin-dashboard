@@ -97,16 +97,12 @@ export default function CollegeHighlights({ collegeId }) {
     }
   }, [highlightList])
 
-  const collegeInfoData = highlightList.map((data) =>
-    Object.keys(data).map((lable, index) => {
-      return { lable: lable, value: data[lable] }
-    })
-  )
+  const collegeInfoData = highlightList.map((data) => Object.keys(data).filter((key) => key.toLowerCase() !== 'college_id').map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
 
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} />
       ) : (
         <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
           <SearchSelectBox

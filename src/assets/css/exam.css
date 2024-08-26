@@ -1,23 +1,31 @@
-
-
-.full-contain{
+.full-contain {
   width: 100%;
   position: relative;
 }
-.grid-parent{
+
+.grid-parent {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
   margin-top: 20px;
 }
-.text-area-parent{
+
+.grid-parent-changed {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.text-area-parent {
   width: 100%;
 }
-.exam-text{
+
+.exam-text {
   font-weight: 700;
   font-size: 20px;
 }
-.grid-parent-child{
+
+.grid-parent-child {
   text-align: center;
   padding: 30px 10px;
   background-color: #7e6990;
@@ -27,18 +35,45 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.edit-btn-flex{
+
+.grid-parent-child-changed {
+  text-align: center;
+  padding: 30px 10px;
+  background-color: #7e6990;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-btn-flex {
   display: flex;
   justify-content: flex-end;
 }
-.edit-btn{
+
+.edit-btn {
   padding: 5px 30px;
   background-color: #7e6990;
   border-radius: 50px;
   border: 1px solid #7e6990;
   color: #fff;
 }
-.exam-list-p{
+
+.remove-btn-flex {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.remove-btn {
+  padding: 5px 30px;
+  border-radius: 50px;
+  border: 1px solid #7e6990;
+  color: #7e6990;
+  font-weight: bold;
+}
+
+.exam-list-p {
   padding-top: 10px;
   opacity: .89;
   height: 75%;
@@ -46,24 +81,28 @@
   flex-direction: column;
   justify-content: center;
 }
-.grid-parent-child img{
+
+.grid-parent-child img {
   width: 50%;
   margin: 0 auto;
   display: inline-block;
 }
-@media screen and (max-width: 920px){
-  .grid-parent{
+
+@media screen and (max-width: 920px) {
+  .grid-parent {
     grid-template-columns: 1fr 1fr;
   }
 }
-@media screen and (max-width: 540px){
-  .grid-parent{
+
+@media screen and (max-width: 540px) {
+  .grid-parent {
     grid-template-columns: 1fr;
   }
 }
+
 /* model start */
 
-.model-grid-parent{
+.model-grid-parent {
   position: absolute;
   padding: 30px 10px;
   background-color: antiquewhite;
@@ -71,5 +110,5 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 8px;
-  max-width:324px;
+  max-width: 324px;
 }
