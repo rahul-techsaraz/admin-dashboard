@@ -7,7 +7,7 @@ export default function CustomAllert({ isError, errorMessage, errorType }) {
   const dispatch = useDispatch()
   const vertical = 'top'
   const horizontal = 'right'
-  const handleClose = (event) => {
+  const handleClose = () => {
     dispatch(
       updateError({
         errorType: '',

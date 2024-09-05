@@ -1,6 +1,4 @@
 import React, { useContext } from 'react'
-import FileUploadIcon from '@mui/icons-material/FileUpload'
-import IconButton from '@mui/material/IconButton'
 import { FileUpload } from '../FileUpload'
 
 export default function UploadFile({ label, styles, multiple }) {

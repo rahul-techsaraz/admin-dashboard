@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { constants } from '../utils/constants'
 import { fetchAllUserList, loginUsers } from '../utils/reduxThunk/commonThunk'
 
 const initialState = {

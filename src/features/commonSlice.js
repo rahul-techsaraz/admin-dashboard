@@ -45,7 +45,6 @@ import {
   fetchCourseList,
   fetchCourseOfferedById,
   fetchStateList,
-  fileUpload,
   fileUploadGallary,
   fileUploadThumbnail,
   fileUploadlogo

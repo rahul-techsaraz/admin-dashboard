@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateError } from '../features/commonSlice'
 import { constants } from '../utils/constants'

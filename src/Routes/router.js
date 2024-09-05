@@ -1,11 +1,10 @@
+import React from 'react';
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import Main from '../Components/Main'
-import AddCollege from '../Components/agent_college/AddCollege'
 import Header from '../Components/Header'
 import LeftSidebar from '../Components/LeftSidebar'
 import CategoryList from '../Components/category_list/CategoryList'
-import CollegeList from '../Components/CollegeList'
 import SignIn from '../Components/SignIn'
 import CollegeListImg from '../Components/CollegeListImg'
 import CollegeListImg2 from '../Components/CollegeListImg2'
@@ -24,8 +23,6 @@ import CourseList from '../Components/course_list/CourseList'
 import AddNewCourse from '../Components/course_list/AddNewCourse'
 import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
-import AddNewCollege from '../Components/agent_college/AddNewCollege'
-import ViewCollegeDetails from '../Components/agent_college/ViewCollegeDetails'
 import ParentWrapper from '../Components/agent_college/ParentWrapper'
 
 export const appRouter = createBrowserRouter(

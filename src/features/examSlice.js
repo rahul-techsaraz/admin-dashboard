@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { constants } from '../utils/constants'
-import { httpCall, thunkAPICall } from '../utils/service'
 import {
   fetchExamConfigById,
   fetchExamDescriptionById,

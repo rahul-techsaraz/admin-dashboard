@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { constants } from '../utils/constants'
 
 const initialState = {
   activeSubHeader: ''

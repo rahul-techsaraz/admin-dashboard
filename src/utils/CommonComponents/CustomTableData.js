@@ -8,7 +8,7 @@ const AddCustomColumns = ({ actionItem, params, path, id, isVewdetails }) => {
   return (
     <>
       {actionItem.map((item) => (
-        <div className='cellAction'>
+        <div className='cellAction' key={item.label}>
           <Button variant='contained' color='error' onClick={() => item.handleDeleteItem(params.row)}>
             {item.label}
           </Button>
