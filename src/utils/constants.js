@@ -1,7 +1,7 @@
 export const constants = {
   apiEndPoint: {
     USER_LOGIN: 'https://techsaraz.in//admission-cart/api/login/adminlogin/login.php',
-    GET_ALL_USERLIST: 'https://techsaraz.in//admission-cart/api/login/adminlogin/getAllUsers.php',
+    GET_ALL_ADMIN_USERLIST: 'https://techsaraz.in//admission-cart/api/login/adminlogin/getAllUsers.php',
     AUTHENTICATE_USER: 'https://techsaraz.in//admission-cart/api/login/adminlogin/user-info.php',
     CATEGORY_LIST: 'https://techsaraz.in//admission-cart/api/course_category_list.php',
     ADMIN_REGISTER: 'https://techsaraz.in//admission-cart/api/login/adminlogin/register.php',
@@ -12,7 +12,10 @@ export const constants = {
     STATE_LIST: 'https://countriesnow.space/api/v0.1/countries/states',
     CITY_LIST: 'https://countriesnow.space/api/v0.1/countries/state/cities',
     COURSE_DETAILS_COLLEGE: 'https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails',
-    UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php'
+    UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php',
+    GET_ALL_USERS_USER_DETAILS: "https://techsaraz.in//admission-cart/api/login/getAllUsers.php",
+    FETCH_USER_DETAILS_BY_EMAIL:"https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email="
+
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   apiHeaders: {
@@ -81,15 +84,20 @@ export const constants = {
       isOpen: false,
       list: [
         {
-          option_name: 'Users',
+          option_name: 'Admin Users',
           option_path: '/admin-dashboard',
-          name: 'Users'
+          name: 'Admin Users'
         },
         {
           option_name: 'Colleges',
           option_path: '/list-college',
+          name: 'Admin Users'
+        },
+        {
+          option_name: 'Users',
+          option_path: '/users-list',
           name: 'Users'
-        }
+        },
       ]
     },
     {
@@ -502,6 +510,23 @@ export const constants = {
       field: 'course_fee',
       headerName: 'Course Fee',
       width: 200
+    }
+  ],
+  allUsersList: [
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 300
+    },
+    {
+      field: 'phone',
+      headerName: 'Phone',
+      width: 150
+    },
+    {
+      field: 'full_name',
+      headerName: 'Full Name',
+      width: 300
     }
   ],
   collegeListUserColumns: [

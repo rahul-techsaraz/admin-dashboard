@@ -49,7 +49,23 @@ export const fetchCategoryById = createAsyncThunk('category/fetchCategoryById', 
     return thunkApi.rejectWithError(error)
   }
 })
-export const fetchAllUserList = createAsyncThunk('users/fetchAllUserList', async ({ url, header, method }, thunkApi) => {
+export const fetchAllAdminUserList = createAsyncThunk('users/fetchAllAdminUserList', async ({ url, header, method }, thunkApi) => {
+  try {
+    const data = await httpCall(url, header, method)
+    return data
+  } catch (error) {
+    return thunkApi.rejectWithError(error)
+  }
+})
+export const fetchAllUsersList = createAsyncThunk('users/fetchAllUsersList', async ({ url, header, method }, thunkApi) => {
+  try {
+    const data = await httpCall(url, header, method)
+    return data
+  } catch (error) {
+    return thunkApi.rejectWithError(error)
+  }
+})
+export const fetchUserByEmail = createAsyncThunk('users/fetchUserByEmail', async ({ url, header, method }, thunkApi) => {
   try {
     const data = await httpCall(url, header, method)
     return data

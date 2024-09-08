@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { httpCall } from '../../utils/service'
 import { constants } from '../../utils/constants'
 import UserListTable from './UserListTable'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { approveUser, fetchAllUserList } from '../../utils/reduxThunk/commonThunk'
+import { approveUser, fetchAllAdminUserList } from '../../utils/reduxThunk/commonThunk'
 import { updateError } from '../../features/commonSlice'
-import { updateUserList, updatefilteredUserList } from '../../features/userSlice'
+import {  updatefilteredUserList } from '../../features/userSlice'
 
 export default function AdminRequest() {
   // const [userList, setUserList] = useState([]);
@@ -23,11 +22,11 @@ export default function AdminRequest() {
     { label: 'Decline', value: 'decline' }
   ]
 
-  const fetchUserList = async () => {
+  const fetchAdminUserList = async () => {
     try {
       const response = await dispatch(
-        fetchAllUserList({
-          url: constants.apiEndPoint.GET_ALL_USERLIST,
+        fetchAllAdminUserList({
+          url: constants.apiEndPoint.GET_ALL_ADMIN_USERLIST,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
         })
@@ -69,7 +68,7 @@ export default function AdminRequest() {
     dispatch(updatefilteredUserList({ filteredUserList: filterUser }))
   }
   useEffect(() => {
-    fetchUserList()
+    fetchAdminUserList()
   }, [])
 
   const handleApprovedApi = async (userData, requestType) => {
@@ -88,7 +87,7 @@ export default function AdminRequest() {
       })
     )
     if (response.payload.success === 1) {
-      fetchUserList()
+      fetchAdminUserList()
     } else {
       dispatch(
         updateError({

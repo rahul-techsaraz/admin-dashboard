@@ -22,9 +22,11 @@ import {
   addNewCategory,
   approveUser,
   deleteCategory,
-  fetchAllUserList,
+  fetchAllAdminUserList,
+  fetchAllUsersList,
   fetchCategory,
   fetchCategoryById,
+  fetchUserByEmail,
   loginUsers
 } from '../utils/reduxThunk/commonThunk'
 import {
@@ -54,7 +56,9 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: '',
-  errorType: ''
+  errorType: '',
+  getAllUsersList: [],
+  userDetailsByEmail:[],
 }
 
 const commonSlice = createSlice({
@@ -215,13 +219,33 @@ const commonSlice = createSlice({
     builder.addCase(loginUsers.rejected, (state, { payload }) => {
       state.isLoading = false
     })
-    builder.addCase(fetchAllUserList.pending, (state, { payload }) => {
+    builder.addCase(fetchAllAdminUserList.pending, (state, { payload }) => {
       state.isLoading = true
     })
-    builder.addCase(fetchAllUserList.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchAllAdminUserList.fulfilled, (state, { payload }) => {
       state.isLoading = false
     })
-    builder.addCase(fetchAllUserList.rejected, (state, { payload }) => {
+    builder.addCase(fetchAllAdminUserList.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchAllUsersList.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(fetchAllUsersList.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+      state.getAllUsersList = payload.userlist;
+    })
+    builder.addCase(fetchAllUsersList.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchUserByEmail.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(fetchUserByEmail.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+      state.userDetailsByEmail = payload.data
+    })
+    builder.addCase(fetchUserByEmail.rejected, (state, { payload }) => {
       state.isLoading = false
     })
     builder.addCase(approveUser.pending, (state, { payload }) => {

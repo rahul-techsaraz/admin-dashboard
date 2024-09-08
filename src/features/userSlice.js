@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchAllUserList, loginUsers } from '../utils/reduxThunk/commonThunk'
+import { fetchAllAdminUserList, loginUsers } from '../utils/reduxThunk/commonThunk'
 
 const initialState = {
   isUserAuthenticated: false,
@@ -36,7 +36,7 @@ const userSlice = createSlice({
         state.userInfo = payload.userInfo
       }
     })
-    builder.addCase(fetchAllUserList.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchAllAdminUserList.fulfilled, (state, { payload }) => {
       if (payload.success === 1) {
         state.userList = payload.userlist
         state.filteredUserList = payload.userlist.filter((user) => user.user_status.toLowerCase() === 'inactive')

@@ -24,6 +24,8 @@ import AddNewCourse from '../Components/course_list/AddNewCourse'
 import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
 import ParentWrapper from '../Components/agent_college/ParentWrapper'
+import UsersList from '../Components/users-list/UsersList';
+import ViewUserDetails from '../Components/users-list/ViewUserDetails';
 
 export const appRouter = createBrowserRouter(
   [
@@ -58,6 +60,14 @@ export const appRouter = createBrowserRouter(
         {
           path: '/course-list',
           element: <CourseList />
+        },
+        {
+          path: '/users-list',
+          element: <UsersList />
+        },
+        {
+          path: '/users-list/:email',
+          element: <ViewUserDetails />
         },
         {
           path: '/add-new-course',
