@@ -4,17 +4,18 @@ import { updateError } from '../features/commonSlice';
 import { fetchUserByEmail } from '../utils/reduxThunk/commonThunk';
 
 const useFetchDetails = () => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-     const fetchUsersDetails = async (email) => {
+  const fetchUsersDetails = async (email) => {
     try {
-        const response = await dispatch(
-            fetchUserByEmail({
-          url: constants.apiEndPoint.FETCH_USER_DETAILS_BY_EMAIL+email,
+      const response = await dispatch(
+        fetchUserByEmail({
+          url: constants.apiEndPoint.FETCH_USER_DETAILS_BY_EMAIL + email,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
         })
       )
+      console.log(response)
       if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
         dispatch(
           updateError({
@@ -22,19 +23,18 @@ const useFetchDetails = () => {
             errorMessage: 'Users List Fetched',
             flag: true
           })
-          )
-          return; 
-      } 
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
         )
         return;
+      }
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+      return;
     } catch (err) {
-      console.error(err)
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -43,8 +43,8 @@ const useFetchDetails = () => {
         })
       )
     }
-    }
-   return {fetchUsersDetails}
+  }
+  return { fetchUsersDetails }
 }
 
 export default useFetchDetails

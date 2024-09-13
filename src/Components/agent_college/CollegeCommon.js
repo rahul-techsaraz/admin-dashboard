@@ -7,6 +7,9 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import DataToDisplay from '../course_list/DataToDisplay'
+import { addCollegeFacilities, fetchCollegeCommonById } from '../../utils/reduxThunk/collegeThunk'
+import { constants } from '../../utils/constants'
+import { updateError } from '../../features/commonSlice'
 
 export default function CollegeCommon({ collegeId }) {
   const dispatch = useDispatch()
@@ -21,6 +24,89 @@ export default function CollegeCommon({ collegeId }) {
   const handleDelete = (value) => {
     const filteredData = facultyList.filter((data) => data !== value)
     dispatch(updateCollegeInfo({ classKey: 'facultyList', value: filteredData }))
+  }
+
+  const updateCollege = async () => {
+    try {
+      const commonPayload = await {
+        college_id: collegeId,
+        faculty_name: facultyList.map((data) => data).join(', '),
+        facilities: common.facilities
+      }
+      const response = await dispatch(
+        addCollegeFacilities({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.PUT,
+          payload: commonPayload
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'College Facilities Updated Sucessfully',
+            flag: true
+          })
+        )
+        dispatch(
+          fetchCollegeCommonById({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities&college_id=' + collegeId,
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.GET
+          })
+        )
+        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'College Facilities cannot be added... Please try again',
+            flag: true
+          })
+        )
+      }
+    }
+    catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+
+  const handleCancle = async () => {
+    try {
+      const response = await dispatch(
+        fetchCollegeCommonById({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities&college_id=' + collegeId,
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.GET
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+            flag: true
+          })
+        )
+      }
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
   }
 
   useEffect(() => {
@@ -40,7 +126,7 @@ export default function CollegeCommon({ collegeId }) {
   }, [facultyList, common.facilities])
 
   const collegeInfoData = [
-    { lable: 'Faculty Name & Department', value: common.faculty_name },
+    { lable: 'Faculty Name & Department', value: facultyList.join(', ') },
     { lable: 'Facilities', value: common.facilities }
   ]
 
@@ -49,32 +135,33 @@ export default function CollegeCommon({ collegeId }) {
       {!isEdit && collegeId ? (
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
       ) : (
-        <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
-          <InputFieldText
-            placeholder='Faculty Name'
-            inputValue={common.faculty_name}
-            inputType='text'
-            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'faculty_name', value: e.target.value }))}
-            styles={{ width: '280px' }}
-          />
-          <InputFieldText
-            placeholder='Department'
-            inputValue={common.department}
-            inputType='text'
-            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'department', value: e.target.value }))}
-            styles={{ width: '280px' }}
-          />
-          <CustomButton
-            isDisabled={isDisabled}
-            lable={'Submit'}
-            onClick={() => createFacultyList()}
-            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-          />
-          <div
-            className='form-group'
-            style={
-              facultyList.length > 0
-                ? {
+        <>
+          <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
+            <InputFieldText
+              placeholder='Faculty Name'
+              // inputValue={common.faculty_name}
+              inputType='text'
+              onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'faculty_name', value: e.target.value }))}
+              styles={{ width: '280px' }}
+            />
+            <InputFieldText
+              placeholder='Department'
+              // inputValue={common.department}
+              inputType='text'
+              onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'department', value: e.target.value }))}
+              styles={{ width: '280px' }}
+            />
+            <CustomButton
+              isDisabled={isDisabled}
+              lable={'Submit'}
+              onClick={() => createFacultyList()}
+              styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+            />
+            <div
+              className='form-group'
+              style={
+                facultyList.length > 0
+                  ? {
                     border: 'solid #e83e8c 1px',
                     borderRadius: '1rem',
                     display: 'flex',
@@ -83,25 +170,34 @@ export default function CollegeCommon({ collegeId }) {
                     maxWidth: '400px',
                     padding: '7px'
                   }
-                : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
-            }
-          >
-            <Stack direction='row' spacing={0}>
-              {facultyList.map((value) => (
-                <Chip label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
-              ))}
-            </Stack>
+                  : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
+              }
+            >
+              <Stack direction='row' spacing={0}>
+                {facultyList.map((value) => (
+                  <Chip label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
+                ))}
+              </Stack>
+            </div>
+            <TextArea
+              placeholder={'Facilities'}
+              noOfROws={6}
+              noOfCols={55}
+              fieldName={'Facilities'}
+              styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
+              onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
+              inputValue={common.facilities}
+            />
           </div>
-          <TextArea
-            placeholder={'Facilities'}
-            noOfROws={6}
-            noOfCols={55}
-            fieldName={'Facilities'}
-            styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
-            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
-            inputValue={common.facilities}
-          />
-        </div>
+          <div style={{ display: 'flex', gap: '1.5rem' }}>
+            {isEdit && collegeId && (
+              <>
+                <CustomButton isDisabled={common.isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
+                <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />
+              </>
+            )}
+          </div>
+        </>
       )}
     </>
   )

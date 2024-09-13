@@ -29,11 +29,6 @@ export default function DataToDisplay({ dataToDisplay, type, switchClass }) {
               <div className='grid-parent-child' key={data.lable}>
                 <span className='exam-text'>{data.lable}</span>
                 <div className='exam-list-p'>{/.jpg|.png|.jpeg/.test(data.value) ? <img className='w-1/2 aspect-[3/2] mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' /> : data.value}</div>
-                {/.jpg|.png|.jpeg/.test(data.value) &&
-                  <div className='remove-btn-flex'>
-                    <button className='remove-btn'>Remove</button>
-                  </div>
-                }
               </div>
             ) : (
               <div className={switchClass ? 'grid-parent-child-changed' : 'grid-parent-child'} key={data.lable}>

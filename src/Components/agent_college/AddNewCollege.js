@@ -25,7 +25,7 @@ import { FileUpload } from '../../utils/FileUpload'
 
 
 export default function AddNewCollege() {
-  const { collegeLogo, collegeThumbnail, collegeGallary } = useContext(FileUpload)
+  const { collegeLogo, collegeThumbnail, collegeGallary, setCollegeLogo, setCollegeThumbnail, setCollegeGallary, setCollegeLogoUrl, setCollegeThumbnailUrl, setCollegeGallaryUrl } = useContext(FileUpload)
   const {
     isDisabled,
     collegeBasicDetails,
@@ -107,6 +107,12 @@ export default function AddNewCollege() {
           })
         )
         dispatch(resetCollege())
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeGallary([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
+        setCollegeGallaryUrl([])
         navigate('/list-agent-college')
       }
     } catch (error) {
@@ -305,8 +311,7 @@ export default function AddNewCollege() {
           })
         )
       ])
-      const response = await isresolved
-        .map((status) => status.payload.status)
+      const response = await isresolved.map((status) => status.payload.status)
         .some((status) => [constants.apiResponseStatus.SUCCESS, 200].includes(status))
       if (!response) {
         dispatch(
@@ -385,7 +390,7 @@ export default function AddNewCollege() {
         <AddCollege />
 
         <div style={{ display: 'flex' }}>
-          <CustomButton isDisabled={false} lable={'Submit'} onClick={() => createNewCollege()} />
+          <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewCollege()} />
         </div>
       </div>
     </AddItemForm>

@@ -49,25 +49,22 @@ export const addCollegeBasicDetails = createAsyncThunk(
 export const fileUploadlogo = createAsyncThunk('college/fileUploadlogo', async ({ url, payload }, thunkApi) => {
   try {
     const { data } = await httpCall2(url, payload)
-    console.log({ data })
-    if (data[0].error || data.status !== constants.apiResponseStatus.SUCCESS) {
+    if (data[0]?.error || data[0].status !== constants.apiResponseStatus.SUCCESS) {
       throw new Error('File upload unsuccessfull')
     }
     return data
   } catch (error) {
-    console.log(error)
     return thunkApi.rejectWithError(error)
   }
 })
 export const fileUploadThumbnail = createAsyncThunk('college/fileUploadThumbnail', async ({ url, payload }, thunkApi) => {
   try {
     const { data } = await httpCall2(url, payload)
-    if (data[0]?.error || data.status !== constants.apiResponseStatus.SUCCESS) {
+    if (data[0]?.error || data[0].status !== constants.apiResponseStatus.SUCCESS) {
       throw new Error('File upload unsuccessfull')
     }
     return data
   } catch (error) {
-    console.log(error)
     return thunkApi.rejectWithError(error)
   }
 })
@@ -81,6 +78,28 @@ export const fileUploadGallary = createAsyncThunk('college/fileUploadGallary', a
 })
 export const deleteCollegeBasicDetails = createAsyncThunk(
   'college/deleteCollegeBasicDetails',
+  async ({ url, header, method, payload }, thunkApi) => {
+    try {
+      const data = await httpCall(url, header, method, payload)
+      return data
+    } catch (error) {
+      return thunkApi.rejectWithError(error)
+    }
+  }
+)
+export const deleteCollegeCourseOffered = createAsyncThunk(
+  'college/deleteCollegeCourseOffered',
+  async ({ url, header, method, payload }, thunkApi) => {
+    try {
+      const data = await httpCall(url, header, method, payload)
+      return data
+    } catch (error) {
+      return thunkApi.rejectWithError(error)
+    }
+  }
+)
+export const deleteCollegeHighlight = createAsyncThunk(
+  'college/deleteCollegeHighlight',
   async ({ url, header, method, payload }, thunkApi) => {
     try {
       const data = await httpCall(url, header, method, payload)

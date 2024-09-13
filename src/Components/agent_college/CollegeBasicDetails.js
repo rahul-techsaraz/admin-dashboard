@@ -7,13 +7,14 @@ import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
 import { updateCollegeInfo } from '../../features/collegeSlice'
 import { updateError } from '../../features/commonSlice'
 import { constants } from '../../utils/constants'
-import { addCollegeBasicDetails, fetchCityList, fetchCollegeById, fetchStateList } from '../../utils/reduxThunk/collegeThunk'
+import { addCollegeBasicDetails, fetchCityList, fetchCollegeById, fetchStateList, fileUploadlogo, fileUploadThumbnail } from '../../utils/reduxThunk/collegeThunk'
 import { FileUpload } from '../../utils/FileUpload'
 import DataToDisplay from '../course_list/DataToDisplay'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
+import { fileTouploadPayload } from '../../utils/fileUploadService'
 
 export default function CollegeBasicDetails({ collegeId }) {
-  const { collegeLogo, collegeThumbnail } = useContext(FileUpload)
+  const { collegeLogo, collegeLogoUrl, collegeThumbnail, collegeThumbnailUrl, setCollegeLogo, setCollegeThumbnail, setCollegeLogoUrl, setCollegeThumbnailUrl } = useContext(FileUpload)
   const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
   const [componentState, setComponentState] = useState('')
   const [componentCity, setComponentCity] = useState('')
@@ -142,7 +143,7 @@ export default function CollegeBasicDetails({ collegeId }) {
       if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
         dispatch(
           updateError({
-            errorType: constants.apiResponseStatus.ERROR,
+            errorType: constants.apiResponseStatus.SUCCESS,
             errorMessage: 'College Basic Details Updated Sucessfully',
             flag: true
           })
@@ -178,6 +179,10 @@ export default function CollegeBasicDetails({ collegeId }) {
       )
       if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
         dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
       } else {
         dispatch(
           updateError({
@@ -197,7 +202,82 @@ export default function CollegeBasicDetails({ collegeId }) {
       )
     }
   }
-
+  const removeCollegeLogo = () => {
+    dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_logo', value: '' }))
+  }
+  const removeCollegeThumbnail = () => {
+    dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_thumbnail', value: '' }))
+  }
+  const uploadLogo = async () => {
+    try {
+      const logoPayload = await fileTouploadPayload(collegeLogo)
+      const resolved = await
+        dispatch(
+          fileUploadlogo({
+            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${college_name}`,
+            payload: logoPayload
+          })
+        )
+      if (resolved.payload[0].status !== constants.apiResponseStatus.SUCCESS && resolved.payload[0].error === true) {
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        }))
+      } else {
+        setCollegeLogoUrl('')
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.SUCCESS,
+          errorMessage: "Logo Uploaded Successfully",
+          flag: true
+        }))
+      }
+    }
+    catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+  const uploadThumbnail = async () => {
+    try {
+      const thumbnailPayload = await fileTouploadPayload(collegeThumbnail)
+      const resolved = await
+        dispatch(
+          fileUploadThumbnail({
+            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${college_name}`,
+            payload: thumbnailPayload
+          })
+        )
+      if (resolved.payload[0].status !== constants.apiResponseStatus.SUCCESS && resolved.payload[0].error === true) {
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        }))
+      } else {
+        setCollegeThumbnailUrl('')
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.SUCCESS,
+          errorMessage: "Thumbnail Uploaded Successfully",
+          flag: true
+        }))
+      }
+    }
+    catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
   useEffect(() => {
     fetchState()
   }, [])
@@ -246,7 +326,7 @@ export default function CollegeBasicDetails({ collegeId }) {
         dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'isValitadeError', value: true }))
       }
     }
-  }, [college_name, location, affiliate_by, ratings, state, city, college_type, collegeLogo, collegeThumbnail])
+  }, [college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, collegeLogo, collegeThumbnail])
 
   const collegeInfoData = [
     { lable: 'College Name', value: college_name },
@@ -316,21 +396,44 @@ export default function CollegeBasicDetails({ collegeId }) {
             onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'ratings', value: e.target.value }))}
             styles={{ width: '280px' }}
           />
-          <UploadFile
-            label={'College Logo'}
-            styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-            multiple={false}
-          />
-          <UploadFile
-            label={'College Thumbnail'}
-            styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-            multiple={false}
-          />
+          <div className='flex flex-col justify-center items-center'>
+            <UploadFile
+              label={'College Logo'}
+              styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+              multiple={false}
+            />
+            <div style={{ display: college_logo || collegeLogoUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
+              <img src={collegeId && college_logo ? constants.imageAbsolutePath + college_logo : collegeLogoUrl} width={150} height={150} />
+            </div>
+            <div style={{ display: collegeId && college_logo ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+              <button className='btn btn-primary btn-round' onClick={() => removeCollegeLogo()}>Remove</button>
+            </div>
+            <div style={{ display: collegeId && collegeLogoUrl.length > 0 ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+              <button className='btn btn-primary btn-round' onClick={() => uploadLogo()}>Upload</button>
+            </div>
+          </div>
+          <div className='flex flex-col justify-center items-center'>
+            <UploadFile
+              label={'College Thumbnail'}
+              styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+              multiple={false}
+            />
+            <div style={{ display: college_thumbnail || collegeThumbnailUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
+              <img src={collegeId && college_thumbnail ? constants.imageAbsolutePath + college_thumbnail : collegeThumbnailUrl} width={150} height={150} />
+            </div>
+            <div style={{ display: collegeId && college_thumbnail ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+              <button className='btn btn-primary btn-round' onClick={() => removeCollegeThumbnail()}>Remove</button>
+            </div>
+            <div style={{ display: collegeId && collegeThumbnailUrl.length > 0 ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+              <button className='btn btn-primary btn-round' onClick={() => uploadThumbnail()}>Upload</button>
+            </div>
+          </div>
+
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             {isEdit && collegeId && (
               <>
                 <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
-                <CustomButton isDisabled={isValitadeError} lable={'Cancle'} onClick={() => handleCancle()} />
+                <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />
               </>
             )}
           </div>

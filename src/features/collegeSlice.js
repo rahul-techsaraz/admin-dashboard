@@ -44,6 +44,7 @@ const initialState = {
   courseOffered: {
     isValitadeError: true,
     college_id: '',
+    course_id: '',
     course_name: '',
     course_fee_min: '',
     course_fee_max: '',
@@ -62,6 +63,7 @@ const initialState = {
   collegeHighlights: {
     isValitadeError: true,
     college_id: '',
+    course_id: '',
     course_name: '',
     Specialisations_offered: '',
     fees_annually: '',
@@ -121,18 +123,19 @@ const collegeSlice = createSlice({
       }
     })
     builder.addCase(fileUploadlogo.fulfilled, (state, { payload }) => {
-      if (payload.status === 200) {
-        state.collegeBasicDetails.college_logo = payload.data[0].fileName
+      if (payload[0].status === constants.apiResponseStatus.SUCCESS) {
+        state.collegeBasicDetails.college_logo = payload[0].fileName
       }
     })
     builder.addCase(fileUploadThumbnail.fulfilled, (state, { payload }) => {
-      if (payload.status === 200) {
-        state.collegeBasicDetails.college_thumbnail = payload.data[0].fileName
+      if (payload[0].status === constants.apiResponseStatus.SUCCESS) {
+        state.collegeBasicDetails.college_thumbnail = payload[0].fileName
       }
     })
     builder.addCase(fileUploadGallary.fulfilled, (state, { payload }) => {
+      console.log(payload)
       if (payload.status === 200) {
-        state.gallary.image_path = payload.data.map((filePath) => filePath.fileName).join(', ')
+        state.gallary.image_path = state.gallary.image_path + ',' + payload.data.map((filePath) => filePath.fileName).join(',')
       }
     })
     builder.addCase(fetchCollegeById.fulfilled, (state, { payload }) => {
@@ -149,10 +152,9 @@ const collegeSlice = createSlice({
       }
     })
     builder.addCase(fetchCollegeCommonById.fulfilled, (state, { payload }) => {
-      console.log(payload)
       if (payload.data) {
         state.common.facilities = payload.data.facilities
-        state.common.faculty_name = payload.data.faculty_name
+        state.facultyList = payload.data.faculty_name.split(',')
       }
     })
     builder.addCase(fetchCollegeDiscriptionById.fulfilled, (state, { payload }) => {
@@ -169,7 +171,6 @@ const collegeSlice = createSlice({
       }
     })
     builder.addCase(fetchCollegeHighlightsById.fulfilled, (state, { payload }) => {
-      console.log(payload)
       if (payload.data) {
         state.highlightList = payload.data
       }
