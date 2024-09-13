@@ -3,9 +3,8 @@ import { FileUpload } from '../FileUpload'
 
 export default function UploadFile({ label, styles, multiple }) {
   const allowedFileTypes = ['jpg', 'jpeg', 'png']
-  const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeThumbnail } = useContext(FileUpload)
+  const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl } = useContext(FileUpload)
   const validateSelectedFiles = (e) => {
-    console.log('upload File onchange Fired')
     let file = []
     let url = []
     for (let i = 0; i < e.target.files.length; i++) {
@@ -26,8 +25,10 @@ export default function UploadFile({ label, styles, multiple }) {
       setCollegeGallaryUrl(url)
     } else if (label === 'College Logo') {
       setCollegeLogo(file)
+      setCollegeLogoUrl(url)
     } else if (label === 'College Thumbnail') {
       setCollegeThumbnail(file)
+      setCollegeThumbnailUrl(url)
     }
   }
 

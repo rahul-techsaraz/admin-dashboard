@@ -6,7 +6,9 @@ import { useParams } from 'react-router-dom'
 
 export default function ParentWrapper() {
     const [collegeLogo, setCollegeLogo] = useState([])
+    const [collegeLogoUrl, setCollegeLogoUrl] = useState([])
     const [collegeThumbnail, setCollegeThumbnail] = useState([])
+    const [collegeThumbnailUrl, setCollegeThumbnailUrl] = useState([])
     const [collegeGallary, setCollegeGallary] = useState([])
     const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
 
@@ -17,8 +19,12 @@ export default function ParentWrapper() {
                 value={{
                     collegeLogo,
                     setCollegeLogo,
+                    collegeLogoUrl,
+                    setCollegeLogoUrl,
                     collegeThumbnail,
                     setCollegeThumbnail,
+                    collegeThumbnailUrl,
+                    setCollegeThumbnailUrl,
                     collegeGallary,
                     setCollegeGallary,
                     collegeGallaryUrl,
