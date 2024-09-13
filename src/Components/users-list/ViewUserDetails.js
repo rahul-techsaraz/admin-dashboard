@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddItemForm from '../AddItemForm'
 import { Box, Button, Card, Chip, Fab, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
@@ -6,8 +6,11 @@ import useFetchDetails from '../../hooks/useFetchDetails'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { constants } from '../../utils/constants';
+import CustomModal from '../../utils/CommonComponents/CustomModal';
 
 const ViewUserDetails = () => {
+  const [open, setOpen] = useState(false);
+  const [imgUrl, setImgUrl] = useState('')
   const { email } = useParams();
   const { fetchUsersDetails } = useFetchDetails();
   const { userDetailsByEmail } = useSelector(state => state.common);
@@ -32,6 +35,16 @@ const ViewUserDetails = () => {
     }
     return splitData
   }
+
+  const handleOpen = (url) => {
+    setOpen(true);
+    setImgUrl(url)
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   // useEffect(() => {
   //   changedBasicDocument(basicDocument)
   // }, [basicDocument])
@@ -198,7 +211,7 @@ const ViewUserDetails = () => {
                   </Fab> */}
                 </Box>
                 <Box style={{ display: 'flex', justifyContent: 'center', margin: '1rem' }}>
-                  <button class="btn btn-primary btn-round">View</button>
+                  <button class="btn btn-primary btn-round" onClick={() => handleOpen(constants.imageAbsolutePath + basicDocument[0][data])}>View</button>
                 </Box>
 
               </Card>
@@ -206,7 +219,11 @@ const ViewUserDetails = () => {
           </Box>
         </Box>
       </> : <Typography style={{ fontWeight: 600 }}>User does not have any user details data</Typography>}
-
+      <CustomModal
+        open={open}
+        handleClose={() => handleClose()}
+        imgUrl={imgUrl}
+      />
     </AddItemForm>
   )
 }
