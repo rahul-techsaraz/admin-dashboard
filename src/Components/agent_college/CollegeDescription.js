@@ -8,7 +8,7 @@ import { addCollegeDescription, fetchCollegeDiscriptionById } from '../../utils/
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { updateError } from '../../features/commonSlice'
 
-export default function CollegeDescription({ collegeId }) {
+export default function CollegeDescription({ collegeId, admin }) {
   const { collegeDescriptions, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, college_description, college_course_description, college_highlights_description, college_campus_description } =
     useSelector((state) => state.college.collegeDescriptions)
@@ -122,7 +122,7 @@ export default function CollegeDescription({ collegeId }) {
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
           <div style={{ display: ' flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '3rem', margin: 'auto', padding: 'auto' }}>

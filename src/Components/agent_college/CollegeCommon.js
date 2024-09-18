@@ -11,7 +11,7 @@ import { addCollegeFacilities, fetchCollegeCommonById } from '../../utils/reduxT
 import { constants } from '../../utils/constants'
 import { updateError } from '../../features/commonSlice'
 
-export default function CollegeCommon({ collegeId }) {
+export default function CollegeCommon({ collegeId, admin }) {
   const dispatch = useDispatch()
   const [isDisabled, setisDisabled] = useState(true)
   const { common, facultyList, isEdit } = useSelector((state) => state.college)
@@ -133,7 +133,7 @@ export default function CollegeCommon({ collegeId }) {
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
           <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>

@@ -10,7 +10,7 @@ import { addCollegeGallary, fetchCollegeGallaryById, fileUploadGallary } from '.
 import { updateError } from '../../features/commonSlice'
 import { fileTouploadPayload } from '../../utils/fileUploadService'
 
-export default function CollegeGallary({ collegeId }) {
+export default function CollegeGallary({ collegeId, admin }) {
   const { collegeGallary, collegeGallaryUrl, setCollegeGallary, setCollegeGallaryUrl } = useContext(FileUpload)
   const { isEdit, gallary, collegeBasicDetails } = useSelector((state) => state.college)
   const [uploadResponse, setUploadResponse] = useState(false)
@@ -78,7 +78,7 @@ export default function CollegeGallary({ collegeId }) {
         const collegeGallaryData = await fileTouploadPayload(collegeGallary)
         const response = await dispatch(
           fileUploadGallary({
-            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${collegeBasicDetails.college_name}/gallary`,
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
             payload: collegeGallaryData
           })
         )
@@ -214,7 +214,7 @@ export default function CollegeGallary({ collegeId }) {
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
           <div >

@@ -12,7 +12,7 @@ import CollegeCommon from './CollegeCommon'
 import CollegeGallary from './CollegeGallary'
 import CollegeHighlights from './CollegeHighlights'
 
-export default function AddCollege({ collegeId }) {
+export default function AddCollege({ collegeId, admin }) {
   const [value, setValue] = useState('1')
 
   const handleChange = (event, newValue) => {
@@ -33,32 +33,32 @@ export default function AddCollege({ collegeId }) {
             {
               1: (
                 <TabPanel value='1'>
-                  <CollegeBasicDetails collegeId={collegeId} />{' '}
+                  <CollegeBasicDetails collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               ),
               2: (
                 <TabPanel value='2'>
-                  <CourseOffered collegeId={collegeId} />{' '}
+                  <CourseOffered collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               ),
               3: (
                 <TabPanel value='3'>
-                  <CollegeDescription collegeId={collegeId} />{' '}
+                  <CollegeDescription collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               ),
               4: (
                 <TabPanel value='4'>
-                  <CollegeHighlights collegeId={collegeId} />{' '}
+                  <CollegeHighlights collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               ),
               5: (
                 <TabPanel value='5'>
-                  <CollegeCommon collegeId={collegeId} />{' '}
+                  <CollegeCommon collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               ),
               6: (
                 <TabPanel value='6'>
-                  <CollegeGallary collegeId={collegeId} />{' '}
+                  <CollegeGallary collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               )
             }[value]

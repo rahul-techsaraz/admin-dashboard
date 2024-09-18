@@ -14,7 +14,7 @@ export const constants = {
     COURSE_DETAILS_COLLEGE: 'https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails',
     UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php',
     GET_ALL_USERS_USER_DETAILS: "https://techsaraz.in//admission-cart/api/login/getAllUsers.php",
-    FETCH_USER_DETAILS_BY_EMAIL:"https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email="
+    FETCH_USER_DETAILS_BY_EMAIL: "https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email="
 
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
@@ -541,7 +541,7 @@ export const constants = {
       width: 200
     },
     {
-      field: 'comment',
+      field: 'message',
       headerName: 'Comment',
       width: 200
     }

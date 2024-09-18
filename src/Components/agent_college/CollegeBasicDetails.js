@@ -13,14 +13,14 @@ import DataToDisplay from '../course_list/DataToDisplay'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { fileTouploadPayload } from '../../utils/fileUploadService'
 
-export default function CollegeBasicDetails({ collegeId }) {
+export default function CollegeBasicDetails({ collegeId, admin }) {
   const { collegeLogo, collegeLogoUrl, collegeThumbnail, collegeThumbnailUrl, setCollegeLogo, setCollegeThumbnail, setCollegeLogoUrl, setCollegeThumbnailUrl } = useContext(FileUpload)
   const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
   const [componentState, setComponentState] = useState('')
   const [componentCity, setComponentCity] = useState('')
   const dispatch = useDispatch()
   const { collegeBasicDetails, stateList, cityList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail } =
+  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, message, account_name } =
     useSelector((state) => state.college.collegeBasicDetails)
 
   const fetchState = async () => {
@@ -129,8 +129,9 @@ export default function CollegeBasicDetails({ collegeId }) {
         state: state,
         city: city,
         college_type: college_type,
-        account_name: JSON.parse(localStorage.getItem('userData')).account_name,
-        is_publish: constants.courseIsPublished.notPublished
+        account_name: account_name,
+        is_publish: constants.courseIsPublished.notPublished,
+        message: message
       }
       const response = await dispatch(
         addCollegeBasicDetails({
@@ -214,7 +215,7 @@ export default function CollegeBasicDetails({ collegeId }) {
       const resolved = await
         dispatch(
           fileUploadlogo({
-            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${college_name}`,
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
             payload: logoPayload
           })
         )
@@ -249,7 +250,7 @@ export default function CollegeBasicDetails({ collegeId }) {
       const resolved = await
         dispatch(
           fileUploadThumbnail({
-            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${college_name}`,
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
             payload: thumbnailPayload
           })
         )
@@ -343,7 +344,7 @@ export default function CollegeBasicDetails({ collegeId }) {
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <InputFieldText

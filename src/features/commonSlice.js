@@ -38,6 +38,7 @@ import {
   addCollegeHighlight,
   deleteCollegeBasicDetails,
   fetchAgentCollegeList,
+  fetchAllCollegeList,
   fetchCityList,
   fetchCollegeById,
   fetchCollegeCommonById,
@@ -58,7 +59,7 @@ const initialState = {
   errorMessage: '',
   errorType: '',
   getAllUsersList: [],
-  userDetailsByEmail:[],
+  userDetailsByEmail: [],
 }
 
 const commonSlice = createSlice({
@@ -472,6 +473,15 @@ const commonSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(fetchCollegeGallaryById.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchAllCollegeList.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(fetchAllCollegeList.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchAllCollegeList.rejected, (state, { payload }) => {
       state.isLoading = false
     })
   }

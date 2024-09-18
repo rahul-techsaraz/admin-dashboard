@@ -26,7 +26,7 @@ const Input = styled(MuiInput)`
   width: 42px;
 `
 
-export default function CourseOffered({ collegeId }) {
+export default function CourseOffered({ collegeId, admin }) {
   useCourseDetails()
   const { allCourseDetails, courseOffered, courseOfferedList, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, college_id, course_id, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration } =
@@ -321,7 +321,7 @@ export default function CourseOffered({ collegeId }) {
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} admin={admin} />
       ) : (
         <>
           <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
