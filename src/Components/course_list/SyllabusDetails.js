@@ -16,6 +16,10 @@ export default function SyllabusDetails({ courseId }) {
   const [isEditSyllabusDetails, setIsEditSyllabusDetails] = useState(false)
   const [selectedSemester, setSelectedSemester] = useState('')
   const [filteredSelectedData, setFilteredSelectedData] = useState([])
+  const [yearList, setYearList] = useState([])
+  const [semesterList, setSemesterList] = useState({})
+  const [index, setIndex] = useState(0)
+
   useEffect(() => {
     console.log(filteredSelectedData)
   })
@@ -25,7 +29,7 @@ export default function SyllabusDetails({ courseId }) {
   const { isValidationError, course_id, year_name, semester_name, list_of_subject, accumulated_data } = useSelector(
     (state) => state.course.syllabusDetails
   )
-  const { isEdit, isEditSyllabus } = useSelector((state) => state.course)
+  const { isEdit, isEditSyllabus, courseInfo, courseDetails } = useSelector((state) => state.course)
 
   const addNewColumns = [
     {
@@ -48,6 +52,7 @@ export default function SyllabusDetails({ courseId }) {
     const filterData = accumulated_data.filter((syllabus) => syllabus.semester_name === selectedSemester)
     setFilteredSelectedData(filterData)
   }, [selectedSemester])
+
   const deleteSyllabus = (id) => {
     const filteredData = accumulated_data.filter((data) => data.id !== id)
     dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'accumulated_data', value: filteredData }))
@@ -143,13 +148,42 @@ export default function SyllabusDetails({ courseId }) {
     }
   }
 
+  const generateYearList = () => {
+    const currentDate = new Date().getFullYear()
+    let list = [{ label: 'Year', value: '' }]
+    for (let i = 0; i < courseInfo.course_duration; i++) {
+      list.push({ label: currentDate + i, value: currentDate + i })
+    }
+    setYearList(list)
+  }
+
+  const generateSemesterList = () => {
+    let obj = {}
+    for (let i = 0; i < courseInfo.course_duration; i++) {
+      let array = [{ label: 'Semester', value: '' }]
+      for (let x = (i * 2); x < ((i * 2) + 2); x++) {
+        array.push({ label: 'Semester' + (x + 1), value: 'Semester' + (x + 1) })
+      }
+      obj[i] = array
+    }
+    setSemesterList(obj)
+  }
+
   useEffect(() => {
     if (year_name !== '' && semester_name !== '' && list_of_subject !== '') {
       dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: false }))
     } else {
       dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: true }))
     }
+    console.log(yearList.findIndex((obj) => obj.value == year_name))
+    setIndex(yearList.findIndex((obj) => obj.value == year_name))
+    console.log(semesterList[index])
   }, [year_name, semester_name, list_of_subject])
+
+  useEffect(() => {
+    generateYearList()
+    generateSemesterList()
+  }, [courseInfo.course_duration])
 
   const syllabusDetailsData = accumulated_data.map((data) => {
     return [
@@ -200,14 +234,14 @@ export default function SyllabusDetails({ courseId }) {
           <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', alignItems: 'center' }}>
             <SelectBox
               label={'Year'}
-              options={constants.courseSyllabusDetailsYearSelectBox}
+              options={yearList}
               onChange={(e) => dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'year_name', value: e.target.value }))}
               styles={{ width: '280px', height: '38px' }}
               inputValue={year_name}
             />
             <SelectBox
               label={'Semester'}
-              options={constants.courseSyllabusDetailsSemesterSelectBox}
+              options={semesterList[index - 1]}
               onChange={(e) => dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'semester_name', value: e.target.value }))}
               styles={{ width: '280px', height: '38px' }}
               inputValue={semester_name}

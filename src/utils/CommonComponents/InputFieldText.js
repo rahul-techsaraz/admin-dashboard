@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function InputFieldText({ placeholder, inputValue, inputType, onChange, styles, disabled }) {
+export default function InputFieldText({ placeholder, inputValue, inputType, onChange, styles, disabled, display }) {
   return (
-    <div className='form-group'>
+    <div className="form-group" style={{ display: display }}>
       <label>{placeholder}</label>
       <input
         type={inputType}

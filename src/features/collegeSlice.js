@@ -115,7 +115,7 @@ const collegeSlice = createSlice({
     builder.addCase(fetchAgentCollegeList.fulfilled, (state, { payload }) => {
       if (payload.status === constants.apiResponseStatus.SUCCESS) {
         const userAccountName = JSON.parse(localStorage.getItem('userData'))
-        state.agentCollegeList = payload.data.filter((data) => data.email === userAccountName.email)
+        state.agentCollegeList = payload.data.filter((data) => data.account_name === userAccountName.account_name)
       }
     })
     builder.addCase(fetchStateList.fulfilled, (state, { payload }) => {

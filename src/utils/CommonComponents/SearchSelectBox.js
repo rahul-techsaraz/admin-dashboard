@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import '../../assets/css/Dropdown.css'
 
-export default function SearchSelectBox({ options, label, onChange, onInputChange, disabled, inputValue }) {
+export default function SearchSelectBox({ options, label, onChange, disabled, inputValue, onClose, onInputChange }) {
   return (
     <div className='form-group auto-complete'>
       <label>{label}</label>
@@ -14,10 +14,12 @@ export default function SearchSelectBox({ options, label, onChange, onInputChang
         options={options}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label={label} />}
-        onChange={(e, value) => onChange(e, value)}
+        //onChange={(e, value) => onChange(e, value)}
         onInputChange={(e, value) => onInputChange(e, value)}
         disabled={disabled}
         inputValue={inputValue}
+      // onClose={(e) => onClose(e)}
+      // isOptionEqualToValue
       />
     </div>
   )

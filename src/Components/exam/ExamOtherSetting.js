@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import AddItemForm from '../AddItemForm'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +12,7 @@ import { addExamConfig, fetchExamConfigById } from '../../utils/reduxThunk/examT
 import { updateError } from '../../features/commonSlice'
 
 export default function ExamOtherSetting() {
+  const [isDisplay, setIsDisplay] = useState('none')
   const dispatch = useDispatch()
   const { examId } = useParams()
   const { examConfigInputFieldList } = constants
@@ -123,6 +124,15 @@ export default function ExamOtherSetting() {
       )
     }
   }
+  useEffect(() => {
+    console.log(examConfig.is_counselling_announced)
+    if (examConfig.is_counselling_announced === 'yes') {
+      setIsDisplay('')
+    } else {
+      setIsDisplay('none')
+    }
+
+  }, [examConfig.is_counselling_announced])
   return (
     <>
       {!isEdit && examId ? (
@@ -137,6 +147,7 @@ export default function ExamOtherSetting() {
                 inputType={config.type}
                 styles={{ width: '280px' }}
                 placeholder={config.label}
+                display={config.type === 'date' && examConfig.is_counselling_announced !== 'Yes' ? 'none' : ''}
               />
             ) : (
               <SelectBox
@@ -148,6 +159,7 @@ export default function ExamOtherSetting() {
               />
             )
           })}
+
           {isEdit && examId && (
             <div style={{ display: 'flex', margin: 'auto' }}>
               <CustomButton isDisabled={isValidationError} lable={'Update'} onClick={() => handleUpdateExamConfig()} />
