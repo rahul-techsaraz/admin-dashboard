@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
   fetchAgentCollegeList,
+  fetchAllCollegeList,
   fetchCityList,
   fetchCollegeById,
   fetchCollegeCommonById,
@@ -17,6 +18,8 @@ import {
 import { constants } from '../utils/constants'
 
 const initialState = {
+  allCollegeList: [],
+  filteredCollegeList: [],
   agentCollegeList: [],
   allCourseDetails: [],
   isDisabled: true,
@@ -39,7 +42,10 @@ const initialState = {
     city: '',
     college_type: '',
     college_logo: '',
-    college_thumbnail: ''
+    college_thumbnail: '',
+    message: '',
+    account_name: '',
+    is_publish: '',
   },
   courseOffered: {
     isValitadeError: true,
@@ -101,6 +107,11 @@ const collegeSlice = createSlice({
     resetCollege: () => initialState
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAllCollegeList.fulfilled, (state, { payload }) => {
+      if (payload.status === constants.apiResponseStatus.SUCCESS) {
+        state.allCollegeList = payload.data
+      }
+    })
     builder.addCase(fetchAgentCollegeList.fulfilled, (state, { payload }) => {
       if (payload.status === constants.apiResponseStatus.SUCCESS) {
         const userAccountName = JSON.parse(localStorage.getItem('userData'))
@@ -140,6 +151,7 @@ const collegeSlice = createSlice({
     })
     builder.addCase(fetchCollegeById.fulfilled, (state, { payload }) => {
       if (payload.data) {
+        state.collegeBasicDetails.college_id = payload.data.college_id
         state.collegeBasicDetails.college_name = payload.data.college_name
         state.collegeBasicDetails.college_type = payload.data.college_type
         state.collegeBasicDetails.affiliate_by = payload.data.affiliate_by
@@ -149,6 +161,9 @@ const collegeSlice = createSlice({
         state.collegeBasicDetails.ratings = payload.data.ratings
         state.collegeBasicDetails.college_logo = payload.data.college_logo
         state.collegeBasicDetails.college_thumbnail = payload.data.college_thumbnail
+        state.collegeBasicDetails.message = payload.data.message
+        state.collegeBasicDetails.account_name = payload.data.account_name
+        state.collegeBasicDetails.is_publish = payload.data.is_publish
       }
     })
     builder.addCase(fetchCollegeCommonById.fulfilled, (state, { payload }) => {

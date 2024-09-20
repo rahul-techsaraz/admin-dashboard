@@ -1,7 +1,7 @@
 import React from 'react'
 import CustomTableData from '../utils/CommonComponents/CustomTableData'
 
-export default function ItemList({ userColumns, categoryData, addNewColumns, label, path, id, isVewdetails }) {
+export default function ItemList({ userColumns, categoryData, addNewColumns, label, path, id, admin, isVewdetails }) {
   return (
     <div className='container-fluid'>
       <div className='row clearfix'>
@@ -16,6 +16,7 @@ export default function ItemList({ userColumns, categoryData, addNewColumns, lab
                   label={label}
                   path={path}
                   id={id}
+                  admin={admin}
                   isVewdetails={isVewdetails}
                 />
               </div>

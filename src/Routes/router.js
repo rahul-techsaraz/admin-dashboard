@@ -26,6 +26,7 @@ import College_list from '../Components/agent_college/College_list'
 import ParentWrapper from '../Components/agent_college/ParentWrapper'
 import UsersList from '../Components/users-list/UsersList';
 import ViewUserDetails from '../Components/users-list/ViewUserDetails';
+import CollegeRequest from '../Components/admin/CollegeRequest';
 
 export const appRouter = createBrowserRouter(
   [
@@ -92,7 +93,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/list-college',
-          element: <AdminRequest />
+          element: <CollegeRequest />
         },
         {
           path: '/list-agent-college',
@@ -100,6 +101,10 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-college',
+          element: <ParentWrapper />
+        },
+        {
+          path: '/add-college/:collegeId/:admin',
           element: <ParentWrapper />
         },
         {

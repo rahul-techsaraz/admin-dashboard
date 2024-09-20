@@ -48,6 +48,7 @@ export default function AddNewCollege() {
     college_type,
     college_logo,
     college_thumbnail,
+    message,
   } = useSelector((state) => state.college.collegeBasicDetails)
   const {
     image_path,
@@ -97,7 +98,13 @@ export default function AddNewCollege() {
           })
         )
         dispatch(resetCollege())
-        return false
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeGallary([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
+        setCollegeGallaryUrl([])
+        return
       } else {
         dispatch(
           updateError({
@@ -139,7 +146,8 @@ export default function AddNewCollege() {
         city: city,
         college_type: college_type,
         account_name: JSON.parse(localStorage.getItem('userData')).account_name,
-        is_publish: constants.courseIsPublished.notPublished
+        is_publish: constants.courseIsPublished.notPublished,
+        message: message,
       }
       const collegeDeletePayload = {
         college_id: promiseResponse.college_id
@@ -192,12 +200,18 @@ export default function AddNewCollege() {
           })
         )
         dispatch(resetCollege())
-        return false
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeGallary([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
+        setCollegeGallaryUrl([])
+        return
       }
       const isresolved = await Promise.all([
         dispatch(
           fileUploadGallary({
-            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${collegeBasicDetails.college_name}/gallary`,
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
             payload: collegeGallaryData
           })
         ),
@@ -234,9 +248,10 @@ export default function AddNewCollege() {
           })
         )
       ])
+      console.log(isresolved)
       const response2 = await isresolved
         .map((status) => status.payload.status)
-        .some((status) => [constants.apiResponseStatus.SUCCESS, 200].includes(status))
+        .every((status) => status === constants.apiResponseStatus.SUCCESS || status == 200)
       if (!response2) {
         dispatch(
           updateError({
@@ -254,6 +269,12 @@ export default function AddNewCollege() {
           })
         )
         dispatch(resetCollege())
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeGallary([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
+        setCollegeGallaryUrl([])
         return false
       }
       setPromiseResponse({ ...promiseResponse, gallaryUpdateResponse: response2, p_response: false })
@@ -279,13 +300,14 @@ export default function AddNewCollege() {
         location: collegeBasicDetails.location,
         affiliate_by: collegeBasicDetails.affiliate_by,
         ratings: collegeBasicDetails.ratings,
-        college_logo: '',
-        college_thumbnail: '',
+        college_logo: collegeBasicDetails.college_logo,
+        college_thumbnail: collegeBasicDetails.college_thumbnail,
         state: collegeBasicDetails.state,
         city: collegeBasicDetails.city,
         college_type: collegeBasicDetails.college_type,
         account_name: JSON.parse(localStorage.getItem('userData')).account_name,
-        is_publish: constants.courseIsPublished.notPublished
+        is_publish: constants.courseIsPublished.notPublished,
+        message: collegeBasicDetails.message,
       }
       const logoPayload = await fileTouploadPayload(collegeLogo)
       const thumbnailPayload = await fileTouploadPayload(collegeThumbnail)
@@ -300,19 +322,20 @@ export default function AddNewCollege() {
         ),
         dispatch(
           fileUploadlogo({
-            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${collegeBasicDetails.college_name}`,
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
             payload: logoPayload
           })
         ),
         dispatch(
           fileUploadThumbnail({
-            url: constants.apiEndPoint.UPLOAD_FILE + `?dir=${collegeBasicDetails.college_name}`,
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
             payload: thumbnailPayload
           })
         )
       ])
-      const response = await isresolved.map((status) => status.payload.status)
-        .some((status) => [constants.apiResponseStatus.SUCCESS, 200].includes(status))
+      console.log(isresolved)
+      const response = await isresolved.map((status) => status.payload.status || status?.payload[0]?.status)
+        .every((status) => status === constants.apiResponseStatus.SUCCESS || status == 200)
       if (!response) {
         dispatch(
           updateError({
@@ -330,7 +353,13 @@ export default function AddNewCollege() {
           })
         )
         dispatch(resetCollege())
-        return false
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeGallary([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
+        setCollegeGallaryUrl([])
+        return
       } else if (isresolved.map((status) => status.payload.status).includes('duplicate')) {
         dispatch(
           updateError({
@@ -339,6 +368,13 @@ export default function AddNewCollege() {
             flag: true
           })
         )
+        dispatch(resetCollege())
+        setCollegeLogo([])
+        setCollegeThumbnail([])
+        setCollegeGallary([])
+        setCollegeLogoUrl([])
+        setCollegeThumbnailUrl([])
+        setCollegeGallaryUrl([])
       } else {
         setPromiseResponse({ ...promiseResponse, college_id: collegeID, p_response: response })
       }

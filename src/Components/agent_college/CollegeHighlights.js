@@ -12,7 +12,7 @@ import DataToDisplay from '../course_list/DataToDisplay'
 import { updateError } from '../../features/commonSlice'
 import { addCollegeHighlight, deleteCollegeHighlight, fetchCollegeHighlightsById } from '../../utils/reduxThunk/collegeThunk'
 
-export default function CollegeHighlights({ collegeId }) {
+export default function CollegeHighlights({ collegeId, admin }) {
   useCourseDetails()
   const dispatch = useDispatch()
   const { allCourseDetails, courseOfferedList, collegeHighlights, highlightList, isEdit } = useSelector((state) => state.college)
@@ -227,7 +227,7 @@ export default function CollegeHighlights({ collegeId }) {
   return (
     <>
       {!isEdit && collegeId ? (
-        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} />
+        <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} admin={admin} />
       ) : (
         <>
           <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>

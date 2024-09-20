@@ -12,7 +12,7 @@ export default function ParentWrapper() {
     const [collegeGallary, setCollegeGallary] = useState([])
     const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
 
-    const { collegeId } = useParams()
+    const { collegeId, admin } = useParams()
     return (
         <>
             <FileUpload.Provider
@@ -31,7 +31,7 @@ export default function ParentWrapper() {
                     setCollegeGallaryUrl
                 }}
             >
-                {collegeId ? <ViewCollegeDetails collegeId={collegeId} /> : <AddNewCollege />}
+                {collegeId ? <ViewCollegeDetails collegeId={collegeId} admin={admin} /> : <AddNewCollege />}
             </FileUpload.Provider>
         </>
     )

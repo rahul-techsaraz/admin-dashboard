@@ -14,8 +14,8 @@ import {
 } from '../../utils/reduxThunk/collegeThunk'
 import { constants } from '../../utils/constants'
 
-export default function ViewCollegeDetails() {
-  const { collegeId } = useParams()
+export default function ViewCollegeDetails({ collegeId, admin }) {
+  // const { collegeId } = useParams()
   const { collegeBasicDetails, courseOffered, collegeDescriptions, collegeHighlights, common, gallary } = useSelector(
     (state) => state.college
   )
@@ -96,7 +96,7 @@ export default function ViewCollegeDetails() {
     <>
       <AddItemForm label={'Update College'}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <AddCollege collegeId={collegeId} />
+          <AddCollege collegeId={collegeId} admin={admin} />
         </div>
       </AddItemForm>
     </>

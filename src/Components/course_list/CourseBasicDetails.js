@@ -13,6 +13,7 @@ import { updateError } from '../../features/commonSlice'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addNewCourse, fetchCourseBasicDetailsById } from '../../utils/reduxThunk/courseThunk'
 import DataToDisplay from './DataToDisplay'
+import { useFetchExamList } from '../../hooks/useFetchExamList'
 
 function valuetext(value) {
   return value
@@ -21,6 +22,7 @@ function valuetext(value) {
 export default function CourseBasicDetails({ courseId }) {
   const [examName, setExamName] = useState(constants.courseBasicDetailsExamNameSelectBox)
   const dispatch = useDispatch()
+  const { fetchAllExamList } = useFetchExamList()
   const { examList } = useSelector((state) => state.exam)
 
   const {
@@ -165,6 +167,7 @@ export default function CourseBasicDetails({ courseId }) {
     course_accepting_exam
   ])
   useEffect(() => {
+    // fetchAllExamList()
     const examNameList = examList.map((data) => {
       return { label: data.exam_name, value: data.exam_name }
     })
@@ -257,14 +260,14 @@ export default function CourseBasicDetails({ courseId }) {
                 style={
                   course_accepting_exam.length > 0
                     ? {
-                        border: 'solid #e83e8c 1px',
-                        borderRadius: '1rem',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexWrap: 'wrap',
-                        maxWidth: '400px',
-                        padding: '7px'
-                      }
+                      border: 'solid #e83e8c 1px',
+                      borderRadius: '1rem',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      maxWidth: '400px',
+                      padding: '7px'
+                    }
                     : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
                 }
               >

@@ -4,7 +4,7 @@ import { Button, Typography } from '@mui/material'
 import '../../assets/css/customtable.css'
 import { Link } from 'react-router-dom'
 
-const AddCustomColumns = ({ actionItem, params, path, id, isVewdetails }) => {
+const AddCustomColumns = ({ actionItem, params, path, id, admin, isVewdetails }) => {
   return (
     <>
       {actionItem.map((item) => (
@@ -14,7 +14,7 @@ const AddCustomColumns = ({ actionItem, params, path, id, isVewdetails }) => {
           </Button>
           {isVewdetails && (
             <Button variant='contained' color='success'>
-              <Link to={path + params.row[`${id}`]} style={{ color: 'white' }}>
+              <Link to={admin ? path + params.row[`${id}`] + '/' + admin : path + params.row[`${id}`]} style={{ color: 'white' }}>
                 View Details
               </Link>
             </Button>
@@ -24,14 +24,14 @@ const AddCustomColumns = ({ actionItem, params, path, id, isVewdetails }) => {
     </>
   )
 }
-export default function CustomTableData({ userColumns, userRows, actionItem, label, path, id, isVewdetails }) {
+export default function CustomTableData({ userColumns, userRows, actionItem, label, path, id, admin, isVewdetails }) {
   const actionColumn = [
     {
       field: 'action',
       headerName: 'Action',
       width: 350,
       renderCell: (params) => {
-        return <AddCustomColumns actionItem={actionItem} params={params} path={path} id={id} isVewdetails={isVewdetails} />
+        return <AddCustomColumns actionItem={actionItem} params={params} path={path} id={id} isVewdetails={isVewdetails} admin={admin} />
       }
     }
   ]

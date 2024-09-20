@@ -9,6 +9,7 @@ import ExamInfoData from './ExamInfoData'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addExamHighlights, fetchExamHighlightsById } from '../../utils/reduxThunk/examThunk'
 import { updateError } from '../../features/commonSlice'
+import TextArea from '../../utils/CommonComponents/TextArea'
 
 export default function ExamHighlights() {
   const dispatch = useDispatch()
@@ -98,6 +99,16 @@ export default function ExamHighlights() {
               onChange={(e) => dispatch(updateExamHighlights({ key: highlights.keyName, value: e.target.value }))}
             />
           ))}
+          <TextArea
+            key={'paper_marks'}
+            inputValue={examHighlights.paper_marks}
+            placeholder={'Number of Papers and Total Marks'}
+            onChange={(e) => dispatch(updateExamHighlights({ key: "paper_marks", value: e.target.value }))}
+            noOfROws={6}
+            noOfCols={60}
+            fieldName={'Number of Papers and Total Marks'}
+            styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
+          />
           {isEdit && examId && (
             <div style={{ display: 'flex', margin: 'auto' }}>
               <CustomButton isDisabled={isValidationError} lable={'Update'} onClick={() => handleUpdateExamHighlights()} />

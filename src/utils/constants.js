@@ -14,7 +14,7 @@ export const constants = {
     COURSE_DETAILS_COLLEGE: 'https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails',
     UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php',
     GET_ALL_USERS_USER_DETAILS: "https://techsaraz.in//admission-cart/api/login/getAllUsers.php",
-    FETCH_USER_DETAILS_BY_EMAIL:"https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email="
+    FETCH_USER_DETAILS_BY_EMAIL: "https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email="
 
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
@@ -41,11 +41,11 @@ export const constants = {
       heading: 'Dashboard',
       isOpen: false,
       list: [
-        {
-          option_name: 'Category List',
-          option_path: '/category-list',
-          name: 'Category'
-        },
+        // {
+        //   option_name: 'Category List',
+        //   option_path: '/category-list',
+        //   name: 'Category'
+        // },
 
         {
           option_name: 'Course List',
@@ -282,11 +282,11 @@ export const constants = {
       label: 'Exam Duration',
       style: ''
     },
-    {
-      keyName: 'paper_marks',
-      label: 'Number of Papers and Total Marks',
-      style: ''
-    },
+    // {
+    //   keyName: 'paper_marks',
+    //   label: 'Number of Papers and Total Marks',
+    //   style: ''
+    // },
     {
       keyName: 'marking_scheme',
       label: 'Marking Scheme',
@@ -421,9 +421,9 @@ export const constants = {
   ],
   courseLevelSelectBox: [
     { label: 'Course Level', value: '' },
-    { label: 'Option 1', value: 'Option 1' },
-    { label: 'Option 2', value: 'Option 2' },
-    { label: 'Option 3', value: 'Option 3' }
+    { label: 'Undergraduate', value: 'Undergraduate' },
+    { label: 'Graduate', value: 'Graduate' },
+    { label: 'Postgraduate', value: 'Postgraduate' }
   ],
   courseDurationSelectBox: [
     { label: 'Course Duration', value: '' },
@@ -433,9 +433,8 @@ export const constants = {
   ],
   courseExamTypeSelectBox: [
     { label: 'Exam Type', value: '' },
-    { label: 'Option 1', value: 'Option 1' },
-    { label: 'Option 2', value: 'Option 2' },
-    { label: 'Option 3', value: 'Option 3' }
+    { label: 'Semester', value: 'Semester' },
+    { label: 'Yearly', value: 'Yearly' },
   ],
   courseTopCourseCollegesSelectBox: [
     { label: 'Top Course Colleges', value: '' },
@@ -541,7 +540,7 @@ export const constants = {
       width: 200
     },
     {
-      field: 'comment',
+      field: 'message',
       headerName: 'Comment',
       width: 200
     }
