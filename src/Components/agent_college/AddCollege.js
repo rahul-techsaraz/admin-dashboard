@@ -17,7 +17,6 @@ export default function AddCollege({ collegeId, admin }) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
-
   }
   return (
     <>
