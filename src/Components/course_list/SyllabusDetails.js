@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import TextArea from '../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetCourse, updateCourseInfo } from '../../features/courseSlice'
@@ -17,12 +17,12 @@ export default function SyllabusDetails({ courseId }) {
   const [selectedSemester, setSelectedSemester] = useState('')
   const [filteredSelectedData, setFilteredSelectedData] = useState([])
   const [yearList, setYearList] = useState([])
-  const [semesterList, setSemesterList] = useState({})
-  const [index, setIndex] = useState(0)
+  const [semesterList, setSemesterList] = useState([])
 
-  useEffect(() => {
-    console.log(filteredSelectedData)
-  })
+
+  // useEffect(() => {
+  //   console.log(filteredSelectedData)
+  // })
 
   const id = uuid()
   const dispatch = useDispatch()
@@ -157,17 +157,19 @@ export default function SyllabusDetails({ courseId }) {
     setYearList(list)
   }
 
-  const generateSemesterList = () => {
-    let obj = {}
+  const generateSemesterList = useCallback(() => {
+    let array = [{ label: 'Semester', value: '', year: '' }]
+    const currentDate = new Date().getFullYear()
     for (let i = 0; i < courseInfo.course_duration; i++) {
-      let array = [{ label: 'Semester', value: '' }]
+
       for (let x = (i * 2); x < ((i * 2) + 2); x++) {
-        array.push({ label: 'Semester' + (x + 1), value: 'Semester' + (x + 1) })
+        array = [...array, { label: 'Semester' + (x + 1), value: 'Semester' + (x + 1), year: currentDate + i }]
       }
-      obj[i] = array
+
     }
-    setSemesterList(obj)
-  }
+    const filteredArray = array.filter((semester) => semester.year == year_name)
+    setSemesterList([...[{ label: 'Semester', value: '' }], ...filteredArray])
+  }, [year_name])
 
   useEffect(() => {
     if (year_name !== '' && semester_name !== '' && list_of_subject !== '') {
@@ -175,15 +177,15 @@ export default function SyllabusDetails({ courseId }) {
     } else {
       dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: true }))
     }
-    console.log(yearList.findIndex((obj) => obj.value == year_name))
-    setIndex(yearList.findIndex((obj) => obj.value == year_name))
-    console.log(semesterList[index])
   }, [year_name, semester_name, list_of_subject])
 
   useEffect(() => {
     generateYearList()
-    generateSemesterList()
   }, [courseInfo.course_duration])
+
+  useEffect(() => {
+    generateSemesterList()
+  }, [year_name])
 
   const syllabusDetailsData = accumulated_data.map((data) => {
     return [
@@ -239,13 +241,15 @@ export default function SyllabusDetails({ courseId }) {
               styles={{ width: '280px', height: '38px' }}
               inputValue={year_name}
             />
-            <SelectBox
-              label={'Semester'}
-              options={semesterList[index - 1]}
-              onChange={(e) => dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'semester_name', value: e.target.value }))}
-              styles={{ width: '280px', height: '38px' }}
-              inputValue={semester_name}
-            />
+            {courseDetails.exam_type === "Semester" &&
+              <SelectBox
+                label={'Semester'}
+                options={semesterList}
+                onChange={(e) => dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'semester_name', value: e.target.value }))}
+                styles={{ width: '280px', height: '38px' }}
+                inputValue={semester_name}
+              />}
+
             <TextArea
               placeholder='List of Subjects'
               noOfROws={6}

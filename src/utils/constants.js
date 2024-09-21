@@ -38,6 +38,7 @@ export const constants = {
   },
   sideBarMenu: [
     {
+      role: 'admin',
       heading: 'Dashboard',
       isOpen: false,
       list: [
@@ -59,27 +60,8 @@ export const constants = {
         }
       ]
     },
-    // {
-    //     heading: "Colleges",
-    //     isOpen:false,
-    //     list: [
-    //         {
-    //             option_name: "College List",
-    //             option_path:'/add-college'
-    //         },
-
-    //          {
-    //             option_name: "Add New College",
-    //             option_path:'/add-college'
-    //         },
-    //           {
-    //             option_name: "College Detail",
-    //             option_path:'/college-detail'
-    //         },
-    //     ]
-
-    // },
     {
+      role: 'admin',
       heading: 'Admin',
       isOpen: false,
       list: [
@@ -101,6 +83,7 @@ export const constants = {
       ]
     },
     {
+      role: 'agent',
       heading: 'Agents',
       isOpen: false,
       list: [

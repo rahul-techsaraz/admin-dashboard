@@ -23,16 +23,16 @@ export default function CollegeRequest() {
         dispatch(updateCollegeInfo({ classKey: 'filteredCollegeList', value: filterCollege }))
     }
 
-    const addNewColumns = [
-        {
-            label: 'Delete',
-            handleDeleteItem: (rowData) => {
-                console.log(rowData)
-                // deleteCollegeListById(rowData.college_id)
-            },
-            classname: 'deleteButton'
-        }
-    ]
+    // const addNewColumns = [
+    //     {
+    //         label: 'Delete',
+    //         handleDeleteItem: (rowData) => {
+    //             console.log(rowData)
+    //             // deleteCollegeListById(rowData.college_id)
+    //         },
+    //         classname: 'deleteButton'
+    //     }
+    // ]
 
     useEffect(() => {
         console.log(allCollegeList)
@@ -83,7 +83,7 @@ export default function CollegeRequest() {
                                         <ItemList
                                             userColumns={constants.collegeListUserColumns}
                                             categoryData={filteredCollegeList}
-                                            addNewColumns={addNewColumns}
+                                            addNewColumns={[]}
                                             labe={'College Details'}
                                             path={'/add-college/'}
                                             id={'college_id'}
