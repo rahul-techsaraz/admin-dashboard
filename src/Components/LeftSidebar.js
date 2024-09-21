@@ -51,12 +51,12 @@ export default function LeftSidebar() {
                     </div>
                     <div className='detail'>
                       <h4>{userInfo.first_name}</h4>
-                      <small>{userInfo.designation}</small>
+                      <small>{userInfo.user_role}</small>
                     </div>
                   </div>
                 </li>
                 <li className='header'>MAIN</li>
-                {constants.sideBarMenu.map((data, i) => (
+                {constants.sideBarMenu.filter((menu) => menu.role === userInfo.user_role).map((data, i) => (
                   <li>
                     <Link
                       className='menu-toggle'
