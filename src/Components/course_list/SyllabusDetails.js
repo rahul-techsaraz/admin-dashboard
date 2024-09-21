@@ -59,6 +59,29 @@ export default function SyllabusDetails({ courseId }) {
   }
 
   const addSylabusDetails = () => {
+    if (courseDetails.exam_type == 'Semester') {
+      if (year_name !== '' && semester_name !== '' && list_of_subject !== '') {
+        dispatch(
+          updateCourseInfo({
+            classKey: 'syllabusDetails',
+            key: 'accumulated_data',
+            value: [...accumulated_data, { id, year_name, semester_name, list_of_subject }]
+          })
+        )
+        dispatch(updateCourseInfo({ classKey: 'isEditSyllabus', value: false }))
+      }
+    } else {
+      if (year_name !== '' && list_of_subject !== '') {
+        dispatch(
+          updateCourseInfo({
+            classKey: 'syllabusDetails',
+            key: 'accumulated_data',
+            value: [...accumulated_data, { id, year_name, semester_name, list_of_subject }]
+          })
+        )
+        dispatch(updateCourseInfo({ classKey: 'isEditSyllabus', value: false }))
+      }
+    }
     if (year_name !== '' && semester_name !== '' && list_of_subject !== '') {
       dispatch(
         updateCourseInfo({
@@ -172,10 +195,18 @@ export default function SyllabusDetails({ courseId }) {
   }, [year_name])
 
   useEffect(() => {
-    if (year_name !== '' && semester_name !== '' && list_of_subject !== '') {
-      dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: false }))
+    if (courseDetails.exam_type == 'Semester') {
+      if (year_name !== '' && semester_name !== '' && list_of_subject !== '') {
+        dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: false }))
+      } else {
+        dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: true }))
+      }
     } else {
-      dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: true }))
+      if (year_name !== '' && list_of_subject !== '') {
+        dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: false }))
+      } else {
+        dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'isValidationError', value: true }))
+      }
     }
   }, [year_name, semester_name, list_of_subject])
 

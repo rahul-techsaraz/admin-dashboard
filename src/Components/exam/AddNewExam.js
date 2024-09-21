@@ -9,13 +9,16 @@ import ExamInfoData from './ExamInfoData'
 import { addNewExam, fetchExamInfoById } from '../../utils/reduxThunk/examThunk'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { updateError } from '../../features/commonSlice'
+import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
+import { useFetchCategoryList } from '../../hooks/useFetchCategoryList'
 
 export default function AddNewExam() {
+  const { fetchCategoryList } = useFetchCategoryList()
   const dispatch = useDispatch()
   const { examInfoSelectBox } = constants
   const { examId } = useParams()
-
-  const { examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear, isValidationError } = useSelector(
+  const { categoryData } = useSelector(state => state.category)
+  const { examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear, isValidationError, category_name } = useSelector(
     (state) => state.exam.examInfo
   )
   const { isEdit } = useSelector((state) => state.exam)
@@ -46,12 +49,12 @@ export default function AddNewExam() {
     }
   }
   useEffect(() => {
-    if (!examName || !applicationStartDates || !applicationEndDates || !examStartDates || !examEndDates || !examYear) {
+    if (!examName || !applicationStartDates || !applicationEndDates || !examStartDates || !examEndDates || !examYear || !category_name) {
       dispatch(handleExamInfoValidation({ flag: true }))
     } else {
       dispatch(handleExamInfoValidation({ flag: false }))
     }
-  }, [examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear])
+  }, [examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear, category_name])
 
   const examInfoData = [
     { lable: 'Exam Name', value: examName },
@@ -70,7 +73,8 @@ export default function AddNewExam() {
         application_start_date: applicationStartDates,
         application_end_date: applicationEndDates,
         exam_start_date: examStartDates,
-        exam_end_date: examEndDates
+        exam_end_date: examEndDates,
+        category_name: category_name,
       }
       const examInfoResponse = await dispatch(
         addNewExam({
@@ -115,6 +119,9 @@ export default function AddNewExam() {
       )
     }
   }
+  useEffect(() => {
+    fetchCategoryList()
+  }, [])
   return (
     <>
       {!isEdit && examId ? (
@@ -160,7 +167,13 @@ export default function AddNewExam() {
             inputValue={examEndDates}
             onChange={(e) => validateDates('examEndDates', e.target.value)}
             styles={{ width: '280px' }}
-            placeholder='Application End Date'
+            placeholder='Exam End Date'
+          />
+          <SearchSelectBox
+            label='Category'
+            options={categoryData.map(data => data.category_name)}
+            onInputChange={(e, value) => dispatch(updateExamInfo({ key: 'category_name', value: value }))}
+            inputValue={category_name}
           />
         </div>
       )}

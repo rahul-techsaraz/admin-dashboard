@@ -18,7 +18,17 @@ export default function CollegeCommon({ collegeId, admin }) {
 
   const createFacultyList = () => {
     const faculty_name = common.faculty_name.concat('-', common.department)
-    dispatch(updateCollegeInfo({ classKey: 'facultyList', value: [...facultyList, faculty_name] }))
+    if (facultyList.includes(faculty_name)) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: 'Duplicate entry...',
+          flag: true
+        })
+      )
+    } else {
+      dispatch(updateCollegeInfo({ classKey: 'facultyList', value: [...facultyList, faculty_name] }))
+    }
   }
 
   const handleDelete = (value) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
@@ -11,13 +11,18 @@ import CollegeDescription from './CollegeDescription'
 import CollegeCommon from './CollegeCommon'
 import CollegeGallary from './CollegeGallary'
 import CollegeHighlights from './CollegeHighlights'
+import { useFetchCategoryList } from '../../hooks/useFetchCategoryList'
 
 export default function AddCollege({ collegeId, admin }) {
   const [value, setValue] = useState('1')
+  const { fetchCategoryList } = useFetchCategoryList()
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  useEffect(() => {
+    fetchCategoryList()
+  }, [])
   return (
     <>
       <Box sx={{ width: '100%', typography: 'body1' }}>

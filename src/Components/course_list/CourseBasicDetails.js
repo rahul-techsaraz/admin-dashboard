@@ -14,6 +14,8 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { addNewCourse, fetchCourseBasicDetailsById } from '../../utils/reduxThunk/courseThunk'
 import DataToDisplay from './DataToDisplay'
 import { useFetchExamList } from '../../hooks/useFetchExamList'
+import { useFetchCategoryList } from '../../hooks/useFetchCategoryList'
+import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
 
 function valuetext(value) {
   return value
@@ -24,7 +26,8 @@ export default function CourseBasicDetails({ courseId }) {
   const dispatch = useDispatch()
   const { fetchAllExamList } = useFetchExamList()
   const { examList } = useSelector((state) => state.exam)
-
+  const { fetchCategoryList } = useFetchCategoryList()
+  const { categoryData } = useSelector(state => state.category)
   const {
     isValidationError,
     course_id,
@@ -35,6 +38,7 @@ export default function CourseBasicDetails({ courseId }) {
     course_fee_min,
     course_fee_max,
     course_description,
+    category_name,
     course_accepting_exam
   } = useSelector((state) => state.course.courseInfo)
   const { isEdit } = useSelector((state) => state.course)
@@ -72,6 +76,7 @@ export default function CourseBasicDetails({ courseId }) {
         course_fee_min: course_fee_min,
         course_fee_max: course_fee_max,
         course_description: course_description,
+        category_name: category_name,
         course_accepting_exam: course_accepting_exam.join(','),
         is_publish: constants.courseIsPublished.published
       }
@@ -150,6 +155,7 @@ export default function CourseBasicDetails({ courseId }) {
       course_fee_min !== '' &&
       course_fee_max !== '' &&
       course_description !== '' &&
+      category_name !== '' &&
       course_accepting_exam.length > 0
     ) {
       dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'isValidationError', value: false }))
@@ -164,6 +170,7 @@ export default function CourseBasicDetails({ courseId }) {
     course_fee_min,
     course_fee_max,
     course_description,
+    category_name,
     course_accepting_exam
   ])
   useEffect(() => {
@@ -173,6 +180,7 @@ export default function CourseBasicDetails({ courseId }) {
     })
     const newExamList = [...examName, ...examNameList]
     setExamName(newExamList)
+    fetchCategoryList()
   }, [])
   const courseInfoData = [
     { lable: 'Course Name', value: course_name + ' - ' + sub_course_name },
@@ -246,6 +254,12 @@ export default function CourseBasicDetails({ courseId }) {
               styles={{ width: '280px' }}
               onChange={(e) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'course_duration', value: e.target.value }))}
               inputValue={course_duration}
+            />
+            <SearchSelectBox
+              label='Category'
+              options={categoryData.map(data => data.category_name)}
+              onInputChange={(e, value) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'category_name', value: value }))}
+              inputValue={category_name}
             />
             <div style={{ display: 'flex', gap: '1.5rem' }}>
               <SelectBox

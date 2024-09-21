@@ -20,8 +20,9 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
   // const [componentCity, setComponentCity] = useState('')
   const dispatch = useDispatch()
   const { collegeBasicDetails, stateList, cityList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, message, account_name } =
+  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, message, account_name, category_name } =
     useSelector((state) => state.college.collegeBasicDetails)
+  const { categoryData } = useSelector(state => state.category)
 
   const fetchState = async () => {
     try {
@@ -129,6 +130,7 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
         state: state,
         city: city,
         college_type: college_type,
+        category_name: category_name,
         account_name: account_name,
         is_publish: constants.courseIsPublished.notPublished,
         message: message
@@ -353,6 +355,12 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
             inputType='text'
             onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_name', value: e.target.value }))}
             styles={{ width: '280px' }}
+          />
+          <SearchSelectBox
+            label='Category'
+            options={categoryData.map(data => data.category_name)}
+            onInputChange={(e, value) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'category_name', value: value }))}
+            inputValue={category_name}
           />
           <SelectBox
             label={'College Type'}
