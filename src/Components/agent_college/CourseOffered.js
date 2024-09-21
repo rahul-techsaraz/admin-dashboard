@@ -76,9 +76,10 @@ export default function CourseOffered({ collegeId, admin }) {
 
   const setDetails = (e, value) => {
     console.log(value)
+    console.log(allCourseDetails)
     if (value !== '' && value !== undefined && value !== null) {
-      const index = allCourseDetails.findIndex((i) => i.course_id === value.course_id)
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_name', value: value.label }))
+      const index = allCourseDetails.findIndex((i) => i.course_name === value)
+      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_name', value: value }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_fee_min', value: allCourseDetails[index].course_fee_min }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_fee_max', value: allCourseDetails[index].course_fee_max }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_accepting_exam', value: allCourseDetails[index].course_accepting_exam }))
@@ -170,13 +171,10 @@ export default function CourseOffered({ collegeId, admin }) {
   ]
 
   const deleteCourse = async (rowData) => {
+    console.log(rowData)
     if (!isEdit) {
       let filteredData = []
-      if (collegeId) {
-        filteredData = courseOfferedList.filter((data) => data.course_name !== rowData.course_name)
-      } else {
-        filteredData = courseOfferedList.filter((data) => data.id !== rowData.id)
-      }
+      filteredData = courseOfferedList.filter((data) => data.course_id !== rowData.course_id)
       dispatch(updateCollegeInfo({ classKey: 'courseOfferedList', value: filteredData }))
     } else {
       const deleteCourseOfferedPayload = {
@@ -327,12 +325,10 @@ export default function CourseOffered({ collegeId, admin }) {
           <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
             <SearchSelectBox
               label='Course Name'
-              options={allCourseDetails.map((course) => {
-                return { label: course.course_name, course_id: course.course_id }
-              })}
-              onChange={(e, value) => setDetails(e, value)}
-              onInputChange={(e, value) => setComponentCourse(value)}
-              inputValue={componentCourse ? componentCourse : courseOffered.course_name}
+              options={allCourseDetails.map((course) => course.course_name)}
+              // onChange={(e, value) => setDetails(e, value)}
+              onInputChange={(e, value) => setDetails(e, value)}
+              inputValue={courseOffered.course_name}
             />
 
             {courseOffered.course_name && (

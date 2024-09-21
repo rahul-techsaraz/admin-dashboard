@@ -25,9 +25,9 @@ export default function CollegeHighlights({ collegeId, admin }) {
 
   const setDetails = (e, value) => {
     if (value !== '' && value !== undefined && value !== null) {
-      const index = allCourseDetails.findIndex((i) => i.course_id === value.course_id)
-      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: value.label }))
-      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_id', value: value.course_id }))
+      const index = allCourseDetails.findIndex((i) => i.course_name === value)
+      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: value }))
+      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_id', value: allCourseDetails[index].course_id }))
       dispatch(
         updateCollegeInfo({
           classKey: 'collegeHighlights',
@@ -53,6 +53,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
   }
 
   const createHighlightsList = async () => {
+    console.log(collegeHighlights)
     if (!isEdit) {
       if (!JSON.stringify(highlightList).includes(course_name)) {
         dispatch(
@@ -125,8 +126,9 @@ export default function CollegeHighlights({ collegeId, admin }) {
   ]
 
   const deleteHighlight = async (rowData) => {
+    console.log(rowData)
     if (!isEdit) {
-      const filteredData = highlightList.filter((data) => data.id !== rowData.id)
+      const filteredData = highlightList.filter((data) => data.course_id !== rowData.course_id)
       dispatch(updateCollegeInfo({ classKey: 'highlightList', value: filteredData }))
     } else {
       const deleteHighlightPayload = {
@@ -233,12 +235,10 @@ export default function CollegeHighlights({ collegeId, admin }) {
           <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
             <SearchSelectBox
               label='Course Name'
-              options={courseOfferedList.map((course) => {
-                return { label: course.course_name, course_id: course.course_id }
-              })}
-              onChange={(e, value) => setDetails(e, value)}
-              onInputChange={(e, value) => setComponentCourse(value)}
-              inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
+              options={courseOfferedList.map((course) => course.course_name)}
+              // onChange={(e, value) => setDetails(e, value)}
+              onInputChange={(e, value) => setDetails(e, value)}
+              inputValue={collegeHighlights.course_name}
             />
             <InputFieldText
               placeholder='Course Duration'

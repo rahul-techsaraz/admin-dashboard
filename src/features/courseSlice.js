@@ -24,6 +24,7 @@ const initialState = {
     course_fee_min: 1,
     course_fee_max: 10,
     course_description: '',
+    category_name: '',
     course_accepting_exam: []
   },
   courseDescriptions: {
@@ -89,6 +90,7 @@ const courseSlice = createSlice({
         state.courseInfo.course_fee_min = payload.data.course_fee_min
         state.courseInfo.course_fee_max = payload.data.course_fee_max
         state.courseInfo.course_description = payload.data.course_description
+        state.courseInfo.category_name = payload.data.category_name
         state.courseInfo.course_accepting_exam = payload.data.course_accepting_exam.split(',')
       } else {
         // const objKeys = Object.keys(payload.data)
@@ -102,6 +104,7 @@ const courseSlice = createSlice({
         state.courseInfo.course_fee_min = 0
         state.courseInfo.course_fee_max = 10
         state.courseInfo.course_description = ''
+        state.courseInfo.course_accepting_exam = ''
         state.courseInfo.course_accepting_exam = []
       }
     })

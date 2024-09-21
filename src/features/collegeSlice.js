@@ -40,6 +40,7 @@ const initialState = {
     ratings: '',
     state: '',
     city: '',
+    category_name: '',
     college_type: '',
     college_logo: '',
     college_thumbnail: '',

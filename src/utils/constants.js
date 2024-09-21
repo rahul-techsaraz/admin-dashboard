@@ -42,12 +42,11 @@ export const constants = {
       heading: 'Dashboard',
       isOpen: false,
       list: [
-        // {
-        //   option_name: 'Category List',
-        //   option_path: '/category-list',
-        //   name: 'Category'
-        // },
-
+        {
+          option_name: 'Category List',
+          option_path: '/category-list',
+          name: 'Category'
+        },
         {
           option_name: 'Course List',
           option_path: '/course-list',

@@ -23,7 +23,8 @@ const initialState = {
     applicationEndDates: '',
     examStartDates: '',
     examEndDates: '',
-    examYear: ''
+    examYear: '',
+    category_name: '',
   },
   examDescriptionOptions: {
     isValidationError: true,
@@ -114,6 +115,7 @@ const examSlice = createSlice({
         state.examInfo.examStartDates = payload.data.exam_start_date
         state.examInfo.examEndDates = payload.data.exam_end_date
         state.examInfo.examYear = payload.data.exam_year
+        state.examInfo.category_name = payload.data.category_name
       } else {
         state.examInfo.examName = ''
         state.examInfo.applicationStartDates = ''

@@ -39,6 +39,7 @@ export default function AddNewCourse() {
         course_fee_min: courseInfo.course_fee_min,
         course_fee_max: courseInfo.course_fee_max,
         course_description: courseInfo.course_description,
+        category_name: courseInfo.category_name,
         course_accepting_exam: courseInfo.course_accepting_exam.join(','),
         is_publish: constants.courseIsPublished.notPublished
       }

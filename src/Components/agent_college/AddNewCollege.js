@@ -49,6 +49,7 @@ export default function AddNewCollege() {
     college_logo,
     college_thumbnail,
     message,
+    category_name,
   } = useSelector((state) => state.college.collegeBasicDetails)
   const {
     image_path,
@@ -145,6 +146,7 @@ export default function AddNewCollege() {
         state: state,
         city: city,
         college_type: college_type,
+        category_name: category_name,
         account_name: JSON.parse(localStorage.getItem('userData')).account_name,
         is_publish: constants.courseIsPublished.notPublished,
         message: message,
@@ -305,6 +307,7 @@ export default function AddNewCollege() {
         state: collegeBasicDetails.state,
         city: collegeBasicDetails.city,
         college_type: collegeBasicDetails.college_type,
+        category_name: collegeBasicDetails.category_name,
         account_name: JSON.parse(localStorage.getItem('userData')).account_name,
         is_publish: constants.courseIsPublished.notPublished,
         message: collegeBasicDetails.message,
@@ -422,9 +425,7 @@ export default function AddNewCollege() {
   return (
     <AddItemForm label={'Add New College'}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-
         <AddCollege />
-
         <div style={{ display: 'flex' }}>
           <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewCollege()} />
         </div>
