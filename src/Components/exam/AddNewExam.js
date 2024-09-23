@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
 import { constants } from '../../utils/constants'
@@ -13,6 +13,7 @@ import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
 import { useFetchCategoryList } from '../../hooks/useFetchCategoryList'
 
 export default function AddNewExam() {
+  const [componentCategory, setComponentCategory] = useState('')
   const { fetchCategoryList } = useFetchCategoryList()
   const dispatch = useDispatch()
   const { examInfoSelectBox } = constants
@@ -172,8 +173,10 @@ export default function AddNewExam() {
           <SearchSelectBox
             label='Category'
             options={categoryData.map(data => data.category_name)}
-            onInputChange={(e, value) => dispatch(updateExamInfo({ key: 'category_name', value: value }))}
-            inputValue={category_name}
+            onChange={(e, value) => dispatch(updateExamInfo({ key: 'category_name', value: value }))}
+            value={category_name}
+            onInputChange={(e, value) => setComponentCategory(value)}
+            inputValue={componentCategory ? componentCategory : category_name}
           />
         </div>
       )}

@@ -326,9 +326,10 @@ export default function CourseOffered({ collegeId, admin }) {
             <SearchSelectBox
               label='Course Name'
               options={allCourseDetails.map((course) => course.course_name)}
-              // onChange={(e, value) => setDetails(e, value)}
-              onInputChange={(e, value) => setDetails(e, value)}
-              inputValue={courseOffered.course_name}
+              onChange={(e, value) => setDetails(e, value)}
+              value={courseOffered.course_name}
+              onInputChange={(e, value) => setComponentCourse(value)}
+              inputValue={componentCourse ? componentCourse : courseOffered.course_name}
             />
 
             {courseOffered.course_name && (
