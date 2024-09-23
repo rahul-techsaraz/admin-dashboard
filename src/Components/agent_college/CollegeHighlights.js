@@ -24,7 +24,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
   const id = uuid()
 
   const setDetails = (e, value) => {
-    if (value !== '' && value !== undefined && value !== null) {
+    if (value) {
       const index = allCourseDetails.findIndex((i) => i.course_name === value)
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: value }))
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_id', value: allCourseDetails[index].course_id }))
@@ -236,9 +236,10 @@ export default function CollegeHighlights({ collegeId, admin }) {
             <SearchSelectBox
               label='Course Name'
               options={courseOfferedList.map((course) => course.course_name)}
-              // onChange={(e, value) => setDetails(e, value)}
-              onInputChange={(e, value) => setDetails(e, value)}
-              inputValue={collegeHighlights.course_name}
+              onChange={(e, value) => setDetails(e, value)}
+              value={collegeHighlights.course_name}
+              onInputChange={(e, value) => setComponentCourse(value)}
+              inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
             />
             <InputFieldText
               placeholder='Course Duration'

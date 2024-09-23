@@ -28,6 +28,7 @@ export default function CourseBasicDetails({ courseId }) {
   const { examList } = useSelector((state) => state.exam)
   const { fetchCategoryList } = useFetchCategoryList()
   const { categoryData } = useSelector(state => state.category)
+  const [componentCategory, setComponentCategory] = useState('')
   const {
     isValidationError,
     course_id,
@@ -258,8 +259,10 @@ export default function CourseBasicDetails({ courseId }) {
             <SearchSelectBox
               label='Category'
               options={categoryData.map(data => data.category_name)}
-              onInputChange={(e, value) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'category_name', value: value }))}
-              inputValue={category_name}
+              onChange={(e, value) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'category_name', value: value }))}
+              value={category_name}
+              onInputChange={(e, value) => setComponentCategory(value)}
+              inputValue={componentCategory ? componentCategory : category_name}
             />
             <div style={{ display: 'flex', gap: '1.5rem' }}>
               <SelectBox

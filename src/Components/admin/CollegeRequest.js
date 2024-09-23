@@ -64,7 +64,7 @@ export default function CollegeRequest() {
                                         <button className=' btn btn-outline-primary btn btn-primary ' onClick={() => filterCollegeList('NOT PUBLISHED')}>
                                             PENDING
                                         </button>
-                                        <button className=' btn btn-outline-primary btn btn-success ' onClick={() => filterCollegeList('published')}>
+                                        <button className=' btn btn-outline-primary btn btn-success ' onClick={() => filterCollegeList('Approved')}>
                                             APPROVED
                                         </button>
                                         <button className=' btn btn-outline-primary btn btn-danger ' onClick={() => filterCollegeList('decline')}>

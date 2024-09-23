@@ -16,8 +16,9 @@ import { fileTouploadPayload } from '../../utils/fileUploadService'
 export default function CollegeBasicDetails({ collegeId, admin }) {
   const { collegeLogo, collegeLogoUrl, collegeThumbnail, collegeThumbnailUrl, setCollegeLogo, setCollegeThumbnail, setCollegeLogoUrl, setCollegeThumbnailUrl } = useContext(FileUpload)
   const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
-  // const [componentState, setComponentState] = useState('')
-  // const [componentCity, setComponentCity] = useState('')
+  const [searchSelectCategory, setSearchSelectCategory] = useState('')
+  const [searchSelectState, setSearchSelectState] = useState('')
+  const [searchSelectCity, setSearchSelectCity] = useState('')
   const dispatch = useDispatch()
   const { collegeBasicDetails, stateList, cityList, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, message, account_name, category_name } =
@@ -282,7 +283,9 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
     }
   }
   useEffect(() => {
-    fetchState()
+    if (!state) {
+      fetchState()
+    }
   }, [])
 
   useEffect(() => {
@@ -342,6 +345,12 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
     { lable: 'College Logo', value: college_logo },
     { lable: 'College Thumbnail', value: college_thumbnail }
   ]
+  useEffect(() => {
+    console.log(category_name)
+  }, [category_name])
+  useEffect(() => {
+    console.log(searchSelectCategory)
+  }, [searchSelectCategory])
 
   return (
     <>
@@ -359,8 +368,10 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
           <SearchSelectBox
             label='Category'
             options={categoryData.map(data => data.category_name)}
-            onInputChange={(e, value) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'category_name', value: value }))}
-            inputValue={category_name}
+            onChange={(e, value) => value ? dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'category_name', value: value })) : dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'category_name', value: '' }))}
+            value={category_name}
+            onInputChange={(e, value) => setSearchSelectCategory(value)}
+            inputValue={searchSelectCategory ? searchSelectCategory : category_name}
           />
           <SelectBox
             label={'College Type'}
@@ -379,21 +390,19 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
           <SearchSelectBox
             label='State'
             options={stateList}
-            // onChange={(e, value) => setState(value)}
-            // onInputChange={(e, value) => setComponentState(value)}
+            onChange={(e, value) => value ? dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'state', value: value })) : dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'state', value: "" }))}
+            value={collegeBasicDetails.state}
             onInputChange={(e, value) => setState(value)}
-            inputValue={collegeBasicDetails?.state}
-          // onClose={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'state', value: '' }))}
+            inputValue={searchSelectState ? searchSelectState : collegeBasicDetails.state}
           />
           <SearchSelectBox
             label='City'
             options={cityList}
-            // onChange={(e, value) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: value }))}
-            // onInputChange={(e, value) => setComponentCity(value)}
-            onInputChange={(e, value) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: value }))}
+            onChange={(e, value) => value ? dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: value })) : dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: '' }))}
+            value={collegeBasicDetails.city}
+            onInputChange={(e, value) => setSearchSelectCity(value)}
             disabled={searchSelectDisabled}
-            inputValue={collegeBasicDetails?.city}
-          // onClose={(e, value) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: value }))}
+            inputValue={searchSelectCity ? searchSelectCity : collegeBasicDetails.city}
           />
           <InputFieldText
             placeholder='College Location'
