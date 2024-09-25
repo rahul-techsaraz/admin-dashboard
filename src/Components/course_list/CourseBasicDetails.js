@@ -190,7 +190,7 @@ export default function CourseBasicDetails({ courseId }) {
     { lable: 'Course Fee Min', value: course_fee_min },
     { lable: 'Course Fee Max', value: course_fee_max },
     { lable: 'Course Description', value: course_description },
-    { lable: 'Course Accepting Exam', value: course_accepting_exam.join(', ') }
+    { lable: 'Course Accepting Exam', value: course_accepting_exam.join(', ') },
   ]
   return (
     <>

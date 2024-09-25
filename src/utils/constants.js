@@ -36,6 +36,12 @@ export const constants = {
   apiResponseMessage: {
     ERROR_MESSAGE: 'Your Request could not be processed at the moment. Please try again!'
   },
+  collegeStatus: {
+    APPROVED: "Approved",
+    DECLINED: "Declined",
+    REVISION: 'Revision',
+    NOTPUBLISHED: 'NOT PUBLISHED'
+  },
   sideBarMenu: [
     {
       role: 'admin',

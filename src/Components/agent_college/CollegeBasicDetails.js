@@ -337,13 +337,14 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
   const collegeInfoData = [
     { lable: 'College Name', value: college_name },
     { lable: 'College Type', value: college_type },
+    { lable: 'College Category', value: category_name },
     { lable: 'Affiliate By', value: affiliate_by },
     { lable: 'State', value: state },
     { lable: 'City', value: city },
     { lable: 'College Location', value: location },
     { lable: 'Ratings', value: ratings },
     { lable: 'College Logo', value: college_logo },
-    { lable: 'College Thumbnail', value: college_thumbnail }
+    { lable: 'College Thumbnail', value: college_thumbnail },
   ]
   useEffect(() => {
     console.log(category_name)

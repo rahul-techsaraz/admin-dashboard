@@ -19,6 +19,11 @@ export default function CollegeRequest() {
             dispatch(updateCollegeInfo({ classKey: 'filteredCollegeList', value: allCollegeList }))
             return
         }
+        if (filterBy === constants.collegeStatus.NOTPUBLISHED) {
+            const filterCollege = allCollegeList.filter((college) => college.is_publish.toLowerCase() === filterBy.toLowerCase() && college.is_publish.toLowerCase() === constants.collegeStatus.REVISION.toLowerCase())
+            dispatch(updateCollegeInfo({ classKey: 'filteredCollegeList', value: filterCollege }))
+            return
+        }
         const filterCollege = allCollegeList.filter((college) => college.is_publish.toLowerCase() === filterBy.toLowerCase())
         dispatch(updateCollegeInfo({ classKey: 'filteredCollegeList', value: filterCollege }))
     }
@@ -61,13 +66,13 @@ export default function CollegeRequest() {
                                 <div className='row align-items-center justify-content-between'>
                                     <h2 className='admin-h '>{activeLable[0].toUpperCase() + activeLable.slice(1).toLowerCase()} Colleges</h2>
                                     <div className='d-flex justify-end'>
-                                        <button className=' btn btn-outline-primary btn btn-primary ' onClick={() => filterCollegeList('NOT PUBLISHED')}>
+                                        <button className=' btn btn-outline-primary btn btn-primary ' onClick={() => filterCollegeList(constants.collegeStatus.NOTPUBLISHED)}>
                                             PENDING
                                         </button>
-                                        <button className=' btn btn-outline-primary btn btn-success ' onClick={() => filterCollegeList('Approved')}>
+                                        <button className=' btn btn-outline-primary btn btn-success ' onClick={() => filterCollegeList(constants.collegeStatus.APPROVED)}>
                                             APPROVED
                                         </button>
-                                        <button className=' btn btn-outline-primary btn btn-danger ' onClick={() => filterCollegeList('decline')}>
+                                        <button className=' btn btn-outline-primary btn btn-danger ' onClick={() => filterCollegeList(constants.collegeStatus.DECLINED)}>
                                             DECLINED
                                         </button>
                                         <button className=' btn btn-outline-primary btn btn-info ' onClick={() => filterCollegeList('all')}>
