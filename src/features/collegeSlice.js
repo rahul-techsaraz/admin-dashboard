@@ -165,6 +165,7 @@ const collegeSlice = createSlice({
         state.collegeBasicDetails.message = payload.data.message
         state.collegeBasicDetails.account_name = payload.data.account_name
         state.collegeBasicDetails.is_publish = payload.data.is_publish
+        state.collegeBasicDetails.category_name = payload.data.category_name
       }
     })
     builder.addCase(fetchCollegeCommonById.fulfilled, (state, { payload }) => {

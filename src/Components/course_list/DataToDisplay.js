@@ -46,7 +46,8 @@ export default function DataToDisplay({ dataToDisplay, type, switchClass, admin 
         college_type: collegeBasicDetails.college_type,
         account_name: collegeBasicDetails.account_name,
         is_publish: status,
-        message: message
+        message: message,
+        category_name: collegeBasicDetails.category_name,
       }
       const response = await dispatch(addCollegeBasicDetails({
         url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
@@ -100,9 +101,22 @@ export default function DataToDisplay({ dataToDisplay, type, switchClass, admin 
           </Tooltip>
             :
             <>
-              <button className='edit-btn' onClick={() => handleOpen("published")}>Publish</button>
-              <button className='edit-btn' onClick={() => handleOpen("decline")}>Decline</button>
-              <button className='edit-btn' onClick={() => handleOpen("review")}>Review</button>
+              <div style={{ display: 'flex', justifyContent: "end", gap: "1rem" }}>
+                {collegeBasicDetails.is_publish === constants.collegeStatus.NOTPUBLISHED && (
+                  <>
+                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.APPROVED)}>Approve</button>
+                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.DECLINED)}>Decline</button>
+                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.REVISION)}>{constants.collegeStatus.REVISION}</button>
+                  </>
+                )}
+                {collegeBasicDetails.is_publish === constants.collegeStatus.APPROVED && (
+                  <>
+                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.REVISION)}>{constants.collegeStatus.REVISION}</button>
+                  </>
+                )}
+
+              </div>
+
             </>
           }
 
