@@ -10,11 +10,13 @@ import DataToDisplay from '../course_list/DataToDisplay'
 import { addCollegeFacilities, fetchCollegeCommonById } from '../../utils/reduxThunk/collegeThunk'
 import { constants } from '../../utils/constants'
 import { updateError } from '../../features/commonSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function CollegeCommon({ collegeId, admin }) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [isDisabled, setisDisabled] = useState(true)
-  const { common, facultyList, isEdit } = useSelector((state) => state.college)
+  const { common, collegeBasicDetails, facultyList, isEdit } = useSelector((state) => state.college)
 
   const createFacultyList = () => {
     const faculty_name = common.faculty_name.concat('-', common.department)
@@ -119,6 +121,50 @@ export default function CollegeCommon({ collegeId, admin }) {
     }
   }
 
+  const saveDraft = async () => {
+    try {
+      const commonPayload = await {
+        college_id: collegeId,
+        faculty_name: facultyList.map((data) => data).join(', '),
+        facilities: common.facilities
+      }
+      const response = await dispatch(
+        addCollegeFacilities({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities',
+          header: constants.apiHeaders.HEADER,
+          method: common.college_id ? constants.httpMethod.PUT : constants.httpMethod.POST,
+          payload: commonPayload
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.SUCCESS,
+          errorMessage: 'Saved Draft Sucessfully',
+          flag: true
+        })
+        )
+        navigate('/list-agent-college')
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Can not Save the draft... Please try again',
+            flag: true
+          })
+        )
+      }
+    }
+    catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+
   useEffect(() => {
     if (common.faculty_name !== '' && common.department !== '') {
       setisDisabled(false)
@@ -142,7 +188,7 @@ export default function CollegeCommon({ collegeId, admin }) {
 
   return (
     <>
-      {!isEdit && collegeId ? (
+      {!isEdit && collegeId && admin !== 'draft' ? (
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
@@ -163,7 +209,7 @@ export default function CollegeCommon({ collegeId, admin }) {
             />
             <CustomButton
               isDisabled={isDisabled}
-              lable={'Submit'}
+              lable={'Add to List'}
               onClick={() => createFacultyList()}
               styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
             />
@@ -198,9 +244,14 @@ export default function CollegeCommon({ collegeId, admin }) {
               onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
               inputValue={common.facilities}
             />
+            {!isEdit &&
+              <div className='form-group'>
+                <CustomButton isDisabled={common.isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+              </div>
+            }
           </div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {isEdit && collegeId && (
+            {isEdit && collegeId && !admin && (
               <>
                 <CustomButton isDisabled={common.isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
                 <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />

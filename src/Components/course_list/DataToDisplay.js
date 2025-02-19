@@ -126,7 +126,12 @@ export default function DataToDisplay({ dataToDisplay, type, switchClass, admin 
             !Array.isArray(data) ? (
               <div className='grid-parent-child' key={data.lable}>
                 <span className='exam-text'>{data.lable}</span>
-                <div className='exam-list-p'>{/.jpg|.png|.jpeg/.test(data.value) ? <img className='w-1/2 aspect-[3/2] mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' /> : data.value}</div>
+                <div className='exam-list-p'>{/.jpg|.png|.jpeg|.pdf/.test(data.value) ? <img className='w-1/2 aspect-[3/2] mix-blend-color-burn' src={constants.imageAbsolutePath + data.value} alt='Image' /> : !Array.isArray(data.value) ? data.value : data.value.map((v) => (
+                  <>
+                    <div className='exam-list-p'>{v}</div>
+                    <hr style={{ width: '100%', border: "1px solid white" }}></hr>
+                  </>
+                ))}</div>
               </div>
             ) : (
               <div className={switchClass ? 'grid-parent-child-changed' : 'grid-parent-child'} key={data.lable}>

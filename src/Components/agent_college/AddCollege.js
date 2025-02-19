@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
@@ -12,13 +12,16 @@ import CollegeCommon from './CollegeCommon'
 import CollegeGallary from './CollegeGallary'
 import CollegeHighlights from './CollegeHighlights'
 import { useFetchCategoryList } from '../../hooks/useFetchCategoryList'
+import { FileUpload } from '../../utils/FileUpload'
 
 export default function AddCollege({ collegeId, admin }) {
-  const [value, setValue] = useState('1')
+  // const [value, setValue] = useState('1')
   const { fetchCategoryList } = useFetchCategoryList()
+  const { tabValue, setTabValue } = useContext(FileUpload)
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
+    // setValue(newValue)
+    setTabValue(newValue)
   }
   useEffect(() => {
     fetchCategoryList()
@@ -26,7 +29,7 @@ export default function AddCollege({ collegeId, admin }) {
   return (
     <>
       <Box sx={{ width: '100%', typography: 'body1' }}>
-        <TabContext value={value}>
+        <TabContext value={tabValue}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} aria-label='lab API tabs example'>
               {constants.addNewCollegeTab.map((data) => (
@@ -66,7 +69,7 @@ export default function AddCollege({ collegeId, admin }) {
                   <CollegeGallary collegeId={collegeId} admin={admin} />{' '}
                 </TabPanel>
               )
-            }[value]
+            }[tabValue]
           }
         </TabContext>
       </Box>

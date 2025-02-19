@@ -15,7 +15,7 @@ import { addCollegeHighlight, deleteCollegeHighlight, fetchCollegeHighlightsById
 export default function CollegeHighlights({ collegeId, admin }) {
   useCourseDetails()
   const dispatch = useDispatch()
-  const { allCourseDetails, courseOfferedList, collegeHighlights, highlightList, isEdit } = useSelector((state) => state.college)
+  const { allCourseDetails, collegeBasicDetails, courseOfferedList, collegeHighlights, highlightList, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, course_name, course_id, fees_annually, eligibility_criteria, course_duration } = useSelector(
     (state) => state.college.collegeHighlights
   )
@@ -28,20 +28,8 @@ export default function CollegeHighlights({ collegeId, admin }) {
       const index = allCourseDetails.findIndex((i) => i.course_name === value)
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: value }))
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_id', value: allCourseDetails[index].course_id }))
-      dispatch(
-        updateCollegeInfo({
-          classKey: 'collegeHighlights',
-          key: 'fees_annually',
-          value: allCourseDetails[index].course_fee_min + ' - ' + allCourseDetails[index].course_fee_max
-        })
-      )
-      dispatch(
-        updateCollegeInfo({
-          classKey: 'collegeHighlights',
-          key: 'eligibility_criteria',
-          value: allCourseDetails[index].eligiblity_criteria
-        })
-      )
+      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'fees_annually', value: allCourseDetails[index].course_fee_min + ' - ' + allCourseDetails[index].course_fee_max }))
+      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'eligibility_criteria', value: allCourseDetails[index].eligiblity_criteria }))
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_duration', value: allCourseDetails[index].course_duration }))
     } else {
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: '' }))
@@ -53,8 +41,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
   }
 
   const createHighlightsList = async () => {
-    console.log(collegeHighlights)
-    if (!isEdit) {
+    if (!isEdit && admin !== 'draft') {
       if (!JSON.stringify(highlightList).includes(course_name)) {
         dispatch(
           updateCollegeInfo({
@@ -126,8 +113,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
   ]
 
   const deleteHighlight = async (rowData) => {
-    console.log(rowData)
-    if (!isEdit) {
+    if (!isEdit && admin !== 'draft') {
       const filteredData = highlightList.filter((data) => data.course_id !== rowData.course_id)
       dispatch(updateCollegeInfo({ classKey: 'highlightList', value: filteredData }))
     } else {
@@ -198,6 +184,46 @@ export default function CollegeHighlights({ collegeId, admin }) {
     }
   }
 
+  // const saveDraft = async () => {
+  //   try {
+  //     const collegeHighlightsPayload = await {
+  //       data: highlightList.map((data) => {
+  //         return { ...data, college_id: collegeId }
+  //       })
+  //     }
+  //     const response = await dispatch(addCollegeHighlight({
+  //       url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeHighlightsDetails',
+  //       header: constants.apiHeaders.HEADER,
+  //       method: constants.httpMethod.POST,
+  //       payload: collegeHighlightsPayload
+  //     })
+  //     )
+  //     console.log(response)
+  //     if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+  //       dispatch(updateError({
+  //         errorType: constants.apiResponseStatus.SUCCESS,
+  //         errorMessage: 'Draft Saved Successfully',
+  //         flag: true
+  //       }))
+  //     } else {
+  //       dispatch(updateError({
+  //         errorType: constants.apiResponseStatus.ERROR,
+  //         errorMessage: 'Can not Save the draft... Please try again',
+  //         flag: true
+  //       })
+  //       )
+  //     }
+  //   }
+  //   catch (err) {
+  //     dispatch(updateError({
+  //       errorType: constants.apiResponseStatus.ERROR,
+  //       errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //       flag: true
+  //     })
+  //     )
+  //   }
+  // }
+
   useEffect(() => {
     if (
       collegeHighlights.course_name !== '' &&
@@ -228,7 +254,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
 
   return (
     <>
-      {!isEdit && collegeId ? (
+      {!isEdit && collegeId && admin !== 'draft' ? (
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} admin={admin} />
       ) : (
         <>
@@ -241,33 +267,37 @@ export default function CollegeHighlights({ collegeId, admin }) {
               onInputChange={(e, value) => setComponentCourse(value)}
               inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
             />
-            <InputFieldText
-              placeholder='Course Duration'
-              inputValue={collegeHighlights.course_duration}
-              inputType='text'
-              styles={{ width: '280px' }}
-              disabled={true}
-            />
-            <InputFieldText
-              placeholder='Fees Annually'
-              inputValue={collegeHighlights.fees_annually}
-              inputType='text'
-              styles={{ width: '280px' }}
-              disabled={true}
-            />
-            <InputFieldText
-              placeholder='Eligibility Criteria'
-              inputValue={collegeHighlights.eligibility_criteria}
-              inputType='text'
-              styles={{ width: '280px' }}
-              disabled={true}
-            />
-            <CustomButton
-              isDisabled={isDisabled}
-              lable={'Add to Highlights'}
-              onClick={() => createHighlightsList()}
-              styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-            />
+            {collegeHighlights.course_name &&
+              <>
+                <InputFieldText
+                  placeholder='Course Duration'
+                  inputValue={collegeHighlights.course_duration}
+                  inputType='text'
+                  styles={{ width: '280px' }}
+                  disabled={true}
+                />
+                <InputFieldText
+                  placeholder='Fees Annually'
+                  inputValue={collegeHighlights.fees_annually}
+                  inputType='text'
+                  styles={{ width: '280px' }}
+                  disabled={true}
+                />
+                <InputFieldText
+                  placeholder='Eligibility Criteria'
+                  inputValue={collegeHighlights.eligibility_criteria}
+                  inputType='text'
+                  styles={{ width: '280px' }}
+                  disabled={true}
+                />
+                <CustomButton
+                  isDisabled={isDisabled}
+                  lable={'Add to Highlights'}
+                  onClick={() => createHighlightsList()}
+                  styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+                />
+              </>
+            }
           </div>
           {highlightList.length > 0 && (
             <div>
@@ -282,8 +312,9 @@ export default function CollegeHighlights({ collegeId, admin }) {
               />
             </div>
           )}
+
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {isEdit && collegeId && (
+            {isEdit && collegeId && !admin && (
               <>
                 {/* <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} /> */}
                 <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />

@@ -10,14 +10,14 @@ import SyllabusDetails from './SyllabusDetails'
 import CourseDetails from './CourseDetails'
 import CourseBasicDetails from './CourseBasicDetails'
 import DataToDisplay from './DataToDisplay'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateCourseInfo } from '../../features/courseSlice'
 
 export default function AddCourse({ courseId }) {
-  const [value, setValue] = useState('1')
-  const { courseInfo, courseDescriptions, courseDetails, syllabusDetails, isEdit } = useSelector((state) => state.course)
-
+  const { courseInfo, courseDescriptions, courseDetails, syllabusDetails, isEdit, tabValue } = useSelector((state) => state.course)
+  const dispatch = useDispatch()
   const handleChange = (event, newValue) => {
-    setValue(newValue)
+    dispatch(updateCourseInfo({ classKey: 'tabValue', value: newValue }))
   }
 
   const courseDetailsData = [
@@ -39,10 +39,13 @@ export default function AddCourse({ courseId }) {
       return () => console.log('leveing the components')
     }
   }, [courseId])
+  useEffect(() => {
+    console.log(tabValue)
+  }, [tabValue])
   return (
     <>
       <Box sx={{ width: '100%', typography: 'body1' }}>
-        <TabContext value={value}>
+        <TabContext value={tabValue}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} aria-label='lab API tabs example'>
               {constants.addNewCourseTab.map((data) => (
@@ -72,7 +75,7 @@ export default function AddCourse({ courseId }) {
                   <SyllabusDetails courseId={courseId} />
                 </TabPanel>
               )
-            }[value]
+            }[tabValue]
           }
           {/* <TabPanel value="1">{!isEdit && courseId ? <DataToDisplay dataToDisplay={courseInfoData}></DataToDisplay> : <CourseBasicDetails courseId={courseId}/>}</TabPanel>
                 <TabPanel value="2">{!isEdit && courseId ? <DataToDisplay dataToDisplay={courseDescriptionData}></DataToDisplay> : <CourseDescriptionDetails courseId={courseId}/>}</TabPanel>

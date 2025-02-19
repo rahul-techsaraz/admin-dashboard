@@ -27,6 +27,10 @@ import ParentWrapper from '../Components/agent_college/ParentWrapper'
 import UsersList from '../Components/users-list/UsersList';
 import ViewUserDetails from '../Components/users-list/ViewUserDetails';
 import CollegeRequest from '../Components/admin/CollegeRequest';
+import FeedbackList from '../Components/feedback/FeedbackList';
+import FeedbackDetails from '../Components/feedback/FeedbackDetails';
+
+
 
 export const appRouter = createBrowserRouter(
   [
@@ -69,6 +73,14 @@ export const appRouter = createBrowserRouter(
         {
           path: '/users-list/:email',
           element: <ViewUserDetails />
+        },
+        {
+          path: '/feedback-list',
+          element: <FeedbackList />
+        },
+        {
+          path: '/feedback-list/:email',
+          element: <FeedbackDetails />
         },
         {
           path: '/add-new-course',

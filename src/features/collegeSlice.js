@@ -11,6 +11,7 @@ import {
   fetchCourseList,
   fetchCourseOfferedById,
   fetchStateList,
+  fileUploadBrochure,
   fileUploadGallary,
   fileUploadThumbnail,
   fileUploadlogo
@@ -44,6 +45,7 @@ const initialState = {
     college_type: '',
     college_logo: '',
     college_thumbnail: '',
+    college_download_brochure_path: '',
     message: '',
     account_name: '',
     is_publish: '',
@@ -65,7 +67,8 @@ const initialState = {
     college_description: '',
     college_course_description: '',
     college_highlights_description: '',
-    college_campus_description: ''
+    college_campus_description: '',
+    college_admission_description: '',
   },
   collegeHighlights: {
     isValitadeError: true,
@@ -120,13 +123,13 @@ const collegeSlice = createSlice({
       }
     })
     builder.addCase(fetchStateList.fulfilled, (state, { payload }) => {
-      if (payload.error === false) {
-        state.stateList = payload.data.states.map((data) => data.name)
+      if (payload.length > 0) {
+        state.stateList = payload.map((data) => data.name)
       }
     })
     builder.addCase(fetchCityList.fulfilled, (state, { payload }) => {
-      if (payload.error === false) {
-        state.cityList = payload.data
+      if (payload.length > 0) {
+        state.cityList = payload.map((city) => city.name)
       }
     })
     builder.addCase(fetchCourseList.fulfilled, (state, { payload }) => {
@@ -144,10 +147,17 @@ const collegeSlice = createSlice({
         state.collegeBasicDetails.college_thumbnail = payload[0].fileName
       }
     })
+    builder.addCase(fileUploadBrochure.fulfilled, (state, { payload }) => {
+      if (payload[0].status === constants.apiResponseStatus.SUCCESS) {
+        state.collegeBasicDetails.college_download_brochure_path = payload[0].fileName
+      }
+    })
     builder.addCase(fileUploadGallary.fulfilled, (state, { payload }) => {
-      console.log(payload)
       if (payload.status === 200) {
-        state.gallary.image_path = state.gallary.image_path + ',' + payload.data.map((filePath) => filePath.fileName).join(',')
+        state.gallary.image_path = payload.data.map((filePath) => filePath.fileName).join(',')
+        // state.gallary.image_path !== '' ?
+        //   state.gallary.image_path + ',' + payload.data.map((filePath) => filePath.fileName).join(',') :
+        //   payload.data.map((filePath) => filePath.fileName).join(',')
       }
     })
     builder.addCase(fetchCollegeById.fulfilled, (state, { payload }) => {
@@ -162,6 +172,7 @@ const collegeSlice = createSlice({
         state.collegeBasicDetails.ratings = payload.data.ratings
         state.collegeBasicDetails.college_logo = payload.data.college_logo
         state.collegeBasicDetails.college_thumbnail = payload.data.college_thumbnail
+        state.collegeBasicDetails.college_download_brochure_path = payload.data.college_download_brochure_path
         state.collegeBasicDetails.message = payload.data.message
         state.collegeBasicDetails.account_name = payload.data.account_name
         state.collegeBasicDetails.is_publish = payload.data.is_publish
@@ -170,16 +181,18 @@ const collegeSlice = createSlice({
     })
     builder.addCase(fetchCollegeCommonById.fulfilled, (state, { payload }) => {
       if (payload.data) {
-        state.common.facilities = payload.data.facilities
+        state.common = { ...state.common, ...payload.data }
         state.facultyList = payload.data.faculty_name.split(',')
       }
     })
     builder.addCase(fetchCollegeDiscriptionById.fulfilled, (state, { payload }) => {
       if (payload.data) {
+        state.collegeDescriptions.college_id = payload.data.college_id
         state.collegeDescriptions.college_description = payload.data.college_description
         state.collegeDescriptions.college_course_description = payload.data.college_course_description
         state.collegeDescriptions.college_highlights_description = payload.data.college_highlights_description
         state.collegeDescriptions.college_campus_description = payload.data.college_campus_description
+        state.collegeDescriptions.college_admission_description = payload.data.college_admission_description
       }
     })
     builder.addCase(fetchCourseOfferedById.fulfilled, (state, { payload }) => {
@@ -194,8 +207,7 @@ const collegeSlice = createSlice({
     })
     builder.addCase(fetchCollegeGallaryById.fulfilled, (state, { payload }) => {
       if (payload.data) {
-        state.gallary.image_path = payload.data.image_path
-        state.gallary.video_path = payload.data?.video_path
+        state.gallary = { ...state.gallary, ...payload.data }
       }
     })
   }

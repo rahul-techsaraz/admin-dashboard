@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Button, Typography } from '@mui/material'
 import '../../assets/css/customtable.css'
 import { Link } from 'react-router-dom'
 
 const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetails }) => {
+  const [isDraft, setIsDraft] = useState(false)
+  useEffect(() => {
+    if (params.row.is_publish === 'DRAFT') {
+      setIsDraft(true)
+    }
+  }, [params])
+
   return (
     <>
       <div className='cellAction'>
@@ -16,8 +23,8 @@ const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetai
         ))}
         {isVewdetails && (
           <Button variant='contained' color='success'>
-            <Link to={admin ? path + params.row[`${id}`] + '/' + admin : path + params.row[`${id}`]} style={{ color: 'white' }}>
-              View Details
+            <Link to={admin ? path + params.row[`${id}`] + '/' + admin : isDraft ? path + params.row[`${id}`] + '/draft' : path + params.row[`${id}`]} style={{ color: 'white' }}>
+              {isDraft ? 'continue' : 'View Details'}
             </Link>
           </Button>
         )}

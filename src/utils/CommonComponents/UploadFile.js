@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { FileUpload } from '../FileUpload'
 
 export default function UploadFile({ label, styles, multiple }) {
-  const allowedFileTypes = ['jpg', 'jpeg', 'png']
-  const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl } = useContext(FileUpload)
+  const allowedFileTypes = ['jpg', 'jpeg', 'png', 'pdf']
+  const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl, collegeBrochure, setCollegeBrochure, collegeBrochureUrl, setCollegeBrochureUrl, } = useContext(FileUpload)
   const validateSelectedFiles = (e) => {
     let file = []
     let url = []
@@ -29,6 +29,9 @@ export default function UploadFile({ label, styles, multiple }) {
     } else if (label === 'College Thumbnail') {
       setCollegeThumbnail(file)
       setCollegeThumbnailUrl(url)
+    } else if (label === 'Brochuer') {
+      setCollegeBrochure(file)
+      setCollegeBrochureUrl(url)
     }
   }
 

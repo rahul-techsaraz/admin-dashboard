@@ -48,10 +48,12 @@ import {
   fetchCourseList,
   fetchCourseOfferedById,
   fetchStateList,
+  fileUploadBrochure,
   fileUploadGallary,
   fileUploadThumbnail,
   fileUploadlogo
 } from '../utils/reduxThunk/collegeThunk'
+import { deleteFeedbackByEmail, fetchAllFeedbackList, fetchFeedbackByEmail } from '../utils/reduxThunk/feedbackThunk'
 
 const initialState = {
   isLoading: false,
@@ -358,6 +360,15 @@ const commonSlice = createSlice({
     builder.addCase(fileUploadThumbnail.rejected, (state, { payload }) => {
       state.isLoading = false
     })
+    builder.addCase(fileUploadBrochure.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(fileUploadBrochure.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fileUploadBrochure.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
     builder.addCase(fileUploadGallary.pending, (state, { payload }) => {
       state.isLoading = true
     })
@@ -482,6 +493,33 @@ const commonSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(fetchAllCollegeList.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchAllFeedbackList.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(fetchAllFeedbackList.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchAllFeedbackList.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchFeedbackByEmail.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(fetchFeedbackByEmail.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(fetchFeedbackByEmail.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(deleteFeedbackByEmail.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(deleteFeedbackByEmail.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(deleteFeedbackByEmail.rejected, (state, { payload }) => {
       state.isLoading = false
     })
   }

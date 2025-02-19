@@ -4,12 +4,17 @@ import ExamHighlights from './ExamHighlights'
 import ExamOtherSetting from './ExamOtherSetting'
 import AddNewExam from './AddNewExam'
 import { constants } from '../../utils/constants'
-import { updateExamTab } from '../../features/examSlice'
+import { updateExamTab, updateTabValue } from '../../features/examSlice'
 
 export default function AddExamDetails() {
   const dispatch = useDispatch()
-  const { activeExamTab } = useSelector((state) => state.exam)
+  const { activeExamTab, tabValue } = useSelector((state) => state.exam)
   const { examTab } = constants.examDetailsTab
+
+  const handleClick = (tabName) => {
+    dispatch(updateExamTab({ tabName: tabName.key }))
+    dispatch(updateTabValue({ tabValue: tabName.tabValue }))
+  }
 
   return (
     <>
@@ -20,7 +25,7 @@ export default function AddExamDetails() {
               <span
                 className={`nav-link ${tabName.key === activeExamTab && 'active'}`}
                 aria-current='page'
-                onClick={() => dispatch(updateExamTab({ tabName: tabName.key }))}
+                onClick={() => handleClick(tabName)}
               >
                 {tabName.label}
               </span>
@@ -29,11 +34,11 @@ export default function AddExamDetails() {
         </ul>
         {
           {
-            examinfo: <AddNewExam />,
-            description: <ExamDescriptions />,
-            highlights: <ExamHighlights />,
-            config: <ExamOtherSetting />
-          }[activeExamTab]
+            1: <AddNewExam />,
+            2: <ExamDescriptions />,
+            3: <ExamHighlights />,
+            4: <ExamOtherSetting />
+          }[tabValue]
         }
       </div>
     </>
