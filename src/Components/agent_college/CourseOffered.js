@@ -21,6 +21,8 @@ import { v4 as uuid } from 'uuid'
 import ItemList from '../ItemList'
 import DataToDisplay from '../course_list/DataToDisplay'
 import { addCollegeBasicDetails, addCollegeCourseOffered, deleteCollegeCourseOffered, fetchCollegeById, fetchCourseOfferedById } from '../../utils/reduxThunk/collegeThunk'
+import { useNavigate } from 'react-router-dom'
+
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -28,58 +30,32 @@ const Input = styled(MuiInput)`
 
 export default function CourseOffered({ collegeId, admin }) {
   useCourseDetails()
-  const { allCourseDetails, courseOffered, courseOfferedList, isEdit } = useSelector((state) => state.college)
+  const { allCourseDetails, collegeBasicDetails, courseOffered, courseOfferedList, isEdit } = useSelector((state) => state.college)
   const { isValitadeError, college_id, course_id, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration } =
     useSelector((state) => state.college.courseOffered)
   const dispatch = useDispatch()
-  const [value, setValue] = useState(Number(course_fee_min))
   const [isDisabled, setisDisabled] = useState(true)
   const [componentCourse, setComponentCourse] = useState('')
+  const navigate = useNavigate()
 
-
-
-  const handleSliderChange = (event, newValue) => {
-    if (Number(newValue) < Number(course_fee_min)) {
-      setValue(Number(course_fee_min))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_min) }))
-    } else if (Number(newValue) > Number(course_fee_max)) {
-      setValue(Number(course_fee_max))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_max) }))
+  const handleSubCourseFee = () => {
+    if (Number(sub_course_fee) >= course_fee_min && Number(sub_course_fee) <= course_fee_max) {
+      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(sub_course_fee) }))
     } else {
-      setValue(Number(newValue))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(newValue) }))
-    }
-  }
-
-  const handleInputChange = (event) => {
-    if (Number(event.target.value) < Number(course_fee_min)) {
-      setValue(Number(course_fee_min))
+      dispatch(updateError({
+        errorType: constants.apiResponseStatus.ERROR,
+        errorMessage: 'Course Fee should be within the given range',
+        flag: true
+      }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_min) }))
-    } else if (Number(event.target.value) > Number(course_fee_max)) {
-      setValue(Number(course_fee_max))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_max) }))
-    } else {
-      setValue(Number(event.target.value))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(event.target.value) }))
-    }
-  }
-
-  const handleBlur = () => {
-    if (value < Number(course_fee_min)) {
-      setValue(Number(course_fee_min))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_min) }))
-    } else if (value > Number(course_fee_max)) {
-      setValue(Number(course_fee_max))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_max) }))
     }
   }
 
   const setDetails = (e, value) => {
-    console.log(value)
-    console.log(allCourseDetails)
     if (value !== '' && value !== undefined && value !== null) {
       const index = allCourseDetails.findIndex((i) => i.course_name === value)
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_name', value: value }))
+      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: allCourseDetails[index].course_fee_min }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_fee_min', value: allCourseDetails[index].course_fee_min }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_fee_max', value: allCourseDetails[index].course_fee_max }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_accepting_exam', value: allCourseDetails[index].course_accepting_exam }))
@@ -96,7 +72,7 @@ export default function CourseOffered({ collegeId, admin }) {
   }
 
   const createCourseOfferedList = async () => {
-    if (!isEdit) {
+    if (!isEdit && admin !== 'draft') {
       if (!JSON.stringify(courseOfferedList).includes(course_name)) {
         dispatch(
           updateCollegeInfo({
@@ -104,6 +80,7 @@ export default function CourseOffered({ collegeId, admin }) {
             value: [...courseOfferedList, { college_id, course_id, course_name, course_accepting_exam, sub_course_fee, sub_course_duration }]
           })
         )
+        return
       } else {
         dispatch(updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -171,8 +148,7 @@ export default function CourseOffered({ collegeId, admin }) {
   ]
 
   const deleteCourse = async (rowData) => {
-    console.log(rowData)
-    if (!isEdit) {
+    if (!isEdit && admin !== 'draft') {
       let filteredData = []
       filteredData = courseOfferedList.filter((data) => data.course_id !== rowData.course_id)
       dispatch(updateCollegeInfo({ classKey: 'courseOfferedList', value: filteredData }))
@@ -189,7 +165,6 @@ export default function CourseOffered({ collegeId, admin }) {
           payload: deleteCourseOfferedPayload
         })
       )
-      console.log(response)
       if (response?.payload?.status === constants.apiResponseStatus.SUCCESS) {
         dispatch(
           fetchCourseOfferedById({
@@ -213,50 +188,50 @@ export default function CourseOffered({ collegeId, admin }) {
     }
   }
 
-  const updateCollege = async () => {
-    try {
-      const courseOfferedPayload = await {
-        data: courseOfferedList.map((data) => { return { ...data, college_id: collegeId } }).map((value) => {
-          delete value.id
-          return value
-        })
-      }
-      const response = await dispatch(
-        addCollegeCourseOffered({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.PUT,
-          payload: courseOfferedPayload
-        })
-      )
-      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: 'College Course Offered Details Updated Sucessfully',
-            flag: true
-          })
-        )
-        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
-      } else {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-          flag: true
-        })
-      )
-    }
-  }
+  // const updateCollege = async () => {
+  //   try {
+  //     const courseOfferedPayload = await {
+  //       data: courseOfferedList.map((data) => { return { ...data, college_id: collegeId } }).map((value) => {
+  //         delete value.id
+  //         return value
+  //       })
+  //     }
+  //     const response = await dispatch(
+  //       addCollegeCourseOffered({
+  //         url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
+  //         header: constants.apiHeaders.HEADER,
+  //         method: constants.httpMethod.PUT,
+  //         payload: courseOfferedPayload
+  //       })
+  //     )
+  //     if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+  //       dispatch(
+  //         updateError({
+  //           errorType: constants.apiResponseStatus.SUCCESS,
+  //           errorMessage: 'College Course Offered Details Updated Sucessfully',
+  //           flag: true
+  //         })
+  //       )
+  //       dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+  //     } else {
+  //       dispatch(
+  //         updateError({
+  //           errorType: constants.apiResponseStatus.ERROR,
+  //           errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //           flag: true
+  //         })
+  //       )
+  //     }
+  //   } catch (error) {
+  //     dispatch(
+  //       updateError({
+  //         errorType: constants.apiResponseStatus.ERROR,
+  //         errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //         flag: true
+  //       })
+  //     )
+  //   }
+  // }
 
   const handleCancle = async () => {
     try {
@@ -289,12 +264,47 @@ export default function CourseOffered({ collegeId, admin }) {
     }
   }
 
-
-
-  useEffect(() => {
-    setValue(Number(course_fee_min))
-    dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: course_fee_min }))
-  }, [course_fee_min])
+  // const saveDraft = async () => {
+  //   try {
+  //     const courseOfferedPayload = await {
+  //       data: courseOfferedList.map((data) => {
+  //         return { ...data, college_id: collegeId }
+  //       })
+  //     }
+  //     const response = await dispatch(addCollegeCourseOffered({
+  //       url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
+  //       header: constants.apiHeaders.HEADER,
+  //       method: admin === 'draft' ? constants.httpMethod.PUT : constants.httpMethod.POST,
+  //       payload: courseOfferedPayload
+  //     })
+  //     )
+  //     console.log(response)
+  //     if (response.payload.status === constants.apiResponseStatus.SUCCESS || response.payload.status === constants.apiResponseStatus.WARNING) {
+  //       dispatch(updateError({
+  //         errorType: constants.apiResponseStatus.SUCCESS,
+  //         errorMessage: 'Draft Saved Successfully',
+  //         flag: true
+  //       })
+  //       )
+  //       navigate('/list-agent-college')
+  //     } else {
+  //       dispatch(updateError({
+  //         errorType: constants.apiResponseStatus.ERROR,
+  //         errorMessage: 'Can not Save the draft... Please try again',
+  //         flag: true
+  //       })
+  //       )
+  //     }
+  //   }
+  //   catch (error) {
+  //     dispatch(updateError({
+  //       errorType: constants.apiResponseStatus.ERROR,
+  //       errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //       flag: true
+  //     })
+  //     )
+  //   }
+  // }
 
   useEffect(() => {
     if (course_name !== '' && course_accepting_exam !== '' && sub_course_fee !== '' && sub_course_duration !== '') {
@@ -312,13 +322,18 @@ export default function CourseOffered({ collegeId, admin }) {
     }
   }, [courseOfferedList.length])
 
-
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleSubCourseFee()
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [sub_course_fee])
 
   const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).filter((key) => (key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id')).map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
 
   return (
     <>
-      {!isEdit && collegeId ? (
+      {!isEdit && collegeId && admin !== 'draft' ? (
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} admin={admin} />
       ) : (
         <>
@@ -334,7 +349,7 @@ export default function CourseOffered({ collegeId, admin }) {
 
             {courseOffered.course_name && (
               <>
-                <Box sx={{ width: 250 }}>
+                {/* <Box sx={{ width: 250 }}>
                   <Typography id='input-slider' gutterBottom>
                     Course Fee (min : {courseOffered.course_fee_min} , max : {courseOffered.course_fee_max})
                   </Typography>
@@ -359,7 +374,14 @@ export default function CourseOffered({ collegeId, admin }) {
                       />
                     </Grid>
                   </Grid>
-                </Box>
+                </Box> */}
+                <InputFieldText
+                  placeholder={`Course Fee (Min : ${course_fee_min}, Max : ${course_fee_max})`}
+                  inputValue={sub_course_fee}
+                  inputType='text'
+                  styles={{ width: '280px' }}
+                  onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(e.target.value) }))}
+                />
                 {/* <div className='full-contain'>
               <div className='grid-parent'> */}
                 <InputFieldText
@@ -394,15 +416,20 @@ export default function CourseOffered({ collegeId, admin }) {
                 categoryData={courseOfferedList.map((data) => { return { ...data, id: data.course_id } })}
                 addNewColumns={addNewColumns}
                 labe={'Course Offered Listing'}
-                // path={'/add-new-course/'}
                 id={'course_id'}
                 isVewdetails={false}
               />
             </div>
           )}
 
+          {/* {!isEdit &&
+            <div className='form-group'>
+              <CustomButton isDisabled={collegeBasicDetails.isValitadeError === false && courseOfferedList.length > 0 ? false : true} lable={'Save as Draft'} onClick={() => saveDraft()} />
+            </div>
+          } */}
+
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {isEdit && collegeId && (
+            {isEdit && collegeId && !admin && (
               <>
                 {/* <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} /> */}
                 <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />

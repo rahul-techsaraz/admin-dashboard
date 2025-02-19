@@ -2,66 +2,66 @@ import React, { useContext, useEffect, useState } from 'react'
 import InputFieldText from '../../utils/CommonComponents/InputFieldText'
 import SelectBox from '../../utils/CommonComponents/SelectBox'
 import UploadFile from '../../utils/CommonComponents/UploadFile'
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
-import { updateCollegeInfo } from '../../features/collegeSlice'
+import { resetCollege, updateCollegeInfo } from '../../features/collegeSlice'
 import { updateError } from '../../features/commonSlice'
 import { constants } from '../../utils/constants'
-import { addCollegeBasicDetails, fetchCityList, fetchCollegeById, fetchStateList, fileUploadlogo, fileUploadThumbnail } from '../../utils/reduxThunk/collegeThunk'
+import { addCollegeBasicDetails, deleteCollegeBasicDetails, fetchCityList, fetchCollegeById, fetchStateList, fileUploadBrochure, fileUploadlogo, fileUploadThumbnail } from '../../utils/reduxThunk/collegeThunk'
 import { FileUpload } from '../../utils/FileUpload'
 import DataToDisplay from '../course_list/DataToDisplay'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { fileTouploadPayload } from '../../utils/fileUploadService'
+import { v4 as uuid } from 'uuid'
+import { useNavigate } from 'react-router-dom'
 
 export default function CollegeBasicDetails({ collegeId, admin }) {
-  const { collegeLogo, collegeLogoUrl, collegeThumbnail, collegeThumbnailUrl, setCollegeLogo, setCollegeThumbnail, setCollegeLogoUrl, setCollegeThumbnailUrl } = useContext(FileUpload)
+  const { collegeLogo, collegeLogoUrl, collegeThumbnail, collegeThumbnailUrl, collegeBrochure, setCollegeBrochure, collegeBrochureUrl, setCollegeBrochureUrl, setCollegeLogo, setCollegeThumbnail, setCollegeLogoUrl, setCollegeThumbnailUrl } = useContext(FileUpload)
   const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
   const [searchSelectCategory, setSearchSelectCategory] = useState('')
   const [searchSelectState, setSearchSelectState] = useState('')
   const [searchSelectCity, setSearchSelectCity] = useState('')
+  const [searchSelectCollegeType, setSearchSelectCollegeType] = useState('')
+  const [promiseResponse, setPromiseResponse] = useState({
+    college_id: '',
+    p_response: false,
+  })
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { collegeBasicDetails, stateList, cityList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, message, account_name, category_name } =
-    useSelector((state) => state.college.collegeBasicDetails)
+  const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, college_download_brochure_path, message, account_name, category_name, is_publish } =
+    useSelector((state) => state.college.collegeBasicDetails, shallowEqual)
   const { categoryData } = useSelector(state => state.category)
 
   const fetchState = async () => {
     try {
-      const payload = await {
-        country: 'India'
-      }
-      const response = await dispatch(
-        fetchStateList({
-          url: constants.apiEndPoint.STATE_LIST,
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: payload
-        })
+      const response = await dispatch(fetchStateList({
+        url: constants.apiEndPoint.STATE_LIST,
+        header: { "X-CSCAPI-KEY": "YW5VbnUwYURRYXhhU242R3VqMTVZZ1lHM0k0Wmo1TjY2ZUlVTTBQbA==" },
+        method: constants.httpMethod.GET,
+      })
       )
-      if (response.payload.error === true) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      } else {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: response.payload.msg,
-            flag: true
-          })
-        )
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
+      if (response.payload.length === 0) {
+        dispatch(updateError({
           errorType: constants.apiResponseStatus.ERROR,
           errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
           flag: true
         })
+        )
+      } else {
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.SUCCESS,
+          errorMessage: "State List Fetched Successfully",
+          flag: true
+        })
+        )
+      }
+    } catch (error) {
+      dispatch(updateError({
+        errorType: constants.apiResponseStatus.ERROR,
+        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+        flag: true
+      })
       )
     }
   }
@@ -77,44 +77,35 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
   }
   const fetchCity = async () => {
     try {
-      const payload = await {
-        country: 'India',
-        state: collegeBasicDetails.state
-      }
-      const response = await dispatch(
-        fetchCityList({
-          url: constants.apiEndPoint.CITY_LIST,
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: payload
-        })
+      const response = await dispatch(fetchCityList({
+        url: constants.apiEndPoint.CITY_LIST,
+        header: { "X-CSCAPI-KEY": "YW5VbnUwYURRYXhhU242R3VqMTVZZ1lHM0k0Wmo1TjY2ZUlVTTBQbA==" },
+        method: constants.httpMethod.GET,
+      })
       )
-      if (response.payload.error === true) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-        setSearchSelectDisabled(true)
-      } else {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: response.payload.msg,
-            flag: true
-          })
-        )
-        setSearchSelectDisabled(false)
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
+      if (response.payload.length === 0) {
+        dispatch(updateError({
           errorType: constants.apiResponseStatus.ERROR,
           errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
           flag: true
         })
+        )
+        setSearchSelectDisabled(true)
+      } else {
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.SUCCESS,
+          errorMessage: "City List Fetched Successfully",
+          flag: true
+        })
+        )
+        setSearchSelectDisabled(false)
+      }
+    } catch (error) {
+      dispatch(updateError({
+        errorType: constants.apiResponseStatus.ERROR,
+        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+        flag: true
+      })
       )
     }
   }
@@ -185,8 +176,10 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
         dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
         setCollegeLogo([])
         setCollegeThumbnail([])
+        setCollegeBrochure([])
         setCollegeLogoUrl([])
         setCollegeThumbnailUrl([])
+        setCollegeBrochureUrl([])
       } else {
         dispatch(
           updateError({
@@ -211,6 +204,9 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
   }
   const removeCollegeThumbnail = () => {
     dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_thumbnail', value: '' }))
+  }
+  const removeCollegeBrochure = () => {
+    dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_download_brochure_path', value: '' }))
   }
   const uploadLogo = async () => {
     try {
@@ -282,6 +278,312 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
       )
     }
   }
+  const uploadBrochure = async () => {
+    try {
+      const brochurePayload = await fileTouploadPayload(collegeBrochure)
+      const resolved = await
+        dispatch(
+          fileUploadBrochure({
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+            payload: brochurePayload
+          })
+        )
+      if (resolved.payload[0].status !== constants.apiResponseStatus.SUCCESS && resolved.payload[0].error === true) {
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        }))
+      } else {
+        setCollegeBrochureUrl('')
+        dispatch(updateError({
+          errorType: constants.apiResponseStatus.SUCCESS,
+          errorMessage: "Brochure Uploaded Successfully",
+          flag: true
+        }))
+      }
+    }
+    catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+  const saveDraft = async () => {
+    try {
+      if (admin !== 'draft') {
+        const collegeID = await uuid()
+        const collegeDeletePayload = await {
+          college_id: collegeID
+        }
+        const collegeInfoPayload = await {
+          college_id: collegeID,
+          college_name: college_name,
+          location: location,
+          affiliate_by: affiliate_by,
+          ratings: ratings,
+          college_logo: college_logo,
+          college_thumbnail: college_thumbnail,
+          college_download_brochure_path: college_download_brochure_path,
+          state: state,
+          city: city,
+          college_type: college_type,
+          category_name: category_name,
+          account_name: JSON.parse(localStorage.getItem('userData')).account_name,
+          is_publish: constants.courseIsPublished.draft,
+          message: message,
+        }
+        const logoPayload = await fileTouploadPayload(collegeLogo)
+        const thumbnailPayload = await fileTouploadPayload(collegeThumbnail)
+        const brochurePayload = await fileTouploadPayload(collegeBrochure)
+        const isresolved = await Promise.all([
+          dispatch(addCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.POST,
+            payload: collegeInfoPayload
+          })
+          ),
+          dispatch(fileUploadlogo({
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+            payload: logoPayload
+          })
+          ),
+          dispatch(fileUploadThumbnail({
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+            payload: thumbnailPayload
+          })
+          ),
+          dispatch(fileUploadBrochure({
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+            payload: brochurePayload
+          })
+          )
+        ])
+        const response = await isresolved.map((status) => status.payload.status || status?.payload[0]?.status)
+          .every((status) => status === constants.apiResponseStatus.SUCCESS || status == 200)
+        if (!response) {
+          dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Something went wrong',
+            flag: true
+          })
+          )
+          dispatch(deleteCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.DELETE,
+            payload: collegeDeletePayload
+          })
+          )
+          dispatch(resetCollege())
+          setCollegeLogo([])
+          setCollegeThumbnail([])
+          setCollegeBrochure([])
+          setCollegeLogoUrl([])
+          setCollegeThumbnailUrl([])
+          setCollegeBrochureUrl([])
+          return
+        } else if (isresolved.map((status) => status.payload.status).includes('duplicate')) {
+          dispatch(updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Draft for this College already exist',
+            flag: true
+          })
+          )
+          dispatch(resetCollege())
+          setCollegeLogo([])
+          setCollegeThumbnail([])
+          setCollegeBrochure([])
+          setCollegeLogoUrl([])
+          setCollegeThumbnailUrl([])
+          setCollegeBrochureUrl([])
+        } else {
+          setPromiseResponse({ ...promiseResponse, college_id: collegeID, p_response: response })
+        }
+      } else {
+        const collegeInfoPayload = await {
+          college_id: college_id,
+          college_name: college_name,
+          location: location,
+          affiliate_by: affiliate_by,
+          ratings: ratings,
+          college_logo: college_logo,
+          college_thumbnail: college_thumbnail,
+          college_download_brochure_path: college_download_brochure_path,
+          state: state,
+          city: city,
+          college_type: college_type,
+          category_name: category_name,
+          account_name: JSON.parse(localStorage.getItem('userData')).account_name,
+          is_publish: is_publish,
+          message: message,
+        }
+        const logoPayload = collegeLogo.length > 0 ? await fileTouploadPayload(collegeLogo) : ''
+        const thumbnailPayload = collegeThumbnail.length > 0 ? await fileTouploadPayload(collegeThumbnail) : ''
+        const brochurePayload = collegeBrochure.length > 0 ? await fileTouploadPayload(collegeBrochure) : ''
+        if (collegeLogo.length > 0 || collegeThumbnail.length > 0 || collegeBrochure.length > 0) {
+          const isresolved = await Promise.all([
+            dispatch(addCollegeBasicDetails({
+              url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+              header: constants.apiHeaders.HEADER,
+              method: constants.httpMethod.PUT,
+              payload: collegeInfoPayload
+            })
+            ),
+            collegeLogo.length > 0 ?
+              dispatch(fileUploadlogo({
+                url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+                payload: logoPayload
+              })
+              ) : '',
+            collegeThumbnail.length > 0 ?
+              dispatch(fileUploadThumbnail({
+                url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+                payload: thumbnailPayload
+              })
+              ) : '',
+            collegeBrochure.length > 0 ?
+              dispatch(fileUploadBrochure({
+                url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+                payload: brochurePayload
+              })
+              ) : ''
+          ])
+          const response = await isresolved.filter((result) => result !== '').map((status) => status.payload.status || status?.payload[0]?.status)
+            .every((status) => status === constants.apiResponseStatus.SUCCESS || status == 200)
+          if (!response) {
+            dispatch(updateError({
+              errorType: constants.apiResponseStatus.ERROR,
+              errorMessage: 'Something went wrong',
+              flag: true
+            })
+            )
+            dispatch(resetCollege())
+            setCollegeLogo([])
+            setCollegeThumbnail([])
+            setCollegeBrochure([])
+            setCollegeLogoUrl([])
+            setCollegeThumbnailUrl([])
+            setCollegeBrochureUrl([])
+            navigate('/list-agent-college')
+            return
+          } else {
+            setPromiseResponse({ ...promiseResponse, college_id: college_id, p_response: response })
+            return
+          }
+        } else {
+          const response = await dispatch(addCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.PUT,
+            payload: collegeInfoPayload
+          })
+          )
+          if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
+            dispatch(updateError({
+              errorType: constants.apiResponseStatus.ERROR,
+              errorMessage: 'Something went Wrong',
+              flag: true
+            })
+            )
+            dispatch(resetCollege())
+            navigate('/list-agent-college')
+            return
+          } else {
+            dispatch(updateError({
+              errorType: constants.apiResponseStatus.SUCCESS,
+              errorMessage: 'Draft Saved Successfully',
+              flag: true
+            })
+            )
+            dispatch(resetCollege())
+            navigate('/list-agent-college')
+          }
+        }
+      }
+    } catch (error) {
+      dispatch(updateError({
+        errorType: constants.apiResponseStatus.ERROR,
+        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+        flag: true
+      })
+      )
+    }
+  }
+  const updateDraft = async () => {
+    const collegeInfoUpdatedPayload = {
+      college_id: promiseResponse.college_id,
+      college_name: college_name,
+      location: location,
+      affiliate_by: affiliate_by,
+      ratings: ratings,
+      college_logo: college_logo,
+      college_thumbnail: college_thumbnail,
+      college_download_brochure_path: college_download_brochure_path,
+      state: state,
+      city: city,
+      college_type: college_type,
+      category_name: category_name,
+      account_name: JSON.parse(localStorage.getItem('userData')).account_name,
+      is_publish: constants.courseIsPublished.draft,
+      message: message,
+    }
+    const collegeDeletePayload = {
+      college_id: promiseResponse.college_id
+    }
+    const response = await dispatch(addCollegeBasicDetails({
+      url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+      header: constants.apiHeaders.HEADER,
+      method: constants.httpMethod.PUT,
+      payload: collegeInfoUpdatedPayload
+    })
+    )
+    if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: 'Something went Wrong',
+          flag: true
+        })
+      )
+      dispatch(
+        deleteCollegeBasicDetails({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.DELETE,
+          payload: collegeDeletePayload
+        })
+      )
+      dispatch(resetCollege())
+      setCollegeLogo([])
+      setCollegeThumbnail([])
+      setCollegeBrochure([])
+      setCollegeLogoUrl([])
+      setCollegeThumbnailUrl([])
+      setCollegeBrochureUrl([])
+      return
+    } else {
+      dispatch(updateError({
+        errorType: constants.apiResponseStatus.SUCCESS,
+        errorMessage: 'Draft Saved Successfully',
+        flag: true
+      })
+      )
+      dispatch(resetCollege())
+      setCollegeLogo([])
+      setCollegeThumbnail([])
+      setCollegeBrochure([])
+      setCollegeLogoUrl([])
+      setCollegeThumbnailUrl([])
+      setCollegeBrochureUrl([])
+      navigate('/list-agent-college')
+    }
+  }
   useEffect(() => {
     if (!state) {
       fetchState()
@@ -334,6 +636,12 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
     }
   }, [college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, collegeLogo, collegeThumbnail])
 
+  useEffect(() => {
+    if (promiseResponse.p_response === true) {
+      updateDraft()
+    }
+  }, [promiseResponse.p_response])
+
   const collegeInfoData = [
     { lable: 'College Name', value: college_name },
     { lable: 'College Type', value: college_type },
@@ -345,26 +653,21 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
     { lable: 'Ratings', value: ratings },
     { lable: 'College Logo', value: college_logo },
     { lable: 'College Thumbnail', value: college_thumbnail },
+    { lable: 'College Brochure', value: college_download_brochure_path },
   ]
-  useEffect(() => {
-    console.log(category_name)
-  }, [category_name])
-  useEffect(() => {
-    console.log(searchSelectCategory)
-  }, [searchSelectCategory])
 
   return (
     <>
-      {!isEdit && collegeId ? (
+      {!isEdit && collegeId && admin !== 'draft' ? (
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
-        <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+        <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
           <InputFieldText
             placeholder='College Name'
             inputValue={collegeBasicDetails.college_name}
             inputType='text'
             onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_name', value: e.target.value }))}
-            styles={{ width: '280px' }}
+            styles={{ width: '300px' }}
           />
           <SearchSelectBox
             label='Category'
@@ -374,19 +677,20 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
             onInputChange={(e, value) => setSearchSelectCategory(value)}
             inputValue={searchSelectCategory ? searchSelectCategory : category_name}
           />
-          <SelectBox
-            label={'College Type'}
-            options={constants.collegeType}
-            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_type', value: e.target.value }))}
-            styles={{ width: '280px', height: '38px' }}
-            inputValue={collegeBasicDetails.college_type}
+          <SearchSelectBox
+            label='College Type'
+            options={constants.collegeType.map((data) => data.label)}
+            onChange={(e, value) => value ? dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_type', value: value })) : dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_type', value: '' }))}
+            value={college_type}
+            onInputChange={(e, value) => setSearchSelectCollegeType(value)}
+            inputValue={searchSelectCollegeType ? searchSelectCollegeType : college_type}
           />
           <InputFieldText
             placeholder='Affiliate By'
             inputValue={collegeBasicDetails.affiliate_by}
             inputType='text'
             onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'affiliate_by', value: e.target.value }))}
-            styles={{ width: '280px' }}
+            styles={{ width: '300px' }}
           />
           <SearchSelectBox
             label='State'
@@ -410,50 +714,71 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
             inputValue={collegeBasicDetails.location}
             inputType='text'
             onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'location', value: e.target.value }))}
-            styles={{ width: '280px' }}
+            styles={{ width: '300px' }}
           />
           <InputFieldText
             placeholder='Ratings'
             inputValue={collegeBasicDetails.ratings}
             inputType='text'
             onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'ratings', value: e.target.value }))}
-            styles={{ width: '280px' }}
+            styles={{ width: '300px' }}
           />
           <div className='flex flex-col justify-center items-center'>
             <UploadFile
               label={'College Logo'}
-              styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+              styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
               multiple={false}
             />
             <div style={{ display: college_logo || collegeLogoUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
-              <img src={collegeId && college_logo ? constants.imageAbsolutePath + college_logo : collegeLogoUrl} width={150} height={150} />
+              <img src={collegeLogoUrl.length > 0 ? collegeLogoUrl : constants.imageAbsolutePath + college_logo} width={150} height={150} />
             </div>
-            <div style={{ display: collegeId && college_logo ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+            <div style={{ display: collegeId && college_logo && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
               <button className='btn btn-primary btn-round' onClick={() => removeCollegeLogo()}>Remove</button>
             </div>
-            <div style={{ display: collegeId && collegeLogoUrl.length > 0 ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+            <div style={{ display: collegeId && collegeLogoUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
               <button className='btn btn-primary btn-round' onClick={() => uploadLogo()}>Upload</button>
             </div>
           </div>
           <div className='flex flex-col justify-center items-center'>
             <UploadFile
               label={'College Thumbnail'}
-              styles={{ width: '240px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+              styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
               multiple={false}
             />
             <div style={{ display: college_thumbnail || collegeThumbnailUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
-              <img src={collegeId && college_thumbnail ? constants.imageAbsolutePath + college_thumbnail : collegeThumbnailUrl} width={150} height={150} />
+              <img src={collegeThumbnailUrl.length > 0 ? collegeThumbnailUrl : constants.imageAbsolutePath + college_thumbnail} width={150} height={150} />
             </div>
-            <div style={{ display: collegeId && college_thumbnail ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+            <div style={{ display: collegeId && college_thumbnail && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
               <button className='btn btn-primary btn-round' onClick={() => removeCollegeThumbnail()}>Remove</button>
             </div>
-            <div style={{ display: collegeId && collegeThumbnailUrl.length > 0 ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+            <div style={{ display: collegeId && collegeThumbnailUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
               <button className='btn btn-primary btn-round' onClick={() => uploadThumbnail()}>Upload</button>
             </div>
           </div>
+          <div className='flex flex-col justify-center items-center'>
+            <UploadFile
+              label={'Brochuer'}
+              styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+              multiple={false}
+            />
+            <div style={{ display: college_download_brochure_path || collegeBrochureUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
+              {college_download_brochure_path}
+            </div>
+            <div style={{ display: collegeId && college_download_brochure_path && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+              <button className='btn btn-primary btn-round' onClick={() => removeCollegeBrochure()}>Remove</button>
+            </div>
+            <div style={{ display: collegeId && collegeBrochureUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+              <button className='btn btn-primary btn-round' onClick={() => uploadBrochure()}>Upload</button>
+            </div>
+          </div>
+          {!isEdit &&
+            <div className='form-group'>
+              <CustomButton isDisabled={isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+            </div>
+          }
 
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {isEdit && collegeId && (
+            {isEdit && collegeId && !admin && (
               <>
                 <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
                 <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />

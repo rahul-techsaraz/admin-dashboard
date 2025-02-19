@@ -14,6 +14,7 @@ const initialState = {
   allCourseDetails: [],
   isValidationError: true,
   isDisabled: true,
+  tabValue: '1',
   courseInfo: {
     isValidationError: true,
     course_id: '',
@@ -59,6 +60,7 @@ const courseSlice = createSlice({
   initialState,
   reducers: {
     updateCourseInfo: (state, { payload }) => {
+      console.log(payload)
       if (payload.key !== undefined) {
         state[payload.classKey][payload.key] = payload.value
       } else {

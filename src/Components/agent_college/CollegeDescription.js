@@ -7,12 +7,14 @@ import DataToDisplay from '../course_list/DataToDisplay'
 import { addCollegeDescription, fetchCollegeDiscriptionById } from '../../utils/reduxThunk/collegeThunk'
 import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { updateError } from '../../features/commonSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function CollegeDescription({ collegeId, admin }) {
-  const { collegeDescriptions, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_description, college_course_description, college_highlights_description, college_campus_description } =
+  const { collegeDescriptions, collegeBasicDetails, isEdit } = useSelector((state) => state.college)
+  const { isValitadeError, college_description, college_course_description, college_highlights_description, college_campus_description, college_admission_description } =
     useSelector((state) => state.college.collegeDescriptions)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const updateCollege = async () => {
     try {
@@ -21,7 +23,8 @@ export default function CollegeDescription({ collegeId, admin }) {
         college_description: college_description,
         college_course_description: college_course_description,
         college_highlights_description: college_highlights_description,
-        college_campus_description: college_campus_description
+        college_campus_description: college_campus_description,
+        college_admission_description: college_admission_description,
       }
       const response = await dispatch(
         addCollegeDescription({
@@ -99,29 +102,79 @@ export default function CollegeDescription({ collegeId, admin }) {
     }
   }
 
+  const saveDraft = async () => {
+    try {
+      const collegeDescriptionPayload = await {
+        college_id: collegeId,
+        college_description: college_description,
+        college_course_description: college_course_description,
+        college_highlights_description: college_highlights_description,
+        college_campus_description: college_campus_description,
+        college_admission_description: college_admission_description,
+      }
+      const response = await dispatch(
+        addCollegeDescription({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeDescriptionsDetails',
+          header: constants.apiHeaders.HEADER,
+          method: collegeDescriptions.college_id ? constants.httpMethod.PUT : constants.httpMethod.POST,
+          payload: collegeDescriptionPayload
+        })
+      )
+      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'Draft Saved Sucessfully',
+            flag: true
+          })
+        )
+        navigate('/list-agent-college')
+      } else {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Can not Save the draft... Please try again',
+            flag: true
+          })
+        )
+      }
+    }
+    catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
+      )
+    }
+  }
+
   useEffect(() => {
     if (
       college_description !== '' &&
       college_course_description !== '' &&
       college_highlights_description !== '' &&
-      college_campus_description !== ''
+      college_campus_description !== '' &&
+      college_admission_description !== ''
     ) {
       dispatch(updateCollegeInfo({ classKey: 'collegeDescriptions', key: 'isValitadeError', value: false }))
     } else {
       dispatch(updateCollegeInfo({ classKey: 'collegeDescriptions', key: 'isValitadeError', value: true }))
     }
-  }, [college_description, college_course_description, college_highlights_description, college_campus_description])
+  }, [college_description, college_course_description, college_highlights_description, college_campus_description, college_admission_description])
 
   const collegeInfoData = [
     { lable: 'College Description', value: college_description },
     { lable: 'Course Description', value: college_course_description },
     { lable: 'Highlights Description', value: college_highlights_description },
-    { lable: 'Campus Description', value: college_campus_description }
+    { lable: 'Campus Description', value: college_campus_description },
+    { lable: 'Admission Description', value: college_admission_description }
   ]
 
   return (
     <>
-      {!isEdit && collegeId ? (
+      {!isEdit && collegeId && admin !== 'draft' ? (
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
@@ -138,8 +191,15 @@ export default function CollegeDescription({ collegeId, admin }) {
               />
             ))}
           </div>
+
+          {!isEdit &&
+            <div className='form-group'>
+              <CustomButton isDisabled={isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+            </div>
+          }
+
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {isEdit && collegeId && (
+            {isEdit && collegeId && !admin && (
               <>
                 <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
                 <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />

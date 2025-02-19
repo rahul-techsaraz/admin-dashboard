@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import AddCollege from './AddCollege'
+import AddNewCollege from './AddNewCollege'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetCollege, updateCollegeInfo } from '../../features/collegeSlice'
@@ -15,7 +16,6 @@ import {
 import { constants } from '../../utils/constants'
 
 export default function ViewCollegeDetails({ collegeId, admin }) {
-  // const { collegeId } = useParams()
   const { collegeBasicDetails, courseOffered, collegeDescriptions, collegeHighlights, common, gallary } = useSelector(
     (state) => state.college
   )
@@ -94,11 +94,12 @@ export default function ViewCollegeDetails({ collegeId, admin }) {
   }, [])
   return (
     <>
-      <AddItemForm label={'Update College'}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <AddCollege collegeId={collegeId} admin={admin} />
-        </div>
-      </AddItemForm>
+      {/* <AddItemForm label={'Update College'}> */}
+      {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
+      {/* <AddCollege collegeId={collegeId} admin={admin} /> */}
+      <AddNewCollege collegeId={collegeId} admin={admin} />
+      {/* </div> */}
+      {/* </AddItemForm> */}
     </>
   )
 }

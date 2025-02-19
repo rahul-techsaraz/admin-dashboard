@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AddExamDetails from './AddExamDetails'
 import { useDispatch, useSelector } from 'react-redux'
-import { reset } from '../../features/examSlice'
+import { reset, updateTabValue } from '../../features/examSlice'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import { addExamConfig, addExamHighlights, addNewExam, updateExamDescription } from '../../utils/reduxThunk/examThunk'
@@ -14,7 +14,7 @@ export default function AddNewExamDetails() {
   const navigate = useNavigate()
   const [isDisabled, setDisabled] = useState(true)
 
-  const { examInfo, examDescriptionOptions, examHighlights, examConfig } = useSelector((state) => state.exam)
+  const { examInfo, examDescriptionOptions, examHighlights, examConfig, tabValue } = useSelector((state) => state.exam)
   const createNewExam = async () => {
     try {
       const examId = await uuid()
@@ -173,8 +173,10 @@ export default function AddNewExamDetails() {
       <AddItemForm label={'Add New Exam'}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <AddExamDetails />
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <CustomButton isDisabled={tabValue === 1} lable={'Prev'} onClick={() => dispatch(updateTabValue({ tabValue: tabValue - 1 }))} />
             <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewExam()} />
+            <CustomButton isDisabled={tabValue === 4} lable={'Next'} onClick={() => dispatch(updateTabValue({ tabValue: tabValue + 1 }))} />
           </div>
         </div>
       </AddItemForm>

@@ -23,7 +23,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 export default function AddNewCourse() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { isDisabled, courseInfo, courseDescriptions, courseDetails, syllabusDetails } = useSelector((state) => state.course)
+  const { isDisabled, courseInfo, courseDescriptions, courseDetails, syllabusDetails, tabValue } = useSelector((state) => state.course)
   const { courseId } = useParams()
   const createNewCourse = async () => {
     try {
@@ -234,8 +234,10 @@ export default function AddNewCourse() {
       <AddItemForm label={'Add New Course'}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <AddCourse courseId={courseId} />
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <CustomButton isDisabled={tabValue === '1' ? true : false} lable={'Prev'} onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) - 1}` }))} />
             <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewCourse()} />
+            <CustomButton isDisabled={tabValue === '4' ? true : false} lable={'Next'} onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) + 1}` }))} />
           </div>
         </div>
       </AddItemForm>

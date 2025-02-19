@@ -9,13 +9,13 @@ export const constants = {
     EXAM_LIST: 'https://techsaraz.in//admission-cart/api/exam.php',
     COURSE_DETAILS: 'https://techsaraz.in//admission-cart/api/courses.php',
     COLLEGE_LIST: 'https://techsaraz.in/admission-cart/api/colleges.php',
-    STATE_LIST: 'https://countriesnow.space/api/v0.1/countries/states',
-    CITY_LIST: 'https://countriesnow.space/api/v0.1/countries/state/cities',
+    STATE_LIST: 'https://api.countrystatecity.in/v1/countries/IN/states',
+    CITY_LIST: 'https://api.countrystatecity.in/v1/countries/IN/states/MH/cities',
     COURSE_DETAILS_COLLEGE: 'https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails',
     UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php',
     GET_ALL_USERS_USER_DETAILS: "https://techsaraz.in//admission-cart/api/login/getAllUsers.php",
-    FETCH_USER_DETAILS_BY_EMAIL: "https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email="
-
+    FETCH_USER_DETAILS_BY_EMAIL: "https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email=",
+    USER_FEADBACK_RESPONSE: "https://techsaraz.in//admission-cart/api/user.php?requestType=userFeedbackReport",
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   apiHeaders: {
@@ -85,6 +85,11 @@ export const constants = {
           option_path: '/users-list',
           name: 'Users'
         },
+        {
+          option_name: 'Users Feedback',
+          option_path: '/feedback-list',
+          name: 'Users Feedback',
+        }
       ]
     },
     {
@@ -282,11 +287,11 @@ export const constants = {
     }
   ],
   examConfigInputFieldList: [
-    {
-      keyName: 'no_session',
-      label: 'No Of Session',
-      type: 'text'
-    },
+    // {
+    //   keyName: 'no_session',
+    //   label: 'No Of Session',
+    //   type: 'text'
+    // },
     {
       keyName: 'session_name',
       label: 'Session Name',
@@ -342,10 +347,10 @@ export const constants = {
     EXAM_HIGHLIGHTS: 'highlights',
     EXAM_CONFIG: 'config',
     examTab: [
-      { label: 'Exam Info', key: 'examinfo' },
-      { label: 'Exam Descriptions', key: 'description' },
-      { label: 'Exam Highlights', key: 'highlights' },
-      { label: 'Exam Config', key: 'config' }
+      { label: 'Exam Info', key: 'examinfo', tabValue: 1 },
+      { label: 'Exam Descriptions', key: 'description', tabValue: 2 },
+      { label: 'Exam Highlights', key: 'highlights', tabValue: 3 },
+      { label: 'Exam Config', key: 'config', tabValue: 4 }
     ]
   },
   examInfoSelectBox: [
@@ -458,7 +463,8 @@ export const constants = {
   ],
   courseIsPublished: {
     notPublished: 'NOT PUBLISHED',
-    published: 'PUBLISHED'
+    published: 'PUBLISHED',
+    draft: 'DRAFT'
   },
   SyllabusDetailsUserColumns: [
     {
@@ -516,6 +522,28 @@ export const constants = {
       width: 300
     }
   ],
+  allUserFeedbackList: [
+    {
+      field: 'user_name',
+      headerName: 'Full Name',
+      width: 200
+    },
+    {
+      field: 'email',
+      headerName: 'E-mail',
+      width: 150
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone',
+      width: 150
+    },
+    {
+      field: 'feedback',
+      headerName: 'Feedback',
+      width: 200
+    }
+  ],
   collegeListUserColumns: [
     {
       field: 'college_name',
@@ -542,9 +570,9 @@ export const constants = {
     { label: 'Gallary', value: '6' }
   ],
   collegeType: [
-    { label: 'College Type', value: '' },
     { label: 'Private', value: 'Private' },
-    { label: 'Government', value: 'Government' }
+    { label: 'Government', value: 'Government' },
+    { label: 'Autonomous', value: 'Autonomous' },
   ],
   collegeDescriptionInputFieldList: [
     {
@@ -570,7 +598,13 @@ export const constants = {
       key: 'college_campus_description',
       label: 'College Campus Description',
       style: ''
-    }
+    },
+    {
+      classKey: 'collegeDescriptions',
+      key: 'college_admission_description',
+      label: 'College Admission Description',
+      style: ''
+    },
   ],
   highlightsUserColumns: [
     {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../utils/constants'
 import { updateError } from '../../features/commonSlice'
@@ -10,6 +10,7 @@ export default function College_list() {
   const dispatch = useDispatch()
   const { userInfo } = useSelector((state) => state.user)
   const { agentCollegeList } = useSelector((state) => state.college)
+
   const addNewColumns = [
     {
       label: 'Delete',
@@ -99,9 +100,6 @@ export default function College_list() {
     fetchCollegeList()
   }, [])
 
-  // useEffect(()=>{
-  //     console.log(agentCollegeList)
-  // },[agentCollegeList])
   return (
     <>
       <div>College List</div>

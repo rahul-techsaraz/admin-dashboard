@@ -11,6 +11,9 @@ export default function ParentWrapper() {
     const [collegeThumbnailUrl, setCollegeThumbnailUrl] = useState([])
     const [collegeGallary, setCollegeGallary] = useState([])
     const [collegeGallaryUrl, setCollegeGallaryUrl] = useState([])
+    const [collegeBrochure, setCollegeBrochure] = useState([])
+    const [collegeBrochureUrl, setCollegeBrochureUrl] = useState([])
+    const [tabValue, setTabValue] = useState('1')
 
     const { collegeId, admin } = useParams()
     return (
@@ -25,10 +28,16 @@ export default function ParentWrapper() {
                     setCollegeThumbnail,
                     collegeThumbnailUrl,
                     setCollegeThumbnailUrl,
+                    collegeBrochure,
+                    setCollegeBrochure,
+                    collegeBrochureUrl,
+                    setCollegeBrochureUrl,
                     collegeGallary,
                     setCollegeGallary,
                     collegeGallaryUrl,
-                    setCollegeGallaryUrl
+                    setCollegeGallaryUrl,
+                    tabValue,
+                    setTabValue
                 }}
             >
                 {collegeId ? <ViewCollegeDetails collegeId={collegeId} admin={admin} /> : <AddNewCollege />}

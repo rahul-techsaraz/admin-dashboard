@@ -5,6 +5,8 @@ import { updateCollegeInfo } from '../../features/collegeSlice'
 import { ToastContainer } from 'react-toastify'
 import ItemList from '../ItemList'
 import { constants } from '../../utils/constants'
+import { deleteCollegeBasicDetails } from '../../utils/reduxThunk/collegeThunk'
+import { updateError } from '../../features/commonSlice'
 
 export default function CollegeRequest() {
     const [activeLable, setActiveLable] = useState('not published')
@@ -13,7 +15,6 @@ export default function CollegeRequest() {
     const dispatch = useDispatch()
 
     const filterCollegeList = (filterBy) => {
-        console.log('filter')
         setActiveLable(filterBy)
         if (filterBy === 'all') {
             dispatch(updateCollegeInfo({ classKey: 'filteredCollegeList', value: allCollegeList }))
@@ -28,19 +29,40 @@ export default function CollegeRequest() {
         dispatch(updateCollegeInfo({ classKey: 'filteredCollegeList', value: filterCollege }))
     }
 
-    // const addNewColumns = [
-    //     {
-    //         label: 'Delete',
-    //         handleDeleteItem: (rowData) => {
-    //             console.log(rowData)
-    //             // deleteCollegeListById(rowData.college_id)
-    //         },
-    //         classname: 'deleteButton'
-    //     }
-    // ]
+    const addNewColumns = [
+        {
+            label: 'Delete',
+            handleDeleteItem: (rowData) => {
+                deleteCollegeListById(rowData.college_id)
+            },
+            classname: 'deleteButton'
+        }
+    ]
+
+    const deleteCollegeListById = async (college_id) => {
+        try {
+            const payload = await {
+                college_id: college_id
+            }
+            const response = await dispatch(deleteCollegeBasicDetails({
+                url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+                header: constants.apiHeaders.HEADER,
+                method: constants.httpMethod.DELETE,
+                payload: payload
+            }))
+            console.log(response)
+            fetchCollegeList()
+        }
+        catch (err) {
+            dispatch(updateError({
+                errorType: constants.apiResponseStatus.ERROR,
+                errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                flag: true
+            }))
+        }
+    }
 
     useEffect(() => {
-        console.log(allCollegeList)
         if (allCollegeList.length < 1) {
             fetchCollegeList()
         }
@@ -88,7 +110,7 @@ export default function CollegeRequest() {
                                         <ItemList
                                             userColumns={constants.collegeListUserColumns}
                                             categoryData={filteredCollegeList}
-                                            addNewColumns={[]}
+                                            addNewColumns={addNewColumns}
                                             labe={'College Details'}
                                             path={'/add-college/'}
                                             id={'college_id'}

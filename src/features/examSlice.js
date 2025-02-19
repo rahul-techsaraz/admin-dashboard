@@ -11,6 +11,7 @@ import {
 
 const initialState = {
   activeExamTab: constants.examDetailsTab.EXAM_INFO,
+  tabValue: 1,
   examDescriptionsById: {},
   isEdit: false,
   examList: [],
@@ -55,7 +56,7 @@ const initialState = {
   },
   examConfig: {
     isValidationError: true,
-    no_session: '',
+    no_session: 1,
     session_name: '',
     is_counselling_announced: '',
     counselling_date: '',
@@ -70,6 +71,9 @@ const examSlice = createSlice({
   reducers: {
     updateExamTab: (state, { payload }) => {
       state.activeExamTab = payload.tabName
+    },
+    updateTabValue: (state, { payload }) => {
+      state.tabValue = payload.tabValue
     },
     updateEditMode: (state, { payload }) => {
       state.isEdit = payload.flag
@@ -190,6 +194,7 @@ const examSlice = createSlice({
 
 export const {
   updateExamTab,
+  updateTabValue,
   updateEditMode,
   updateDescriptionsOptions,
   handleExamInfoValidation,
