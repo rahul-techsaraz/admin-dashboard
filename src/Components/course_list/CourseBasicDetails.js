@@ -232,20 +232,23 @@ export default function CourseBasicDetails({ courseId }) {
               inputValue={course_description}
             />
             <div className='form-group'>
-              <label>{'Course Fee'}</label>
+              <label>{'Course Fee Range'}</label>
               <div className='form-control'>
-                <Box sx={{ width: 400 }}>
-                  <Slider
-                    getAriaLabel={() => 'Course Fee Range'}
-                    value={[course_fee_min, course_fee_max]}
-                    onChange={handleChange}
-                    valueLabelDisplay='auto'
-                    getAriaValueText={valuetext}
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  <InputFieldText
+                    inputType={'text'}
+                    placeholder={'Min Fees'}
+                    styles={{ width: '200px' }}
+                    onChange={(e) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'course_fee_min', value: e.target.value }))}
+                    inputValue={course_fee_min}
                   />
-                </Box>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <label>{'Min Fees : ' + course_fee_min}</label>
-                  <label>{'Max Fees : ' + course_fee_max}</label>
+                  <InputFieldText
+                    inputType={'text'}
+                    placeholder={'Max Fees'}
+                    styles={{ width: '200px' }}
+                    onChange={(e) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'course_fee_max', value: e.target.value }))}
+                    inputValue={course_fee_max}
+                  />
                 </div>
               </div>
             </div>
