@@ -292,7 +292,7 @@ export default function SyllabusDetails({ courseId }) {
             />
             <CustomButton
               isDisabled={isValidationError}
-              lable={'Save'}
+              lable={'Add to List'}
               onClick={() => addSylabusDetails()}
               styles={{ margin: '0px !important' }}
             />

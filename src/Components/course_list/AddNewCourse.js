@@ -232,7 +232,7 @@ export default function AddNewCourse() {
   return (
     <>
       <AddItemForm label={'Add New Course'}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           <AddCourse courseId={courseId} />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <CustomButton isDisabled={tabValue === '1' ? true : false} lable={'Prev'} onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) - 1}` }))} />
