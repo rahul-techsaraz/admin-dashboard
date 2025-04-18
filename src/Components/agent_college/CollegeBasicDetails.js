@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import InputFieldText from '../../utils/CommonComponents/InputFieldText'
-import SelectBox from '../../utils/CommonComponents/SelectBox'
 import UploadFile from '../../utils/CommonComponents/UploadFile'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import SearchSelectBox from '../../utils/CommonComponents/SearchSelectBox'
@@ -642,6 +641,9 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
     }
   }, [promiseResponse.p_response])
 
+  useEffect(() => {
+    console.log(stateList)
+  }, [stateList])
   const collegeInfoData = [
     { lable: 'College Name', value: college_name },
     { lable: 'College Type', value: college_type },
@@ -771,11 +773,11 @@ export default function CollegeBasicDetails({ collegeId, admin }) {
               <button className='btn btn-primary btn-round' onClick={() => uploadBrochure()}>Upload</button>
             </div>
           </div>
-          {!isEdit &&
+          {/* {!isEdit &&
             <div className='form-group'>
               <CustomButton isDisabled={isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
             </div>
-          }
+          } */}
 
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             {isEdit && collegeId && !admin && (

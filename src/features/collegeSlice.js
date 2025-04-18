@@ -18,7 +18,10 @@ import {
 } from '../utils/reduxThunk/collegeThunk'
 import { constants } from '../utils/constants'
 
+const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getItem('formData')) : {};
+
 const initialState = {
+  activeStep: 0,
   allCollegeList: [],
   filteredCollegeList: [],
   agentCollegeList: [],
@@ -30,22 +33,22 @@ const initialState = {
   cityList: [],
   facultyList: [],
   highlightList: [],
-  courseOfferedList: [],
+  courseOfferedList: formData?.courseOffered ? JSON.parse(localStorage.getItem('formData')).courseOffered : [],
   isValitadeError: true,
   collegeBasicDetails: {
     isValitadeError: true,
     college_id: '',
-    college_name: '',
-    location: '',
-    affiliate_by: '',
-    ratings: '',
-    state: '',
-    city: '',
-    category_name: '',
-    college_type: '',
-    college_logo: '',
-    college_thumbnail: '',
-    college_download_brochure_path: '',
+    college_name: formData?.college_name ? JSON.parse(localStorage.getItem('formData')).college_name : '',
+    location: formData?.location ? JSON.parse(localStorage.getItem('formData')).location : '',
+    affiliate_by: formData?.affiliate_by ? JSON.parse(localStorage.getItem('formData')).affiliate_by : '',
+    ratings: formData?.ratings ? JSON.parse(localStorage.getItem('formData')).ratings : '',
+    state: formData?.state ? JSON.parse(localStorage.getItem('formData')).state : '',
+    city: formData?.city ? JSON.parse(localStorage.getItem('formData')).city : '',
+    category_name: formData?.category_name ? JSON.parse(localStorage.getItem('formData')).category_name : '',
+    college_type: formData?.college_type ? JSON.parse(localStorage.getItem('formData')).college_type : '',
+    college_logo: formData?.college_logo ? JSON.parse(localStorage.getItem('formData')).college_logo[0] : '',
+    college_thumbnail: formData?.college_thumbnail ? JSON.parse(localStorage.getItem('formData')).college_thumbnail[0] : '',
+    college_download_brochure_path: formData?.college_download_brochure_path ? JSON.parse(localStorage.getItem('formData')).college_download_brochure_path[0] : '',
     message: '',
     account_name: '',
     is_publish: '',
@@ -59,16 +62,17 @@ const initialState = {
     course_fee_max: '',
     course_accepting_exam: '',
     sub_course_fee: '',
-    sub_course_duration: ''
+    sub_course_duration: '',
+    eligibility_criteria: []
   },
   collegeDescriptions: {
     isValitadeError: true,
     college_id: '',
-    college_description: '',
-    college_course_description: '',
-    college_highlights_description: '',
-    college_campus_description: '',
-    college_admission_description: '',
+    college_description: formData?.collegeDescriptions?.college_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_description : '',
+    college_course_description: formData?.collegeDescriptions?.college_course_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_course_description : '',
+    college_highlights_description: formData?.collegeDescriptions?.college_highlights_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_highlights_description : '',
+    college_campus_description: formData?.collegeDescriptions?.college_campus_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_campus_description : '',
+    college_admission_description: formData?.collegeDescriptions?.college_admission_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_admission_description : '',
   },
   collegeHighlights: {
     isValitadeError: true,
@@ -92,7 +96,16 @@ const initialState = {
     college_id: '',
     image_path: '',
     video_path: ''
+  },
+  placements: {
+    isValitadeError: true,
+    placement_data: []
+  },
+  news: {
+    isValitadeError: true,
+    news_data: []
   }
+
 }
 const collegeSlice = createSlice({
   name: 'college',
@@ -124,12 +137,12 @@ const collegeSlice = createSlice({
     })
     builder.addCase(fetchStateList.fulfilled, (state, { payload }) => {
       if (payload.length > 0) {
-        state.stateList = payload.map((data) => data.name)
+        state.stateList = payload
       }
     })
     builder.addCase(fetchCityList.fulfilled, (state, { payload }) => {
       if (payload.length > 0) {
-        state.cityList = payload.map((city) => city.name)
+        state.cityList = payload
       }
     })
     builder.addCase(fetchCourseList.fulfilled, (state, { payload }) => {

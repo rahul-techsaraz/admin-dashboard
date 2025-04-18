@@ -7,6 +7,8 @@ import commonSlice from '../features/commonSlice'
 import courseSlice from '../features/courseSlice'
 import collegeSlice from '../features/collegeSlice'
 import feedbackSlice from '../features/feedbackSlice'
+import newCollegeSlice from '../features/newCollegeSlice'
+
 const reducers = combineReducers({
   user: userSlice,
   subheadermenu: subHeaderMenuSlice,
@@ -15,6 +17,7 @@ const reducers = combineReducers({
   common: commonSlice,
   course: courseSlice,
   college: collegeSlice,
+  newCollege: newCollegeSlice,
   feedback: feedbackSlice
 })
 const store = configureStore({
