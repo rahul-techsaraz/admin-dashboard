@@ -1,0 +1,535 @@
+import React, { useEffect, useState } from 'react'
+import SearchSelectBox from '../../../utils/CommonComponents/SearchSelectBox'
+import CustomCard from '../../../utils/CommonComponents/CustomCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCourseDetails } from '../../../utils/reduxThunk/courseThunk'
+import { constants } from '../../../utils/constants'
+import { updateError } from '../../../features/commonSlice'
+import { resetCourse } from '../../../features/courseSlice'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import Slider from '@mui/material/Slider'
+import MuiInput from '@mui/material/Input'
+import VolumeUp from '@mui/icons-material/VolumeUp'
+import useCourseDetails from '../../../hooks/useCourseDetails'
+import InputFieldText from '../../../utils/CommonComponents/InputFieldText'
+import CustomButton from '../../../utils/CommonComponents/CustomButton'
+import { v4 as uuid } from 'uuid'
+import ItemList from '../../ItemList'
+import { addCollegeBasicDetails, addCollegeCourseOffered, deleteCollegeCourseOffered, fetchCollegeById, fetchCourseOfferedById } from '../../../utils/reduxThunk/collegeThunk'
+import { useNavigate } from 'react-router-dom'
+import DataToDisplay from '../../course_list/DataToDisplay'
+import MultySelect from '../../../utils/CommonComponents/MultySelect'
+import { Chip, Stack } from '@mui/material'
+import { updateCollegeInfo } from '../../../features/newCollegeSlice'
+
+const CourseOffered = ({ collegeId, admin }) => {
+    const { allCourseDetails, courseOffered, isEdit, allCourseDetailsIndex } = useSelector((state) => state.newCollege)
+    // const { isValitadeError, college_id, course_id, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration, eligibility_criteria } =
+    //     useSelector((state) => state.newCollege.courseOffered)
+    const dispatch = useDispatch()
+    const [isDisabled, setisDisabled] = useState(true)
+    // const [allCourseDetailsIndex, setAllCourseDetailsIndex] = useState('')
+    // const [courseOfferedList, setCourseOfferedList] = useState(
+    //     localStorage.getItem('formData').courseOffered ? JSON.parse(localStorage.getItem('formData').courseOffered) :
+    //         {
+    //             college_id: '',
+    //             course_id: '',
+    //             course_name: '',
+    //             course_accepting_exam: [],
+    //             sub_course_fee: '',
+    //             sub_course_duration: '',
+    //             eligibility_criteria: [],
+    //             isHighlighted: false
+    //         }
+    // )
+    const navigate = useNavigate()
+
+    const handleFormData = (value, classKey, key, subKey) => {
+        console.log(value)
+        const updatedData = courseOffered[key]
+        console.log(updatedData)
+        // dispatch(updateCollegeInfo({classKey: classKey, key: key, value: }))
+        let formData = {}
+        if (localStorage.getItem('formData')) {
+            formData = JSON.parse(localStorage.getItem('formData'))
+        }
+        const data = {
+            ...formData[classKey][formData[classKey].length - 1] || {},
+            [subKey]: value
+        }
+        // const updatedFormData = {
+        //     ...formData,
+        //     [classKey]: [data]
+        // };
+        // localStorage.setItem('formData', JSON.stringify(updatedFormData))
+    }
+
+    // const createEligibilityList = () => {
+    //     const value = [...courseOfferedList?.eligibility_criteria, eligibilityCriteria]
+    //     console.log(value)
+    //     dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'eligibility_criteria', value: value }))
+    // }
+
+    const handleDelete = (value) => {
+        const filteredData = courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.eligibility_criteria.filter((data) => data !== value)
+        console.log(filteredData)
+        // dispatch(updateCollegeInfo({classKey:'courseOffered', key:'courses_offered', value:[]}))
+    }
+
+    // const handleSubCourseFee = () => {
+    //     if (Number(sub_course_fee) >= course_fee_min && Number(sub_course_fee) <= course_fee_max) {
+    //         dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(sub_course_fee) }))
+    //     } else {
+    //         dispatch(updateError({
+    //             errorType: constants.apiResponseStatus.ERROR,
+    //             errorMessage: 'Course Fee should be within the given range',
+    //             flag: true
+    //         }))
+    //         dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_min) }))
+    //     }
+    // }
+
+    const setindex = (value) => {
+        if (value !== '' && value !== undefined && value !== null) {
+            const index = allCourseDetails.findIndex((i) => i.course_name === value)
+            dispatch(updateCollegeInfo({ classKey: 'allCourseDetailsIndex', value: index }))
+        }
+    }
+
+    const setDetails = (classKey, key) => {
+        console.log('setdetails called')
+        let formData = {}
+        if (localStorage.getItem('formData')) {
+            formData = JSON.parse(localStorage.getItem('formData'))
+        }
+        const data = {
+            ...formData,
+            [classKey]: [{
+                college_id: '',
+                course_id: allCourseDetails[allCourseDetailsIndex]?.course_id,
+                course_name: allCourseDetails[allCourseDetailsIndex]?.course_name,
+                course_accepting_exam: allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(','),
+                sub_course_fee: allCourseDetails[allCourseDetailsIndex]?.course_fee_min,
+                sub_course_duration: allCourseDetails[allCourseDetailsIndex]?.course_duration,
+                eligibility_criteria: allCourseDetails[allCourseDetailsIndex]?.eligiblity_criteria.split(','),
+                isHighlighted: false
+            }]
+        }
+        localStorage.setItem('formData', JSON.stringify(data))
+        dispatch(updateCollegeInfo({
+            classKey: 'courseOffered', key: 'courses_offered',
+            value: [...courseOffered.courses_offered, {
+                college_id: '',
+                course_id: allCourseDetails[allCourseDetailsIndex]?.course_id,
+                course_name: allCourseDetails[allCourseDetailsIndex]?.course_name,
+                course_accepting_exam: allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(','),
+                sub_course_fee: allCourseDetails[allCourseDetailsIndex]?.course_fee_min,
+                sub_course_duration: allCourseDetails[allCourseDetailsIndex]?.course_duration,
+                eligibility_criteria: allCourseDetails[allCourseDetailsIndex]?.eligiblity_criteria.split(','),
+                isHighlighted: false
+            }]
+        }))
+    }
+
+    // const createCourseOfferedList = async () => {
+    //     if (!isEdit && admin !== 'draft') {
+    //         if (!JSON.stringify(courseOfferedList).includes(course_name)) {
+    //             dispatch(
+    //                 updateCollegeInfo({
+    //                     classKey: 'courseOfferedList',
+    //                     value: [...courseOfferedList, { college_id, course_id, course_name, course_accepting_exam: acceptingExam.join(','), sub_course_fee, sub_course_duration, eligibility_criteria }]
+    //                 })
+    //             )
+    //             return
+    //         } else {
+    //             dispatch(updateError({
+    //                 errorType: constants.apiResponseStatus.ERROR,
+    //                 errorMessage: 'Course already added',
+    //                 flag: true
+    //             }))
+    //         }
+    //     } else {
+    //         if (!JSON.stringify(courseOfferedList).includes(course_name)) {
+    //             const singleCourseOfferedPayload = {
+    //                 college_id: collegeId,
+    //                 course_id: course_id,
+    //                 course_name: course_name,
+    //                 course_accepting_exam: course_accepting_exam,
+    //                 sub_course_fee: sub_course_fee,
+    //                 sub_course_duration: sub_course_duration
+    //             }
+    //             const response = await dispatch(
+    //                 addCollegeCourseOffered({
+    //                     url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered&addSingleCollege=yes',
+    //                     header: constants.apiHeaders.HEADER,
+    //                     method: constants.httpMethod.POST,
+    //                     payload: singleCourseOfferedPayload
+    //                 })
+    //             )
+    //             if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+    //                 dispatch(updateError({
+    //                     errorType: constants.apiResponseStatus.SUCCESS,
+    //                     errorMessage: 'Course added Successfully',
+    //                     flag: true
+    //                 }))
+    //                 dispatch(
+    //                     fetchCourseOfferedById({
+    //                         url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered&college_id=' + collegeId,
+    //                         header: constants.apiHeaders.HEADER,
+    //                         method: constants.httpMethod.GET
+    //                     })
+    //                 )
+    //             } else {
+    //                 dispatch(updateError({
+    //                     errorType: constants.apiResponseStatus.ERROR,
+    //                     errorMessage: 'Course cannot be added... Please try again',
+    //                     flag: true
+    //                 }))
+    //             }
+    //         } else {
+    //             dispatch(updateError({
+    //                 errorType: constants.apiResponseStatus.ERROR,
+    //                 errorMessage: 'Course already added',
+    //                 flag: true
+    //             }))
+    //         }
+    //     }
+
+    // }
+
+    // const addNewColumns = [
+    //     {
+    //         label: 'Delete',
+    //         handleDeleteItem: (rowData) => {
+    //             deleteCourse(rowData)
+    //         },
+    //         classname: 'deleteButton'
+    //     }
+    // ]
+
+    // const deleteCourse = async (rowData) => {
+    //     if (!isEdit && admin !== 'draft') {
+    //         let filteredData = []
+    //         filteredData = courseOfferedList.filter((data) => data.course_id !== rowData.course_id)
+    //         dispatch(updateCollegeInfo({ classKey: 'courseOfferedList', value: filteredData }))
+    //     } else {
+    //         const deleteCourseOfferedPayload = {
+    //             college_id: rowData.college_id,
+    //             course_id: rowData.course_id,
+    //         }
+    //         const response = await dispatch(
+    //             deleteCollegeCourseOffered({
+    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
+    //                 header: constants.apiHeaders.HEADER,
+    //                 method: constants.httpMethod.DELETE,
+    //                 payload: deleteCourseOfferedPayload
+    //             })
+    //         )
+    //         if (response?.payload?.status === constants.apiResponseStatus.SUCCESS) {
+    //             dispatch(
+    //                 fetchCourseOfferedById({
+    //                     url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered&college_id=' + collegeId,
+    //                     header: constants.apiHeaders.HEADER,
+    //                     method: constants.httpMethod.GET
+    //                 })
+    //             )
+    //             dispatch(updateError({
+    //                 errorType: constants.apiResponseStatus.SUCCESS,
+    //                 errorMessage: 'Course deleted Successfully',
+    //                 flag: true
+    //             }))
+    //         } else {
+    //             dispatch(updateError({
+    //                 errorType: constants.apiResponseStatus.ERROR,
+    //                 errorMessage: 'Course deletion unsuccessful... Please try again',
+    //                 flag: true
+    //             }))
+    //         }
+    //     }
+    // }
+
+    // const updateCollege = async () => {
+    //     try {
+    //         const courseOfferedPayload = await {
+    //             data: courseOfferedList.map((data) => { return { ...data, college_id: collegeId } }).map((value) => {
+    //                 delete value.id
+    //                 return value
+    //             })
+    //         }
+    //         const response = await dispatch(
+    //             addCollegeCourseOffered({
+    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
+    //                 header: constants.apiHeaders.HEADER,
+    //                 method: constants.httpMethod.PUT,
+    //                 payload: courseOfferedPayload
+    //             })
+    //         )
+    //         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+    //             dispatch(
+    //                 updateError({
+    //                     errorType: constants.apiResponseStatus.SUCCESS,
+    //                     errorMessage: 'College Course Offered Details Updated Sucessfully',
+    //                     flag: true
+    //                 })
+    //             )
+    //             dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+    //         } else {
+    //             dispatch(
+    //                 updateError({
+    //                     errorType: constants.apiResponseStatus.ERROR,
+    //                     errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+    //                     flag: true
+    //                 })
+    //             )
+    //         }
+    //     } catch (error) {
+    //         dispatch(
+    //             updateError({
+    //                 errorType: constants.apiResponseStatus.ERROR,
+    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+    //                 flag: true
+    //             })
+    //         )
+    //     }
+    // }
+
+    const handleCancle = async () => {
+        try {
+            const response = await dispatch(
+                fetchCourseOfferedById({
+                    url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered&college_id=' + collegeId,
+                    header: constants.apiHeaders.HEADER,
+                    method: constants.httpMethod.GET
+                })
+            )
+            if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
+                dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
+            } else {
+                dispatch(
+                    updateError({
+                        errorType: constants.apiResponseStatus.ERROR,
+                        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                        flag: true
+                    })
+                )
+            }
+        } catch (error) {
+            dispatch(
+                updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag: true
+                })
+            )
+        }
+    }
+
+    // const saveDraft = async () => {
+    //   try {
+    //     const courseOfferedPayload = await {
+    //       data: courseOfferedList.map((data) => {
+    //         return { ...data, college_id: collegeId }
+    //       })
+    //     }
+    //     const response = await dispatch(addCollegeCourseOffered({
+    //       url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
+    //       header: constants.apiHeaders.HEADER,
+    //       method: admin === 'draft' ? constants.httpMethod.PUT : constants.httpMethod.POST,
+    //       payload: courseOfferedPayload
+    //     })
+    //     )
+    //     console.log(response)
+    //     if (response.payload.status === constants.apiResponseStatus.SUCCESS || response.payload.status === constants.apiResponseStatus.WARNING) {
+    //       dispatch(updateError({
+    //         errorType: constants.apiResponseStatus.SUCCESS,
+    //         errorMessage: 'Draft Saved Successfully',
+    //         flag: true
+    //       })
+    //       )
+    //       navigate('/list-agent-college')
+    //     } else {
+    //       dispatch(updateError({
+    //         errorType: constants.apiResponseStatus.ERROR,
+    //         errorMessage: 'Can not Save the draft... Please try again',
+    //         flag: true
+    //       })
+    //       )
+    //     }
+    //   }
+    //   catch (error) {
+    //     dispatch(updateError({
+    //       errorType: constants.apiResponseStatus.ERROR,
+    //       errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+    //       flag: true
+    //     })
+    //     )
+    //   }
+    // }
+
+    useEffect(() => {
+        if (allCourseDetailsIndex === 0 || allCourseDetailsIndex > 0) {
+            setDetails('courseOffered', 'courses_offered')
+        }
+    }, [allCourseDetailsIndex])
+
+    useEffect(() => {
+        console.log(courseOffered)
+    }, [courseOffered])
+
+    // useEffect(() => {
+    //     if (courseOfferedList.course_id !== '' && courseOfferedList.course_name !== '' && courseOfferedList.course_accepting_exam.length > 0 && courseOfferedList.sub_course_fee !== '' && courseOfferedList.sub_course_duration !== '' && courseOfferedList.eligibility_criteria.length > 0 && courseOfferedList.isHighlighted !== '') {
+    //         setisDisabled(false)
+    //     } else {
+    //         setisDisabled(true)
+    //     }
+    // }, [
+    //     courseOfferedList.course_id,
+    //     courseOfferedList.course_name,
+    //     courseOfferedList.course_accepting_exam.length,
+    //     courseOfferedList.sub_course_fee,
+    //     courseOfferedList.sub_course_duration,
+    //     courseOfferedList.eligibility_criteria.length,
+    //     courseOfferedList.isHighlighted])
+
+    // useEffect(() => {
+    //     if (courseOfferedList.length > 0) {
+    //         dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'isValitadeError', value: false }))
+    //         handleFormData('courseOffered')
+    //     } else {
+    //         dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'isValitadeError', value: true }))
+    //         handleFormData('courseOffered')
+    //     }
+    // }, [
+    //     courseOfferedList.course_id,
+    //     courseOfferedList.course_name,
+    //     courseOfferedList.course_accepting_exam.length,
+    //     courseOfferedList.sub_course_fee,
+    //     courseOfferedList.sub_course_duration,
+    //     courseOfferedList.eligibility_criteria.length,
+    //     courseOfferedList.isHighlighted])
+
+    // useEffect(() => {
+    //     console.log(courseOfferedList)
+    // }, [courseOfferedList])
+
+    // const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).filter((key) => (key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id')).map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
+    return (
+        <>
+            {!isEdit && collegeId && admin !== 'draft' ? (
+                // <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} admin={admin} />
+                <div></div>
+            ) : (
+                <>
+                    <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                        <SearchSelectBox
+                            label='Course Name'
+                            options={allCourseDetails.map((course) => course.course_name)}
+                            onChange={(e, value) => setindex(value)}
+                            value={courseOffered?.courses_offered.length > 0 ? courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1].course_name : ''}
+                        />
+
+                        {courseOffered.courses_offered.length > 0 && allCourseDetailsIndex >= 0 && (
+                            <>
+                                <InputFieldText
+                                    placeholder='Course Duration'
+                                    inputValue={courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.sub_course_duration}
+                                    inputType='text'
+                                    styles={{ width: '280px' }}
+                                    onChange={(e) => handleFormData(e.target.value, 'courseOffered', 'courses_offered', 'sub_course_duration')}
+                                />
+                                <InputFieldText
+                                    placeholder={`Course Fee (Annual)`}
+                                    inputValue={courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.sub_course_fee}
+                                    inputType='text'
+                                    styles={{ width: '280px' }}
+                                    onChange={(e) => handleFormData(e.target.value, 'courseOffered', 'sub_course_fee')}
+                                />
+                                <MultySelect
+                                    label='Exam Accepted'
+                                    options={allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(',')}
+                                    onChange={(e, value) => handleFormData(value, 'courseOffered', 'course_accepting_exam')}
+                                    value={courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.course_accepting_exam}
+                                />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <div style={{ display: 'flex', gap: '40px' }}>
+                                        <InputFieldText
+                                            placeholder={`Eligibility Criteria`}
+                                            inputValue={courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.eligibility_criteria}
+                                            inputType='text'
+                                            styles={{ width: '280px' }}
+                                            onChange={(e) => handleFormData(e.target.value, 'courseOffered', 'eligibility_criteria')}
+                                        />
+                                        {/* <CustomButton
+                                            isDisabled={courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.eligibility_criteria.length > 0 ? false : true}
+                                            lable={'Add Eligibility Criteria'}
+                                            onClick={() => createEligibilityList()}
+                                            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+                                        /> */}
+                                    </div>
+                                    {courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.eligibility_criteria.length > 0 &&
+                                        <div className='form-group' style={
+                                            {
+                                                border: 'solid #e83e8c 1px',
+                                                borderRadius: '1rem',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                flexWrap: 'wrap',
+                                                maxWidth: '400px',
+                                                padding: '7px'
+                                            }
+                                        }
+                                        >
+                                            <Stack spacing={0}>
+                                                {courseOffered?.courses_offered[courseOffered?.courses_offered.length - 1]?.eligibility_criteria.map((value, index) => (
+                                                    <Chip key={index} label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
+                                                ))}
+                                            </Stack>
+                                        </div>}
+                                </div>
+
+                                {/* <CustomButton
+                                    isDisabled={isDisabled}
+                                    lable={'Add to Course Offered'}
+                                    onClick={() => createCourseOfferedList()}
+                                    styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+                                /> */}
+                            </>
+                        )}
+                    </div>
+                    {/* {courseOfferedList.length > 0 && (
+                        <div>
+                            <ItemList
+                                userColumns={constants.courseOfferedUserColumns}
+                                categoryData={courseOfferedList.map((data) => { return { ...data, id: data.course_id } })}
+                                addNewColumns={addNewColumns}
+                                labe={'Course Offered Listing'}
+                                id={'course_id'}
+                                isVewdetails={false}
+                            />
+                        </div>
+                    )} */}
+
+                    {/* {!isEdit &&
+                <div className='form-group'>
+                    <CustomButton isDisabled={collegeBasicDetails.isValitadeError === false && courseOfferedList.length > 0 ? false : true} lable={'Save as Draft'} onClick={() => saveDraft()} />
+                </div>
+                } */}
+
+                    <div style={{ display: 'flex', gap: '1.5rem' }}>
+                        {isEdit && collegeId && !admin && (
+                            <>
+                                {/* <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} /> */}
+                                <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />
+                            </>
+                        )}
+                    </div>
+                </>
+            )}
+        </>
+    )
+}
+
+export default CourseOffered

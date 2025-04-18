@@ -3,6 +3,7 @@ import { FileUpload } from '../../utils/FileUpload'
 import ViewCollegeDetails from './ViewCollegeDetails'
 import AddNewCollege from './AddNewCollege'
 import { useParams } from 'react-router-dom'
+import CollegeContainer from '../college_steps/CollegeContainer'
 
 export default function ParentWrapper() {
     const [collegeLogo, setCollegeLogo] = useState([])
@@ -40,7 +41,10 @@ export default function ParentWrapper() {
                     setTabValue
                 }}
             >
-                {collegeId ? <ViewCollegeDetails collegeId={collegeId} admin={admin} /> : <AddNewCollege />}
+                {collegeId ? <ViewCollegeDetails collegeId={collegeId} admin={admin} /> :
+                    // <AddNewCollege />
+                    <CollegeContainer />
+                }
             </FileUpload.Provider>
         </>
     )

@@ -13,13 +13,7 @@ export const useFetchCategoryList = () => {
                 header: constants.apiHeaders.HEADER,
                 method: constants.httpMethod.GET
             }))
-            if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-                dispatch(updateError({
-                    errorType: constants.apiResponseStatus.SUCCESS,
-                    errorMessage: 'Category List Fetched Successfully',
-                    flag: true
-                }))
-            } else {
+            if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
                 dispatch(
                     updateError({
                         errorType: constants.apiResponseStatus.ERROR,
