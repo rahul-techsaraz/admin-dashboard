@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
+    createNewCollege,
     fetchAgentCollegeList,
     fetchAllCollegeList,
     fetchCityList,
@@ -22,7 +23,6 @@ const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getI
 
 const initialState = {
     activeStep: 0,
-    allCourseDetailsIndex: '',
     allCollegeList: [],
     filteredCollegeList: [],
     agentCollegeList: [],
@@ -58,74 +58,36 @@ const initialState = {
     },
     courseOffered: {
         isValitadeError: true,
-        courses_offered: formData?.courseOffered ? formData?.courseOffered : [
-            // {
-            //     college_id: '',
-            //     course_id: '',
-            //     course_name: '',
-            //     course_accepting_exam: [],
-            //     sub_course_fee: '',
-            //     sub_course_duration: '',
-            //     eligibility_criteria: [],
-            //     isHighlighted: false
-            // }
-        ]
+        courses_offered: formData?.courseOffered ? formData?.courseOffered : []
     },
     collegeDescriptions: {
         isValitadeError: true,
         college_id: '',
-        college_description_data: [
-            { college_description: formData?.collegeDescriptions?.college_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_description : '' },
-            { college_course_description: formData?.collegeDescriptions?.college_course_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_course_description : '' },
-            { college_highlights_description: formData?.collegeDescriptions?.college_highlights_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_highlights_description : '' },
-            { college_campus_description: formData?.collegeDescriptions?.college_campus_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_campus_description : '' },
-            { college_admission_description: formData?.collegeDescriptions?.college_admission_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_admission_description : '' },
-        ]
+        college_description: formData?.collegeDescriptions?.college_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_description : '',
+        college_course_description: formData?.collegeDescriptions?.college_course_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_course_description : '',
+        college_highlights_description: formData?.collegeDescriptions?.college_highlights_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_highlights_description : '',
+        college_campus_description: formData?.collegeDescriptions?.college_campus_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_campus_description : '',
+        college_admission_description: formData?.collegeDescriptions?.college_admission_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_admission_description : '',
     },
     facilities: {
         isValitadeError: true,
         college_id: '',
-        facilities: ["lab", 'library'],
-        faculty_data: [
-            {
-                faculty_name: '',
-                department: '',
-                image_path: '',
-            }
-        ],
+        facilities: formData?.facilities?.facilities ? formData?.facilities?.facilities : [],
+        faculty_data: formData?.facilities?.faculty_data ? formData?.facilities?.faculty_data : [],
     },
     gallary: {
         isValitadeError: true,
-        gallary_data: [
-            {
-                college_id: '',
-                image_path: '',
-                video_path: ''
-            }
-        ]
+        college_id: '',
+        image_path: [],
+        video_path: []
     },
     placements: {
         isValitadeError: true,
-        placement_data: [
-            {
-                year: '',
-                total_students: '',
-                students_placed: '',
-                highest_package: '',
-                average_package: '',
-                top_recruiters: [],
-            }
-        ]
+        placement_data: formData?.placements ? formData?.placements : []
     },
     news: {
         isValitadeError: true,
-        news_data: [
-            {
-                news_id: '',
-                title: '',
-                content: "",
-            }
-        ]
+        news_data: formData?.news ? formData?.news : []
     }
 
 }
@@ -244,6 +206,9 @@ const newCollegeSlice = createSlice({
             if (payload.data) {
                 state.gallary = { ...state.gallary, ...payload.data }
             }
+        })
+        builder.addCase(createNewCollege.fulfilled, (state, { payload }) => {
+            console.log(payload)
         })
     }
 })

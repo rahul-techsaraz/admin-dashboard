@@ -36,6 +36,7 @@ import {
   addCollegeFacilities,
   addCollegeGallary,
   addCollegeHighlight,
+  createNewCollege,
   deleteCollegeBasicDetails,
   fetchAgentCollegeList,
   fetchAllCollegeList,
@@ -520,6 +521,15 @@ const commonSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(deleteFeedbackByEmail.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(createNewCollege.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(createNewCollege.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(createNewCollege.rejected, (state, { payload }) => {
       state.isLoading = false
     })
   }

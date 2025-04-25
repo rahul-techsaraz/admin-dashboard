@@ -16,10 +16,12 @@ export const constants = {
     GET_ALL_USERS_USER_DETAILS: "https://techsaraz.in//admission-cart/api/login/getAllUsers.php",
     FETCH_USER_DETAILS_BY_EMAIL: "https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email=",
     USER_FEADBACK_RESPONSE: "https://techsaraz.in//admission-cart/api/user.php?requestType=userFeedbackReport",
+    NEW_COLLEGE: "https://techsaraz.in/admission-cart/api/newcollege.php",
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   apiHeaders: {
-    HEADER: { 'Content-Type': 'Application/json' }
+    HEADER: { 'Content-Type': 'Application/json' },
+    HEADER_FORM_DATA: { 'Content-Type': 'multipart/form-data' }
   },
   httpMethod: {
     GET: 'GET',
@@ -668,17 +670,17 @@ export const constants = {
     {
       field: 'sub_course_fee',
       headerName: 'Sub Course Fee',
-      width: 150
+      width: 100
     },
     {
       field: 'course_accepting_exam',
       headerName: 'Course Accepting Exam',
-      width: 250
+      width: 200
     },
     {
       field: 'sub_course_duration',
       headerName: 'Course Duration',
-      width: 150
+      width: 100
     },
     {
       field: 'eligibility_criteria',
@@ -686,13 +688,57 @@ export const constants = {
       width: 150
     }
   ],
+  placementsUserColumns: [
+    {
+      field: 'year',
+      headerName: 'Year',
+      width: 150
+    },
+    {
+      field: 'total_students',
+      headerName: 'Total Students',
+      width: 150
+    },
+    {
+      field: 'students_placed',
+      headerName: 'Students Placed',
+      width: 150
+    },
+    {
+      field: 'highest_package',
+      headerName: 'Highest Package',
+      width: 150
+    },
+    {
+      field: 'average_package',
+      headerName: 'Average Package',
+      width: 150
+    },
+    {
+      field: 'top_recruiters',
+      headerName: 'Top Recruiters',
+      width: 150
+    },
+  ],
+  newsUserColumns: [
+    {
+      field: 'title',
+      headerName: 'Title',
+      width: 150
+    },
+    {
+      field: 'content',
+      headerName: 'Content',
+      width: 150
+    },
+  ],
   collegeStepsLabel: [
     { label: "College Basic Details", isValitadeError: "collegeBasicDetails" },
     { label: "Course Offered", isValitadeError: "courseOffered" },
     { label: "College Description", isValitadeError: "collegeDescriptions" },
-    { label: "Faculty & Facilities", isValitadeError: "facilities" },
-    { label: "Gallery", isValitadeError: "gallary" },
     { label: "Placements", isValitadeError: "placements" },
     { label: "News", isValitadeError: "news" },
+    { label: "Faculty & Facilities", isValitadeError: "facilities" },
+    { label: "Gallery", isValitadeError: "gallary" },
   ]
 }
