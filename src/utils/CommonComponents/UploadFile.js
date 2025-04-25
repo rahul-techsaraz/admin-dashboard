@@ -1,15 +1,29 @@
 import React, { useContext } from 'react'
 import { FileUpload } from '../FileUpload'
+import { v4 as uuid } from 'uuid'
 
 export default function UploadFile({ label, styles, multiple }) {
   const allowedFileTypes = ['jpg', 'jpeg', 'png', 'pdf']
-  const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl, setCollegeBrochure, setCollegeBrochureUrl, } = useContext(FileUpload)
+  const { facultyImage, setFacultyImage, facultyImageUrl, setFacultyImageUrl, setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl, setCollegeBrochure, setCollegeBrochureUrl, } = useContext(FileUpload)
   const validateSelectedFiles = (e) => {
+    const imageId = uuid()
     let file = []
     let url = []
-    let formData = {}
-    if (localStorage.getItem('formData')) {
-      formData = JSON.parse(localStorage.getItem('formData'))
+    if (label === 'Faculty image') {
+      const file = facultyImage
+      const url = facultyImageUrl
+      const fileReceived = e.target.files[0];
+      if (!fileReceived) return;
+      const newFileName = `${imageId}.${fileReceived.type.split('/')[1]}`;
+      const renamedFile = new File([fileReceived], newFileName, {
+        type: fileReceived.type,
+        lastModified: fileReceived.lastModified,
+      });
+      file.push(renamedFile)
+      url.push(URL.createObjectURL(renamedFile))
+      setFacultyImage(file)
+      setFacultyImageUrl(url)
+      return
     }
 
     for (let i = 0; i < e.target.files.length; i++) {
@@ -28,28 +42,15 @@ export default function UploadFile({ label, styles, multiple }) {
     if (label === 'College Images') {
       setCollegeGallary(file)
       setCollegeGallaryUrl(url)
-      localStorage.setItem('formData', JSON.stringify({ ...formData, "gallery": url }))
     } else if (label === 'College Logo') {
       setCollegeLogo(file)
       setCollegeLogoUrl(url)
-      const data = {
-        ...formData.collegeBasicDetails, college_logo: url[0]
-      }
-      localStorage.setItem('formData', JSON.stringify({ ...formData, collegeBasicDetails: data }))
     } else if (label === 'College Thumbnail') {
       setCollegeThumbnail(file)
       setCollegeThumbnailUrl(url)
-      const data = {
-        ...formData.collegeBasicDetails, college_thumbnail: url[0]
-      }
-      localStorage.setItem('formData', JSON.stringify({ ...formData, collegeBasicDetails: data }))
     } else if (label === 'Brochuer') {
       setCollegeBrochure(file)
       setCollegeBrochureUrl(url)
-      const data = {
-        ...formData.collegeBasicDetails, college_download_brochure_path: url[0]
-      }
-      localStorage.setItem('formData', JSON.stringify({ ...formData, collegeBasicDetails: data }))
     }
   }
 
@@ -59,9 +60,6 @@ export default function UploadFile({ label, styles, multiple }) {
         <label>{label}</label>
         <div className='form-control' style={styles}>
           <input type='file' name='uploadFile' multiple={multiple} onChange={(e) => validateSelectedFiles(e)} />
-          {/* <IconButton color="primary" aria-label="upload picture" component="span">
-                <FileUploadIcon />
-                </IconButton> */}
         </div>
       </div>
     </>

@@ -238,3 +238,14 @@ export const fetchCollegeGallaryById = createAsyncThunk(
     }
   }
 )
+export const createNewCollege = createAsyncThunk('createNewCollege/fileUploadlogo', async ({ url, payload, header }, thunkApi) => {
+  try {
+    const { data } = await httpCall2(url, payload, header)
+    if (data[0]?.error || data[0].status !== constants.apiResponseStatus.SUCCESS) {
+      throw new Error('File upload unsuccessfull')
+    }
+    return data
+  } catch (error) {
+    return thunkApi.rejectWithError(error)
+  }
+})

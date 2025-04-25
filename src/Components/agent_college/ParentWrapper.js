@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom'
 import CollegeContainer from '../college_steps/CollegeContainer'
 
 export default function ParentWrapper() {
+    const [facultyImage, setFacultyImage] = useState([])
+    const [facultyImageUrl, setFacultyImageUrl] = useState([])
     const [collegeLogo, setCollegeLogo] = useState([])
     const [collegeLogoUrl, setCollegeLogoUrl] = useState([])
     const [collegeThumbnail, setCollegeThumbnail] = useState([])
@@ -21,6 +23,10 @@ export default function ParentWrapper() {
         <>
             <FileUpload.Provider
                 value={{
+                    facultyImage,
+                    setFacultyImage,
+                    facultyImageUrl,
+                    setFacultyImageUrl,
                     collegeLogo,
                     setCollegeLogo,
                     collegeLogoUrl,

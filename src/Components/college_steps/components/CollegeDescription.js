@@ -2,17 +2,18 @@ import React, { useEffect } from 'react'
 import { constants } from '../../../utils/constants'
 import TextArea from '../../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateCollegeInfo } from '../../../features/collegeSlice'
+// import { updateCollegeInfo } from '../../../features/collegeSlice'
 import DataToDisplay from '../../course_list/DataToDisplay'
 import { addCollegeDescription, fetchCollegeDiscriptionById } from '../../../utils/reduxThunk/collegeThunk'
 import CustomButton from '../../../utils/CommonComponents/CustomButton'
 import { updateError } from '../../../features/commonSlice'
 import { useNavigate } from 'react-router-dom'
+import { updateCollegeInfo } from '../../../features/newCollegeSlice'
 
 const CollegeDescription = ({ collegeId, admin }) => {
-    const { collegeDescriptions, collegeBasicDetails, isEdit } = useSelector((state) => state.college)
+    const { collegeDescriptions, isEdit } = useSelector((state) => state.newCollege)
     const { isValitadeError, college_description, college_course_description, college_highlights_description, college_campus_description, college_admission_description } =
-        useSelector((state) => state.college.collegeDescriptions)
+        useSelector((state) => state.newCollege.collegeDescriptions)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
