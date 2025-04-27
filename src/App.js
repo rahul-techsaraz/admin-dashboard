@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import Header from './Components/Header'
 import './assets/css/authentication.css'
 import './assets/css/blog.css'

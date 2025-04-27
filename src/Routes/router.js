@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import Main from '../Components/Main'
@@ -20,17 +20,15 @@ import ExamList from '../Components/exam/ExamList'
 import ViewExamDetails from '../Components/exam/ViewExamDetails'
 import AddNewExamDetails from '../Components/exam/AddNewExamDetails'
 import CourseList from '../Components/course_list/CourseList'
-import AddNewCourse from '../Components/course_list/AddNewCourse'
 import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
 import ParentWrapper from '../Components/agent_college/ParentWrapper'
-import UsersList from '../Components/users-list/UsersList';
-import ViewUserDetails from '../Components/users-list/ViewUserDetails';
-import CollegeRequest from '../Components/admin/CollegeRequest';
-import FeedbackList from '../Components/feedback/FeedbackList';
-import FeedbackDetails from '../Components/feedback/FeedbackDetails';
-
-
+import UsersList from '../Components/users-list/UsersList'
+import ViewUserDetails from '../Components/users-list/ViewUserDetails'
+import CollegeRequest from '../Components/admin/CollegeRequest'
+import FeedbackList from '../Components/feedback/FeedbackList'
+import FeedbackDetails from '../Components/feedback/FeedbackDetails'
+import Courses from '../Container/Courses/Courses'
 
 export const appRouter = createBrowserRouter(
   [
@@ -84,7 +82,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-new-course',
-          element: <AddNewCourse />
+          element: <Courses />
         },
         {
           path: '/add-new-course/:courseId',

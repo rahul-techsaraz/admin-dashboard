@@ -8,6 +8,7 @@ import courseSlice from '../features/courseSlice'
 import collegeSlice from '../features/collegeSlice'
 import feedbackSlice from '../features/feedbackSlice'
 import newCollegeSlice from '../features/newCollegeSlice'
+import newCoursesSlice from '../features/newCoursesSlice'
 
 const reducers = combineReducers({
   user: userSlice,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
   course: courseSlice,
   college: collegeSlice,
   newCollege: newCollegeSlice,
-  feedback: feedbackSlice
+  feedback: feedbackSlice,
+  newCourses: newCoursesSlice
 })
 const store = configureStore({
   reducer: reducers
