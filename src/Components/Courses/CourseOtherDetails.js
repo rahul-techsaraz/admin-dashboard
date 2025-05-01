@@ -3,13 +3,17 @@ import { Box, MenuItem, Select, InputLabel, FormControl, Typography, Grid } from
 import CourseDescriptionEditor from '../CourseDescriptionEditor'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { FIELDS } from '../../Constants/redux/courseFieldName'
-import { setOtherInfoField } from '../../features/newCoursesSlice'
+import { defaultState as courseInitialState, setOtherInfoField } from '../../features/newCoursesSlice'
+import { useLocalStorageSync } from '../../hooks/useLocalStorageSync'
 
 const courseLevels = ['10th', '12th', 'UG', 'PG']
 const examFrquency = ['Anual', 'Semester']
 
-const CourseOtherDetails = () => {
+// eslint-disable-next-line react/prop-types
+const CourseOtherDetails = ({ isEdit = false }) => {
   const othersInfo = useSelector((state) => state.newCourses.otherInfo, shallowEqual)
+  useLocalStorageSync('courseFormData', 'otherInfo', othersInfo, courseInitialState)
+
   console.log({ othersInfo })
   const dispatch = useDispatch()
   const handleEditorChange = (field) => (value) => {
@@ -40,6 +44,7 @@ const CourseOtherDetails = () => {
               value={courseLevels.includes(othersInfo[FIELDS.COURSE_CATEGORY_LEVEL]) ? othersInfo[FIELDS.COURSE_CATEGORY_LEVEL] : ''}
               onChange={(e) => dispatch(setOtherInfoField({ field: FIELDS.COURSE_CATEGORY_LEVEL, value: e.target.value }))}
               label='Course Level'
+              disabled={isEdit}
               sx={{
                 '& .MuiSelect-select': {
                   padding: '10px 14px' // Control padding
@@ -74,6 +79,7 @@ const CourseOtherDetails = () => {
               value={examFrquency.includes(othersInfo[FIELDS.EXAM_TYPE]) ? othersInfo[FIELDS.EXAM_TYPE] : ''}
               onChange={(e) => dispatch(setOtherInfoField({ field: FIELDS.EXAM_TYPE, value: e.target.value }))}
               label='Exam Frequency'
+              disabled={isEdit}
               sx={{
                 '& .MuiSelect-select': {
                   padding: '10px 14px' // Control padding
@@ -111,10 +117,16 @@ const CourseOtherDetails = () => {
           >
             Eligibility Criteria
           </Typography>
-          <CourseDescriptionEditor
-            value={othersInfo[FIELDS.ELIGIBILITY_CRITERIA]}
-            onChange={handleEditorChange(FIELDS.ELIGIBILITY_CRITERIA)}
-          />
+          {isEdit ? (
+            <Typography variant='p' sx={{ fontSize: '1.1rem', fontWeight: 500, color: '#2C3E50', marginBottom: '8px' }}>
+              <div dangerouslySetInnerHTML={{ __html: othersInfo[FIELDS.ELIGIBILITY_CRITERIA] }} />
+            </Typography>
+          ) : (
+            <CourseDescriptionEditor
+              value={othersInfo[FIELDS.ELIGIBILITY_CRITERIA]}
+              onChange={handleEditorChange(FIELDS.ELIGIBILITY_CRITERIA)}
+            />
+          )}
         </Grid>
       </Grid>
     </Box>

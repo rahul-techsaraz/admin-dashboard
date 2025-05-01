@@ -19,8 +19,6 @@ import AdminRequest from '../Components/admin/AdminRequest'
 import ExamList from '../Components/exam/ExamList'
 import ViewExamDetails from '../Components/exam/ViewExamDetails'
 import AddNewExamDetails from '../Components/exam/AddNewExamDetails'
-import CourseList from '../Components/course_list/CourseList'
-import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
 import ParentWrapper from '../Components/agent_college/ParentWrapper'
 import UsersList from '../Components/users-list/UsersList'
@@ -29,6 +27,8 @@ import CollegeRequest from '../Components/admin/CollegeRequest'
 import FeedbackList from '../Components/feedback/FeedbackList'
 import FeedbackDetails from '../Components/feedback/FeedbackDetails'
 import Courses from '../Container/Courses/Courses'
+import CourseDetailsContainer from '../Container/Courses/CourseDetailsContainer'
+import CourseList from '../Container/Courses/CourseList'
 
 export const appRouter = createBrowserRouter(
   [
@@ -86,7 +86,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-new-course/:courseId',
-          element: <ViewCourseDetails />
+          element: <CourseDetailsContainer />
         },
 
         {

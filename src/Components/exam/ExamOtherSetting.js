@@ -131,7 +131,6 @@ export default function ExamOtherSetting() {
     } else {
       setIsDisplay('none')
     }
-
   }, [examConfig.is_counselling_announced])
   return (
     <>

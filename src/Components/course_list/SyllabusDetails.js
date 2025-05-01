@@ -19,7 +19,6 @@ export default function SyllabusDetails({ courseId }) {
   const [yearList, setYearList] = useState([])
   const [semesterList, setSemesterList] = useState([])
 
-
   // useEffect(() => {
   //   console.log(filteredSelectedData)
   // })
@@ -184,11 +183,9 @@ export default function SyllabusDetails({ courseId }) {
     let array = [{ label: 'Semester', value: '', year: '' }]
     const currentDate = new Date().getFullYear()
     for (let i = 0; i < courseInfo.course_duration; i++) {
-
-      for (let x = (i * 2); x < ((i * 2) + 2); x++) {
+      for (let x = i * 2; x < i * 2 + 2; x++) {
         array = [...array, { label: 'Semester' + (x + 1), value: 'Semester' + (x + 1), year: currentDate + i }]
       }
-
     }
     const filteredArray = array.filter((semester) => semester.year == year_name)
     setSemesterList([...[{ label: 'Semester', value: '' }], ...filteredArray])
@@ -272,14 +269,15 @@ export default function SyllabusDetails({ courseId }) {
               styles={{ width: '280px', height: '38px' }}
               inputValue={year_name}
             />
-            {courseDetails.exam_type === "Semester" &&
+            {courseDetails.exam_type === 'Semester' && (
               <SelectBox
                 label={'Semester'}
                 options={semesterList}
                 onChange={(e) => dispatch(updateCourseInfo({ classKey: 'syllabusDetails', key: 'semester_name', value: e.target.value }))}
                 styles={{ width: '280px', height: '38px' }}
                 inputValue={semester_name}
-              />}
+              />
+            )}
 
             <TextArea
               placeholder='List of Subjects'

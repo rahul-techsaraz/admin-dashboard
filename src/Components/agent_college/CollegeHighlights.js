@@ -15,7 +15,9 @@ import { addCollegeHighlight, deleteCollegeHighlight, fetchCollegeHighlightsById
 export default function CollegeHighlights({ collegeId, admin }) {
   useCourseDetails()
   const dispatch = useDispatch()
-  const { allCourseDetails, collegeBasicDetails, courseOfferedList, collegeHighlights, highlightList, isEdit } = useSelector((state) => state.college)
+  const { allCourseDetails, collegeBasicDetails, courseOfferedList, collegeHighlights, highlightList, isEdit } = useSelector(
+    (state) => state.college
+  )
   const { isValitadeError, course_name, course_id, fees_annually, eligibility_criteria, course_duration } = useSelector(
     (state) => state.college.collegeHighlights
   )
@@ -28,8 +30,20 @@ export default function CollegeHighlights({ collegeId, admin }) {
       const index = allCourseDetails.findIndex((i) => i.course_name === value)
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: value }))
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_id', value: allCourseDetails[index].course_id }))
-      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'fees_annually', value: allCourseDetails[index].course_fee_min + ' - ' + allCourseDetails[index].course_fee_max }))
-      dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'eligibility_criteria', value: allCourseDetails[index].eligiblity_criteria }))
+      dispatch(
+        updateCollegeInfo({
+          classKey: 'collegeHighlights',
+          key: 'fees_annually',
+          value: allCourseDetails[index].course_fee_min + ' - ' + allCourseDetails[index].course_fee_max
+        })
+      )
+      dispatch(
+        updateCollegeInfo({
+          classKey: 'collegeHighlights',
+          key: 'eligibility_criteria',
+          value: allCourseDetails[index].eligiblity_criteria
+        })
+      )
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_duration', value: allCourseDetails[index].course_duration }))
     } else {
       dispatch(updateCollegeInfo({ classKey: 'collegeHighlights', key: 'course_name', value: '' }))
@@ -50,11 +64,13 @@ export default function CollegeHighlights({ collegeId, admin }) {
           })
         )
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Highlight already added',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Highlight already added',
+            flag: true
+          })
+        )
       }
     } else {
       if (!JSON.stringify(highlightList).includes(course_name)) {
@@ -66,18 +82,22 @@ export default function CollegeHighlights({ collegeId, admin }) {
           course_duration: course_duration,
           eligibility_criteria: eligibility_criteria
         }
-        const response = await dispatch(addCollegeHighlight({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeHighlightsDetails&addSingleCollege=yes',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: singleHighlightPayload
-        }))
+        const response = await dispatch(
+          addCollegeHighlight({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeHighlightsDetails&addSingleCollege=yes',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.POST,
+            payload: singleHighlightPayload
+          })
+        )
         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-          dispatch(updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: 'College Highlight added Successfully',
-            flag: true
-          }))
+          dispatch(
+            updateError({
+              errorType: constants.apiResponseStatus.SUCCESS,
+              errorMessage: 'College Highlight added Successfully',
+              flag: true
+            })
+          )
           dispatch(
             fetchCollegeHighlightsById({
               url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeHighlightsDetails&college_id=' + collegeId,
@@ -86,18 +106,22 @@ export default function CollegeHighlights({ collegeId, admin }) {
             })
           )
         } else {
-          dispatch(updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: 'College Highlight cannot be added... Please try again',
-            flag: true
-          }))
+          dispatch(
+            updateError({
+              errorType: constants.apiResponseStatus.ERROR,
+              errorMessage: 'College Highlight cannot be added... Please try again',
+              flag: true
+            })
+          )
         }
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Highlight already added',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Highlight already added',
+            flag: true
+          })
+        )
       }
     }
   }
@@ -119,7 +143,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
     } else {
       const deleteHighlightPayload = {
         college_id: rowData.college_id,
-        course_id: rowData.course_id,
+        course_id: rowData.course_id
       }
       const response = await dispatch(
         deleteCollegeHighlight({
@@ -137,20 +161,23 @@ export default function CollegeHighlights({ collegeId, admin }) {
             method: constants.httpMethod.GET
           })
         )
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.SUCCESS,
-          errorMessage: 'College Highlight deleted Successfully',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'College Highlight deleted Successfully',
+            flag: true
+          })
+        )
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'College Highlight deletion unsuccessful... Please try again',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'College Highlight deletion unsuccessful... Please try again',
+            flag: true
+          })
+        )
       }
     }
-
   }
 
   const handleCancle = async () => {
@@ -250,7 +277,21 @@ export default function CollegeHighlights({ collegeId, admin }) {
     }
   }, [highlightList])
 
-  const collegeInfoData = highlightList.map((data) => Object.keys(data).filter((key) => key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id').map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
+  const collegeInfoData = highlightList.map((data) =>
+    Object.keys(data)
+      .filter((key) => key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id')
+      .map((lable) => {
+        return {
+          lable: lable
+            .split('_')
+            .map((str) => {
+              return str.charAt(0).toUpperCase() + str.slice(1)
+            })
+            .join(' '),
+          value: data[lable]
+        }
+      })
+  )
 
   return (
     <>
@@ -267,7 +308,7 @@ export default function CollegeHighlights({ collegeId, admin }) {
               onInputChange={(e, value) => setComponentCourse(value)}
               inputValue={componentCourse ? componentCourse : collegeHighlights.course_name}
             />
-            {collegeHighlights.course_name &&
+            {collegeHighlights.course_name && (
               <>
                 <InputFieldText
                   placeholder='Course Duration'
@@ -297,13 +338,15 @@ export default function CollegeHighlights({ collegeId, admin }) {
                   styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
                 />
               </>
-            }
+            )}
           </div>
           {highlightList.length > 0 && (
             <div>
               <ItemList
                 userColumns={constants.highlightsUserColumns}
-                categoryData={highlightList.map((data) => { return { ...data, id: data.course_id } })}
+                categoryData={highlightList.map((data) => {
+                  return { ...data, id: data.course_id }
+                })}
                 addNewColumns={addNewColumns}
                 labe={'Highlights Listing'}
                 // path={'/add-new-course/'}

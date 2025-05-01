@@ -26,7 +26,7 @@ export default function AddNewExamDetails() {
         application_end_date: examInfo.applicationEndDates,
         exam_start_date: examInfo.examStartDates,
         exam_end_date: examInfo.examEndDates,
-        category_name: examInfo.category_name,
+        category_name: examInfo.category_name
       }
       const examDescriptionOptionsPayload = await {
         exam_id: examId,

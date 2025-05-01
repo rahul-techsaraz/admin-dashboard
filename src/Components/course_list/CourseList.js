@@ -12,6 +12,7 @@ import { updateError } from '../../features/commonSlice'
 export default function CourseList() {
   const dispatch = useDispatch()
   const { allCourseDetails } = useSelector((state) => state.course)
+  console.log({ allCourseDetails })
 
   const addNewColumns = [
     {
@@ -66,7 +67,7 @@ export default function CourseList() {
       dispatch(resetCourse())
       dispatch(
         fetchCourseDetails({
-          url: constants.apiEndPoint.COURSE_DETAILS + '?requestType=basicCourseListing',
+          url: constants.apiEndPoint.COURSE_DETAILS,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
         })

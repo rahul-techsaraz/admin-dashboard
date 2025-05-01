@@ -18,10 +18,9 @@ export default function AddNewExam() {
   const dispatch = useDispatch()
   const { examInfoSelectBox } = constants
   const { examId } = useParams()
-  const { categoryData } = useSelector(state => state.category)
-  const { examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear, isValidationError, category_name } = useSelector(
-    (state) => state.exam.examInfo
-  )
+  const { categoryData } = useSelector((state) => state.category)
+  const { examName, applicationStartDates, applicationEndDates, examStartDates, examEndDates, examYear, isValidationError, category_name } =
+    useSelector((state) => state.exam.examInfo)
   const { isEdit } = useSelector((state) => state.exam)
 
   const generateTodayDate = useCallback(() => {
@@ -75,7 +74,7 @@ export default function AddNewExam() {
         application_end_date: applicationEndDates,
         exam_start_date: examStartDates,
         exam_end_date: examEndDates,
-        category_name: category_name,
+        category_name: category_name
       }
       const examInfoResponse = await dispatch(
         addNewExam({
@@ -172,7 +171,7 @@ export default function AddNewExam() {
           />
           <SearchSelectBox
             label='Category'
-            options={categoryData.map(data => data.category_name)}
+            options={categoryData.map((data) => data.category_name)}
             onChange={(e, value) => dispatch(updateExamInfo({ key: 'category_name', value: value }))}
             value={category_name}
             onInputChange={(e, value) => setComponentCategory(value)}

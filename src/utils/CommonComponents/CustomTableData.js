@@ -16,20 +16,27 @@ const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetai
     <>
       <div className='cellAction'>
         {actionItem.map((item) => (
-
           <Button variant='contained' color='error' onClick={() => item.handleDeleteItem(params.row)}>
             {item.label}
           </Button>
         ))}
         {isVewdetails && (
           <Button variant='contained' color='success'>
-            <Link to={admin ? path + params.row[`${id}`] + '/' + admin : isDraft ? path + params.row[`${id}`] + '/draft' : path + params.row[`${id}`]} style={{ color: 'white' }}>
+            <Link
+              to={
+                admin
+                  ? path + params.row[`${id}`] + '/' + admin
+                  : isDraft
+                    ? path + params.row[`${id}`] + '/draft'
+                    : path + params.row[`${id}`]
+              }
+              style={{ color: 'white' }}
+            >
               {isDraft ? 'continue' : 'View Details'}
             </Link>
           </Button>
         )}
       </div>
-
     </>
   )
 }
@@ -50,13 +57,7 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
       {userRows.length < 1 ? (
         <Typography>There is no data</Typography>
       ) : (
-        <DataGrid
-          className='datagrid'
-          rows={userRows}
-          columns={userColumns.concat(actionColumn)}
-          pageSize={9}
-          rowsPerPageOptions={[9]}
-        />
+        <DataGrid className='datagrid' rows={userRows} columns={userColumns.concat(actionColumn)} pageSize={9} rowsPerPageOptions={[9]} />
       )}
     </div>
   )

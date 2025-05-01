@@ -56,29 +56,31 @@ export default function LeftSidebar() {
                   </div>
                 </li>
                 <li className='header'>MAIN</li>
-                {constants.sideBarMenu.filter((menu) => menu.role === userInfo.user_role).map((data, i) => (
-                  <li>
-                    <Link
-                      className='menu-toggle'
-                      onClick={() => {
-                        handleClick(i)
-                      }}
-                    >
-                      <i className='zmdi zmdi-city' />
-                      <span>{data.heading}</span>
-                    </Link>
-                    <ul className='ml-menu' style={activeOption === i && isOpen ? { display: 'block' } : { display: 'none' }}>
-                      {data.list &&
-                        data?.list.map((listName) => (
-                          <li>
-                            <Link onClick={() => handleNavigation(listName.option_path, listName?.name)} to={listName.option_path}>
-                              {listName.option_name}
-                            </Link>
-                          </li>
-                        ))}
-                    </ul>
-                  </li>
-                ))}
+                {constants.sideBarMenu
+                  .filter((menu) => menu.role === userInfo.user_role)
+                  .map((data, i) => (
+                    <li>
+                      <Link
+                        className='menu-toggle'
+                        onClick={() => {
+                          handleClick(i)
+                        }}
+                      >
+                        <i className='zmdi zmdi-city' />
+                        <span>{data.heading}</span>
+                      </Link>
+                      <ul className='ml-menu' style={activeOption === i && isOpen ? { display: 'block' } : { display: 'none' }}>
+                        {data.list &&
+                          data?.list.map((listName) => (
+                            <li>
+                              <Link onClick={() => handleNavigation(listName.option_path, listName?.name)} to={listName.option_path}>
+                                {listName.option_name}
+                              </Link>
+                            </li>
+                          ))}
+                      </ul>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>

@@ -2,37 +2,42 @@ import { createSlice } from '@reduxjs/toolkit'
 // Constants for field names to avoid naming mismatches
 import { FIELDS } from '../Constants/redux/courseFieldName'
 
-// Define the initial state for the slice
-const initialState = {
+const localData = localStorage.getItem('courseFormData')
+
+export const defaultState = {
   basicDetails: {
     [FIELDS.COURSE_NAME]: '',
     [FIELDS.SUB_COURSE_NAME]: '',
     [FIELDS.COURSE_MODE]: '',
     [FIELDS.COURSE_FEE_MIN]: null,
     [FIELDS.COURSE_FEE_MAX]: null,
-    [FIELDS.COURSE_DURATION]: null, // 1 to 6
-    [FIELDS.CATEGORY]: [], // Multi-select
-    [FIELDS.COURSE_ACCEPTING_EXAM]: [], // Multi-select
-    [FIELDS.IS_VALIDATION_ERROR]: true // Initially true, assuming fields are empty
+    [FIELDS.COURSE_DURATION]: null,
+    [FIELDS.CATEGORY]: [],
+    [FIELDS.COURSE_ACCEPTING_EXAM]: [],
+    [FIELDS.IS_VALIDATION_ERROR]: true
   },
   description: {
     [FIELDS.COURSE_PLACEMENT_DESCRIPTION]: '',
     [FIELDS.COURSE_ADMISSION_PROCESS_DESCRIPTION]: '',
     [FIELDS.COURSE_ELIGIBILITY_CRITERIA_DESCRIPTION]: '',
-    [FIELDS.COURSE_DESCRIPTION]: '', // Text Area
-    [FIELDS.IS_VALIDATION_ERROR]: true // Initially true
+    [FIELDS.COURSE_DESCRIPTION]: '',
+    [FIELDS.IS_VALIDATION_ERROR]: true
   },
   otherInfo: {
-    [FIELDS.COURSE_CATEGORY_LEVEL]: '', // '10th', '12th', 'graduate', 'pg'
-    [FIELDS.EXAM_TYPE]: '', // 'semester', 'annual'
+    [FIELDS.COURSE_CATEGORY_LEVEL]: '',
+    [FIELDS.EXAM_TYPE]: '',
     [FIELDS.ELIGIBILITY_CRITERIA]: '',
-    [FIELDS.IS_VALIDATION_ERROR]: true // Initially true
+    [FIELDS.IS_VALIDATION_ERROR]: true
   },
   syllabusDetails: {
-    [FIELDS.SYLLABUS]: [], // Array of { id: string, year: number|null, subjects: string[], type: 'yearly'|'semester'|'' }
-    [FIELDS.IS_VALIDATION_ERROR]: true // Initially true (empty array)
-  }
+    [FIELDS.SYLLABUS]: [],
+    [FIELDS.IS_VALIDATION_ERROR]: true
+  },
+  allCourseDetails: []
 }
+
+// Final initialState
+const initialState = localData ? JSON.parse(localData) : defaultState
 
 // Helper function to check validation for Basic Details step
 const checkBasicDetailsValidation = (state) => {
@@ -143,6 +148,66 @@ const courseFormSlice = createSlice({
       state.syllabusDetails[FIELDS.SYLLABUS] = state.syllabusDetails[FIELDS.SYLLABUS].filter((entry) => entry.id !== id)
       state.syllabusDetails[FIELDS.IS_VALIDATION_ERROR] = checkSyllabusValidation(state.syllabusDetails)
     },
+    setCourseDataFromApi: (state, action) => {
+      const data = action.payload
+
+      state.basicDetails = {
+        [FIELDS.COURSE_NAME]: data.course_name || '',
+        [FIELDS.SUB_COURSE_NAME]: data.sub_course_name || '',
+        [FIELDS.COURSE_MODE]: data.course_mode || '',
+        [FIELDS.COURSE_FEE_MIN]: data.course_fee_min ?? null,
+        [FIELDS.COURSE_FEE_MAX]: data.course_fee_max ?? null,
+        [FIELDS.COURSE_DURATION]: data.course_duration ?? null,
+        [FIELDS.CATEGORY]: data.course_categories || [],
+        [FIELDS.COURSE_ACCEPTING_EXAM]: data.course_accepting_exams || [],
+        [FIELDS.IS_VALIDATION_ERROR]: checkBasicDetailsValidation({
+          [FIELDS.COURSE_NAME]: data.course_name,
+          [FIELDS.SUB_COURSE_NAME]: data.sub_course_name,
+          [FIELDS.COURSE_MODE]: data.course_mode,
+          [FIELDS.COURSE_FEE_MIN]: data.course_fee_min,
+          [FIELDS.COURSE_FEE_MAX]: data.course_fee_max,
+          [FIELDS.COURSE_DURATION]: data.course_duration,
+          [FIELDS.CATEGORY]: data.course_categories,
+          [FIELDS.COURSE_ACCEPTING_EXAM]: data.course_accepting_exams
+        })
+      }
+
+      const descriptions = data.course_descriptions || {}
+
+      state.description = {
+        [FIELDS.COURSE_PLACEMENT_DESCRIPTION]: descriptions.coursePlacementDescription || '',
+        [FIELDS.COURSE_ADMISSION_PROCESS_DESCRIPTION]: descriptions.courseAdmissionProcessDescription || '',
+        [FIELDS.COURSE_ELIGIBILITY_CRITERIA_DESCRIPTION]: descriptions.courseEligibilityCriteriaDescription || '',
+        [FIELDS.COURSE_DESCRIPTION]: descriptions.courseDescription || '',
+        [FIELDS.IS_VALIDATION_ERROR]: checkDescriptionValidation({
+          [FIELDS.COURSE_PLACEMENT_DESCRIPTION]: descriptions.coursePlacementDescription,
+          [FIELDS.COURSE_ADMISSION_PROCESS_DESCRIPTION]: descriptions.courseAdmissionProcessDescription,
+          [FIELDS.COURSE_ELIGIBILITY_CRITERIA_DESCRIPTION]: descriptions.courseEligibilityCriteriaDescription,
+          [FIELDS.COURSE_DESCRIPTION]: descriptions.courseDescription
+        })
+      }
+
+      state.otherInfo = {
+        [FIELDS.COURSE_CATEGORY_LEVEL]: data.course_standard || '',
+        [FIELDS.EXAM_TYPE]: data.exam_frequency || '',
+        [FIELDS.ELIGIBILITY_CRITERIA]: data.eligibility_criteria || '',
+        [FIELDS.IS_VALIDATION_ERROR]: checkOtherInfoValidation({
+          [FIELDS.COURSE_CATEGORY_LEVEL]: data.course_standard,
+          [FIELDS.EXAM_TYPE]: data.exam_frequency,
+          [FIELDS.ELIGIBILITY_CRITERIA]: data.eligibility_criteria
+        })
+      }
+
+      state.syllabusDetails = {
+        [FIELDS.SYLLABUS]: Array.isArray(data.syllabus_details) ? data.syllabus_details : [],
+        [FIELDS.IS_VALIDATION_ERROR]: checkSyllabusValidation({
+          [FIELDS.SYLLABUS]: data.syllabus_details || []
+        })
+      }
+    },
+    setCourseDetails: (state, { payload }) => {
+      state.allCourseDetails = payload.data
+    },
 
     resetCourseForm: () => initialState
   }
@@ -156,7 +221,9 @@ export const {
   addSyllabusEntry,
   updateSyllabusEntry,
   removeSyllabusEntry,
-  resetCourseForm
+  resetCourseForm,
+  setCourseDataFromApi,
+  setCourseDetails
 } = courseFormSlice.actions
 
 // Export the reducer

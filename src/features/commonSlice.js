@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { isPending, isRejected, isFulfilled, createSlice } from '@reduxjs/toolkit'
 import {
   addExamConfig,
   addExamHighlights,
@@ -16,6 +16,7 @@ import {
   fetchCourseDescriptionById,
   fetchCourseDetails,
   fetchCourseDetailsById,
+  addNewCourse,
   fetchSyllabusDetailsById
 } from '../utils/reduxThunk/courseThunk'
 import {
@@ -62,7 +63,7 @@ const initialState = {
   errorMessage: '',
   errorType: '',
   getAllUsersList: [],
-  userDetailsByEmail: [],
+  userDetailsByEmail: []
 }
 
 const commonSlice = createSlice({
@@ -169,19 +170,19 @@ const commonSlice = createSlice({
     builder.addCase(deleteExam.rejected, (state, { payload }) => {
       state.isLoading = false
     })
-    builder.addCase(fetchCourseDetails.pending, (state, { payload }) => {
-      state.isLoading = true
-    })
-    builder.addCase(fetchCourseDetails.fulfilled, (state, { payload }) => {
-      state.isLoading = false
-    })
-    builder.addCase(fetchCourseDetails.rejected, (state, { payload }) => {
-      state.isLoading = false
-    })
     builder.addCase(fetchCourseDetailsById.pending, (state, { payload }) => {
       state.isLoading = true
     })
     builder.addCase(fetchCourseDetailsById.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(addNewCourse.pending, (state, { payload }) => {
+      state.isLoading = true
+    })
+    builder.addCase(addNewCourse.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+    })
+    builder.addCase(addNewCourse.rejected, (state, { payload }) => {
       state.isLoading = false
     })
     builder.addCase(fetchCourseDetailsById.rejected, (state, { payload }) => {
@@ -236,8 +237,8 @@ const commonSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(fetchAllUsersList.fulfilled, (state, { payload }) => {
-      state.isLoading = false;
-      state.getAllUsersList = payload.userlist;
+      state.isLoading = false
+      state.getAllUsersList = payload.userlist
     })
     builder.addCase(fetchAllUsersList.rejected, (state, { payload }) => {
       state.isLoading = false
@@ -246,7 +247,7 @@ const commonSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(fetchUserByEmail.fulfilled, (state, { payload }) => {
-      state.isLoading = false;
+      state.isLoading = false
       state.userDetailsByEmail = payload.data
     })
     builder.addCase(fetchUserByEmail.rejected, (state, { payload }) => {
@@ -532,6 +533,16 @@ const commonSlice = createSlice({
     builder.addCase(createNewCollege.rejected, (state, { payload }) => {
       state.isLoading = false
     })
+    builder
+      .addMatcher(isPending, (state) => {
+        state.isLoading = true
+      })
+      .addMatcher(
+        (action) => isFulfilled(action) || isRejected(action),
+        (state) => {
+          state.isLoading = false
+        }
+      )
   }
 })
 export const { updateLoader, updateError } = commonSlice.actions

@@ -38,16 +38,16 @@ export default function CollegeGallary({ collegeId, admin }) {
         dispatch(
           updateError({
             errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: "Something went Wrong... try again",
+            errorMessage: 'Something went Wrong... try again',
             flag: true
           })
         )
-        return;
+        return
       } else {
         dispatch(
           updateError({
             errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: "Gallary updated successfully",
+            errorMessage: 'Gallary updated successfully',
             flag: true
           })
         )
@@ -63,8 +63,7 @@ export default function CollegeGallary({ collegeId, admin }) {
         setCollegeGallaryUrl([])
         setUploadResponse(false)
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -89,11 +88,11 @@ export default function CollegeGallary({ collegeId, admin }) {
           dispatch(
             updateError({
               errorType: constants.apiResponseStatus.ERROR,
-              errorMessage: "Something went Wrong... try again",
+              errorMessage: 'Something went Wrong... try again',
               flag: true
             })
           )
-          return;
+          return
         } else {
           setUploadResponse(true)
         }
@@ -115,16 +114,16 @@ export default function CollegeGallary({ collegeId, admin }) {
           dispatch(
             updateError({
               errorType: constants.apiResponseStatus.ERROR,
-              errorMessage: "Something went Wrong... try again",
+              errorMessage: 'Something went Wrong... try again',
               flag: true
             })
           )
-          return;
+          return
         } else {
           dispatch(
             updateError({
               errorType: constants.apiResponseStatus.SUCCESS,
-              errorMessage: "Gallary updated successfully",
+              errorMessage: 'Gallary updated successfully',
               flag: true
             })
           )
@@ -138,8 +137,7 @@ export default function CollegeGallary({ collegeId, admin }) {
           dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
         }
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -148,7 +146,6 @@ export default function CollegeGallary({ collegeId, admin }) {
         })
       )
     }
-
   }
 
   const handleCancle = async () => {
@@ -186,7 +183,10 @@ export default function CollegeGallary({ collegeId, admin }) {
 
   const removeImage = (indexToRemove, toUpdate) => {
     if (toUpdate === 'redux') {
-      const filteredUrl = gallary.image_path.split(',').filter((url, index) => url[index] !== url[indexToRemove]).join(',')
+      const filteredUrl = gallary.image_path
+        .split(',')
+        .filter((url, index) => url[index] !== url[indexToRemove])
+        .join(',')
       dispatch(updateCollegeInfo({ classKey: 'gallary', key: 'image_path', value: filteredUrl }))
     } else {
       const filteredUrl = collegeGallaryUrl.filter((url, index) => url[index] !== url[indexToRemove])
@@ -210,11 +210,11 @@ export default function CollegeGallary({ collegeId, admin }) {
           dispatch(
             updateError({
               errorType: constants.apiResponseStatus.ERROR,
-              errorMessage: "Something went Wrong... try again",
+              errorMessage: 'Something went Wrong... try again',
               flag: true
             })
           )
-          return;
+          return
         } else {
           setDraftResponse(true)
         }
@@ -260,8 +260,7 @@ export default function CollegeGallary({ collegeId, admin }) {
       //     dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
       //   }
       // }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -292,30 +291,31 @@ export default function CollegeGallary({ collegeId, admin }) {
         dispatch(
           updateError({
             errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: "Can not Save the draft... Please try again",
+            errorMessage: 'Can not Save the draft... Please try again',
             flag: true
           })
         )
-        return;
+        return
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.SUCCESS,
-          errorMessage: "Gallary updated successfully",
-          flag: true
-        })
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'Gallary updated successfully',
+            flag: true
+          })
         )
         setCollegeGallary([])
         setCollegeGallaryUrl([])
         setDraftResponse(false)
         navigate('/list-agent-college')
       }
-    }
-    catch (error) {
-      dispatch(updateError({
-        errorType: constants.apiResponseStatus.ERROR,
-        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-        flag: true
-      })
+    } catch (error) {
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
       )
     }
   }
@@ -349,7 +349,7 @@ export default function CollegeGallary({ collegeId, admin }) {
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
-          <div >
+          <div>
             <UploadFile
               label={'College Images'}
               styles={{ width: '138px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
@@ -357,39 +357,49 @@ export default function CollegeGallary({ collegeId, admin }) {
             />
             <div className='d-flex my-5'>
               <div className='d-flex'>
-                {isEdit && gallary.image_path && gallary.image_path.split(',').map((url, index) => (
-                  <div key={index}>
-                    <img src={constants.imageAbsolutePath + url.trim()} width={150} height={150} gap={20} alt='Gallary Image' />
-                    <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                      <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'redux')}>Remove</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className='d-flex'>
-                {collegeGallaryUrl.length > 0 ? collegeGallaryUrl.map((url, index) => (
-                  <div key={index}>
-                    <img src={url} width={150} height={150} gap={20} alt='Gallary Image' />
-                    <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                      <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'context')}>Remove</button>
-                    </div>
-                  </div>
-                ))
-                  :
+                {isEdit &&
+                  gallary.image_path &&
                   gallary.image_path.split(',').map((url, index) => (
                     <div key={index}>
                       <img src={constants.imageAbsolutePath + url.trim()} width={150} height={150} gap={20} alt='Gallary Image' />
+                      <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                        <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'redux')}>
+                          Remove
+                        </button>
+                      </div>
                     </div>
                   ))}
+              </div>
+              <div className='d-flex'>
+                {collegeGallaryUrl.length > 0
+                  ? collegeGallaryUrl.map((url, index) => (
+                      <div key={index}>
+                        <img src={url} width={150} height={150} gap={20} alt='Gallary Image' />
+                        <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                          <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'context')}>
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  : gallary.image_path.split(',').map((url, index) => (
+                      <div key={index}>
+                        <img src={constants.imageAbsolutePath + url.trim()} width={150} height={150} gap={20} alt='Gallary Image' />
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
 
-          {!isEdit &&
+          {!isEdit && (
             <div className='form-group'>
-              <CustomButton isDisabled={gallary.isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+              <CustomButton
+                isDisabled={gallary.isValitadeError || collegeBasicDetails.isValitadeError}
+                lable={'Save as Draft'}
+                onClick={() => saveDraft()}
+              />
             </div>
-          }
+          )}
 
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             {isEdit && collegeId && !admin && (

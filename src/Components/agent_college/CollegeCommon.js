@@ -78,8 +78,7 @@ export default function CollegeCommon({ collegeId, admin }) {
           })
         )
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -137,11 +136,12 @@ export default function CollegeCommon({ collegeId, admin }) {
         })
       )
       if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.SUCCESS,
-          errorMessage: 'Saved Draft Sucessfully',
-          flag: true
-        })
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'Saved Draft Sucessfully',
+            flag: true
+          })
         )
         navigate('/list-agent-college')
       } else {
@@ -153,8 +153,7 @@ export default function CollegeCommon({ collegeId, admin }) {
           })
         )
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -218,14 +217,14 @@ export default function CollegeCommon({ collegeId, admin }) {
               style={
                 facultyList.length > 0
                   ? {
-                    border: 'solid #e83e8c 1px',
-                    borderRadius: '1rem',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    maxWidth: '400px',
-                    padding: '7px'
-                  }
+                      border: 'solid #e83e8c 1px',
+                      borderRadius: '1rem',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      maxWidth: '400px',
+                      padding: '7px'
+                    }
                   : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
               }
             >
@@ -244,11 +243,15 @@ export default function CollegeCommon({ collegeId, admin }) {
               onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
               inputValue={common.facilities}
             />
-            {!isEdit &&
+            {!isEdit && (
               <div className='form-group'>
-                <CustomButton isDisabled={common.isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+                <CustomButton
+                  isDisabled={common.isValitadeError || collegeBasicDetails.isValitadeError}
+                  lable={'Save as Draft'}
+                  onClick={() => saveDraft()}
+                />
               </div>
-            }
+            )}
           </div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             {isEdit && collegeId && !admin && (

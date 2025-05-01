@@ -3,8 +3,14 @@ import React, { useState } from 'react'
 import { Box, Button, TextField, Grid, Typography, Select, MenuItem, FormControl, InputLabel, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material' // Import the delete icon
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { addSyllabusEntry, removeSyllabusEntry, updateSyllabusEntry } from '../../features/newCoursesSlice'
+import {
+  defaultState as courseInitialState,
+  addSyllabusEntry,
+  removeSyllabusEntry,
+  updateSyllabusEntry
+} from '../../features/newCoursesSlice'
 import { FIELDS } from '../../Constants/redux/courseFieldName'
+import { useLocalStorageSync } from '../../hooks/useLocalStorageSync'
 
 const YearSemesterCard = ({
   syllabusIndex,
@@ -15,7 +21,8 @@ const YearSemesterCard = ({
   handleDeleteSubject,
   handleSubjectChange,
   handleYearChange,
-  handleTypeChange
+  handleTypeChange,
+  disabled
 }) => {
   const [year, setYear] = useState(yearData.year || '')
   const [type, setType] = useState(yearData.type || 'Yearly')
@@ -97,7 +104,13 @@ const YearSemesterCard = ({
           </Grid>
         ))}
 
-        <Button variant='contained' color='primary' onClick={() => handleAddSubject(index, syllabusIndex)} sx={{ marginTop: 2 }}>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => handleAddSubject(index, syllabusIndex)}
+          sx={{ marginTop: 2 }}
+          disabled={disabled}
+        >
           Add Subject
         </Button>
       </Box>
@@ -105,10 +118,14 @@ const YearSemesterCard = ({
   )
 }
 
-const CourseSyllabus = () => {
-  const syllabus = useSelector((state) => state.newCourses.syllabusDetails[FIELDS.SYLLABUS], shallowEqual)
+const CourseSyllabus = ({ isEdit = false }) => {
+  const syllabusDetails = useSelector((state) => state.newCourses.syllabusDetails, shallowEqual)
+  const syllabus = syllabusDetails[FIELDS.SYLLABUS]
+
+  useLocalStorageSync('courseFormData', 'syllabusDetails', syllabusDetails, courseInitialState)
+
   const dispatch = useDispatch()
-  console.log({ syllabus })
+  console.log({ syllabusDetails })
   const handleAddYearSemester = () => {
     dispatch(addSyllabusEntry())
   }
@@ -197,11 +214,12 @@ const CourseSyllabus = () => {
             handleSubjectChange={handleSubjectChange}
             handleYearChange={handleYearChange}
             handleTypeChange={handleTypeChange}
+            disabled={isEdit}
           />
         ))}
       </Grid>
 
-      <Button variant='contained' color='primary' onClick={handleAddYearSemester} sx={{ marginTop: 3 }}>
+      <Button variant='contained' color='primary' onClick={handleAddYearSemester} sx={{ marginTop: 3 }} disabled={isEdit}>
         Add Syllabus
       </Button>
     </Box>

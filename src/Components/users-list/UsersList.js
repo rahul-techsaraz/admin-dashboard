@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { constants } from '../../utils/constants'
 import ItemList from '../ItemList'
-import { useFetchAllUsersList } from '../../hooks/useFetchUsersList';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useFetchAllUsersList } from '../../hooks/useFetchUsersList'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 export default function UsersList() {
-  const { fetchUsersList } = useFetchAllUsersList();
-  const { getAllUsersList } = useSelector(state => state.common);
-    useEffect(() => {
-      fetchUsersList();
-    },[])
+  const { fetchUsersList } = useFetchAllUsersList()
+  const { getAllUsersList } = useSelector((state) => state.common)
+  useEffect(() => {
+    fetchUsersList()
+  }, [])
 
-   const addNewColumns = [
+  const addNewColumns = [
     {
       label: 'Delete',
       handleDeleteItem: (rowData) => {
@@ -27,7 +27,7 @@ export default function UsersList() {
       <ItemList
         userColumns={constants.allUsersList}
         categoryData={getAllUsersList.map((user, index) => {
-          return {...user,id:index+1}
+          return { ...user, id: index + 1 }
         })}
         addNewColumns={addNewColumns}
         labe={'Course Details'}

@@ -3,7 +3,7 @@ import { httpCall } from '../service'
 import { httpCall2 } from '../service2'
 import { constants } from '../constants'
 
-export const fetchAllCollegeList = createAsyncThunk("college/fetchAllCollegeList", async ({ url, header, method }, thunkApi) => {
+export const fetchAllCollegeList = createAsyncThunk('college/fetchAllCollegeList', async ({ url, header, method }, thunkApi) => {
   try {
     const data = await httpCall(url, header, method)
     return data

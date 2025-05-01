@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Stepper, Step, StepLabel, Button, Box } from '@mui/material'
 import AddItemForm from './AddItemForm'
 
-const CustomStepper = ({ steps, onComplete, formName }) => {
+const CustomStepper = ({ steps, onComplete, formName, isCompleteEnable }) => {
   const [activeStep, setActiveStep] = useState(0)
 
   const handleNext = () => {
@@ -59,7 +59,7 @@ const CustomStepper = ({ steps, onComplete, formName }) => {
               Back
             </Button>
             <Box>
-              {activeStep === steps.length - 1 ? (
+              {isCompleteEnable ? (
                 <Button
                   variant='contained'
                   color='primary'

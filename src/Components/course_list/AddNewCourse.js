@@ -235,9 +235,17 @@ export default function AddNewCourse() {
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           <AddCourse courseId={courseId} />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <CustomButton isDisabled={tabValue === '1' ? true : false} lable={'Prev'} onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) - 1}` }))} />
+            <CustomButton
+              isDisabled={tabValue === '1' ? true : false}
+              lable={'Prev'}
+              onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) - 1}` }))}
+            />
             <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewCourse()} />
-            <CustomButton isDisabled={tabValue === '4' ? true : false} lable={'Next'} onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) + 1}` }))} />
+            <CustomButton
+              isDisabled={tabValue === '4' ? true : false}
+              lable={'Next'}
+              onClick={() => dispatch(updateCourseInfo({ classKey: 'tabValue', value: `${Number(tabValue) + 1}` }))}
+            />
           </div>
         </div>
       </AddItemForm>
