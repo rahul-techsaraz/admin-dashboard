@@ -7,6 +7,13 @@ import commonSlice from '../features/commonSlice'
 import courseSlice from '../features/courseSlice'
 import collegeSlice from '../features/collegeSlice'
 import feedbackSlice from '../features/feedbackSlice'
+import newCollegeSlice from '../features/newCollegeSlice'
+
+const loggerMiddleware = store => next => action => {
+  console.log('Dispatching action:', action.type);
+  console.trace();  // Shows the call stack to see which file/component called it
+  return next(action);
+};
 const reducers = combineReducers({
   user: userSlice,
   subheadermenu: subHeaderMenuSlice,
@@ -15,10 +22,15 @@ const reducers = combineReducers({
   common: commonSlice,
   course: courseSlice,
   college: collegeSlice,
+  newCollege: newCollegeSlice,
   feedback: feedbackSlice
 })
 const store = configureStore({
-  reducer: reducers
+  reducer: reducers,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(loggerMiddleware),
 })
+
+
 
 export default store

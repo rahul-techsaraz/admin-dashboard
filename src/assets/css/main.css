@@ -2049,7 +2049,7 @@ fieldset[disabled] .btn-neutral.active {
 
 .btn-neutral:hover:not(.nav-link),
 .btn-neutral:focus:not(.nav-link) {
-box-shadow: none
+    box-shadow: none
 }
 
 .btn-neutral.btn-simple {
@@ -4590,7 +4590,7 @@ img {
     width: 100%;
 }
 
-.btn-ad{
+.btn-ad {
     flex-basis: 48% !important;
     padding: 15px 25px !important;
 }
@@ -16396,7 +16396,7 @@ img {
     top: 0px;
     left: 0;
     z-index: 11;
-    overflow:auto;
+    overflow: auto;
 }
 
 .sidebar .nav-tabs {
@@ -22938,19 +22938,21 @@ section small {
 }
 
 
-.admin-h{
+.admin-h {
     color: #212529;
 }
 
-.hide{
+.hide {
     display: none;
 }
+
 /* chip related CSS modified */
-.css-m69qwo-MuiStack-root{
+.css-m69qwo-MuiStack-root {
     flex-wrap: wrap;
     align-items: center;
     gap: 7px;
 }
+
 /* signup related css modified */
 /* .form-control {
 	background-color: rgba(0, 0, 0, 0);
@@ -22967,12 +22969,30 @@ section small {
 } */
 
 .btn-ad {
-	flex-basis: 100% !important;
-	padding: 15px 25px !important;
+    flex-basis: 100% !important;
+    padding: 15px 25px !important;
 }
-.font_white{
-    color:#fff
+
+.font_white {
+    color: #fff
 }
+
 /* input[type='file'] {
     color: transparent;
   } */
+
+.stepper-btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.stepper-btn-container2 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hidden {
+    display: none;
+}

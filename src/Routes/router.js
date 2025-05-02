@@ -23,12 +23,14 @@ import CourseList from '../Components/course_list/CourseList'
 import AddNewCourse from '../Components/course_list/AddNewCourse'
 import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
-import ParentWrapper from '../Components/agent_college/ParentWrapper'
+// import ParentWrapper from '../Components/agent_college/ParentWrapper'
 import UsersList from '../Components/users-list/UsersList';
 import ViewUserDetails from '../Components/users-list/ViewUserDetails';
 import CollegeRequest from '../Components/admin/CollegeRequest';
 import FeedbackList from '../Components/feedback/FeedbackList';
 import FeedbackDetails from '../Components/feedback/FeedbackDetails';
+import CollegeList from '../Components/college_steps/components/CollegeList';
+import ParentWrapper from '../Components/college_steps/components/ParentWrapper';
 
 
 
@@ -43,7 +45,7 @@ export const appRouter = createBrowserRouter(
       ),
       children: [
         {
-          path: '/',
+          path: '',
           element: <Main />
         },
         {
@@ -109,7 +111,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/list-agent-college',
-          element: <College_list />
+          element: <CollegeList />
         },
         {
           path: '/add-college',

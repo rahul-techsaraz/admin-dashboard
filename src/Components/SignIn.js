@@ -37,8 +37,10 @@ export default function SignIn() {
         })
       )
       if (response.payload.success === 1) {
+        console.log(response.payload)
         dispatch(handleUserAuthentication({ flag: true }))
         localStorage.setItem('token', response.payload.token)
+        dispatch(updateUserToken({ token: response.payload.token }))
         localStorage.setItem('userData', JSON.stringify(response.payload))
         dispatch(updateUserInfo({ userInfo: response.payload }))
         dispatch(
