@@ -238,12 +238,28 @@ export const fetchCollegeGallaryById = createAsyncThunk(
     }
   }
 )
-export const createNewCollege = createAsyncThunk('createNewCollege/fileUploadlogo', async ({ url, payload, header }, thunkApi) => {
+export const createNewCollege = createAsyncThunk('newCollege/AddNewCollege', async ({ url, payload, header }, thunkApi) => {
   try {
     const { data } = await httpCall2(url, payload, header)
-    if (data[0]?.error || data[0].status !== constants.apiResponseStatus.SUCCESS) {
-      throw new Error('File upload unsuccessfull')
+    if (data.status !== constants.apiResponseStatus.SUCCESS) {
+      throw new Error('Failed to Add College...')
     }
+    return data
+  } catch (error) {
+    return thunkApi.rejectWithError(error)
+  }
+})
+export const fetchNewCollegeById = createAsyncThunk('newCollege/fetchNewCollegeById', async ({ url, header, method }, thunkApi) => {
+  try {
+    const data = await httpCall(url, header, method)
+    return data
+  } catch (error) {
+    return thunkApi.rejectWithError(error)
+  }
+})
+export const deleteNewCollegeById = createAsyncThunk('newCollege/deleteNewCollegeById', async ({ url, header, method }, thunkApi) => {
+  try {
+    const data = await httpCall(url, header, method)
     return data
   } catch (error) {
     return thunkApi.rejectWithError(error)

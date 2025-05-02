@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import InputFieldText from '../../../utils/CommonComponents/InputFieldText'
 import TextArea from '../../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid'
 import { constants } from '../../../utils/constants'
 import ItemList from '../../ItemList'
 
-const News = () => {
+const News = ({ collegeId, admin }) => {
     const [newsData, setNewsData] = useState(
         {
             news_id: '',
@@ -17,7 +17,7 @@ const News = () => {
         }
     )
     const [isDisabled, setIsDisabled] = useState(true)
-    const { news } = useSelector((state) => state.newCollege)
+    const { news, isEdit } = useSelector((state) => state.newCollege)
     const dispatch = useDispatch()
 
     const createNewsList = () => {
@@ -35,11 +35,15 @@ const News = () => {
     }
 
     const handleFormData = () => {
-        let formData = {}
-        if (localStorage.getItem('formData')) {
-            formData = JSON.parse(localStorage.getItem('formData'))
+        if (collegeId) {
+            return
+        } else {
+            let formData = {}
+            if (localStorage.getItem('formData')) {
+                formData = JSON.parse(localStorage.getItem('formData'))
+            }
+            localStorage.setItem('formData', JSON.stringify({ ...formData, news: news?.news_data }))
         }
-        localStorage.setItem('formData', JSON.stringify({ ...formData, news: news?.news_data }))
     }
 
     const addNewColumns = [
@@ -76,13 +80,14 @@ const News = () => {
     }, [news.news_data.length])
     return (
         <>
-            <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
+            <div style={collegeId && !isEdit ? { display: 'none' } : { gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
                 <InputFieldText
                     placeholder='Title'
                     inputValue={newsData?.title}
                     inputType='text'
                     onChange={(e) => setNewsData({ ...newsData, title: e.target.value })}
                     styles={{ width: '300px' }}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <TextArea
                     placeholder={'Content'}
@@ -92,10 +97,11 @@ const News = () => {
                     styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
                     onChange={(e) => setNewsData({ ...newsData, content: e.target.value })}
                     inputValue={newsData.content}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <CustomButton
                     isDisabled={isDisabled}
-                    lable={'Add Rectuiters'}
+                    lable={'Add News'}
                     onClick={() => createNewsList()}
                     styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
                 />
@@ -105,7 +111,7 @@ const News = () => {
                     <ItemList
                         userColumns={constants.newsUserColumns}
                         categoryData={news?.news_data.map((data) => { return { ...data, id: data.news_id } })}
-                        addNewColumns={addNewColumns}
+                        addNewColumns={(collegeId && !isEdit) ? [] : addNewColumns}
                         labe={'News Listing'}
                         id={'news_id'}
                         isVewdetails={false}
@@ -116,4 +122,4 @@ const News = () => {
     )
 }
 
-export default News
+export default memo(News)

@@ -8,20 +8,37 @@ import CourseOffered from './components/CourseOffered';
 import CollegeDescription from './components/CollegeDescription';
 import Placements from './components/Placements';
 import News from './components/News';
-import { updateCollegeInfo } from '../../features/newCollegeSlice';
+import { resetCollege, updateCollegeInfo } from '../../features/newCollegeSlice';
 import FacilitiesFaculties from './components/FacilitiesFaculties';
 import CollegeGallary from './components/CollegeGallary';
 import { v4 as uuid } from 'uuid'
 import { updateError } from '../../features/commonSlice';
 import { FileUpload } from '../../utils/FileUpload';
 import { createNewCollege } from '../../utils/reduxThunk/collegeThunk';
+import { useNavigate } from 'react-router-dom';
 
 
 const StepForm = () => {
     const { activeStep, collegeBasicDetails, courseOffered, collegeDescriptions, facilities, gallary, placements, news } = useSelector((state) => state.newCollege)
     const { userToken } = useSelector((state) => state.user)
-    const { collegeLogo, collegeThumbnail, collegeBrochure, collegeGallary, facultyImage } = useContext(FileUpload)
+    const { facultyImage,
+        setFacultyImage,
+        setFacultyImageUrl,
+        collegeLogo,
+        setCollegeLogo,
+        setCollegeLogoUrl,
+        collegeThumbnail,
+        setCollegeThumbnail,
+        setCollegeThumbnailUrl,
+        collegeBrochure,
+        setCollegeBrochure,
+        setCollegeBrochureUrl,
+        collegeGallary,
+        setCollegeGallary,
+        setCollegeGallaryUrl, } = useContext(FileUpload)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    console.log(userToken)
     const handleSteps = (step) => {
         switch (step) {
             case 0:
@@ -115,10 +132,12 @@ const StepForm = () => {
                     faculty_data: facilities?.faculty_data
                 },
                 placements: placements?.placement_data,
-                news: news?.news_data
+                news: news?.news_data,
+                gallary: gallary?.image_path,
             }
+            console.log(userToken)
             const filePayload = new FormData()
-            filePayload.append('data[]', JSON.stringify(payload))
+            filePayload.append('data', JSON.stringify(payload))
             filePayload.append('college_logo[]', collegeLogo[0])
             filePayload.append('college_thumbnail[]', collegeThumbnail[0])
             filePayload.append('college_brochure[]', collegeBrochure[0])
@@ -126,15 +145,37 @@ const StepForm = () => {
                 filePayload.append('college_gallary[]', collegeGallary[i])
             }
             for (let i = 0; i < facultyImage.length; i++) {
-                filePayload.append('faculty_image[]', facultyImage[i])
+                const facultyId = facultyImage[i].name.split('.')[0] // Get the corresponding faculty_id
+                if (facultyId) {
+                    filePayload.append(`faculty_image[${facultyId}]`, facultyImage[i])
+                }
             }
             const response = await dispatch(createNewCollege({
                 url: constants.apiEndPoint.NEW_COLLEGE,
                 payload: filePayload,
                 header: { Authorization: userToken }
             }))
-            console.log(response)
-
+            if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
+                dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag: true
+                }))
+            } else {
+                navigate('/list-agent-college')
+                localStorage.removeItem('formData')
+                resetCollege()
+                setCollegeLogo([])
+                setCollegeLogoUrl([])
+                setCollegeThumbnail([])
+                setCollegeThumbnailUrl([])
+                setCollegeBrochure([])
+                setCollegeBrochureUrl([])
+                setCollegeGallary([])
+                setCollegeGallaryUrl([])
+                setFacultyImage([])
+                setFacultyImageUrl([])
+            }
         } catch (error) {
             dispatch(updateError({
                 errorType: constants.apiResponseStatus.ERROR,

@@ -23,7 +23,7 @@ const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetai
         ))}
         {isVewdetails && (
           <Button variant='contained' color='success'>
-            <Link to={admin ? path + params.row[`${id}`] + '/' + admin : isDraft ? path + params.row[`${id}`] + '/draft' : path + params.row[`${id}`]} style={{ color: 'white' }}>
+            <Link to={admin ? path + params.row[`${id}`] + '/' + admin : path + params.row[`${id}`]} style={{ color: 'white' }}>
               {isDraft ? 'continue' : 'View Details'}
             </Link>
           </Button>
@@ -53,9 +53,10 @@ export default function CustomTableData({ userColumns, userRows, actionItem, lab
         <DataGrid
           className='datagrid'
           rows={userRows}
-          columns={userColumns.concat(actionColumn)}
+          columns={actionItem.length > 0 ? userColumns.concat(actionColumn) : userColumns}
           pageSize={9}
           rowsPerPageOptions={[9]}
+          autoHeight={true}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import SearchSelectBox from '../../../utils/CommonComponents/SearchSelectBox'
 import CustomCard from '../../../utils/CommonComponents/CustomCard'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,7 +22,7 @@ import { addCollegeBasicDetails, addCollegeCourseOffered, deleteCollegeCourseOff
 import { useNavigate } from 'react-router-dom'
 import DataToDisplay from '../../course_list/DataToDisplay'
 import MultySelect from '../../../utils/CommonComponents/MultySelect'
-import { Chip, Stack, Switch } from '@mui/material'
+import { Chip, Stack, Switch, Tooltip } from '@mui/material'
 import { updateCollegeInfo } from '../../../features/newCollegeSlice'
 
 const CourseOffered = ({ collegeId, admin }) => {
@@ -46,11 +46,15 @@ const CourseOffered = ({ collegeId, admin }) => {
     const navigate = useNavigate()
 
     const handleFormData = () => {
-        let formData = {}
-        if (localStorage.getItem('formData')) {
-            formData = JSON.parse(localStorage.getItem('formData'))
+        if (collegeId) {
+            return
+        } else {
+            let formData = {}
+            if (localStorage.getItem('formData')) {
+                formData = JSON.parse(localStorage.getItem('formData'))
+            }
+            localStorage.setItem('formData', JSON.stringify({ ...formData, courseOffered: courseOffered.courses_offered }))
         }
-        localStorage.setItem('formData', JSON.stringify({ ...formData, courseOffered: courseOffered.courses_offered }))
     }
 
     const createEligibilityList = () => {
@@ -93,6 +97,7 @@ const CourseOffered = ({ collegeId, admin }) => {
     }
 
     const setDetails = () => {
+
         const details = {
             college_id: '',
             course_id: allCourseDetails[allCourseDetailsIndex]?.course_id,
@@ -356,7 +361,7 @@ const CourseOffered = ({ collegeId, admin }) => {
     // }
 
     useEffect(() => {
-        if (allCourseDetailsIndex > -1) {
+        if (allCourseDetailsIndex > -1 && allCourseDetails.length > 0) {
             setDetails('courseOffered', 'courses_offered')
         }
     }, [allCourseDetailsIndex])
@@ -369,7 +374,7 @@ const CourseOffered = ({ collegeId, admin }) => {
             dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'isValitadeError', value: true }))
             handleFormData()
         }
-    }, [courseOffered.courses_offered.length])
+    }, [courseOffered.courses_offered])
 
     useEffect(() => {
         if (courseOfferedList.course_id !== '' && courseOfferedList.course_name !== '' && courseOfferedList.course_accepting_exam.length > 0 && courseOfferedList.sub_course_fee !== '' && courseOfferedList.sub_course_duration !== '' && courseOfferedList.eligibility_criteria.length > 0 && courseOfferedList.isHighlighted !== '') {
@@ -380,134 +385,102 @@ const CourseOffered = ({ collegeId, admin }) => {
     }, [
         courseOfferedList.course_id,
         courseOfferedList.course_name,
-        courseOfferedList.course_accepting_exam.length,
+        courseOfferedList.course_accepting_exam,
         courseOfferedList.sub_course_fee,
         courseOfferedList.sub_course_duration,
-        courseOfferedList.eligibility_criteria.length,
+        courseOfferedList.eligibility_criteria,
         courseOfferedList.isHighlighted])
 
-    // const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).filter((key) => (key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id')).map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
     return (
         <>
-            {!isEdit && collegeId && admin !== 'draft' ? (
-                // <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} switchClass={true} admin={admin} />
-                <div></div>
-            ) : (
-                <>
-                    <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                        <SearchSelectBox
-                            label='Course Name'
-                            options={allCourseDetails.map((course) => course.course_name)}
-                            onChange={(e, value) => setindex(value)}
-                            value={courseOfferedList?.course_name}
+            <div style={collegeId && !isEdit ? { display: 'none' } : { gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                <SearchSelectBox
+                    label='Course Name'
+                    options={allCourseDetails.length > 0 ? allCourseDetails.map((course) => course.course_name) : []}
+                    onChange={(e, value) => setindex(value)}
+                    value={courseOfferedList?.course_name}
+                    disabled={collegeId && !isEdit ? true : false}
+                />
+
+                {allCourseDetailsIndex > -1 && (
+                    <>
+                        <InputFieldText
+                            placeholder='Course Duration'
+                            inputValue={courseOfferedList?.sub_course_duration}
+                            inputType='text'
+                            styles={{ width: '280px' }}
+                            onChange={(e) => setCourseOfferedList({ ...courseOfferedList, sub_course_duration: e.target.value })}
                         />
-
-                        {allCourseDetailsIndex > -1 && (
-                            <>
+                        <InputFieldText
+                            placeholder={`Course Fee (Annual)`}
+                            inputValue={courseOfferedList?.sub_course_fee}
+                            inputType='text'
+                            styles={{ width: '280px' }}
+                            onChange={(e) => setCourseOfferedList({ ...courseOfferedList, sub_course_fee: e.target.value })}
+                        />
+                        <MultySelect
+                            label='Exam Accepted'
+                            options={allCourseDetails.length > 0 ? allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(',') : []}
+                            onChange={(e, value) => setCourseOfferedList({ ...courseOfferedList, course_accepting_exam: value })}
+                            value={courseOfferedList?.course_accepting_exam}
+                        />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', gap: '40px' }}>
                                 <InputFieldText
-                                    placeholder='Course Duration'
-                                    inputValue={courseOfferedList?.sub_course_duration}
+                                    placeholder={`Eligibility Criteria`}
+                                    inputValue={eligiblity}
                                     inputType='text'
                                     styles={{ width: '280px' }}
-                                    onChange={(e) => setCourseOfferedList({ ...courseOfferedList, sub_course_duration: e.target.value })}
+                                    onChange={(e) => setEligibility(e.target.value)}
                                 />
-                                <InputFieldText
-                                    placeholder={`Course Fee (Annual)`}
-                                    inputValue={courseOfferedList?.sub_course_fee}
-                                    inputType='text'
-                                    styles={{ width: '280px' }}
-                                    onChange={(e) => setCourseOfferedList({ ...courseOfferedList, sub_course_fee: e.target.value })}
-                                />
-                                <MultySelect
-                                    label='Exam Accepted'
-                                    options={allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(',')}
-                                    onChange={(e, value) => setCourseOfferedList({ ...courseOfferedList, course_accepting_exam: value })}
-                                    value={courseOfferedList?.course_accepting_exam}
-                                />
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <div style={{ display: 'flex', gap: '40px' }}>
-                                        <InputFieldText
-                                            placeholder={`Eligibility Criteria`}
-                                            inputValue={eligiblity}
-                                            inputType='text'
-                                            styles={{ width: '280px' }}
-                                            onChange={(e) => setEligibility(e.target.value)}
-                                        />
-                                        <CustomButton
-                                            isDisabled={eligiblity ? false : true}
-                                            lable={'Add Eligibility Criteria'}
-                                            onClick={() => createEligibilityList()}
-                                            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-                                        />
-                                    </div>
-                                    {courseOfferedList?.eligibility_criteria.length > 0 &&
-                                        <div className='form-group' style={
-                                            {
-                                                border: 'solid #e83e8c 1px',
-                                                borderRadius: '1rem',
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                flexWrap: 'wrap',
-                                                maxWidth: '400px',
-                                                padding: '7px'
-                                            }
-                                        }
-                                        >
-                                            <Stack spacing={0}>
-                                                {courseOfferedList?.eligibility_criteria.map((value, index) => (
-                                                    <Chip key={index} label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
-                                                ))}
-                                            </Stack>
-                                        </div>}
-                                </div>
-                                <div>
-                                    <label>{'Add to Highlight List'}</label>
-                                    <Switch
-                                        checked={courseOfferedList.isHighlighted}
-                                        onChange={(e) => setCourseOfferedList({ ...courseOfferedList, isHighlighted: !courseOfferedList.isHighlighted })}
-                                    />
-                                </div>
-
                                 <CustomButton
-                                    isDisabled={isDisabled}
-                                    lable={'Add to Course Offered'}
-                                    onClick={() => createCourseOfferedList()}
+                                    isDisabled={eligiblity ? false : true}
+                                    lable={'Add Eligibility Criteria'}
+                                    onClick={() => createEligibilityList()}
                                     styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
                                 />
-                            </>
-                        )}
-                    </div>
-                    {courseOffered?.courses_offered.length > 0 && (
+                            </div>
+                            {courseOfferedList?.eligibility_criteria.length > 0 &&
+                                <div className='form-group' style={{ border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: "10px", maxWidth: '400px', padding: '7px' }}>
+                                    {courseOfferedList?.eligibility_criteria.length > 0 &&
+                                        courseOfferedList?.eligibility_criteria.map((value, index) => (
+                                            <Tooltip title={value} arrow>
+                                                <Chip key={index} label={value.length < 40 ? value : `${value.slice(0, 40)}...`} variant='outlined' onDelete={(e) => handleDelete(value)} />
+                                            </Tooltip>
+                                        ))}
+                                </div>}
+                        </div>
                         <div>
-                            <ItemList
-                                userColumns={constants.courseOfferedUserColumns}
-                                categoryData={courseOffered?.courses_offered.map((data) => { return { ...data, id: data.course_id } })}
-                                addNewColumns={addNewColumns}
-                                labe={'Course Offered Listing'}
-                                id={'course_id'}
-                                isVewdetails={false}
+                            <label>{'Add to Highlight List'}</label>
+                            <Switch
+                                checked={courseOfferedList?.isHighlighted}
+                                onChange={(e) => setCourseOfferedList({ ...courseOfferedList, isHighlighted: !courseOfferedList?.isHighlighted })}
                             />
                         </div>
-                    )}
 
-                    {/* {!isEdit &&
-                <div className='form-group'>
-                    <CustomButton isDisabled={collegeBasicDetails.isValitadeError === false && courseOfferedList.length > 0 ? false : true} lable={'Save as Draft'} onClick={() => saveDraft()} />
+                        <CustomButton
+                            isDisabled={isDisabled}
+                            lable={'Add to Course Offered'}
+                            onClick={() => createCourseOfferedList()}
+                            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+                        />
+                    </>
+                )}
+            </div>
+            {courseOffered?.courses_offered.length > 0 && (
+                <div>
+                    <ItemList
+                        userColumns={constants.courseOfferedUserColumns}
+                        categoryData={courseOffered?.courses_offered.map((data) => { return { ...data, id: data.course_id } })}
+                        addNewColumns={(collegeId && !isEdit) ? [] : addNewColumns}
+                        labe={'Course Offered Listing'}
+                        id={'course_id'}
+                        isVewdetails={false}
+                    />
                 </div>
-                } */}
-
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
-                        {isEdit && collegeId && !admin && (
-                            <>
-                                {/* <CustomButton isDisabled={isValitadeError} lable={'Update'} onClick={() => updateCollege()} /> */}
-                                <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />
-                            </>
-                        )}
-                    </div>
-                </>
             )}
         </>
     )
 }
 
-export default CourseOffered
+export default memo(CourseOffered)

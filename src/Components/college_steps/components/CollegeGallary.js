@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import UploadFile from '../../../utils/CommonComponents/UploadFile'
 import { useDispatch, useSelector } from 'react-redux'
 import { FileUpload } from '../../../utils/FileUpload'
@@ -186,7 +186,7 @@ const CollegeGallary = ({ collegeId, admin }) => {
 
     const removeImage = (indexToRemove, toUpdate) => {
         if (toUpdate === 'redux') {
-            const filteredUrl = gallary.image_path.split(',').filter((url, index) => url[index] !== url[indexToRemove]).join(',')
+            const filteredUrl = gallary.image_path.filter((url, index) => url[index] !== url[indexToRemove])
             dispatch(updateCollegeInfo({ classKey: 'gallary', key: 'image_path', value: filteredUrl }))
         } else {
             const filteredUrl = collegeGallaryUrl.filter((url, index) => url[index] !== url[indexToRemove])
@@ -331,14 +331,6 @@ const CollegeGallary = ({ collegeId, admin }) => {
         }
     }, [draftResponse])
 
-    // useEffect(() => {
-    //     if (gallary.image_path || collegeGallary.length > 0) {
-    //         dispatch(updateCollegeInfo({ classKey: 'gallary', key: 'isValitadeError', value: false }))
-    //     } else {
-    //         dispatch(updateCollegeInfo({ classKey: 'gallary', key: 'isValitadeError', value: true }))
-    //     }
-    // }, [collegeGallary, gallary.image_path])
-
     useEffect(() => {
         if ((collegeBasicDetails.college_logo !== '' ||
             collegeLogo.length > 0) &&
@@ -362,120 +354,105 @@ const CollegeGallary = ({ collegeId, admin }) => {
         collegeGallary.length
     ])
 
-    // const collegeInfoData = gallary.image_path.split(',').map((path, index) => {
-    //     return { lable: 'Gallary Image' + (index + 1), value: path.trim() }
-    // })
     return (
-        <>
-            {!isEdit && collegeId && admin !== 'draft' ? (
-                // <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
-                <div></div>
-            ) : (
-                <>
-                    <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
-                        <div className='flex flex-col justify-center items-center'>
-                            <UploadFile
-                                label={'College Logo'}
-                                styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-                                multiple={false}
-                            />
-                            <div style={{ display: collegeBasicDetails?.college_logo || collegeLogoUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
-                                <img src={collegeLogoUrl.length > 0 ? collegeLogoUrl : constants.imageAbsolutePath + collegeBasicDetails?.college_logo} width={150} height={150} />
-                            </div>
-                            {/* <div style={{ display: collegeId && collegeBasicDetails?.college_logo && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                <button className='btn btn-primary btn-round' onClick={() => removeCollegeLogo()}>Remove</button>
-                            </div>
-                            <div style={{ display: collegeId && collegeLogoUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                <button className='btn btn-primary btn-round' onClick={() => uploadLogo()}>Upload</button>
-                            </div> */}
-                        </div>
-                        <div className='flex flex-col justify-center items-center'>
-                            <UploadFile
-                                label={'College Thumbnail'}
-                                styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-                                multiple={false}
-                            />
-                            <div style={{ display: collegeBasicDetails?.college_thumbnail || collegeThumbnailUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
-                                <img src={collegeThumbnailUrl.length > 0 ? collegeThumbnailUrl : constants.imageAbsolutePath + collegeBasicDetails?.college_thumbnail} width={150} height={150} />
-                            </div>
-                            {/* <div style={{ display: collegeId && collegeBasicDetails?.college_thumbnail && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                <button className='btn btn-primary btn-round' onClick={() => removeCollegeThumbnail()}>Remove</button>
-                            </div>
-                            <div style={{ display: collegeId && collegeThumbnailUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                <button className='btn btn-primary btn-round' onClick={() => uploadThumbnail()}>Upload</button>
-                            </div> */}
-                        </div>
-                        <div className='flex flex-col justify-center items-center'>
-                            <UploadFile
-                                label={'Brochuer'}
-                                styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-                                multiple={false}
-                            />
-                            <div style={{ display: collegeBasicDetails?.college_download_brochure_path || collegeBrochureUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
-                                <img src={collegeBrochureUrl.length > 0 ? collegeBrochureUrl : constants.imageAbsolutePath + collegeBasicDetails?.college_download_brochure_path} width={150} height={150} />
-                            </div>
-                            {/* <div style={{ display: collegeId && collegeBasicDetails?.college_download_brochure_path && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                <button className='btn btn-primary btn-round' onClick={() => removeCollegeBrochure()}>Remove</button>
-                            </div>
-                            <div style={{ display: collegeId && collegeBrochureUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                <button className='btn btn-primary btn-round' onClick={() => uploadBrochure()}>Upload</button>
-                            </div> */}
-                        </div >
-                        <div className='flex flex-col justify-center items-center'>
-                            <UploadFile
-                                label={'College Images'}
-                                styles={{ width: '138px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-                                multiple={true}
-                            />
-                            <div className='d-flex my-5'>
-                                <div className='d-flex'>
-                                    {isEdit && gallary.image_path.length > 0 && gallary.image_path.map((url, index) => (
-                                        <div key={index}>
-                                            <img src={constants.imageAbsolutePath + url} width={150} height={150} gap={20} alt='Gallary Image' />
-                                            <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                                <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'redux')}>Remove</button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className='d-flex'>
-                                    {collegeGallaryUrl.length > 0 ? collegeGallaryUrl.map((url, index) => (
-                                        <div key={index}>
-                                            <img src={url} width={150} height={150} gap={20} alt='Gallary Image' />
-                                            <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
-                                                <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'context')}>Remove</button>
-                                            </div>
-                                        </div>
-                                    ))
-                                        :
-                                        gallary.image_path.map((url, index) => (
-                                            <div key={index}>
-                                                <img src={constants.imageAbsolutePath + url} width={150} height={150} gap={20} alt='Gallary Image' />
-                                            </div>
-                                        ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* {!isEdit &&
-            <div className='form-group'>
-                <CustomButton isDisabled={gallary.isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+        <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
+            <div className='flex flex-col justify-center items-center'>
+                <UploadFile
+                    label={'College Logo'}
+                    styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+                    multiple={false}
+                    disabled={collegeId && !isEdit ? true : false}
+                />
+                <div style={{ display: collegeBasicDetails?.college_logo || collegeLogoUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
+                    <img src={collegeLogoUrl.length > 0 ? collegeLogoUrl : constants.newImageAbsolutePath + collegeBasicDetails?.college_logo} width={150} height={150} />
+                </div>
+                {/* <div style={{ display: collegeId && collegeBasicDetails?.college_logo && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                    <button className='btn btn-primary btn-round' onClick={() => removeCollegeLogo()}>Remove</button>
+                </div>
+                <div style={{ display: collegeId && collegeLogoUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                    <button className='btn btn-primary btn-round' onClick={() => uploadLogo()}>Upload</button>
+                </div> */}
             </div>
-            } */}
-
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
-                        {isEdit && collegeId && !admin && (
-                            <>
-                                <CustomButton isDisabled={gallary.isValitadeError} lable={'Update'} onClick={() => updateCollege()} />
-                                <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />
-                            </>
-                        )}
+            <div className='flex flex-col justify-center items-center'>
+                <UploadFile
+                    label={'College Thumbnail'}
+                    styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+                    multiple={false}
+                    disabled={collegeId && !isEdit ? true : false}
+                />
+                <div style={{ display: collegeBasicDetails?.college_thumbnail || collegeThumbnailUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
+                    <img src={collegeThumbnailUrl.length > 0 ? collegeThumbnailUrl : constants.newImageAbsolutePath + collegeBasicDetails?.college_thumbnail} width={150} height={150} />
+                </div>
+                {/* <div style={{ display: collegeId && collegeBasicDetails?.college_thumbnail && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                    <button className='btn btn-primary btn-round' onClick={() => removeCollegeThumbnail()}>Remove</button>
+                </div>
+                <div style={{ display: collegeId && collegeThumbnailUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                    <button className='btn btn-primary btn-round' onClick={() => uploadThumbnail()}>Upload</button>
+                </div> */}
+            </div>
+            <div className='flex flex-col justify-center items-center'>
+                <UploadFile
+                    label={'Brochuer'}
+                    styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+                    multiple={false}
+                    disabled={collegeId && !isEdit ? true : false}
+                />
+                <div style={{ display: collegeBasicDetails?.college_download_brochure_path || collegeBrochureUrl.length > 0 ? 'block' : 'none', textAlign: 'center' }}>
+                    <img src={collegeBrochureUrl.length > 0 ? collegeBrochureUrl : constants.newImageAbsolutePath + collegeBasicDetails?.college_download_brochure_path} width={150} height={150} />
+                </div>
+                {/* <div style={{ display: collegeId && collegeBasicDetails?.college_download_brochure_path && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                    <button className='btn btn-primary btn-round' onClick={() => removeCollegeBrochure()}>Remove</button>
+                </div>
+                <div style={{ display: collegeId && collegeBrochureUrl.length > 0 && !admin ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                    <button className='btn btn-primary btn-round' onClick={() => uploadBrochure()}>Upload</button>
+                </div> */}
+            </div >
+            <div className='flex flex-col justify-center items-center'>
+                <UploadFile
+                    label={'College Images'}
+                    styles={{ width: '138px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+                    multiple={true}
+                    disabled={collegeId && !isEdit ? true : false}
+                />
+                <div className='d-flex my-5'>
+                    <div className='d-flex'>
+                        {gallary.image_path.length > 0 && gallary.image_path.map((url, index) => (
+                            <div key={index}>
+                                <img src={constants.newImageAbsolutePath + url} width={150} height={150} gap={20} alt='Gallary Image' />
+                                <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                                    <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'redux')}>Remove</button>
+                                </div>
+                            </div>
+                        ))}
+                        {collegeGallaryUrl.length > 0 && collegeGallaryUrl.map((url, index) => (
+                            <div key={index}>
+                                <img src={url} width={150} height={150} gap={20} alt='Gallary Image' />
+                                <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                                    <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'context')}>Remove</button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </>
-            )}
-        </>
+                    {/* <div className='d-flex'>
+                        {collegeGallaryUrl.length > 0 ? collegeGallaryUrl.map((url, index) => (
+                            <div key={index}>
+                                <img src={url} width={150} height={150} gap={20} alt='Gallary Image' />
+                                <div style={{ display: isEdit ? 'block' : 'none', textAlign: 'center', marginTop: '20px' }}>
+                                    <button className='btn btn-primary btn-round' onClick={() => removeImage(index, 'context')}>Remove</button>
+                                </div>
+                            </div>
+                        ))
+                            :
+                            gallary.image_path.map((url, index) => (
+                                <div key={index}>
+                                    <img src={constants.newImageAbsolutePath + url} width={150} height={150} gap={20} alt='Gallary Image' />
+                                </div>
+                            ))}
+                    </div> */}
+                </div>
+            </div>
+        </div>
     )
 }
 
-export default CollegeGallary
+export default memo(CollegeGallary)

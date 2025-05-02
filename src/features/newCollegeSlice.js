@@ -11,6 +11,7 @@ import {
     fetchCollegeHighlightsById,
     fetchCourseList,
     fetchCourseOfferedById,
+    fetchNewCollegeById,
     fetchStateList,
     fileUploadBrochure,
     fileUploadGallary,
@@ -18,6 +19,7 @@ import {
     fileUploadlogo
 } from '../utils/reduxThunk/collegeThunk'
 import { constants } from '../utils/constants'
+import { deepParseTypedJSON } from '../utils/reduxThunk/JsonDeepConverter';
 
 const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getItem('formData')) : {};
 
@@ -45,7 +47,7 @@ const initialState = {
         ratings: formData?.collegeBasicDetails?.ratings ? formData?.collegeBasicDetails?.ratings : '',
         state: formData?.collegeBasicDetails?.state ? formData?.collegeBasicDetails?.state : '',
         city: formData?.collegeBasicDetails?.city ? formData?.collegeBasicDetails?.city : '',
-        category_name: formData?.collegeBasicDetails?.category_name.length > 0 ? formData?.collegeBasicDetails?.category_name : [],
+        category_name: formData?.collegeBasicDetails?.category_name ? formData?.collegeBasicDetails?.category_name : [],
         college_type: formData?.collegeBasicDetails?.college_type ? formData?.collegeBasicDetails?.college_type : '',
         college_logo: formData?.collegeBasicDetails?.college_logo ? formData?.collegeBasicDetails?.college_logo : '',
         college_thumbnail: formData?.collegeBasicDetails?.college_thumbnail ? formData?.collegeBasicDetails?.college_thumbnail : '',
@@ -62,22 +64,19 @@ const initialState = {
     },
     collegeDescriptions: {
         isValitadeError: true,
-        college_id: '',
-        college_description: formData?.collegeDescriptions?.college_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_description : '',
-        college_course_description: formData?.collegeDescriptions?.college_course_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_course_description : '',
-        college_highlights_description: formData?.collegeDescriptions?.college_highlights_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_highlights_description : '',
-        college_campus_description: formData?.collegeDescriptions?.college_campus_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_campus_description : '',
-        college_admission_description: formData?.collegeDescriptions?.college_admission_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_admission_description : '',
+        college_description: formData?.collegeDescriptions?.college_description ? formData?.collegeDescriptions?.college_description : '',
+        college_course_description: formData?.collegeDescriptions?.college_course_description ? formData?.collegeDescriptions?.college_course_description : '',
+        college_highlights_description: formData?.collegeDescriptions?.college_highlights_description ? formData?.collegeDescriptions?.college_highlights_description : '',
+        college_campus_description: formData?.collegeDescriptions?.college_campus_description ? formData?.collegeDescriptions?.college_campus_description : '',
+        college_admission_description: formData?.collegeDescriptions?.college_admission_description ? formData?.collegeDescriptions?.college_admission_description : '',
     },
     facilities: {
         isValitadeError: true,
-        college_id: '',
         facilities: formData?.facilities?.facilities ? formData?.facilities?.facilities : [],
         faculty_data: formData?.facilities?.faculty_data ? formData?.facilities?.faculty_data : [],
     },
     gallary: {
         isValitadeError: true,
-        college_id: '',
         image_path: [],
         video_path: []
     },
@@ -115,8 +114,9 @@ const newCollegeSlice = createSlice({
         })
         builder.addCase(fetchAgentCollegeList.fulfilled, (state, { payload }) => {
             if (payload.status === constants.apiResponseStatus.SUCCESS) {
+                const parsedJason = payload.data.map((items) => deepParseTypedJSON(items))
                 const userAccountName = JSON.parse(localStorage.getItem('userData'))
-                state.agentCollegeList = payload.data.filter((data) => data.account_name === userAccountName.account_name)
+                state.agentCollegeList = parsedJason.filter((data) => data.account_name === userAccountName.account_name)
             }
         })
         builder.addCase(fetchStateList.fulfilled, (state, { payload }) => {
@@ -207,8 +207,38 @@ const newCollegeSlice = createSlice({
                 state.gallary = { ...state.gallary, ...payload.data }
             }
         })
-        builder.addCase(createNewCollege.fulfilled, (state, { payload }) => {
-            console.log(payload)
+        builder.addCase(fetchNewCollegeById.fulfilled, (state, { payload }) => {
+            if (payload.status === constants.apiResponseStatus.SUCCESS) {
+                const parsedJason = deepParseTypedJSON(payload.data)
+                state.collegeBasicDetails.account_name = parsedJason.account_name
+                state.collegeBasicDetails.affiliate_by = parsedJason.affiliate_by
+                state.collegeBasicDetails.avg_first_year_fee = parsedJason.avg_first_year_fee
+                state.collegeBasicDetails.category_name = parsedJason.category_name
+                state.collegeBasicDetails.city = parsedJason.city
+                state.collegeBasicDetails.college_download_brochure_path = parsedJason.college_download_brochure_path
+                state.collegeBasicDetails.college_id = parsedJason.college_id
+                state.collegeBasicDetails.college_logo = parsedJason.college_logo
+                state.collegeBasicDetails.college_name = parsedJason.college_name
+                state.collegeBasicDetails.college_thumbnail = parsedJason.college_thumbnail
+                state.collegeBasicDetails.college_type = parsedJason.college_type
+                state.collegeBasicDetails.fee_starting = parsedJason.fee_starting
+                state.collegeBasicDetails.is_publish = parsedJason.is_publish
+                state.collegeBasicDetails.location = parsedJason.location
+                state.collegeBasicDetails.message = parsedJason.message
+                state.collegeBasicDetails.ratings = parsedJason.ratings
+                state.collegeBasicDetails.state = parsedJason.state
+                state.courseOffered.courses_offered = parsedJason.courses_offered
+                state.collegeDescriptions.college_admission_description = parsedJason.description.college_admission_description
+                state.collegeDescriptions.college_campus_description = parsedJason.description.college_campus_description
+                state.collegeDescriptions.college_course_description = parsedJason.description.college_course_description
+                state.collegeDescriptions.college_description = parsedJason.description.college_description
+                state.collegeDescriptions.college_highlights_description = parsedJason.description.college_highlights_description
+                state.facilities.facilities = parsedJason.facilities
+                state.facilities.faculty_data = parsedJason.faculty_data
+                state.gallary.image_path = parsedJason.gallary
+                state.placements.placement_data = parsedJason.placement_data
+                state.news.news_data = parsedJason.news_data
+            }
         })
     }
 })

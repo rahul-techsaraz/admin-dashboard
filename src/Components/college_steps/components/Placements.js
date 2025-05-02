@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import InputFieldText from '../../../utils/CommonComponents/InputFieldText'
 import CustomButton from '../../../utils/CommonComponents/CustomButton'
 import { Chip, Stack } from '@mui/material'
@@ -8,7 +8,7 @@ import { updateError } from '../../../features/commonSlice'
 import { constants } from '../../../utils/constants'
 import ItemList from '../../ItemList'
 
-const Placements = () => {
+const Placements = ({ collegeId, admin }) => {
     const [placementData, setPlacementData] = useState(
         {
             year: '',
@@ -21,7 +21,7 @@ const Placements = () => {
     )
     const [topRecruiters, setTopRecruiters] = useState('')
     const [isDisabled, setIsDisabled] = useState(true)
-    const { placements } = useSelector((state) => state.newCollege)
+    const { placements, isEdit } = useSelector((state) => state.newCollege)
     const { isValitadeError } = useSelector((state) => state.newCollege.placements)
     const dispatch = useDispatch()
 
@@ -37,11 +37,15 @@ const Placements = () => {
     }
 
     const handleFormData = () => {
-        let formData = {}
-        if (localStorage.getItem('formData')) {
-            formData = JSON.parse(localStorage.getItem('formData'))
+        if (collegeId) {
+            return
+        } else {
+            let formData = {}
+            if (localStorage.getItem('formData')) {
+                formData = JSON.parse(localStorage.getItem('formData'))
+            }
+            localStorage.setItem('formData', JSON.stringify({ ...formData, placements: placements?.placement_data }))
         }
-        localStorage.setItem('formData', JSON.stringify({ ...formData, placements: placements?.placement_data }))
     }
 
     const createPlacementsList = () => {
@@ -118,13 +122,14 @@ const Placements = () => {
     }, [placements.placement_data.length])
     return (
         <>
-            <div style={{ gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
+            <div style={collegeId && !isEdit ? { display: 'none' } : { gap: '20px', display: 'flex', margin: '2.5rem 0px', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
                 <InputFieldText
                     placeholder='Year'
                     inputValue={placementData?.year}
                     inputType='text'
                     onChange={(e) => setPlacementData({ ...placementData, year: e.target.value })}
                     styles={{ width: '300px' }}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <InputFieldText
                     placeholder='Total Students'
@@ -132,6 +137,7 @@ const Placements = () => {
                     inputType='text'
                     onChange={(e) => setPlacementData({ ...placementData, total_students: e.target.value })}
                     styles={{ width: '300px' }}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <InputFieldText
                     placeholder='Students Placed'
@@ -139,6 +145,7 @@ const Placements = () => {
                     inputType='text'
                     onChange={(e) => setPlacementData({ ...placementData, students_placed: e.target.value })}
                     styles={{ width: '300px' }}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <InputFieldText
                     placeholder='Highest Package'
@@ -146,6 +153,7 @@ const Placements = () => {
                     inputType='text'
                     onChange={(e) => setPlacementData({ ...placementData, highest_package: e.target.value })}
                     styles={{ width: '300px' }}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <InputFieldText
                     placeholder='Average Package'
@@ -153,6 +161,7 @@ const Placements = () => {
                     inputType='text'
                     onChange={(e) => setPlacementData({ ...placementData, average_package: e.target.value })}
                     styles={{ width: '300px' }}
+                    disabled={collegeId && !isEdit ? true : false}
                 />
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', gap: '20px' }}>
@@ -162,6 +171,7 @@ const Placements = () => {
                             inputType='text'
                             onChange={(e) => setTopRecruiters(e.target.value)}
                             styles={{ width: '300px' }}
+                            disabled={collegeId && !isEdit ? true : false}
                         />
                         <CustomButton
                             isDisabled={topRecruiters ? false : true}
@@ -202,7 +212,7 @@ const Placements = () => {
                     <ItemList
                         userColumns={constants.placementsUserColumns}
                         categoryData={placements?.placement_data.map((data) => { return { ...data, id: data.year } })}
-                        addNewColumns={addNewColumns}
+                        addNewColumns={(collegeId && !isEdit) ? [] : addNewColumns}
                         labe={'Placements Listing'}
                         id={'year'}
                         isVewdetails={false}
@@ -213,4 +223,4 @@ const Placements = () => {
     )
 }
 
-export default Placements
+export default memo(Placements)

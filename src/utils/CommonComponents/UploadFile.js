@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { FileUpload } from '../FileUpload'
 import { v4 as uuid } from 'uuid'
 
-export default function UploadFile({ label, styles, multiple }) {
+export default function UploadFile({ label, styles, multiple, disabled }) {
   const allowedFileTypes = ['jpg', 'jpeg', 'png', 'pdf']
   const { facultyImage, setFacultyImage, facultyImageUrl, setFacultyImageUrl, setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl, setCollegeBrochure, setCollegeBrochureUrl, } = useContext(FileUpload)
   const validateSelectedFiles = (e) => {
@@ -59,7 +59,7 @@ export default function UploadFile({ label, styles, multiple }) {
       <div className='form-group'>
         <label>{label}</label>
         <div className='form-control' style={styles}>
-          <input type='file' name='uploadFile' multiple={multiple} onChange={(e) => validateSelectedFiles(e)} />
+          <input type='file' name='uploadFile' multiple={multiple} onChange={(e) => validateSelectedFiles(e)} disabled={disabled} />
         </div>
       </div>
     </>

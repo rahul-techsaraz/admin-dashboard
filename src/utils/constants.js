@@ -19,6 +19,7 @@ export const constants = {
     NEW_COLLEGE: "https://techsaraz.in/admission-cart/api/newcollege.php",
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
+  newImageAbsolutePath: 'https://techsaraz.in/admission-cart/api/',
   apiHeaders: {
     HEADER: { 'Content-Type': 'Application/json' },
     HEADER_FORM_DATA: { 'Content-Type': 'multipart/form-data' }
@@ -486,9 +487,8 @@ export const constants = {
     { label: 'Semester 8', value: 'Semester 8' }
   ],
   courseIsPublished: {
-    notPublished: 'NOT PUBLISHED',
-    published: 'PUBLISHED',
-    draft: 'DRAFT'
+    notPublished: 0,
+    published: 1,
   },
   SyllabusDetailsUserColumns: [
     {
@@ -729,7 +729,7 @@ export const constants = {
     {
       field: 'content',
       headerName: 'Content',
-      width: 150
+      width: 300
     },
   ],
   collegeStepsLabel: [

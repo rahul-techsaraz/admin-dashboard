@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import TextArea from '../../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
 // import { updateCollegeInfo } from '../../../features/collegeSlice'
@@ -34,7 +34,7 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
     const { facultyImage, setFacultyImage, facultyImageUrl, setFacultyImageUrl } = useContext(FileUpload)
 
     const createFacultyList = async () => {
-
+        // if (!collegeId) {
         if (facultyImage.length > 0 && facultyImageUrl.length - 1 > facilities?.faculty_data.length - 1) {
             const facultyId = facultyImage[facultyImage.length - 1].name.split('.')[0]
             const facultyDataWithId = { ...facultyData, faculty_id: facultyId, image_path: facultyImage[facultyImage.length - 1].name }
@@ -47,6 +47,7 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
                     image_path: '',
                 }
             )
+            return
         } else {
             const url = facultyImageUrl
             url.push('')
@@ -63,22 +64,65 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
                 }
             )
         }
+        // } else {
+        //     if (facultyImage.length > 0) {
+        //         const facultyId = facultyImage[facultyImage.length - 1].name.split('.')[0]
+        //         const facultyDataWithId = { ...facultyData, faculty_id: facultyId, image_path: facultyImage[facultyImage.length - 1].name }
+        //         const emptyIndex = facilities?.faculty_data.length-1
+        //         for()
+        //         dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: [...facilities?.faculty_data, facultyDataWithId] }))
+        //         setFacultyData(
+        //             {
+        //                 faculty_id: '',
+        //                 faculty_name: '',
+        //                 department: '',
+        //                 image_path: '',
+        //             }
+        //         )
+        //         return
+        //     } else {
+        //         const url = facultyImageUrl
+        //         url.push('')
+        //         setFacultyImageUrl(url)
+        //         const facultyId = uuid()
+        //         const facultyDataWithId = { ...facultyData, faculty_id: facultyId }
+        //         dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: [...facilities?.faculty_data, facultyDataWithId] }))
+        //         setFacultyData(
+        //             {
+        //                 faculty_id: '',
+        //                 faculty_name: '',
+        //                 department: '',
+        //                 image_path: '',
+        //             }
+        //         )
+        //     }
+        // }
     }
 
     const handleDelete = (value, indexToRemove) => {
-        if (!value?.image_path) {
-            const filteredFacultyImageUrl = facultyImageUrl.filter((_, index) => index !== indexToRemove)
-            setFacultyImageUrl(filteredFacultyImageUrl)
-            const filteredData = facilities?.faculty_data.filter((data) => data.faculty_id !== value.faculty_id)
-            dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: filteredData }))
+        if (!collegeId) {
+            if (!value?.image_path) {
+                const filteredFacultyImageUrl = facultyImageUrl.filter((_, index) => index !== indexToRemove)
+                setFacultyImageUrl(filteredFacultyImageUrl)
+                const filteredData = facilities?.faculty_data.filter((data) => data.faculty_id !== value.faculty_id)
+                dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: filteredData }))
+            } else {
+                const filteredFacultyImage = facultyImage.filter((data) => data?.name !== value?.image_path)
+                setFacultyImage(filteredFacultyImage)
+                const filteredFacultyImageUrl = facultyImageUrl.filter((_, index) => index !== indexToRemove)
+                setFacultyImageUrl(filteredFacultyImageUrl)
+                const filteredData = facilities?.faculty_data.filter((data) => data.faculty_id !== value.faculty_id)
+                dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: filteredData }))
+            }
         } else {
-            const filteredFacultyImage = facultyImage.filter((data) => data?.name !== value?.image_path)
-            setFacultyImage(filteredFacultyImage)
-            const filteredFacultyImageUrl = facultyImageUrl.filter((_, index) => index !== indexToRemove)
-            setFacultyImageUrl(filteredFacultyImageUrl)
             const filteredData = facilities?.faculty_data.filter((data) => data.faculty_id !== value.faculty_id)
             dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: filteredData }))
         }
+    }
+
+    const handleChipClick = (value, index) => {
+        console.log(value)
+        console.log(index)
     }
 
     const handleFacilityDelete = (value) => {
@@ -92,11 +136,15 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
     }
 
     const handleFormData = () => {
-        let formData = {}
-        if (localStorage.getItem('formData')) {
-            formData = JSON.parse(localStorage.getItem('formData'))
+        if (collegeId) {
+            return
+        } else {
+            let formData = {}
+            if (localStorage.getItem('formData')) {
+                formData = JSON.parse(localStorage.getItem('formData'))
+            }
+            localStorage.setItem('formData', JSON.stringify({ ...formData, facilities: { facilities: facilities?.facilities, faculty_data: facilities?.faculty_data } }))
         }
-        localStorage.setItem('formData', JSON.stringify({ ...formData, facilities: { facilities: facilities?.facilities, faculty_data: facilities?.faculty_data } }))
     }
 
     // const updateCollege = async () => {
@@ -244,122 +292,88 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
         }
     }, [facilities?.faculty_data.length, facilities?.facilities.length])
 
-    // useEffect(() => {
-    //     if (facultyList.length > 0 && common.facilities !== '') {
-    //         dispatch(updateCollegeInfo({ classKey: 'common', key: 'isValitadeError', value: false }))
-    //     } else {
-    //         dispatch(updateCollegeInfo({ classKey: 'common', key: 'isValitadeError', value: true }))
-    //     }
-    // }, [facultyList, common.facilities])
+    useEffect(() => {
+        console.log(facilities?.faculty_data)
+    }, [facilities?.faculty_data])
 
-    // const collegeInfoData = [
-    //     { lable: 'Faculty Name & Department', value: facultyList.join(', ') },
-    //     { lable: 'Facilities', value: facilities?.facilities }
-    // ]
     return (
-        <>
-            {!isEdit && collegeId && admin !== 'draft' ? (
-                // <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
-                <div></div>
-            ) : (
-                <>
-                    <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
-                        <InputFieldText
-                            placeholder='Faculty Name'
-                            inputValue={facultyData?.faculty_name}
-                            inputType='text'
-                            onChange={(e) => setFacultyData({ ...facultyData, faculty_name: e.target.value })}
-                            styles={{ width: '280px' }}
-                        />
-                        <InputFieldText
-                            placeholder='Department'
-                            inputValue={facultyData?.department}
-                            inputType='text'
-                            onChange={(e) => setFacultyData({ ...facultyData, department: e.target.value })}
-                            styles={{ width: '280px' }}
-                        />
-                        <UploadFile
-                            label={'Faculty image'}
-                            styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
-                            multiple={false}
-                        />
-                        <CustomButton
-                            isDisabled={isDisabled}
-                            lable={'Add to List'}
-                            onClick={() => createFacultyList()}
-                            styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-                        />
-                        {facilities?.faculty_data.length > 0 &&
-                            <div className='form-group' style={{ border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', maxWidth: '400px', padding: '7px' }}>
-                                <Stack direction='row' spacing={0}>
-                                    {facilities?.faculty_data.map((value, index) => (
-                                        <Chip avatar={<Avatar alt="Faculty Image" src={facultyImageUrl[index]} />} label={`${value.faculty_name}-${value.department}`} variant='outlined' onDelete={(e) => handleDelete(value, index)} />
-                                    ))}
-                                </Stack>
-                            </div>}
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div style={{ display: 'flex', gap: '20px' }}>
-                                <InputFieldText
-                                    placeholder='Facilities'
-                                    inputValue={facility}
-                                    inputType='text'
-                                    onChange={(e) => setFacility(e.target.value)}
-                                    styles={{ width: '280px' }}
-                                />
-                                <CustomButton
-                                    isDisabled={facility ? false : true}
-                                    lable={'Add Facility'}
-                                    onClick={() => createFacilityList()}
-                                    styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-                                />
-                            </div>
-                            {facilities?.facilities.length > 0 &&
-                                <div className='form-group' style={
-                                    {
-                                        border: 'solid #e83e8c 1px',
-                                        borderRadius: '1rem',
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        flexWrap: 'wrap',
-                                        maxWidth: '400px',
-                                        padding: '7px'
-                                    }
-                                }
-                                >
-                                    <Stack direction="row" spacing={0}>
-                                        {facilities?.facilities.map((value, index) => (
-                                            <Chip key={index} label={value} variant='outlined' onDelete={(e) => handleFacilityDelete(value)} />
-                                        ))}
-                                    </Stack>
-                                </div>}
-                        </div>
-                        {/* <TextArea
-                            placeholder={'Facilities'}
-                            noOfROws={6}
-                            noOfCols={55}
-                            fieldName={'Facilities'}
-                            styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
-                            onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'common', key: 'facilities', value: e.target.value }))}
-                            inputValue={common.facilities}
-                        /> */}
-                        {/* {!isEdit &&
-                            <div className='form-group'>
-                                <CustomButton isDisabled={common.isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
-                            </div>
-                        } */}
-                    </div>
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
-                        {isEdit && collegeId && !admin && (
-                            <>
-                                {/* <CustomButton isDisabled={common.isValitadeError} lable={'Update'} onClick={() => updateCollege()} /> */}
-                                <CustomButton lable={'Cancle'} onClick={() => handleCancle()} />
-                            </>
-                        )}
-                    </div>
-                </>
-            )}
-        </>
+
+        <div style={{ display: ' flex', flexWrap: 'wrap', alignItems: 'center', gap: '3rem', margin: 'auto', padding: 'auto' }}>
+            <InputFieldText
+                placeholder='Faculty Name'
+                inputValue={facultyData?.faculty_name}
+                inputType='text'
+                onChange={(e) => setFacultyData({ ...facultyData, faculty_name: e.target.value })}
+                styles={{ width: '280px' }}
+                disabled={collegeId && !isEdit ? true : false}
+            />
+            <InputFieldText
+                placeholder='Department'
+                inputValue={facultyData?.department}
+                inputType='text'
+                onChange={(e) => setFacultyData({ ...facultyData, department: e.target.value })}
+                styles={{ width: '280px' }}
+                disabled={collegeId && !isEdit ? true : false}
+            />
+            <UploadFile
+                label={'Faculty image'}
+                styles={{ width: '300px', height: '45px', display: 'flex', justifyContent: 'spaceBetween' }}
+                multiple={false}
+                disabled={collegeId && !isEdit ? true : false}
+            />
+            <CustomButton
+                isDisabled={isDisabled}
+                lable={'Add to List'}
+                onClick={() => createFacultyList()}
+                styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+            />
+            {facilities?.faculty_data.length > 0 &&
+                <div className='form-group' style={{ border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', maxWidth: '400px', padding: '7px' }}>
+                    <Stack direction='row' spacing={0}>
+                        {facilities?.faculty_data.map((value, index) => (
+                            <Chip avatar={<Avatar alt="Faculty Image" src={(value.image_path) ? `${constants.newImageAbsolutePath}${value.image_path}` : facultyImageUrl[index]} />} label={`${value.faculty_name}-${value.department}`} variant='outlined' onDelete={() => (collegeId && !isEdit) ? undefined : handleDelete(value, index)} onClick={() => handleChipClick(value, index)} />
+                        ))}
+                    </Stack>
+                </div>}
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <InputFieldText
+                        placeholder='Facilities'
+                        inputValue={facility}
+                        inputType='text'
+                        onChange={(e) => setFacility(e.target.value)}
+                        styles={{ width: '280px' }}
+                        disabled={collegeId && !isEdit ? true : false}
+                    />
+                    <CustomButton
+                        isDisabled={facility ? false : true}
+                        lable={'Add Facility'}
+                        onClick={() => createFacilityList()}
+                        styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+                    />
+                </div>
+                {facilities?.facilities.length > 0 &&
+                    <div className='form-group' style={
+                        {
+                            border: 'solid #e83e8c 1px',
+                            borderRadius: '1rem',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexWrap: 'wrap',
+                            maxWidth: '400px',
+                            padding: '7px'
+                        }
+                    }
+                    >
+                        <Stack direction="row" spacing={0}>
+                            {facilities?.facilities.map((value, index) => (
+                                <Chip key={index} label={value} variant='outlined' onDelete={() => (collegeId && !isEdit) ? undefined : handleFacilityDelete(value)} />
+                            ))}
+                        </Stack>
+                    </div>}
+            </div>
+        </div>
     )
 }
 
-export default FacilitiesFaculties
+export default memo(FacilitiesFaculties)
