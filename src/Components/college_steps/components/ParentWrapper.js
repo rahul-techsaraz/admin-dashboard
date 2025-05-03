@@ -22,7 +22,7 @@ const ParentWrapper = () => {
     const [tabValue, setTabValue] = useState('1')
     const dispatch = useDispatch()
     const { collegeId, admin } = useParams()
-    console.log(admin)
+
     useEffect(() => {
         if (collegeId) {
             dispatch(fetchNewCollegeById({
@@ -32,11 +32,8 @@ const ParentWrapper = () => {
             }))
         }
     }, [collegeId])
-    useEffect(() => {
-        return () => {
-            resetCollege()
-        }
-    }, [])
+
+
     return (
         <>
             <FileUpload.Provider
@@ -65,10 +62,7 @@ const ParentWrapper = () => {
                     setTabValue
                 }}
             >
-                {collegeId ? <ViewCollegeDetails collegeId={collegeId} admin={admin} /> :
-                    // <AddNewCollege />
-                    <CollegeContainer />
-                }
+                {collegeId ? <ViewCollegeDetails collegeId={collegeId} admin={admin} /> : <CollegeContainer />}
             </FileUpload.Provider>
         </>
     )

@@ -1,5 +1,5 @@
 import { Step, StepLabel, Stepper } from '@mui/material'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { constants } from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux';
 import CustomButton from '../../utils/CommonComponents/CustomButton';
@@ -38,7 +38,7 @@ const StepForm = () => {
         setCollegeGallaryUrl, } = useContext(FileUpload)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    console.log(userToken)
+
     const handleSteps = (step) => {
         switch (step) {
             case 0:
@@ -59,6 +59,7 @@ const StepForm = () => {
                 throw new Error("Unknown step");
         }
     };
+
     const inhanceLabel = constants.collegeStepsLabel.map((label) => {
         if (label.isValitadeError === 'collegeBasicDetails') {
             return { ...label, isValitadeError: collegeBasicDetails.isValitadeError }
@@ -76,9 +77,11 @@ const StepForm = () => {
             return { ...label, isValitadeError: gallary.isValitadeError }
         }
     })
+
     const handleNext = () => {
         dispatch(updateCollegeInfo({ classKey: 'activeStep', value: activeStep + 1 }))
     }
+
     const disableNextBtn = () => {
         if (activeStep === 0 && !collegeBasicDetails.isValitadeError) {
             return false;
@@ -98,6 +101,7 @@ const StepForm = () => {
             return true;
         }
     }
+
     const handleSubmit = async () => {
         try {
             const college_id = uuid()
@@ -135,7 +139,6 @@ const StepForm = () => {
                 news: news?.news_data,
                 gallary: gallary?.image_path,
             }
-            console.log(userToken)
             const filePayload = new FormData()
             filePayload.append('data', JSON.stringify(payload))
             filePayload.append('college_logo[]', collegeLogo[0])
@@ -163,7 +166,7 @@ const StepForm = () => {
                 }))
             } else {
                 localStorage.removeItem('formData')
-                resetCollege()
+                dispatch(resetCollege())
                 setCollegeLogo([])
                 setCollegeLogoUrl([])
                 setCollegeThumbnail([])
@@ -185,6 +188,7 @@ const StepForm = () => {
         }
 
     }
+
     return (
         <>
             <Stepper activeStep={activeStep} sx={{ py: 3 }} alternativeLabel>

@@ -9,7 +9,7 @@ import Placements from './Placements'
 import News from './News'
 import FacilitiesFaculties from './FacilitiesFaculties'
 import CollegeGallary from './CollegeGallary'
-import { createNewCollege, fetchNewCollegeById, updateCollegeById } from '../../../utils/reduxThunk/collegeThunk'
+import { createNewCollege, updateCollegeById } from '../../../utils/reduxThunk/collegeThunk'
 import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../../utils/constants'
 import { useFetchCategoryList } from '../../../hooks/useFetchCategoryList'
@@ -35,7 +35,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
         facultyFacility: false,
         gallery: false,
     })
-    const { isDisabled, isEdit, isValitadeError, collegeBasicDetails, courseOffered, collegeDescriptions, facilities, gallary, placements, news } = useSelector((state) => state.newCollege)
+    const { isDisabled, isEdit, collegeBasicDetails, courseOffered, collegeDescriptions, facilities, gallary, placements, news } = useSelector((state) => state.newCollege)
     const { userToken } = useSelector((state) => state.user)
     const { facultyImage,
         setFacultyImage,
@@ -57,6 +57,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
     const { fetchCollegeList } = useFetchAllCollegeList()
     useCourseDetails()
     const { fetchCategoryList } = useFetchCategoryList()
+
     const handleChange = (activeAcordian) => {
         const data = {
             collegeBasicDetails: false,
@@ -69,6 +70,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
         }
         setExpanded({ ...data, [activeAcordian]: true })
     }
+
     const handleSubmit = async () => {
         try {
             const payload = {
@@ -105,7 +107,6 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
                 news: news?.news_data,
                 gallary: gallary?.image_path,
             }
-            console.log(userToken)
             const filePayload = new FormData()
             filePayload.append('data', JSON.stringify(payload))
             filePayload.append('college_logo[]', collegeLogo[0])
@@ -115,7 +116,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
                 filePayload.append('college_gallary[]', collegeGallary[i])
             }
             for (let i = 0; i < facultyImage.length; i++) {
-                const facultyId = facultyImage[i].name.split('.')[0] // Get the corresponding faculty_id
+                const facultyId = facultyImage[i].name.split('.')[0]
                 if (facultyId) {
                     filePayload.append(`faculty_image[${facultyId}]`, facultyImage[i])
                 }
@@ -134,7 +135,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
             } else {
                 dispatch(updateCollegeInfo({ classKey: 'isEdit', value: !isEdit }))
                 localStorage.removeItem('formData')
-                resetCollege()
+                dispatch(resetCollege())
                 setCollegeLogo([])
                 setCollegeLogoUrl([])
                 setCollegeThumbnail([])
@@ -155,6 +156,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
             }))
         }
     }
+
     const handleOpen = (flag) => {
         setWhichBtn(flag)
         setOpen(true);
@@ -167,7 +169,6 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
 
     const updateMessage = async (status) => {
         try {
-            console.log(collegeBasicDetails)
             const statusPayload = {
                 college_id: collegeBasicDetails.college_id,
                 is_publish: status,
@@ -197,10 +198,11 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
             }))
         }
     }
+
     useEffect(() => {
         fetchCategoryList()
         return () => {
-            resetCollege()
+            dispatch(resetCollege())
         }
     }, [])
 

@@ -1,25 +1,18 @@
 import React, { memo, useContext, useEffect, useState } from 'react'
-import TextArea from '../../../utils/CommonComponents/TextArea'
 import { useDispatch, useSelector } from 'react-redux'
-// import { updateCollegeInfo } from '../../../features/collegeSlice'
 import InputFieldText from '../../../utils/CommonComponents/InputFieldText'
 import CustomButton from '../../../utils/CommonComponents/CustomButton'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
-import DataToDisplay from '../../course_list/DataToDisplay'
-import { addCollegeFacilities, fetchCollegeCommonById } from '../../../utils/reduxThunk/collegeThunk'
 import { constants } from '../../../utils/constants'
-import { updateError } from '../../../features/commonSlice'
-import { useNavigate } from 'react-router-dom'
 import UploadFile from '../../../utils/CommonComponents/UploadFile'
 import { FileUpload } from '../../../utils/FileUpload'
 import { updateCollegeInfo } from '../../../features/newCollegeSlice'
 import { v4 as uuid } from 'uuid'
 import { Avatar } from '@mui/material'
 
-const FacilitiesFaculties = ({ collegeId, admin }) => {
+const FacilitiesFaculties = ({ collegeId }) => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const [isDisabled, setisDisabled] = useState(true)
     const { facilities, isEdit } = useSelector((state) => state.newCollege)
     const [facultyData, setFacultyData] = useState(
@@ -34,7 +27,6 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
     const { facultyImage, setFacultyImage, facultyImageUrl, setFacultyImageUrl } = useContext(FileUpload)
 
     const createFacultyList = async () => {
-        // if (!collegeId) {
         if (facultyImage.length > 0 && facultyImageUrl.length - 1 > facilities?.faculty_data.length - 1) {
             const facultyId = facultyImage[facultyImage.length - 1].name.split('.')[0]
             const facultyDataWithId = { ...facultyData, faculty_id: facultyId, image_path: facultyImage[facultyImage.length - 1].name }
@@ -64,39 +56,6 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
                 }
             )
         }
-        // } else {
-        //     if (facultyImage.length > 0) {
-        //         const facultyId = facultyImage[facultyImage.length - 1].name.split('.')[0]
-        //         const facultyDataWithId = { ...facultyData, faculty_id: facultyId, image_path: facultyImage[facultyImage.length - 1].name }
-        //         const emptyIndex = facilities?.faculty_data.length-1
-        //         for()
-        //         dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: [...facilities?.faculty_data, facultyDataWithId] }))
-        //         setFacultyData(
-        //             {
-        //                 faculty_id: '',
-        //                 faculty_name: '',
-        //                 department: '',
-        //                 image_path: '',
-        //             }
-        //         )
-        //         return
-        //     } else {
-        //         const url = facultyImageUrl
-        //         url.push('')
-        //         setFacultyImageUrl(url)
-        //         const facultyId = uuid()
-        //         const facultyDataWithId = { ...facultyData, faculty_id: facultyId }
-        //         dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: [...facilities?.faculty_data, facultyDataWithId] }))
-        //         setFacultyData(
-        //             {
-        //                 faculty_id: '',
-        //                 faculty_name: '',
-        //                 department: '',
-        //                 image_path: '',
-        //             }
-        //         )
-        //     }
-        // }
     }
 
     const handleDelete = (value, indexToRemove) => {
@@ -118,11 +77,6 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
             const filteredData = facilities?.faculty_data.filter((data) => data.faculty_id !== value.faculty_id)
             dispatch(updateCollegeInfo({ classKey: 'facilities', key: 'faculty_data', value: filteredData }))
         }
-    }
-
-    const handleChipClick = (value, index) => {
-        console.log(value)
-        console.log(index)
     }
 
     const handleFacilityDelete = (value) => {
@@ -147,133 +101,6 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
         }
     }
 
-    // const updateCollege = async () => {
-    //     try {
-    //         const commonPayload = await {
-    //             college_id: collegeId,
-    //             faculty_name: facultyList.map((data) => data).join(', '),
-    //             facilities: common.facilities
-    //         }
-    //         const response = await dispatch(
-    //             addCollegeFacilities({
-    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities',
-    //                 header: constants.apiHeaders.HEADER,
-    //                 method: constants.httpMethod.PUT,
-    //                 payload: commonPayload
-    //             })
-    //         )
-    //         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-    //             dispatch(
-    //                 updateError({
-    //                     errorType: constants.apiResponseStatus.SUCCESS,
-    //                     errorMessage: 'College Facilities Updated Sucessfully',
-    //                     flag: true
-    //                 })
-    //             )
-    //             dispatch(
-    //                 fetchCollegeCommonById({
-    //                     url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities&college_id=' + collegeId,
-    //                     header: constants.apiHeaders.HEADER,
-    //                     method: constants.httpMethod.GET
-    //                 })
-    //             )
-    //             dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
-    //         } else {
-    //             dispatch(
-    //                 updateError({
-    //                     errorType: constants.apiResponseStatus.ERROR,
-    //                     errorMessage: 'College Facilities cannot be added... Please try again',
-    //                     flag: true
-    //                 })
-    //             )
-    //         }
-    //     }
-    //     catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-
-    const handleCancle = async () => {
-        try {
-            const response = await dispatch(
-                fetchCollegeCommonById({
-                    url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities&college_id=' + collegeId,
-                    header: constants.apiHeaders.HEADER,
-                    method: constants.httpMethod.GET
-                })
-            )
-            if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-                dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
-            } else {
-                dispatch(
-                    updateError({
-                        errorType: constants.apiResponseStatus.ERROR,
-                        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-                        flag: true
-                    })
-                )
-            }
-        } catch (error) {
-            dispatch(
-                updateError({
-                    errorType: constants.apiResponseStatus.ERROR,
-                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-                    flag: true
-                })
-            )
-        }
-    }
-
-    // const saveDraft = async () => {
-    //     try {
-    //         const commonPayload = await {
-    //             college_id: collegeId,
-    //             faculty_name: facultyList.map((data) => data).join(', '),
-    //             facilities: common.facilities
-    //         }
-    //         const response = await dispatch(
-    //             addCollegeFacilities({
-    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities',
-    //                 header: constants.apiHeaders.HEADER,
-    //                 method: common.college_id ? constants.httpMethod.PUT : constants.httpMethod.POST,
-    //                 payload: commonPayload
-    //             })
-    //         )
-    //         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.SUCCESS,
-    //                 errorMessage: 'Saved Draft Sucessfully',
-    //                 flag: true
-    //             })
-    //             )
-    //             navigate('/list-agent-college')
-    //         } else {
-    //             dispatch(
-    //                 updateError({
-    //                     errorType: constants.apiResponseStatus.ERROR,
-    //                     errorMessage: 'Can not Save the draft... Please try again',
-    //                     flag: true
-    //                 })
-    //             )
-    //         }
-    //     }
-    //     catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-
     useEffect(() => {
         if (facultyData.faculty_name !== '' && facultyData.department !== '') {
             setisDisabled(false)
@@ -291,11 +118,6 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
             handleFormData()
         }
     }, [facilities?.faculty_data.length, facilities?.facilities.length])
-
-    useEffect(() => {
-        console.log(facilities?.faculty_data)
-        console.log(facultyImageUrl)
-    }, [facilities?.faculty_data])
 
     return (
 
