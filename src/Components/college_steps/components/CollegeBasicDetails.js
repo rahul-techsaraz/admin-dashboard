@@ -1,32 +1,18 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import InputFieldText from '../../../utils/CommonComponents/InputFieldText'
-import UploadFile from '../../../utils/CommonComponents/UploadFile'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import SearchSelectBox from '../../../utils/CommonComponents/SearchSelectBox'
-// import { resetCollege, updateCollegeInfo } from '../../../features/collegeSlice'
 import { updateError } from '../../../features/commonSlice'
 import { constants } from '../../../utils/constants'
-import { addCollegeBasicDetails, deleteCollegeBasicDetails, fetchCityList, fetchCollegeById, fetchStateList, fileUploadBrochure, fileUploadlogo, fileUploadThumbnail } from '../../../utils/reduxThunk/collegeThunk'
-import { FileUpload } from '../../../utils/FileUpload'
-import DataToDisplay from '../../course_list/DataToDisplay'
-import CustomButton from '../../../utils/CommonComponents/CustomButton'
-import { fileTouploadPayload } from '../../../utils/fileUploadService'
-import { v4 as uuid } from 'uuid'
-import { useNavigate } from 'react-router-dom'
-import { resetCollege, updateCollegeInfo } from '../../../features/newCollegeSlice'
+import { fetchCityList, fetchStateList } from '../../../utils/reduxThunk/collegeThunk'
+import { updateCollegeInfo } from '../../../features/newCollegeSlice'
 import MultySelect from '../../../utils/CommonComponents/MultySelect'
 
-const CollegeBasicDetails = ({ collegeId, admin }) => {
-    const { collegeLogo, collegeThumbnail, collegeBrochure, setCollegeBrochure, setCollegeBrochureUrl, setCollegeLogo, setCollegeThumbnail, setCollegeLogoUrl, setCollegeThumbnailUrl } = useContext(FileUpload)
+const CollegeBasicDetails = ({ collegeId }) => {
     const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
-    // const [promiseResponse, setPromiseResponse] = useState({
-    //     college_id: '',
-    //     p_response: false,
-    // })
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { stateList, cityList, isEdit } = useSelector((state) => state.newCollege)
-    const { isValitadeError, college_id, college_name, location, affiliate_by, ratings, state, city, college_type, college_logo, college_thumbnail, college_download_brochure_path, message, account_name, category_name, fee_starting, avg_first_year_fee } =
+    const { college_name, location, affiliate_by, ratings, state, city, college_type, category_name, fee_starting, avg_first_year_fee } =
         useSelector((state) => state.newCollege.collegeBasicDetails, shallowEqual)
     const { categoryData } = useSelector(state => state.category)
 
@@ -56,9 +42,11 @@ const CollegeBasicDetails = ({ collegeId, admin }) => {
             )
         }
     }
+
     const stateIso = (state) => {
         return stateList.filter((data) => data.name === state)[0].iso2
     }
+
     const fetchCity = async () => {
         try {
             const response = await dispatch(fetchCityList({
@@ -87,6 +75,7 @@ const CollegeBasicDetails = ({ collegeId, admin }) => {
             )
         }
     }
+
     const handleFormData = (value, classKey, key) => {
         if (collegeId) {
             dispatch(updateCollegeInfo({ classKey: classKey, key: key, value: value }))
@@ -106,6 +95,7 @@ const CollegeBasicDetails = ({ collegeId, admin }) => {
             dispatch(updateCollegeInfo({ classKey: classKey, key: key, value: value }))
         }
     }
+
     const ifNoCity = () => {
         dispatch(updateCollegeInfo({ classKey: 'cityList', value: [] }))
         let formData = {}
@@ -116,279 +106,7 @@ const CollegeBasicDetails = ({ collegeId, admin }) => {
         localStorage.setItem('formData', JSON.stringify(formData))
         setSearchSelectDisabled(true)
     }
-    // const updateCollege = async () => {
-    //     try {
-    //         const collegeInfoPayload = await {
-    //             college_id: collegeId,
-    //             college_name: college_name,
-    //             location: location,
-    //             affiliate_by: affiliate_by,
-    //             ratings: ratings,
-    //             college_logo: college_logo,
-    //             college_thumbnail: college_thumbnail,
-    //             state: state,
-    //             city: city,
-    //             college_type: college_type,
-    //             category_name: category_name,
-    //             account_name: account_name,
-    //             is_publish: constants.courseIsPublished.notPublished,
-    //             message: message
-    //         }
-    //         const response = await dispatch(
-    //             addCollegeBasicDetails({
-    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-    //                 header: constants.apiHeaders.HEADER,
-    //                 method: constants.httpMethod.PUT,
-    //                 payload: collegeInfoPayload
-    //             })
-    //         )
-    //         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-    //             dispatch(
-    //                 updateError({
-    //                     errorType: constants.apiResponseStatus.SUCCESS,
-    //                     errorMessage: 'College Basic Details Updated Sucessfully',
-    //                     flag: true
-    //                 })
-    //             )
-    //             dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
-    //         } else {
-    //             dispatch(
-    //                 updateError({
-    //                     errorType: constants.apiResponseStatus.ERROR,
-    //                     errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                     flag: true
-    //                 })
-    //             )
-    //         }
-    //     } catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-    // const handleCancle = async () => {
-    //     try {
-    //         const response = await dispatch(
-    //             fetchCollegeById({
-    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing&college_id=' + collegeId,
-    //                 header: constants.apiHeaders.HEADER,
-    //                 method: constants.httpMethod.GET
-    //             })
-    //         )
-    //         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-    //             dispatch(updateCollegeInfo({ classKey: 'isEdit', value: false }))
-    //             setCollegeLogo([])
-    //             setCollegeThumbnail([])
-    //             setCollegeBrochure([])
-    //             setCollegeLogoUrl([])
-    //             setCollegeThumbnailUrl([])
-    //             setCollegeBrochureUrl([])
-    //         } else {
-    //             dispatch(
-    //                 updateError({
-    //                     errorType: constants.apiResponseStatus.ERROR,
-    //                     errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                     flag: true
-    //                 })
-    //             )
-    //         }
-    //     } catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-    // const removeCollegeLogo = () => {
-    //     dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_logo', value: '' }))
-    // }
-    // const removeCollegeThumbnail = () => {
-    //     dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_thumbnail', value: '' }))
-    // }
-    // const removeCollegeBrochure = () => {
-    //     dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'college_download_brochure_path', value: '' }))
-    // }
-    // const uploadLogo = async () => {
-    //     try {
-    //         const logoPayload = await fileTouploadPayload(collegeLogo)
-    //         const resolved = await
-    //             dispatch(
-    //                 fileUploadlogo({
-    //                     url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
-    //                     payload: logoPayload
-    //                 })
-    //             )
-    //         if (resolved.payload[0].status !== constants.apiResponseStatus.SUCCESS && resolved.payload[0].error === true) {
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             }))
-    //         } else {
-    //             setCollegeLogoUrl('')
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.SUCCESS,
-    //                 errorMessage: "Logo Uploaded Successfully",
-    //                 flag: true
-    //             }))
-    //         }
-    //     }
-    //     catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-    // const uploadThumbnail = async () => {
-    //     try {
-    //         const thumbnailPayload = await fileTouploadPayload(collegeThumbnail)
-    //         const resolved = await
-    //             dispatch(
-    //                 fileUploadThumbnail({
-    //                     url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
-    //                     payload: thumbnailPayload
-    //                 })
-    //             )
-    //         if (resolved.payload[0].status !== constants.apiResponseStatus.SUCCESS && resolved.payload[0].error === true) {
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             }))
-    //         } else {
-    //             setCollegeThumbnailUrl('')
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.SUCCESS,
-    //                 errorMessage: "Thumbnail Uploaded Successfully",
-    //                 flag: true
-    //             }))
-    //         }
-    //     }
-    //     catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-    // const uploadBrochure = async () => {
-    //     try {
-    //         const brochurePayload = await fileTouploadPayload(collegeBrochure)
-    //         const resolved = await
-    //             dispatch(
-    //                 fileUploadBrochure({
-    //                     url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
-    //                     payload: brochurePayload
-    //                 })
-    //             )
-    //         if (resolved.payload[0].status !== constants.apiResponseStatus.SUCCESS && resolved.payload[0].error === true) {
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             }))
-    //         } else {
-    //             setCollegeBrochureUrl('')
-    //             dispatch(updateError({
-    //                 errorType: constants.apiResponseStatus.SUCCESS,
-    //                 errorMessage: "Brochure Uploaded Successfully",
-    //                 flag: true
-    //             }))
-    //         }
-    //     }
-    //     catch (error) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-    //                 flag: true
-    //             })
-    //         )
-    //     }
-    // }
-    // const updateDraft = async () => {
-    //     const collegeInfoUpdatedPayload = {
-    //         college_id: promiseResponse.college_id,
-    //         college_name: college_name,
-    //         location: location,
-    //         affiliate_by: affiliate_by,
-    //         ratings: ratings,
-    //         college_logo: college_logo,
-    //         college_thumbnail: college_thumbnail,
-    //         college_download_brochure_path: college_download_brochure_path,
-    //         state: state,
-    //         city: city,
-    //         college_type: college_type,
-    //         category_name: category_name,
-    //         account_name: JSON.parse(localStorage.getItem('userData')).account_name,
-    //         is_publish: constants.courseIsPublished.draft,
-    //         message: message,
-    //     }
-    //     const collegeDeletePayload = {
-    //         college_id: promiseResponse.college_id
-    //     }
-    //     const response = await dispatch(addCollegeBasicDetails({
-    //         url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-    //         header: constants.apiHeaders.HEADER,
-    //         method: constants.httpMethod.PUT,
-    //         payload: collegeInfoUpdatedPayload
-    //     })
-    //     )
-    //     if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: constants.apiResponseStatus.ERROR,
-    //                 errorMessage: 'Something went Wrong',
-    //                 flag: true
-    //             })
-    //         )
-    //         dispatch(
-    //             deleteCollegeBasicDetails({
-    //                 url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-    //                 header: constants.apiHeaders.HEADER,
-    //                 method: constants.httpMethod.DELETE,
-    //                 payload: collegeDeletePayload
-    //             })
-    //         )
-    //         dispatch(resetCollege())
-    //         setCollegeLogo([])
-    //         setCollegeThumbnail([])
-    //         setCollegeBrochure([])
-    //         setCollegeLogoUrl([])
-    //         setCollegeThumbnailUrl([])
-    //         setCollegeBrochureUrl([])
-    //         return
-    //     } else {
-    //         dispatch(updateError({
-    //             errorType: constants.apiResponseStatus.SUCCESS,
-    //             errorMessage: 'Draft Saved Successfully',
-    //             flag: true
-    //         })
-    //         )
-    //         dispatch(resetCollege())
-    //         setCollegeLogo([])
-    //         setCollegeThumbnail([])
-    //         setCollegeBrochure([])
-    //         setCollegeLogoUrl([])
-    //         setCollegeThumbnailUrl([])
-    //         setCollegeBrochureUrl([])
-    //         navigate('/list-agent-college')
-    //     }
-    // }
+
     useEffect(() => {
         fetchState()
         if (state !== '' && state !== undefined && state !== null) {

@@ -22,7 +22,6 @@ const Placements = ({ collegeId, admin }) => {
     const [topRecruiters, setTopRecruiters] = useState('')
     const [isDisabled, setIsDisabled] = useState(true)
     const { placements, isEdit } = useSelector((state) => state.newCollege)
-    const { isValitadeError } = useSelector((state) => state.newCollege.placements)
     const dispatch = useDispatch()
 
     const createRecruitersList = () => {

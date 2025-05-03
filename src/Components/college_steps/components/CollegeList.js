@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../../utils/constants'
 import { updateError } from '../../../features/commonSlice'
 import ItemList from '../../ItemList'
-import { deleteCollegeBasicDetails, deleteNewCollegeById, fetchAgentCollegeList } from '../../../utils/reduxThunk/collegeThunk'
-import { updateAgentCollegeList } from '../../../features/collegeSlice'
+import { deleteNewCollegeById, fetchAgentCollegeList } from '../../../utils/reduxThunk/collegeThunk'
+import { resetCollege } from '../../../features/newCollegeSlice'
 
 const CollegeList = () => {
     const dispatch = useDispatch()
@@ -96,6 +96,9 @@ const CollegeList = () => {
     }
     useEffect(() => {
         fetchCollegeList()
+        return () => {
+            dispatch(resetCollege())
+        }
     }, [])
     return (
         <ItemList

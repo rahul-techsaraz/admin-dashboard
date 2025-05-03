@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid'
 import { constants } from '../../../utils/constants'
 import ItemList from '../../ItemList'
 
-const News = ({ collegeId, admin }) => {
+const News = ({ collegeId }) => {
     const [newsData, setNewsData] = useState(
         {
             news_id: '',
