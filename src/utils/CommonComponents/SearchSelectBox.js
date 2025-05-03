@@ -16,8 +16,8 @@ export default function SearchSelectBox({ options, label, onChange, value, disab
         renderInput={(params) => <TextField {...params} label={label} />}
         onChange={(e, value) => onChange(e, value)}
         value={value}
-        onInputChange={(e, value) => onInputChange(e, value)}
-        inputValue={inputValue}
+        // onInputChange={(e, value) => onInputChange(e, value)}
+        // inputValue={inputValue}
         disabled={disabled}
       />
     </div>

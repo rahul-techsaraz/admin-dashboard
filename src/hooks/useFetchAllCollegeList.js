@@ -10,7 +10,7 @@ export const useFetchAllCollegeList = () => {
     const fetchCollegeList = async () => {
         try {
             const response = await dispatch(fetchAllCollegeList({
-                url: constants.apiEndPoint.COLLEGE_LIST + "?requestType=basicCollegeListing",
+                url: constants.apiEndPoint.NEW_COLLEGE,
                 header: constants.apiHeaders.HEADER,
                 method: constants.httpMethod.GET
             }))

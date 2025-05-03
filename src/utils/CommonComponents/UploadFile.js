@@ -1,12 +1,31 @@
 import React, { useContext } from 'react'
 import { FileUpload } from '../FileUpload'
+import { v4 as uuid } from 'uuid'
 
-export default function UploadFile({ label, styles, multiple }) {
+export default function UploadFile({ label, styles, multiple, disabled }) {
   const allowedFileTypes = ['jpg', 'jpeg', 'png', 'pdf']
-  const { setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl, collegeBrochure, setCollegeBrochure, collegeBrochureUrl, setCollegeBrochureUrl, } = useContext(FileUpload)
+  const { facultyImage, setFacultyImage, facultyImageUrl, setFacultyImageUrl, setCollegeGallary, setCollegeGallaryUrl, setCollegeLogo, setCollegeLogoUrl, setCollegeThumbnail, setCollegeThumbnailUrl, setCollegeBrochure, setCollegeBrochureUrl, } = useContext(FileUpload)
   const validateSelectedFiles = (e) => {
+    const imageId = uuid()
     let file = []
     let url = []
+    if (label === 'Faculty image') {
+      const file = facultyImage
+      const url = facultyImageUrl
+      const fileReceived = e.target.files[0];
+      if (!fileReceived) return;
+      const newFileName = `${imageId}.${fileReceived.type.split('/')[1]}`;
+      const renamedFile = new File([fileReceived], newFileName, {
+        type: fileReceived.type,
+        lastModified: fileReceived.lastModified,
+      });
+      file.push(renamedFile)
+      url.push(URL.createObjectURL(renamedFile))
+      setFacultyImage(file)
+      setFacultyImageUrl(url)
+      return
+    }
+
     for (let i = 0; i < e.target.files.length; i++) {
       const fileType = e.target.files[i].type.split('/')
       if (!allowedFileTypes.includes(fileType[1])) {
@@ -40,10 +59,7 @@ export default function UploadFile({ label, styles, multiple }) {
       <div className='form-group'>
         <label>{label}</label>
         <div className='form-control' style={styles}>
-          <input type='file' name='uploadFile' multiple={multiple} onChange={(e) => validateSelectedFiles(e)} />
-          {/* <IconButton color="primary" aria-label="upload picture" component="span">
-                <FileUploadIcon />
-                </IconButton> */}
+          <input type='file' name='uploadFile' multiple={multiple} onChange={(e) => validateSelectedFiles(e)} disabled={disabled} />
         </div>
       </div>
     </>

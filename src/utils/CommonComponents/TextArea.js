@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TextArea({ placeholder, inputValue, noOfROws, noOfCols, onChange, styles, fieldName }) {
+export default function TextArea({ placeholder, inputValue, noOfROws, noOfCols, onChange, styles, fieldName, disabled }) {
   return (
     <div className='form-group'>
       <label>{fieldName}</label>
@@ -12,6 +12,7 @@ export default function TextArea({ placeholder, inputValue, noOfROws, noOfCols, 
         style={styles}
         row={noOfROws}
         cols={noOfCols}
+        disabled={disabled}
       />
     </div>
   )

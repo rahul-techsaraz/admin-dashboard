@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { FileUpload } from '../../utils/FileUpload'
-// import ViewCollegeDetails from './ViewCollegeDetails'
-import AddNewCollege from './AddNewCollege'
+import React, { memo, useEffect, useState } from 'react'
+import { FileUpload } from '../../../utils/FileUpload'
 import { useParams } from 'react-router-dom'
-import CollegeContainer from '../college_steps/CollegeContainer'
-import ViewCollegeDetails from '../college_steps/components/ViewCollegeDetails'
 import { useDispatch } from 'react-redux'
-import { fetchNewCollegeById } from '../../utils/reduxThunk/collegeThunk'
-import { constants } from '../../utils/constants'
+import { fetchNewCollegeById } from '../../../utils/reduxThunk/collegeThunk'
+import { constants } from '../../../utils/constants'
+import ViewCollegeDetails from './ViewCollegeDetails'
+import CollegeContainer from '../CollegeContainer'
+import { resetCollege } from '../../../features/newCollegeSlice'
 
-export default function ParentWrapper() {
+const ParentWrapper = () => {
     const [facultyImage, setFacultyImage] = useState([])
     const [facultyImageUrl, setFacultyImageUrl] = useState([])
     const [collegeLogo, setCollegeLogo] = useState([])
@@ -23,6 +22,7 @@ export default function ParentWrapper() {
     const [tabValue, setTabValue] = useState('1')
     const dispatch = useDispatch()
     const { collegeId, admin } = useParams()
+    console.log(admin)
     useEffect(() => {
         if (collegeId) {
             dispatch(fetchNewCollegeById({
@@ -32,6 +32,11 @@ export default function ParentWrapper() {
             }))
         }
     }, [collegeId])
+    useEffect(() => {
+        return () => {
+            resetCollege()
+        }
+    }, [])
     return (
         <>
             <FileUpload.Provider
@@ -68,3 +73,5 @@ export default function ParentWrapper() {
         </>
     )
 }
+
+export default memo(ParentWrapper)
