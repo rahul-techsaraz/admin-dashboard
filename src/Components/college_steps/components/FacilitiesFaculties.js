@@ -294,6 +294,7 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
 
     useEffect(() => {
         console.log(facilities?.faculty_data)
+        console.log(facultyImageUrl)
     }, [facilities?.faculty_data])
 
     return (
@@ -331,7 +332,7 @@ const FacilitiesFaculties = ({ collegeId, admin }) => {
                 <div className='form-group' style={{ border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', maxWidth: '400px', padding: '7px' }}>
                     <Stack direction='row' spacing={0}>
                         {facilities?.faculty_data.map((value, index) => (
-                            <Chip avatar={<Avatar alt="Faculty Image" src={(value.image_path) ? `${constants.newImageAbsolutePath}${value.image_path}` : facultyImageUrl[index]} />} label={`${value.faculty_name}-${value.department}`} variant='outlined' onDelete={() => (collegeId && !isEdit) ? undefined : handleDelete(value, index)} onClick={() => handleChipClick(value, index)} />
+                            <Chip avatar={<Avatar src={(collegeId) ? `${constants.newImageAbsolutePath}${value.image_path}` : facultyImageUrl[index]} />} label={`${value.faculty_name}-${value.department}`} variant='outlined' onDelete={() => (collegeId && !isEdit) ? undefined : handleDelete(value, index)} />
                         ))}
                     </Stack>
                 </div>}

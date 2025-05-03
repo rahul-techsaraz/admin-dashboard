@@ -109,7 +109,8 @@ const newCollegeSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchAllCollegeList.fulfilled, (state, { payload }) => {
             if (payload.status === constants.apiResponseStatus.SUCCESS) {
-                state.allCollegeList = payload.data
+                const parsedJason = deepParseTypedJSON(payload.data)
+                state.allCollegeList = parsedJason
             }
         })
         builder.addCase(fetchAgentCollegeList.fulfilled, (state, { payload }) => {

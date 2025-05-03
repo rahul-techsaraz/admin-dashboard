@@ -249,6 +249,14 @@ export const createNewCollege = createAsyncThunk('newCollege/AddNewCollege', asy
     return thunkApi.rejectWithError(error)
   }
 })
+export const updateCollegeById = createAsyncThunk('newCollege/updateCollegeById', async ({ url, header, method, payload }, thunkApi) => {
+  try {
+    const data = await httpCall(url, header, method, payload)
+    return data
+  } catch (error) {
+    return thunkApi.rejectWithError(error)
+  }
+})
 export const fetchNewCollegeById = createAsyncThunk('newCollege/fetchNewCollegeById', async ({ url, header, method }, thunkApi) => {
   try {
     const data = await httpCall(url, header, method)

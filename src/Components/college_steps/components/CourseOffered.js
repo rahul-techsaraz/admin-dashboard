@@ -441,7 +441,7 @@ const CourseOffered = ({ collegeId, admin }) => {
                                 />
                             </div>
                             {courseOfferedList?.eligibility_criteria.length > 0 &&
-                                <div className='form-group' style={{ border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: "10px", maxWidth: '400px', padding: '7px' }}>
+                                <div className='form-group' style={{ border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'flex', flexWrap: 'wrap', gap: "10px", maxWidth: '400px', padding: '7px' }}>
                                     {courseOfferedList?.eligibility_criteria.length > 0 &&
                                         courseOfferedList?.eligibility_criteria.map((value, index) => (
                                             <Tooltip title={value} arrow>

@@ -186,14 +186,14 @@ const Placements = ({ collegeId, admin }) => {
                                 border: 'solid #e83e8c 1px',
                                 borderRadius: '1rem',
                                 display: 'flex',
-                                justifyContent: 'space-between',
+                                gap: '10px',
                                 flexWrap: 'wrap',
                                 maxWidth: '400px',
                                 padding: '7px'
                             }
                         }
                         >
-                            <Stack spacing={0}>
+                            <Stack direction="row" spacing={2}>
                                 {placementData?.top_recruiters.map((value, index) => (
                                     <Chip key={index} label={value} variant='outlined' onDelete={(e) => handleDelete(value)} />
                                 ))}

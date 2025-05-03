@@ -6,6 +6,7 @@ import { fetchNewCollegeById } from '../../../utils/reduxThunk/collegeThunk'
 import { constants } from '../../../utils/constants'
 import ViewCollegeDetails from './ViewCollegeDetails'
 import CollegeContainer from '../CollegeContainer'
+import { resetCollege } from '../../../features/newCollegeSlice'
 
 const ParentWrapper = () => {
     const [facultyImage, setFacultyImage] = useState([])
@@ -21,6 +22,7 @@ const ParentWrapper = () => {
     const [tabValue, setTabValue] = useState('1')
     const dispatch = useDispatch()
     const { collegeId, admin } = useParams()
+    console.log(admin)
     useEffect(() => {
         if (collegeId) {
             dispatch(fetchNewCollegeById({
@@ -30,6 +32,11 @@ const ParentWrapper = () => {
             }))
         }
     }, [collegeId])
+    useEffect(() => {
+        return () => {
+            resetCollege()
+        }
+    }, [])
     return (
         <>
             <FileUpload.Provider

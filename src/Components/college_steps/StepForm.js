@@ -118,7 +118,7 @@ const StepForm = () => {
                 avg_first_year_fee: collegeBasicDetails?.avg_first_year_fee,
                 message: collegeBasicDetails?.message,
                 account_name: JSON.parse(localStorage.getItem('userData')).account_name,
-                is_publish: constants.courseIsPublished.notPublished,
+                is_publish: constants.collegeStatus.NOTPUBLISHED,
                 courseOffered: courseOffered?.courses_offered,
                 collegeDescriptions: {
                     college_description: collegeDescriptions?.college_description,
@@ -162,7 +162,6 @@ const StepForm = () => {
                     flag: true
                 }))
             } else {
-                navigate('/list-agent-college')
                 localStorage.removeItem('formData')
                 resetCollege()
                 setCollegeLogo([])
@@ -175,6 +174,7 @@ const StepForm = () => {
                 setCollegeGallaryUrl([])
                 setFacultyImage([])
                 setFacultyImageUrl([])
+                navigate('/list-agent-college')
             }
         } catch (error) {
             dispatch(updateError({

@@ -9,7 +9,7 @@ import Placements from './Placements'
 import News from './News'
 import FacilitiesFaculties from './FacilitiesFaculties'
 import CollegeGallary from './CollegeGallary'
-import { createNewCollege, fetchNewCollegeById } from '../../../utils/reduxThunk/collegeThunk'
+import { createNewCollege, fetchNewCollegeById, updateCollegeById } from '../../../utils/reduxThunk/collegeThunk'
 import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../../utils/constants'
 import { useFetchCategoryList } from '../../../hooks/useFetchCategoryList'
@@ -19,8 +19,13 @@ import { resetCollege, updateCollegeInfo } from '../../../features/newCollegeSli
 import { updateError } from '../../../features/commonSlice'
 import { useNavigate } from 'react-router-dom'
 import { FileUpload } from '../../../utils/FileUpload'
+import CustomMessageModal from '../../../utils/CommonComponents/CustomMessageModal'
+import { useFetchAllCollegeList } from '../../../hooks/useFetchAllCollegeList'
 
 const ViewCollegeDetails = ({ collegeId, admin }) => {
+    const [open, setOpen] = useState(false);
+    const [whichBtn, setWhichBtn] = useState('')
+    const [message, setMessage] = useState('')
     const [expanded, setExpanded] = useState({
         collegeBasicDetails: true,
         courseOffered: false,
@@ -49,6 +54,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
         setCollegeGallaryUrl, } = useContext(FileUpload)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { fetchCollegeList } = useFetchAllCollegeList()
     useCourseDetails()
     const { fetchCategoryList } = useFetchCategoryList()
     const handleChange = (activeAcordian) => {
@@ -126,7 +132,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
                     flag: true
                 }))
             } else {
-                navigate('/list-agent-college')
+                dispatch(updateCollegeInfo({ classKey: 'isEdit', value: !isEdit }))
                 localStorage.removeItem('formData')
                 resetCollege()
                 setCollegeLogo([])
@@ -139,7 +145,50 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
                 setCollegeGallaryUrl([])
                 setFacultyImage([])
                 setFacultyImageUrl([])
+                navigate('/list-agent-college')
             }
+        } catch (error) {
+            dispatch(updateError({
+                errorType: constants.apiResponseStatus.ERROR,
+                errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                flag: true
+            }))
+        }
+    }
+    const handleOpen = (flag) => {
+        setWhichBtn(flag)
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        updateMessage(whichBtn)
+        setOpen(false);
+    }
+
+    const updateMessage = async (status) => {
+        try {
+            console.log(collegeBasicDetails)
+            const statusPayload = {
+                college_id: collegeBasicDetails.college_id,
+                is_publish: status,
+                message: message,
+            }
+            const response = await dispatch(updateCollegeById({
+                url: constants.apiEndPoint.NEW_COLLEGE,
+                header: { ...constants.apiHeaders.HEADER, Authorization: userToken },
+                method: constants.httpMethod.PUT,
+                payload: statusPayload
+            }))
+            if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
+                dispatch(updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+                    flag: true
+                }))
+                return
+            }
+            fetchCollegeList()
+            navigate("/list-college")
         } catch (error) {
             dispatch(updateError({
                 errorType: constants.apiResponseStatus.ERROR,
@@ -150,6 +199,9 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
     }
     useEffect(() => {
         fetchCategoryList()
+        return () => {
+            resetCollege()
+        }
     }, [])
 
     useEffect(() => {
@@ -188,6 +240,21 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
                                 onClick={() => dispatch(updateCollegeInfo({ classKey: 'isEdit', value: !isEdit }))}
                                 styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
                             />
+                        </div>}
+                    {admin &&
+                        <div style={{ display: 'flex', justifyContent: "flex-end", alignItems: 'center', gap: "1rem" }}>
+                            {collegeBasicDetails.is_publish === constants.collegeStatus.NOTPUBLISHED && (
+                                <>
+                                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.APPROVED)}>Approve</button>
+                                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.DECLINED)}>Decline</button>
+                                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.REVISION)}>{constants.collegeStatus.REVISION}</button>
+                                </>
+                            )}
+                            {collegeBasicDetails.is_publish === constants.collegeStatus.APPROVED && (
+                                <>
+                                    <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.REVISION)}>{constants.collegeStatus.REVISION}</button>
+                                </>
+                            )}
                         </div>}
                     <CustomAccordian
                         label={'College Basic Details'}
@@ -249,6 +316,13 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
                         </div>}
                 </Paper>
             </div>
+            <CustomMessageModal
+                open={open}
+                setOpen={(e) => setOpen(e)}
+                handleClose={() => handleClose()}
+                handleEdit={(e) => setMessage(e.target.value)}
+                message={message}
+            />
         </AddItemForm>
     )
 }
