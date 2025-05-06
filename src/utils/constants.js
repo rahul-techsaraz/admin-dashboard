@@ -7,22 +7,23 @@ export const constants = {
     ADMIN_REGISTER: 'https://techsaraz.in//admission-cart/api/login/adminlogin/register.php',
     UPDATE_USER_ROLE: 'https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php',
     EXAM_LIST: 'https://techsaraz.in//admission-cart/api/exam.php',
-    COURSE_DETAILS: 'https://techsaraz.in//admission-cart/api/courses.php',
+    COURSE_DETAILS: 'https://techsaraz.in/admission-cart/api/newcourses.php',
     COLLEGE_LIST: 'https://techsaraz.in/admission-cart/api/colleges.php',
     STATE_LIST: 'https://api.countrystatecity.in/v1/countries/IN/states',
     CITY_LIST: 'https://api.countrystatecity.in/v1/countries/IN/states/',
     COURSE_DETAILS_COLLEGE: 'https://techsaraz.in/admission-cart/api/courses.php?requestType=getAllCourseDetails',
     UPLOAD_FILE: 'https://techsaraz.in/admission-cart/api/fileupload/upload.php',
-    GET_ALL_USERS_USER_DETAILS: "https://techsaraz.in//admission-cart/api/login/getAllUsers.php",
-    FETCH_USER_DETAILS_BY_EMAIL: "https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email=",
-    USER_FEADBACK_RESPONSE: "https://techsaraz.in//admission-cart/api/user.php?requestType=userFeedbackReport",
-    NEW_COLLEGE: "https://techsaraz.in/admission-cart/api/newcollege.php",
+    GET_ALL_USERS_USER_DETAILS: 'https://techsaraz.in//admission-cart/api/login/getAllUsers.php',
+    FETCH_USER_DETAILS_BY_EMAIL: 'https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email=',
+    USER_FEADBACK_RESPONSE: 'https://techsaraz.in//admission-cart/api/user.php?requestType=userFeedbackReport',
+    NEW_COLLEGE: 'https://techsaraz.in/admission-cart/api/newcollege.php'
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   newImageAbsolutePath: 'https://techsaraz.in/admission-cart/api/',
   apiHeaders: {
     HEADER: { 'Content-Type': 'Application/json' },
-    HEADER_FORM_DATA: { 'Content-Type': 'multipart/form-data' }
+    HEADER_FORM_DATA: { 'Content-Type': 'multipart/form-data' },
+    customHeader: { Authorization: localStorage.getItem('token'), 'Content-Type': 'Application/json' }
   },
   httpMethod: {
     GET: 'GET',
@@ -40,8 +41,8 @@ export const constants = {
     ERROR_MESSAGE: 'Your Request could not be processed at the moment. Please try again!'
   },
   collegeStatus: {
-    APPROVED: "Approved",
-    DECLINED: "Declined",
+    APPROVED: 'Approved',
+    DECLINED: 'Declined',
     REVISION: 'Revision',
     NOTPUBLISHED: 'NOT PUBLISHED'
   },
@@ -91,7 +92,7 @@ export const constants = {
         {
           option_name: 'Users Feedback',
           option_path: '/feedback-list',
-          name: 'Users Feedback',
+          name: 'Users Feedback'
         }
       ]
     },
@@ -452,7 +453,7 @@ export const constants = {
   courseExamTypeSelectBox: [
     { label: 'Exam Type', value: '' },
     { label: 'Semester', value: 'Semester' },
-    { label: 'Yearly', value: 'Yearly' },
+    { label: 'Yearly', value: 'Yearly' }
   ],
   courseTopCourseCollegesSelectBox: [
     { label: 'Top Course Colleges', value: '' },
@@ -522,11 +523,6 @@ export const constants = {
       field: 'course_duration',
       headerName: 'Course Duration',
       width: 200
-    },
-    {
-      field: 'course_fee',
-      headerName: 'Course Fee',
-      width: 200
     }
   ],
   allUsersList: [
@@ -593,19 +589,19 @@ export const constants = {
     { label: 'Common', value: '5' },
     { label: 'Gallary', value: '6' },
     { label: 'Placements', value: '7' },
-    { label: 'News', value: '8' },
+    { label: 'News', value: '8' }
   ],
   collegeType: [
     { label: 'Private', value: 'Private' },
     { label: 'Government', value: 'Government' },
-    { label: 'Autonomous', value: 'Autonomous' },
+    { label: 'Autonomous', value: 'Autonomous' }
   ],
   ratings: [
     { label: '1', value: 1 },
     { label: '2', value: 2 },
     { label: '3', value: 3 },
     { label: '4', value: 4 },
-    { label: '5', value: 5 },
+    { label: '5', value: 5 }
   ],
   collegeDescriptionInputFieldList: [
     {
@@ -637,7 +633,7 @@ export const constants = {
       key: 'college_admission_description',
       label: 'College Admission Description',
       style: ''
-    },
+    }
   ],
   highlightsUserColumns: [
     {
@@ -718,7 +714,7 @@ export const constants = {
       field: 'top_recruiters',
       headerName: 'Top Recruiters',
       width: 150
-    },
+    }
   ],
   newsUserColumns: [
     {
@@ -733,12 +729,12 @@ export const constants = {
     },
   ],
   collegeStepsLabel: [
-    { label: "College Basic Details", isValitadeError: "collegeBasicDetails" },
-    { label: "Course Offered", isValitadeError: "courseOffered" },
-    { label: "College Description", isValitadeError: "collegeDescriptions" },
-    { label: "Placements", isValitadeError: "placements" },
-    { label: "News", isValitadeError: "news" },
-    { label: "Faculty & Facilities", isValitadeError: "facilities" },
-    { label: "Gallery", isValitadeError: "gallary" },
+    { label: 'College Basic Details', isValitadeError: 'collegeBasicDetails' },
+    { label: 'Course Offered', isValitadeError: 'courseOffered' },
+    { label: 'College Description', isValitadeError: 'collegeDescriptions' },
+    { label: 'Placements', isValitadeError: 'placements' },
+    { label: 'News', isValitadeError: 'news' },
+    { label: 'Faculty & Facilities', isValitadeError: 'facilities' },
+    { label: 'Gallery', isValitadeError: 'gallary' }
   ]
 }

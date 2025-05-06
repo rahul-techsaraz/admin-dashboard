@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { approveUser, fetchAllAdminUserList } from '../../utils/reduxThunk/commonThunk'
 import { updateError } from '../../features/commonSlice'
-import {  updatefilteredUserList } from '../../features/userSlice'
+import { updatefilteredUserList } from '../../features/userSlice'
 
 export default function AdminRequest() {
   // const [userList, setUserList] = useState([]);

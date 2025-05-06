@@ -27,7 +27,7 @@ export default function CourseBasicDetails({ courseId }) {
   const { fetchAllExamList } = useFetchExamList()
   const { examList } = useSelector((state) => state.exam)
   const { fetchCategoryList } = useFetchCategoryList()
-  const { categoryData } = useSelector(state => state.category)
+  const { categoryData } = useSelector((state) => state.category)
   const [componentCategory, setComponentCategory] = useState('')
   const {
     isValidationError,
@@ -190,7 +190,7 @@ export default function CourseBasicDetails({ courseId }) {
     { lable: 'Course Fee Min', value: course_fee_min },
     { lable: 'Course Fee Max', value: course_fee_max },
     { lable: 'Course Description', value: course_description },
-    { lable: 'Course Accepting Exam', value: course_accepting_exam.join(', ') },
+    { lable: 'Course Accepting Exam', value: course_accepting_exam.join(', ') }
   ]
   return (
     <>
@@ -261,7 +261,7 @@ export default function CourseBasicDetails({ courseId }) {
             />
             <SearchSelectBox
               label='Category'
-              options={categoryData.map(data => data.category_name)}
+              options={categoryData.map((data) => data.category_name)}
               onChange={(e, value) => dispatch(updateCourseInfo({ classKey: 'courseInfo', key: 'category_name', value: value }))}
               value={category_name}
               onInputChange={(e, value) => setComponentCategory(value)}
@@ -280,14 +280,14 @@ export default function CourseBasicDetails({ courseId }) {
                 style={
                   course_accepting_exam.length > 0
                     ? {
-                      border: 'solid #e83e8c 1px',
-                      borderRadius: '1rem',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      flexWrap: 'wrap',
-                      maxWidth: '400px',
-                      padding: '7px'
-                    }
+                        border: 'solid #e83e8c 1px',
+                        borderRadius: '1rem',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        maxWidth: '400px',
+                        padding: '7px'
+                      }
                     : { border: 'solid #e83e8c 1px', borderRadius: '1rem', display: 'none' }
                 }
               >

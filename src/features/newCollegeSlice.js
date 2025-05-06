@@ -21,7 +21,7 @@ import {
 import { constants } from '../utils/constants'
 import { deepParseTypedJSON } from '../utils/reduxThunk/JsonDeepConverter';
 
-const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getItem('formData')) : {};
+const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getItem('formData')) : {}
 
 const initialState = {
     activeStep: 0,

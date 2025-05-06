@@ -1,10 +1,10 @@
-import { useDispatch } from 'react-redux';
-import { constants } from '../utils/constants';
-import { updateError } from '../features/commonSlice';
-import { fetchUserByEmail } from '../utils/reduxThunk/commonThunk';
+import { useDispatch } from 'react-redux'
+import { constants } from '../utils/constants'
+import { updateError } from '../features/commonSlice'
+import { fetchUserByEmail } from '../utils/reduxThunk/commonThunk'
 
 const useFetchDetails = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const fetchUsersDetails = async (email) => {
     try {
@@ -24,7 +24,7 @@ const useFetchDetails = () => {
             flag: true
           })
         )
-        return;
+        return
       }
       dispatch(
         updateError({
@@ -33,7 +33,7 @@ const useFetchDetails = () => {
           flag: true
         })
       )
-      return;
+      return
     } catch (err) {
       dispatch(
         updateError({

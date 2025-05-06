@@ -25,13 +25,11 @@ const News = ({ collegeId }) => {
         const newsDataWithId = { ...newsData, news_id: newsId }
         const data = [...news?.news_data, newsDataWithId]
         dispatch(updateCollegeInfo({ classKey: 'news', key: 'news_data', value: data }))
-        setNewsData(
-            {
-                news_id: '',
-                title: '',
-                content: "",
-            }
-        )
+        setNewsData({
+            news_id: '',
+            title: '',
+            content: ''
+        })
     }
 
     const handleFormData = () => {

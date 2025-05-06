@@ -11,8 +11,14 @@ import { useNavigate } from 'react-router-dom'
 
 export default function CollegeDescription({ collegeId, admin }) {
   const { collegeDescriptions, collegeBasicDetails, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_description, college_course_description, college_highlights_description, college_campus_description, college_admission_description } =
-    useSelector((state) => state.college.collegeDescriptions)
+  const {
+    isValitadeError,
+    college_description,
+    college_course_description,
+    college_highlights_description,
+    college_campus_description,
+    college_admission_description
+  } = useSelector((state) => state.college.collegeDescriptions)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -24,7 +30,7 @@ export default function CollegeDescription({ collegeId, admin }) {
         college_course_description: college_course_description,
         college_highlights_description: college_highlights_description,
         college_campus_description: college_campus_description,
-        college_admission_description: college_admission_description,
+        college_admission_description: college_admission_description
       }
       const response = await dispatch(
         addCollegeDescription({
@@ -59,8 +65,7 @@ export default function CollegeDescription({ collegeId, admin }) {
           })
         )
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -110,7 +115,7 @@ export default function CollegeDescription({ collegeId, admin }) {
         college_course_description: college_course_description,
         college_highlights_description: college_highlights_description,
         college_campus_description: college_campus_description,
-        college_admission_description: college_admission_description,
+        college_admission_description: college_admission_description
       }
       const response = await dispatch(
         addCollegeDescription({
@@ -138,8 +143,7 @@ export default function CollegeDescription({ collegeId, admin }) {
           })
         )
       }
-    }
-    catch (error) {
+    } catch (error) {
       dispatch(
         updateError({
           errorType: constants.apiResponseStatus.ERROR,
@@ -162,7 +166,13 @@ export default function CollegeDescription({ collegeId, admin }) {
     } else {
       dispatch(updateCollegeInfo({ classKey: 'collegeDescriptions', key: 'isValitadeError', value: true }))
     }
-  }, [college_description, college_course_description, college_highlights_description, college_campus_description, college_admission_description])
+  }, [
+    college_description,
+    college_course_description,
+    college_highlights_description,
+    college_campus_description,
+    college_admission_description
+  ])
 
   const collegeInfoData = [
     { lable: 'College Description', value: college_description },
@@ -178,7 +188,9 @@ export default function CollegeDescription({ collegeId, admin }) {
         <DataToDisplay dataToDisplay={collegeInfoData} type={'college'} admin={admin} />
       ) : (
         <>
-          <div style={{ display: ' flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '3rem', margin: 'auto', padding: 'auto' }}>
+          <div
+            style={{ display: ' flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '3rem', margin: 'auto', padding: 'auto' }}
+          >
             {constants.collegeDescriptionInputFieldList.map((description, index) => (
               <TextArea
                 placeholder={description.label}
@@ -186,17 +198,23 @@ export default function CollegeDescription({ collegeId, admin }) {
                 noOfCols={55}
                 fieldName={description.label}
                 styles={{ border: 'solid #e83e8c 1px', borderRadius: '1rem' }}
-                onChange={(e) => dispatch(updateCollegeInfo({ classKey: description.classKey, key: description.key, value: e.target.value }))}
+                onChange={(e) =>
+                  dispatch(updateCollegeInfo({ classKey: description.classKey, key: description.key, value: e.target.value }))
+                }
                 inputValue={collegeDescriptions[description.key]}
               />
             ))}
           </div>
 
-          {!isEdit &&
+          {!isEdit && (
             <div className='form-group'>
-              <CustomButton isDisabled={isValitadeError || collegeBasicDetails.isValitadeError} lable={'Save as Draft'} onClick={() => saveDraft()} />
+              <CustomButton
+                isDisabled={isValitadeError || collegeBasicDetails.isValitadeError}
+                lable={'Save as Draft'}
+                onClick={() => saveDraft()}
+              />
             </div>
-          }
+          )}
 
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             {isEdit && collegeId && !admin && (

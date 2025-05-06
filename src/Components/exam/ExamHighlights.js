@@ -103,7 +103,7 @@ export default function ExamHighlights() {
             key={'paper_marks'}
             inputValue={examHighlights.paper_marks}
             placeholder={'Number of Papers and Total Marks'}
-            onChange={(e) => dispatch(updateExamHighlights({ key: "paper_marks", value: e.target.value }))}
+            onChange={(e) => dispatch(updateExamHighlights({ key: 'paper_marks', value: e.target.value }))}
             noOfROws={6}
             noOfCols={60}
             fieldName={'Number of Papers and Total Marks'}

@@ -22,12 +22,10 @@ const CollegeGallary = ({ collegeId }) => {
     }
 
     useEffect(() => {
-        if ((collegeBasicDetails.college_logo !== '' ||
-            collegeLogo.length > 0) &&
-            (collegeBasicDetails.college_thumbnail !== '' ||
-                collegeThumbnail.length > 0) &&
-            (gallary.image_path.length > 0 ||
-                collegeGallary.length > 0)
+        if (
+            (collegeBasicDetails.college_logo !== '' || collegeLogo.length > 0) &&
+            (collegeBasicDetails.college_thumbnail !== '' || collegeThumbnail.length > 0) &&
+            (gallary.image_path.length > 0 || collegeGallary.length > 0)
         ) {
             dispatch(updateCollegeInfo({ classKey: 'gallary', key: 'isValitadeError', value: false }))
         } else {

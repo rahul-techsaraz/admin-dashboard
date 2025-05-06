@@ -24,9 +24,23 @@ import { useNavigate } from 'react-router-dom'
 import { fileTouploadPayload } from '../../utils/fileUploadService'
 import { FileUpload } from '../../utils/FileUpload'
 
-
 export default function AddNewCollege({ collegeId, admin }) {
-  const { collegeLogo, collegeThumbnail, collegeGallary, setCollegeLogo, setCollegeThumbnail, setCollegeGallary, collegeBrochure, setCollegeBrochure, setCollegeBrochureUrl, setCollegeLogoUrl, setCollegeThumbnailUrl, setCollegeGallaryUrl, tabValue, setTabValue } = useContext(FileUpload)
+  const {
+    collegeLogo,
+    collegeThumbnail,
+    collegeGallary,
+    setCollegeLogo,
+    setCollegeThumbnail,
+    setCollegeGallary,
+    collegeBrochure,
+    setCollegeBrochure,
+    setCollegeBrochureUrl,
+    setCollegeLogoUrl,
+    setCollegeThumbnailUrl,
+    setCollegeGallaryUrl,
+    tabValue,
+    setTabValue
+  } = useContext(FileUpload)
   const {
     isDisabled,
     collegeBasicDetails,
@@ -52,12 +66,9 @@ export default function AddNewCollege({ collegeId, admin }) {
     college_thumbnail,
     college_download_brochure_path,
     message,
-    category_name,
+    category_name
   } = useSelector((state) => state.college.collegeBasicDetails)
-  const {
-    image_path,
-    video_path,
-  } = useSelector((state) => state.college.gallary)
+  const { image_path, video_path } = useSelector((state) => state.college.gallary)
 
   const [promiseResponse, setPromiseResponse] = useState({
     college_id: '',
@@ -77,26 +88,29 @@ export default function AddNewCollege({ collegeId, admin }) {
       const collegeDeletePayload = await {
         college_id: promiseResponse.college_id
       }
-      const response = await dispatch(addCollegeGallary({
-        url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeGallary',
-        header: constants.apiHeaders.HEADER,
-        method: constants.httpMethod.POST,
-        payload: gallaryPayload
-      })
+      const response = await dispatch(
+        addCollegeGallary({
+          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeGallary',
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.POST,
+          payload: gallaryPayload
+        })
       )
       if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Something went Wrong',
-          flag: true
-        })
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Something went Wrong',
+            flag: true
+          })
         )
-        dispatch(deleteCollegeBasicDetails({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.DELETE,
-          payload: collegeDeletePayload
-        })
+        dispatch(
+          deleteCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.DELETE,
+            payload: collegeDeletePayload
+          })
         )
         dispatch(resetCollege())
         setCollegeLogo([])
@@ -109,11 +123,12 @@ export default function AddNewCollege({ collegeId, admin }) {
         setCollegeGallaryUrl([])
         return
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.SUCCESS,
-          errorMessage: 'College Added Successfully',
-          flag: true
-        })
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'College Added Successfully',
+            flag: true
+          })
         )
         dispatch(resetCollege())
         setCollegeLogo([])
@@ -127,11 +142,12 @@ export default function AddNewCollege({ collegeId, admin }) {
         navigate('/list-agent-college')
       }
     } catch (error) {
-      dispatch(updateError({
-        errorType: constants.apiResponseStatus.ERROR,
-        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-        flag: true
-      })
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
       )
     }
   }
@@ -152,7 +168,7 @@ export default function AddNewCollege({ collegeId, admin }) {
         category_name: category_name,
         account_name: JSON.parse(localStorage.getItem('userData')).account_name,
         is_publish: constants.courseIsPublished.notPublished,
-        message: message,
+        message: message
       }
       const collegeDeletePayload = {
         college_id: promiseResponse.college_id
@@ -181,26 +197,29 @@ export default function AddNewCollege({ collegeId, admin }) {
         facilities: common.facilities
       }
       const collegeGallaryData = await fileTouploadPayload(collegeGallary)
-      const response = await dispatch(addCollegeBasicDetails({
-        url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-        header: constants.apiHeaders.HEADER,
-        method: constants.httpMethod.PUT,
-        payload: collegeInfoUpdatedPayload
-      })
-      )
-      if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Something went Wrong',
-          flag: true
-        })
-        )
-        dispatch(deleteCollegeBasicDetails({
+      const response = await dispatch(
+        addCollegeBasicDetails({
           url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
           header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.DELETE,
-          payload: collegeDeletePayload
+          method: constants.httpMethod.PUT,
+          payload: collegeInfoUpdatedPayload
         })
+      )
+      if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Something went Wrong',
+            flag: true
+          })
+        )
+        dispatch(
+          deleteCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.DELETE,
+            payload: collegeDeletePayload
+          })
         )
         dispatch(resetCollege())
         setCollegeLogo([])
@@ -214,56 +233,63 @@ export default function AddNewCollege({ collegeId, admin }) {
         return
       }
       const isresolved = await Promise.all([
-        dispatch(fileUploadGallary({
-          url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
-          payload: collegeGallaryData
-        })
+        dispatch(
+          fileUploadGallary({
+            url: constants.apiEndPoint.UPLOAD_FILE + '?dir=colleges',
+            payload: collegeGallaryData
+          })
         ),
-        dispatch(addCollegeDescription({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeDescriptionsDetails',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: collegeDescriptionPayload
-        })
+        dispatch(
+          addCollegeDescription({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeDescriptionsDetails',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.POST,
+            payload: collegeDescriptionPayload
+          })
         ),
-        dispatch(addCollegeHighlight({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeHighlightsDetails',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: collegeHighlightsPayload
-        })
+        dispatch(
+          addCollegeHighlight({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeHighlightsDetails',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.POST,
+            payload: collegeHighlightsPayload
+          })
         ),
-        dispatch(addCollegeFacilities({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: commonPayload
-        })
+        dispatch(
+          addCollegeFacilities({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeFacilities',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.POST,
+            payload: commonPayload
+          })
         ),
-        dispatch(addCollegeCourseOffered({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.POST,
-          payload: courseOfferedPayload
-        })
+        dispatch(
+          addCollegeCourseOffered({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.POST,
+            payload: courseOfferedPayload
+          })
         )
       ])
       const response2 = await isresolved
         .map((status) => status.payload.status)
         .every((status) => status === constants.apiResponseStatus.SUCCESS || status == 200)
       if (!response2) {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Something went Wrong',
-          flag: true
-        })
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Something went Wrong',
+            flag: true
+          })
         )
-        dispatch(deleteCollegeBasicDetails({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.DELETE,
-          payload: collegeDeletePayload
-        })
+        dispatch(
+          deleteCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.DELETE,
+            payload: collegeDeletePayload
+          })
         )
         dispatch(resetCollege())
         setCollegeLogo([])
@@ -278,11 +304,12 @@ export default function AddNewCollege({ collegeId, admin }) {
       }
       setPromiseResponse({ ...promiseResponse, gallaryUpdateResponse: response2, p_response: false })
     } catch (error) {
-      dispatch(updateError({
-        errorType: constants.apiResponseStatus.ERROR,
-        errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-        flag: true
-      })
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+          flag: true
+        })
       )
     }
   }
@@ -304,35 +331,36 @@ export default function AddNewCollege({ collegeId, admin }) {
           category_name: category_name,
           account_name: JSON.parse(localStorage.getItem('userData')).account_name,
           is_publish: constants.courseIsPublished.notPublished,
-          message: message,
+          message: message
         }
-        const response = dispatch(addCollegeBasicDetails({
-          url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.PUT,
-          payload: collegeInfoPayload
-        })
+        const response = dispatch(
+          addCollegeBasicDetails({
+            url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=basicCollegeListing',
+            header: constants.apiHeaders.HEADER,
+            method: constants.httpMethod.PUT,
+            payload: collegeInfoPayload
+          })
         )
         console.log(response)
         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-          dispatch(updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: 'College Added Successfully',
-            flag: true
-          })
+          dispatch(
+            updateError({
+              errorType: constants.apiResponseStatus.SUCCESS,
+              errorMessage: 'College Added Successfully',
+              flag: true
+            })
           )
           navigate('/list-agent-college')
+        } else {
+          dispatch(
+            updateError({
+              errorType: constants.apiResponseStatus.ERROR,
+              errorMessage: 'Something Went Wrong...',
+              flag: true
+            })
+          )
         }
-        else {
-          dispatch(updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: 'Something Went Wrong...',
-            flag: true
-          }))
-        }
-      }
-      else {
-
+      } else {
         const collegeID = await uuid()
         const collegeDeletePayload = await {
           college_id: collegeID
@@ -352,7 +380,7 @@ export default function AddNewCollege({ collegeId, admin }) {
           category_name: collegeBasicDetails.category_name,
           account_name: JSON.parse(localStorage.getItem('userData')).account_name,
           is_publish: constants.courseIsPublished.notPublished,
-          message: collegeBasicDetails.message,
+          message: collegeBasicDetails.message
         }
         const logoPayload = await fileTouploadPayload(collegeLogo)
         const thumbnailPayload = await fileTouploadPayload(collegeThumbnail)
@@ -386,7 +414,8 @@ export default function AddNewCollege({ collegeId, admin }) {
           )
         ])
         console.log(isresolved)
-        const response = await isresolved.map((status) => status.payload.status || status?.payload[0]?.status)
+        const response = await isresolved
+          .map((status) => status.payload.status || status?.payload[0]?.status)
           .every((status) => status === constants.apiResponseStatus.SUCCESS || status == 200)
         if (!response) {
           dispatch(
@@ -478,12 +507,20 @@ export default function AddNewCollege({ collegeId, admin }) {
 
   return (
     <AddItemForm label={'Add New College'}>
-      <div style={{ display: 'flex', flexDirection: 'column', width: "100%" }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
         <AddCollege collegeId={collegeId} admin={admin} />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <CustomButton isDisabled={tabValue === '1' ? true : false} lable={'Prev'} onClick={() => setTabValue(`${Number(tabValue) - 1}`)} />
+          <CustomButton
+            isDisabled={tabValue === '1' ? true : false}
+            lable={'Prev'}
+            onClick={() => setTabValue(`${Number(tabValue) - 1}`)}
+          />
           <CustomButton isDisabled={isDisabled} lable={'Submit'} onClick={() => createNewCollege()} />
-          <CustomButton isDisabled={tabValue === '6' ? true : false} lable={'Next'} onClick={() => setTabValue(`${Number(tabValue) + 1}`)} />
+          <CustomButton
+            isDisabled={tabValue === '6' ? true : false}
+            lable={'Next'}
+            onClick={() => setTabValue(`${Number(tabValue) + 1}`)}
+          />
         </div>
       </div>
     </AddItemForm>

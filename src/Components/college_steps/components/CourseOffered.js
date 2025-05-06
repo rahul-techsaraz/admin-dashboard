@@ -43,11 +43,13 @@ const CourseOffered = ({ collegeId }) => {
 
     const createEligibilityList = () => {
         if (courseOfferedList.eligibility_criteria.includes(eligiblity)) {
-            dispatch(updateError({
-                errorType: constants.apiResponseStatus.ERROR,
-                errorMessage: 'Eligibility Criteria already added',
-                flag: true
-            }))
+            dispatch(
+                updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: 'Eligibility Criteria already added',
+                    flag: true
+                })
+            )
         } else {
             const data = [...courseOfferedList?.eligibility_criteria, eligiblity]
             setCourseOfferedList({ ...courseOfferedList, eligibility_criteria: data })

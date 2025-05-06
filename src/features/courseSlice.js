@@ -72,10 +72,7 @@ const courseSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCourseDetails.fulfilled, (state, { payload }) => {
       if (payload.status === constants.apiResponseStatus.SUCCESS) {
-        const modifyCourseDetails = payload.data.map((data) => {
-          return { ...data, course_fee: data.course_fee_min + ' - ' + data.course_fee_max }
-        })
-        state.allCourseDetails = modifyCourseDetails
+        state.allCourseDetails = payload.data
       }
     })
     builder.addCase(fetchCourseBasicDetailsById.fulfilled, (state, { payload }) => {

@@ -25,7 +25,7 @@ const initialState = {
     examStartDates: '',
     examEndDates: '',
     examYear: '',
-    category_name: '',
+    category_name: ''
   },
   examDescriptionOptions: {
     isValidationError: true,

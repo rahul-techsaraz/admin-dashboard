@@ -1,8 +1,7 @@
-import { useDispatch } from "react-redux"
-import { updateError } from "../features/commonSlice"
-import { constants } from "../utils/constants"
-import { fetchAllCollegeList } from "../utils/reduxThunk/collegeThunk"
-
+import { useDispatch } from 'react-redux'
+import { updateError } from '../features/commonSlice'
+import { constants } from '../utils/constants'
+import { fetchAllCollegeList } from '../utils/reduxThunk/collegeThunk'
 
 export const useFetchAllCollegeList = () => {
     const dispatch = useDispatch()

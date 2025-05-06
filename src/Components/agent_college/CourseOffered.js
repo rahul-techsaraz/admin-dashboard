@@ -20,9 +20,14 @@ import CustomButton from '../../utils/CommonComponents/CustomButton'
 import { v4 as uuid } from 'uuid'
 import ItemList from '../ItemList'
 import DataToDisplay from '../course_list/DataToDisplay'
-import { addCollegeBasicDetails, addCollegeCourseOffered, deleteCollegeCourseOffered, fetchCollegeById, fetchCourseOfferedById } from '../../utils/reduxThunk/collegeThunk'
+import {
+  addCollegeBasicDetails,
+  addCollegeCourseOffered,
+  deleteCollegeCourseOffered,
+  fetchCollegeById,
+  fetchCourseOfferedById
+} from '../../utils/reduxThunk/collegeThunk'
 import { useNavigate } from 'react-router-dom'
-
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -31,8 +36,17 @@ const Input = styled(MuiInput)`
 export default function CourseOffered({ collegeId, admin }) {
   useCourseDetails()
   const { allCourseDetails, collegeBasicDetails, courseOffered, courseOfferedList, isEdit } = useSelector((state) => state.college)
-  const { isValitadeError, college_id, course_id, course_name, course_fee_min, course_fee_max, course_accepting_exam, sub_course_fee, sub_course_duration } =
-    useSelector((state) => state.college.courseOffered)
+  const {
+    isValitadeError,
+    college_id,
+    course_id,
+    course_name,
+    course_fee_min,
+    course_fee_max,
+    course_accepting_exam,
+    sub_course_fee,
+    sub_course_duration
+  } = useSelector((state) => state.college.courseOffered)
   const dispatch = useDispatch()
   const [isDisabled, setisDisabled] = useState(true)
   const [componentCourse, setComponentCourse] = useState('')
@@ -42,11 +56,13 @@ export default function CourseOffered({ collegeId, admin }) {
     if (Number(sub_course_fee) >= course_fee_min && Number(sub_course_fee) <= course_fee_max) {
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(sub_course_fee) }))
     } else {
-      dispatch(updateError({
-        errorType: constants.apiResponseStatus.ERROR,
-        errorMessage: 'Course Fee should be within the given range',
-        flag: true
-      }))
+      dispatch(
+        updateError({
+          errorType: constants.apiResponseStatus.ERROR,
+          errorMessage: 'Course Fee should be within the given range',
+          flag: true
+        })
+      )
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(course_fee_min) }))
     }
   }
@@ -58,7 +74,9 @@ export default function CourseOffered({ collegeId, admin }) {
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: allCourseDetails[index].course_fee_min }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_fee_min', value: allCourseDetails[index].course_fee_min }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_fee_max', value: allCourseDetails[index].course_fee_max }))
-      dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_accepting_exam', value: allCourseDetails[index].course_accepting_exam }))
+      dispatch(
+        updateCollegeInfo({ classKey: 'courseOffered', key: 'course_accepting_exam', value: allCourseDetails[index].course_accepting_exam })
+      )
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_duration', value: allCourseDetails[index].course_duration }))
       dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'course_id', value: allCourseDetails[index].course_id }))
     } else {
@@ -77,16 +95,21 @@ export default function CourseOffered({ collegeId, admin }) {
         dispatch(
           updateCollegeInfo({
             classKey: 'courseOfferedList',
-            value: [...courseOfferedList, { college_id, course_id, course_name, course_accepting_exam, sub_course_fee, sub_course_duration }]
+            value: [
+              ...courseOfferedList,
+              { college_id, course_id, course_name, course_accepting_exam, sub_course_fee, sub_course_duration }
+            ]
           })
         )
         return
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Course already added',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Course already added',
+            flag: true
+          })
+        )
       }
     } else {
       if (!JSON.stringify(courseOfferedList).includes(course_name)) {
@@ -107,11 +130,13 @@ export default function CourseOffered({ collegeId, admin }) {
           })
         )
         if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-          dispatch(updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: 'Course added Successfully',
-            flag: true
-          }))
+          dispatch(
+            updateError({
+              errorType: constants.apiResponseStatus.SUCCESS,
+              errorMessage: 'Course added Successfully',
+              flag: true
+            })
+          )
           dispatch(
             fetchCourseOfferedById({
               url: constants.apiEndPoint.COLLEGE_LIST + '?requestType=collegeCourseOffered&college_id=' + collegeId,
@@ -120,21 +145,24 @@ export default function CourseOffered({ collegeId, admin }) {
             })
           )
         } else {
-          dispatch(updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: 'Course cannot be added... Please try again',
-            flag: true
-          }))
+          dispatch(
+            updateError({
+              errorType: constants.apiResponseStatus.ERROR,
+              errorMessage: 'Course cannot be added... Please try again',
+              flag: true
+            })
+          )
         }
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Course already added',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Course already added',
+            flag: true
+          })
+        )
       }
     }
-
   }
 
   const addNewColumns = [
@@ -155,7 +183,7 @@ export default function CourseOffered({ collegeId, admin }) {
     } else {
       const deleteCourseOfferedPayload = {
         college_id: rowData.college_id,
-        course_id: rowData.course_id,
+        course_id: rowData.course_id
       }
       const response = await dispatch(
         deleteCollegeCourseOffered({
@@ -173,17 +201,21 @@ export default function CourseOffered({ collegeId, admin }) {
             method: constants.httpMethod.GET
           })
         )
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.SUCCESS,
-          errorMessage: 'Course deleted Successfully',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.SUCCESS,
+            errorMessage: 'Course deleted Successfully',
+            flag: true
+          })
+        )
       } else {
-        dispatch(updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Course deletion unsuccessful... Please try again',
-          flag: true
-        }))
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'Course deletion unsuccessful... Please try again',
+            flag: true
+          })
+        )
       }
     }
   }
@@ -329,7 +361,21 @@ export default function CourseOffered({ collegeId, admin }) {
     return () => clearTimeout(timer)
   }, [sub_course_fee])
 
-  const collegeInfoData = courseOfferedList.map((data) => Object.keys(data).filter((key) => (key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id')).map((lable) => { return { 'lable': lable.split('_').map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(' '), 'value': data[lable] } }))
+  const collegeInfoData = courseOfferedList.map((data) =>
+    Object.keys(data)
+      .filter((key) => key.toLowerCase() !== 'college_id' && key.toLowerCase() !== 'course_id')
+      .map((lable) => {
+        return {
+          lable: lable
+            .split('_')
+            .map((str) => {
+              return str.charAt(0).toUpperCase() + str.slice(1)
+            })
+            .join(' '),
+          value: data[lable]
+        }
+      })
+  )
 
   return (
     <>
@@ -380,7 +426,9 @@ export default function CourseOffered({ collegeId, admin }) {
                   inputValue={sub_course_fee}
                   inputType='text'
                   styles={{ width: '280px' }}
-                  onChange={(e) => dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(e.target.value) }))}
+                  onChange={(e) =>
+                    dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'sub_course_fee', value: Number(e.target.value) }))
+                  }
                 />
                 {/* <div className='full-contain'>
               <div className='grid-parent'> */}
@@ -413,7 +461,9 @@ export default function CourseOffered({ collegeId, admin }) {
             <div>
               <ItemList
                 userColumns={constants.courseOfferedUserColumns}
-                categoryData={courseOfferedList.map((data) => { return { ...data, id: data.course_id } })}
+                categoryData={courseOfferedList.map((data) => {
+                  return { ...data, id: data.course_id }
+                })}
                 addNewColumns={addNewColumns}
                 labe={'Course Offered Listing'}
                 id={'course_id'}

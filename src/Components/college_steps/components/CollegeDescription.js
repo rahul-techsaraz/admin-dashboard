@@ -43,7 +43,13 @@ const CollegeDescription = ({ collegeId }) => {
         } else {
             dispatch(updateCollegeInfo({ classKey: 'collegeDescriptions', key: 'isValitadeError', value: true }))
         }
-    }, [college_description, college_course_description, college_highlights_description, college_campus_description, college_admission_description])
+    }, [
+        college_description,
+        college_course_description,
+        college_highlights_description,
+        college_campus_description,
+        college_admission_description
+    ])
 
     return (
         <div style={{ display: ' flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '3rem', margin: 'auto', padding: 'auto' }}>

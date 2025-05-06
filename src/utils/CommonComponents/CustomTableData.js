@@ -16,7 +16,6 @@ const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetai
     <>
       <div className='cellAction'>
         {actionItem.map((item) => (
-
           <Button variant='contained' color='error' onClick={() => item.handleDeleteItem(params.row)}>
             {item.label}
           </Button>
@@ -29,7 +28,6 @@ const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetai
           </Button>
         )}
       </div>
-
     </>
   )
 }

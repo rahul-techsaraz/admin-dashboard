@@ -49,11 +49,12 @@ const Placements = ({ collegeId, admin }) => {
 
     const createPlacementsList = () => {
         if (!JSON.stringify(placements?.placement_data).includes(placementData?.year)) {
-            dispatch(updateCollegeInfo({
-                classKey: 'placements',
-                key: 'placement_data',
-                value: [...placements?.placement_data, placementData]
-            })
+            dispatch(
+                updateCollegeInfo({
+                    classKey: 'placements',
+                    key: 'placement_data',
+                    value: [...placements?.placement_data, placementData]
+                })
             )
             setPlacementData({
                 year: '',
@@ -61,15 +62,17 @@ const Placements = ({ collegeId, admin }) => {
                 students_placed: '',
                 highest_package: '',
                 average_package: '',
-                top_recruiters: [],
+                top_recruiters: []
             })
             setTopRecruiters('')
         } else {
-            dispatch(updateError({
-                errorType: constants.apiResponseStatus.ERROR,
-                errorMessage: 'Data for this Year already exist',
-                flag: true
-            }))
+            dispatch(
+                updateError({
+                    errorType: constants.apiResponseStatus.ERROR,
+                    errorMessage: 'Data for this Year already exist',
+                    flag: true
+                })
+            )
         }
     }
 

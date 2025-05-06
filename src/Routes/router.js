@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import Main from '../Components/Main'
@@ -16,12 +16,9 @@ import SignUp from '../Components/SignUp'
 import ProtectedRoute from '../utils/ProtectedRoute'
 import AddNewCategory from '../Components/category_list/AddNewCategory'
 import AdminRequest from '../Components/admin/AdminRequest'
-import ExamList from '../Components/exam/ExamList'
+// import ExamList from '../Components/exam/ExamList'
 import ViewExamDetails from '../Components/exam/ViewExamDetails'
 import AddNewExamDetails from '../Components/exam/AddNewExamDetails'
-import CourseList from '../Components/course_list/CourseList'
-import AddNewCourse from '../Components/course_list/AddNewCourse'
-import ViewCourseDetails from '../Components/course_list/ViewCourseDetails'
 import College_list from '../Components/agent_college/College_list'
 // import ParentWrapper from '../Components/agent_college/ParentWrapper'
 import UsersList from '../Components/users-list/UsersList';
@@ -31,6 +28,11 @@ import FeedbackList from '../Components/feedback/FeedbackList';
 import FeedbackDetails from '../Components/feedback/FeedbackDetails';
 import CollegeList from '../Components/college_steps/components/CollegeList';
 import ParentWrapper from '../Components/college_steps/components/ParentWrapper';
+import CourseList from '../Container/Courses/CourseList';
+import Courses from '../Container/Courses/Courses';
+import CourseDetailsContainer from '../Container/Courses/CourseDetailsContainer';
+import ExamList from '../Container/Exams/ExamList'
+import ExamDetails from '../Container/Exams/ExamDetails'
 
 
 
@@ -86,11 +88,11 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-new-course',
-          element: <AddNewCourse />
+          element: <Courses />
         },
         {
           path: '/add-new-course/:courseId',
-          element: <ViewCourseDetails />
+          element: <CourseDetailsContainer />
         },
 
         {
@@ -103,7 +105,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-exam-description/:examId',
-          element: <ViewExamDetails />
+          element: <ExamDetails />
         },
         {
           path: '/list-college',

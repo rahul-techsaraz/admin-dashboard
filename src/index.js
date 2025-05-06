@@ -8,15 +8,19 @@ import { Provider } from 'react-redux'
 import store from './state/store'
 import 'react-toastify/dist/ReactToastify.css'
 import ErrorBoundary from './Components/ErrorBoundary'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
-    <Provider store={store}>
-      <RouterProvider router={appRouter} />
+      <Provider store={store}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <RouterProvider router={appRouter} />
+        </LocalizationProvider>
       </Provider>
-      </ErrorBoundary>
+    </ErrorBoundary>
   </React.StrictMode>
 )
 
