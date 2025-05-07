@@ -84,7 +84,7 @@ export default function LeftSidebar() {
               </ul>
             </div>
           </div>
-          <div className='tab-pane stretchLeft' id='user'>
+          {/* <div className='tab-pane stretchLeft' id='user'>
             <div className='menu'>
               <ul className='list'>
                 <li>
@@ -184,7 +184,7 @@ export default function LeftSidebar() {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
         </div>
       </aside>
     </>
