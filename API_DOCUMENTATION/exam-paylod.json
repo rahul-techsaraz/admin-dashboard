@@ -1,0 +1,44 @@
+{
+  "exam_id": "jee-main-2025",
+  "exam_name": "JEE Main",
+  "exam_slug": "jee-main",
+  "exam_year": 2025,
+  "application_start_date": "2025-01-01",
+  "application_end_date": "2025-01-31",
+  "admit_card_release_date": "2025-02-15",
+  "exam_start_date": "2025-02-20",
+  "exam_end_date": "2025-02-25",
+  "result_declaration_date": "2025-03-10",
+  "counselling_date": "2025-04-01",
+  "exam_category": ["Engineering", "UG"],
+  "exam_conducting_by": "NTA",
+  "exam_level": "National",
+  "exam_frequency": "Twice a year",
+  "exam_mode": ["Online", "Remote"],
+  "exam_duration": 180,
+  "exam_language_options": ["English", "Hindi"],
+  "exam_fee_structure": {
+    "General": 650,
+    "SC/ST": 325
+  },
+  "eligibility_criteria": "Passed 12th with PCM.",
+  "exam_syllabus": "Physics, Chemistry, Mathematics",
+  "important_instructions": "Carry Admit Card and ID.",
+  "exam_conducting_address": "Various centers across India.",
+  "exam_support_contact": "support@nta.ac.in",
+  "exam_website": "https://jeemain.nta.nic.in",
+  "exam_descriptions": {
+    "about": "JEE Main is a national level entrance exam...",
+    "how_to_apply": "Go to official website and register..."
+  },
+  "exam_papers_and_marks": "Paper 1: PCM - 100 marks each",
+  "marking_scheme": "4 for correct, -1 for wrong",
+  "mock_test_papers_data": [
+    { "id": "mock1", "title": "Mock Test 1", "year": 2024 },
+    { "id": "mock2", "title": "Mock Test 2", "year": 2025 }
+  ],
+  "previous_test_papers_data": [
+    { "id": "prev1", "title": "JEE 2023 Paper", "year": 2023 },
+    { "id": "prev2", "title": "JEE 2022 Paper", "year": 2022 }
+  ]
+}
