@@ -6,7 +6,8 @@ export const constants = {
     CATEGORY_LIST: 'https://techsaraz.in//admission-cart/api/course_category_list.php',
     ADMIN_REGISTER: 'https://techsaraz.in//admission-cart/api/login/adminlogin/register.php',
     UPDATE_USER_ROLE: 'https://techsaraz.in//admission-cart/api/login/adminlogin/approved.php',
-    EXAM_LIST: 'https://techsaraz.in//admission-cart/api/exam.php',
+    EXAM_LIST: 'https://techsaraz.in//admission-cart/api/newexams.php',
+    NEW_EXAM_API: 'https://techsaraz.in//admission-cart/api/newexams.php',
     COURSE_DETAILS: 'https://techsaraz.in/admission-cart/api/newcourses.php',
     COLLEGE_LIST: 'https://techsaraz.in/admission-cart/api/colleges.php',
     STATE_LIST: 'https://api.countrystatecity.in/v1/countries/IN/states',
@@ -23,7 +24,11 @@ export const constants = {
   apiHeaders: {
     HEADER: { 'Content-Type': 'Application/json' },
     HEADER_FORM_DATA: { 'Content-Type': 'multipart/form-data' },
-    customHeader: { Authorization: localStorage.getItem('token'), 'Content-Type': 'Application/json' }
+    customHeader: {
+      Authorization:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL3BocF9hdXRoX2FwaVwvIiwiYXVkIjoiaHR0cDpcL1wvbG9jYWxob3N0XC9waHBfYXV0aF9hcGlcLyIsImlhdCI6MTc0NzA3NDQ3OSwiZXhwIjoxNzQ3MDc4MDc5LCJkYXRhIjp7InVzZXJfaWQiOjF9fQ.JmSk7akT3kBpoo9Z84Yfy7rN2LynF5ylez-gojJ8De8',
+      'Content-Type': 'Application/json'
+    }
   },
   httpMethod: {
     GET: 'GET',
@@ -489,7 +494,7 @@ export const constants = {
   ],
   courseIsPublished: {
     notPublished: 0,
-    published: 1,
+    published: 1
   },
   SyllabusDetailsUserColumns: [
     {
@@ -726,7 +731,7 @@ export const constants = {
       field: 'content',
       headerName: 'Content',
       width: 300
-    },
+    }
   ],
   collegeStepsLabel: [
     { label: 'College Basic Details', isValitadeError: 'collegeBasicDetails' },

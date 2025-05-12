@@ -21,20 +21,19 @@ import ViewExamDetails from '../Components/exam/ViewExamDetails'
 import AddNewExamDetails from '../Components/exam/AddNewExamDetails'
 import College_list from '../Components/agent_college/College_list'
 // import ParentWrapper from '../Components/agent_college/ParentWrapper'
-import UsersList from '../Components/users-list/UsersList';
-import ViewUserDetails from '../Components/users-list/ViewUserDetails';
-import CollegeRequest from '../Components/admin/CollegeRequest';
-import FeedbackList from '../Components/feedback/FeedbackList';
-import FeedbackDetails from '../Components/feedback/FeedbackDetails';
-import CollegeList from '../Components/college_steps/components/CollegeList';
-import ParentWrapper from '../Components/college_steps/components/ParentWrapper';
-import CourseList from '../Container/Courses/CourseList';
-import Courses from '../Container/Courses/Courses';
-import CourseDetailsContainer from '../Container/Courses/CourseDetailsContainer';
+import UsersList from '../Components/users-list/UsersList'
+import ViewUserDetails from '../Components/users-list/ViewUserDetails'
+import CollegeRequest from '../Components/admin/CollegeRequest'
+import FeedbackList from '../Components/feedback/FeedbackList'
+import FeedbackDetails from '../Components/feedback/FeedbackDetails'
+import CollegeList from '../Components/college_steps/components/CollegeList'
+import ParentWrapper from '../Components/college_steps/components/ParentWrapper'
+import CourseList from '../Container/Courses/CourseList'
+import Courses from '../Container/Courses/Courses'
+import CourseDetailsContainer from '../Container/Courses/CourseDetailsContainer'
 import ExamList from '../Container/Exams/ExamList'
 import ExamDetails from '../Container/Exams/ExamDetails'
-
-
+import ExamContainer from '../Container/Exams/Exams'
 
 export const appRouter = createBrowserRouter(
   [
@@ -101,7 +100,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/add-new-exam',
-          element: <AddNewExamDetails />
+          element: <ExamContainer />
         },
         {
           path: '/add-exam-description/:examId',

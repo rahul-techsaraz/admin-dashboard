@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { httpCall } from '../service'
+import { createApiThunk } from '../apiThunk'
 
 export const fetchExamInfoById = createAsyncThunk('exam/fetchExamInfoById', async ({ url, header, method }, thunkApi) => {
   try {
@@ -81,3 +82,9 @@ export const deleteExam = createAsyncThunk('exam/deleteExam', async ({ url, head
     console.log(error)
   }
 })
+//===============================================
+export const addNewExams = createApiThunk('exam/addNewExams')
+export const fetchExamDetails = createApiThunk('exam/fetchExamDetails')
+export const updateExamDetails = createApiThunk('exam/updateExamDetails')
+export const fetchAllExams = createApiThunk('exam/fetchAllExams')
+export const deleteExamById = createApiThunk('exam/deleteExamById')

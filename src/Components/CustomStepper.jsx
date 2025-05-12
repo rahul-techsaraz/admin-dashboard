@@ -58,8 +58,8 @@ const CustomStepper = ({ steps, onComplete, formName, isCompleteEnable }) => {
             >
               Back
             </Button>
-            <Box>
-              {isCompleteEnable ? (
+            <Box style={{ display: 'flex', gap: '1rem' }}>
+              {isCompleteEnable && (
                 <Button
                   variant='contained'
                   color='primary'
@@ -73,22 +73,21 @@ const CustomStepper = ({ steps, onComplete, formName, isCompleteEnable }) => {
                 >
                   Finish
                 </Button>
-              ) : (
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleNext}
-                  sx={{
-                    backgroundColor: '#2C3E50',
-                    '&:hover': {
-                      backgroundColor: '#34495E'
-                    }
-                  }}
-                  disabled={steps[activeStep]?.isNextDisabled}
-                >
-                  Next
-                </Button>
               )}
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={handleNext}
+                sx={{
+                  backgroundColor: '#2C3E50',
+                  '&:hover': {
+                    backgroundColor: '#34495E'
+                  }
+                }}
+                disabled={steps[activeStep]?.isNextDisabled}
+              >
+                Next
+              </Button>
             </Box>
           </Box>
         </Box>

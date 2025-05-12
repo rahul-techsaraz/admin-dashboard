@@ -3,6 +3,10 @@
   "exam_name": "JEE Main",
   "exam_slug": "jee-main",
   "exam_year": 2025,
+  "exam_duration": 180,
+  "exam_frequency": "Twice a year",
+  "exam_mode": "Online",
+  "exam_category": ["Engineering", "UG"],
   "application_start_date": "2025-01-01",
   "application_end_date": "2025-01-31",
   "admit_card_release_date": "2025-02-15",
@@ -10,20 +14,27 @@
   "exam_end_date": "2025-02-25",
   "result_declaration_date": "2025-03-10",
   "counselling_date": "2025-04-01",
-  "exam_category": ["Engineering", "UG"],
   "exam_conducting_by": "NTA",
-  "exam_level": "National",
-  "exam_frequency": "Twice a year",
-  "exam_mode": ["Online", "Remote"],
-  "exam_duration": 180,
-  "exam_language_options": ["English", "Hindi"],
-  "exam_fee_structure": {
-    "General": 650,
-    "SC/ST": 325
-  },
+  "exam_fee_structure": [
+    {
+      "id": 1,
+      "category": "General",
+      "mode": "Online",
+      "fee": 1500,
+      "currency": "INR",
+      "Note": "NA"
+    },
+    {
+      "id": 2,
+      "category": "General",
+      "mode": "Offline",
+      "fee": 1500,
+      "currency": "INR",
+      "Note": "NA"
+    }
+  ],
   "eligibility_criteria": "Passed 12th with PCM.",
   "exam_syllabus": "Physics, Chemistry, Mathematics",
-  "important_instructions": "Carry Admit Card and ID.",
   "exam_conducting_address": "Various centers across India.",
   "exam_support_contact": "support@nta.ac.in",
   "exam_website": "https://jeemain.nta.nic.in",
@@ -34,11 +45,11 @@
   "exam_papers_and_marks": "Paper 1: PCM - 100 marks each",
   "marking_scheme": "4 for correct, -1 for wrong",
   "mock_test_papers_data": [
-    { "id": "mock1", "title": "Mock Test 1", "year": 2024 },
-    { "id": "mock2", "title": "Mock Test 2", "year": 2025 }
+    { "id": "mock1", "title": "Mock Test 1", "year": 2024, "link": "www.mock-paper-link.com" },
+    { "id": "mock2", "title": "Mock Test 2", "year": 2025, "link": "www.mock-paper-link.com" }
   ],
   "previous_test_papers_data": [
-    { "id": "prev1", "title": "JEE 2023 Paper", "year": 2023 },
-    { "id": "prev2", "title": "JEE 2022 Paper", "year": 2022 }
+    { "id": "prev1", "title": "JEE 2023 Paper", "year": 2023, "link": "www.mock-paper-link.com" },
+    { "id": "prev2", "title": "JEE 2022 Paper", "year": 2022, "link": "www.mock-paper-link.com" }
   ]
 }
