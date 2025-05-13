@@ -8,16 +8,16 @@ border-radius: 40px;
     -ms-transform: translate(14px, 8px) scale(1);
     transform: translate(14px, 8px) scale(1);
 } */
-.auto-complete .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root{
-    border-radius: 40px;
-    height: 38px;
-    }
-.auto-complete .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
-    -webkit-transform: translate(14px, 8px) scale(1);
-    -moz-transform: translate(14px, 8px) scale(1);
-    -ms-transform: translate(14px, 8px) scale(1);
-    transform: translate(14px, 8px) scale(1);
+.auto-complete .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 40px;
+  height: 38px;
 }
-.auto-complete .MuiAutocomplete-input{
-    padding: 1.5px 4px 7.5px 5px !important;
-}   
+.auto-complete .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  -webkit-transform: translate(14px, 8px) scale(1);
+  -moz-transform: translate(14px, 8px) scale(1);
+  -ms-transform: translate(14px, 8px) scale(1);
+  transform: translate(14px, 8px) scale(1);
+}
+.auto-complete .MuiAutocomplete-input {
+  padding: 1.5px 4px 7.5px 5px !important;
+}

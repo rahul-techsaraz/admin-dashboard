@@ -1,83 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { httpCall } from '../service'
+import { createApiThunk } from '../apiThunk'
 
-export const authenticateUsers = createAsyncThunk('auth/authenticateUser', async ({ url, header, method }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const loginUsers = createAsyncThunk('login/loginUsers', async ({ url, header, method, payload }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method, payload)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const addNewCategory = createAsyncThunk('category/addNewCategory', async ({ url, header, method, payload }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method, payload)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const deleteCategory = createAsyncThunk('category/deleteCategory', async ({ url, header, method, payload }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method, payload)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const fetchCategory = createAsyncThunk('category/fetchCategory', async ({ url, header, method }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const fetchCategoryById = createAsyncThunk('category/fetchCategoryById', async ({ url, header, method }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const fetchAllAdminUserList = createAsyncThunk('users/fetchAllAdminUserList', async ({ url, header, method }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const fetchAllUsersList = createAsyncThunk('users/fetchAllUsersList', async ({ url, header, method }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const fetchUserByEmail = createAsyncThunk('users/fetchUserByEmail', async ({ url, header, method }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
-export const approveUser = createAsyncThunk('users/approveUser', async ({ url, header, method, payload }, thunkApi) => {
-  try {
-    const data = await httpCall(url, header, method, payload)
-    return data
-  } catch (error) {
-    return thunkApi.rejectWithError(error)
-  }
-})
+export const authenticateUsers = createApiThunk('auth/authenticateUser')
+export const loginUsers = createApiThunk('login/loginUsers')
+export const addNewCategory = createApiThunk('category/addNewCategory')
+export const deleteCategory = createApiThunk('category/deleteCategory')
+export const fetchCategory = createApiThunk('category/fetchCategory')
+export const fetchCategoryById = createApiThunk('category/fetchCategoryById')
+export const fetchAllAdminUserList = createApiThunk('users/fetchAllAdminUserList')
+export const fetchAllUsersList = createApiThunk('users/fetchAllUsersList')
+export const fetchUserByEmail = createApiThunk('users/fetchUserByEmail')
+export const approveUser = createApiThunk('users/approveUser')
