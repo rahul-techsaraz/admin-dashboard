@@ -21,15 +21,10 @@ const BtnBoxStyle = {
 }
 
 export default function CustomMessageModal({ open, handleClose, handleEdit, message, setOpen }) {
-  const { collegeBasicDetails } = useSelector(state => state.newCollege)
+  const { collegeBasicDetails } = useSelector((state) => state.newCollege)
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={() => setOpen(false)} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
         <Box sx={style}>
           <TextArea
             placeholder={'Enter the Reason'}
@@ -41,7 +36,9 @@ export default function CustomMessageModal({ open, handleClose, handleEdit, mess
             inputValue={message ? message : collegeBasicDetails?.message}
           />
           <Box sx={BtnBoxStyle}>
-            <button class="btn btn-primary btn-round" onClick={() => handleClose()}>Submit</button>
+            <button class='btn btn-primary btn-round' onClick={() => handleClose()}>
+              Submit
+            </button>
           </Box>
         </Box>
       </Modal>

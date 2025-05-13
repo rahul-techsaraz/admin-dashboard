@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 // Constants for field names to avoid naming mismatches
 import { FIELDS } from '../Constants/redux/courseFieldName'
+import { fetchAllCourse } from '../utils/reduxThunk/courseThunk'
+import { constants } from '../utils/constants'
+import { deepParseTypedJSON } from '../utils/deepParseTypedJSON'
 
 const localData = localStorage.getItem('courseFormData')
 
@@ -209,10 +212,15 @@ const courseFormSlice = createSlice({
       state.allCourseDetails = payload.data
     },
 
-    resetCourseForm: (state) => {
-      state = initialState
-      localStorage.removeItem('courseFormData')
-    }
+    resetCourseForm: () => initialState
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllCourse.fulfilled, (state, { payload }) => {
+      if (payload.status === constants.apiResponseStatus.SUCCESS) {
+        const parsePayload = payload.data.map((course) => deepParseTypedJSON(course))
+        state.allCourseDetails = parsePayload
+      }
+    })
   }
 })
 

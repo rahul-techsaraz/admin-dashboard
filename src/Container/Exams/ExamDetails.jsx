@@ -1,109 +1,126 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Box, Button } from '@mui/material'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import AddItemForm from '../../Components/AddItemForm'
-import { Box, Button } from '@mui/material'
+import { fetchExamDetailById, updateExamDetails } from '../../utils/reduxThunk/examThunk'
+import { constants } from '../../utils/constants'
+import { deepParseTypedJSON } from '../../utils/deepParseTypedJSON'
 import { updateError } from '../../features/commonSlice'
+import { resetExamForm, setExamDataFromApi } from '../../features/newExamSlice'
+import { EXAM_FIELDS } from '../../Constants/redux/courseFieldName'
+import AddItemForm from '../../Components/AddItemForm'
+import ExamBasicDetails from '../../Components/Exams/ExamBasicDetails'
+import ExamImportantDate from '../../Components/Exams/ExamImportantDate'
+import ExamEligibility from '../../Components/Exams/ExamEligibility'
+import ExamSyllabus from '../../Components/Exams/ExamSyllabus'
+import ExamDescriptions from '../../Components/Exams/ExamDescriptions'
 import CollapsibleSection from '../../Components/CollapsibleSection'
+import ExamContactInfo from '../../Components/Exams/ExamContactInfo'
+import ExamPapers from '../../Components/Exams/ExamPapers'
 
-const ExamDetails = () => {
+const ExamDetailsContainer = () => {
   const [viewMode, setViewMode] = useState(true)
   const exams = useSelector((state) => state.newExam, shallowEqual)
+  const { userInfo } = useSelector((state) => state.user, shallowEqual)
+
   const { examId } = useParams()
   const dispatch = useDispatch()
+  console.log({ examId })
 
   const handleEditToggle = () => {
     setViewMode((prev) => !prev)
   }
-  // const fetchCourse = () => {
-  //     dispatch(
-  //         fetchCourseDetails({
-  //             url: constants.apiEndPoint.COURSE_DETAILS + '?course_id=' + courseId,
-  //             header: constants.apiHeaders.HEADER,
-  //             method: constants.httpMethod.GET
-  //         })
-  //     )
-  //         .then((res) => {
-  //             const courseData = deepParseTypedJSON(res.payload.data)
-  //             dispatch(setCourseDataFromApi(courseData))
-  //             console.log({ courseData })
-  //         })
-  //         .catch((err) => {
-  //             console.error(err)
-  //             updateError({
-  //                 errorType: constants.apiResponseStatus.ERROR,
-  //                 errorMessage: err?.payload?.message ?? 'Something went wrong . Please try again',
-  //                 flag: true
-  //             })
-  //         })
-  // }
-  // useEffect(() => {
-  //     fetchCourse()
-  //     // Cleanup function to reset state on unmount
-  //     return () => {
-  //         localStorage.removeItem('examFormData')
-  //         dispatch(resetCourseForm())
-  //     }
-  // }, [dispatch, courseId])
+
+  const fetchExam = () => {
+    dispatch(
+      fetchExamDetailById({
+        url: constants.apiEndPoint.EXAM_LIST + '?exam_id=' + examId,
+        header: constants.apiHeaders.HEADER,
+        method: constants.httpMethod.GET
+      })
+    )
+      .then((res) => {
+        const examData = deepParseTypedJSON(res.payload.data)
+        dispatch(setExamDataFromApi(examData))
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+  useEffect(() => {
+    fetchExam()
+    // Cleanup function to reset state on unmount
+    return () => {
+      dispatch(resetExamForm())
+    }
+  }, [dispatch, examId])
 
   const handleUpdate = () => {
-    console.log('update called')
-    // // prepare payload
-    // const courseData = {
-    //     course_id: courseId,
-    //     course_name: courses.basicDetails[FIELDS.COURSE_NAME],
-    //     sub_course_name: courses.basicDetails[FIELDS.SUB_COURSE_NAME],
-    //     course_mode: courses.basicDetails[FIELDS.COURSE_MODE],
-    //     course_fee_min: courses.basicDetails[FIELDS.COURSE_FEE_MIN],
-    //     course_fee_max: courses.basicDetails[FIELDS.COURSE_FEE_MAX],
-    //     course_duration: courses.basicDetails[FIELDS.COURSE_DURATION],
-    //     course_categories: courses.basicDetails[FIELDS.CATEGORY],
-    //     course_accepting_exam: courses.basicDetails[FIELDS.COURSE_ACCEPTING_EXAM],
-    //     course_descriptions: {
-    //         [FIELDS.COURSE_PLACEMENT_DESCRIPTION]: courses.description[FIELDS.COURSE_PLACEMENT_DESCRIPTION],
-    //         [FIELDS.COURSE_ADMISSION_PROCESS_DESCRIPTION]: courses.description[FIELDS.COURSE_ADMISSION_PROCESS_DESCRIPTION],
-    //         [FIELDS.COURSE_ELIGIBILITY_CRITERIA_DESCRIPTION]: courses.description[FIELDS.COURSE_ELIGIBILITY_CRITERIA_DESCRIPTION],
-    //         [FIELDS.COURSE_DESCRIPTION]: courses.description[FIELDS.COURSE_DESCRIPTION]
-    //     },
-    //     exam_frequency: courses.otherInfo[FIELDS.EXAM_TYPE],
-    //     course_standard: courses.otherInfo[FIELDS.COURSE_CATEGORY_LEVEL],
-    //     eligibility_criteria: courses.otherInfo[FIELDS.ELIGIBILITY_CRITERIA],
-    //     syllabus_details: courses.syllabusDetails[FIELDS.SYLLABUS]
-    // }
-    // //CALL API
-    // dispatch(
-    //     updateCourseDetails({
-    //         url: constants.apiEndPoint.COURSE_DETAILS,
-    //         headers: constants.apiHeaders.customHeader,
-    //         method: constants.httpMethod.PUT,
-    //         payload: courseData
-    //     })
-    // )
-    //     .then((res) => {
-    //         dispatch(
-    //             updateError({
-    //                 errorType: res?.payload?.status,
-    //                 errorMessage: res?.payload?.message,
-    //                 flag: true
-    //             })
-    //         )
-    //         // navigate('/course-list')
-    //         fetchCourse()
-    //         setViewMode(true)
-    //         // localStorage.removeItem('courseFormData')
-    //         // dispatch(resetCourseForm())
-    //     })
-    //     .catch((err) => {
-    //         console.error(err)
-    //         updateError({
-    //             errorType: constants.apiResponseStatus.ERROR,
-    //             errorMessage: err?.payload?.message ?? 'Something went wrong . Please try again',
-    //             flag: true
-    //         })
-    //     })
+    // prepare payload
+    const payload = {
+      exam_id: examId,
+      exam_name: exams.examBasicDetails[EXAM_FIELDS.EXAM_NAME],
+      exam_slug: `${exams.examBasicDetails[EXAM_FIELDS.EXAM_NAME]}_${exams.examBasicDetails[EXAM_FIELDS.EXAM_YEAR]}`,
+      exam_year: exams.examBasicDetails[EXAM_FIELDS.EXAM_YEAR],
+      exam_duration: exams.examBasicDetails[EXAM_FIELDS.EXAM_DURATION],
+      exam_frequency: exams.examBasicDetails[EXAM_FIELDS.EXAM_FREQUENCY],
+      exam_mode: exams.examBasicDetails[EXAM_FIELDS.EXAM_MODE],
+      exam_category: exams.examBasicDetails[EXAM_FIELDS.EXAM_CATEGORY],
+
+      application_start_date: exams.examImportantDates[EXAM_FIELDS.EXAM_APPLICATION_START_DATE],
+      application_end_date: exams.examImportantDates[EXAM_FIELDS.EXAM_APPLICATION_END_DATE],
+      admit_card_release_date: exams.examImportantDates[EXAM_FIELDS.EXAM_ADMIT_CARD_RELEASE_DATE],
+      exam_start_date: exams.examImportantDates[EXAM_FIELDS.EXAM_START_DATE],
+      exam_end_date: exams.examImportantDates[EXAM_FIELDS.EXAM_END_DATE],
+      result_declaration_date: exams.examImportantDates[EXAM_FIELDS.EXAM_RESULT_DECLARATION_DATE],
+      counselling_date: exams.examImportantDates[EXAM_FIELDS.EXAM_COUNSELLING_DATE],
+
+      exam_fee_structure: exams.examEligibilityAndFees[EXAM_FIELDS.EXAM_FEE_STRUCTURE],
+      eligibility_criteria: exams.examEligibilityAndFees[EXAM_FIELDS.EXAM_ELIGIBILITY_CRITERIA],
+
+      exam_conducting_address: exams.examContactInfo[EXAM_FIELDS.EXAM_CONDUCTING_ADDRESS],
+      exam_support_contact: exams.examContactInfo[EXAM_FIELDS.EXAM_SUPPORT_CONTACTS],
+      exam_website: exams.examContactInfo[EXAM_FIELDS.EXAM_WEBSITE],
+      exam_conducting_by: exams.examContactInfo[EXAM_FIELDS.EXAM_CONDUCTED_BY],
+
+      exam_descriptions: exams.examDescriptions,
+
+      exam_syllabus: exams.examSyllabusAndMarks[EXAM_FIELDS.EXAM_SYLLABUS],
+      exam_papers_and_marks: exams.examSyllabusAndMarks[EXAM_FIELDS.EXAM_PAPERS_AND_MARKS],
+      marking_scheme: exams.examSyllabusAndMarks[EXAM_FIELDS.EXAM_MARKING_SCHEME],
+
+      mock_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_MOCK_TEST_PAPERS],
+      previous_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_PREVIOUS_TEST_PAPERS]
+    }
+    //CALL API
+    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
+    dispatch(
+      updateExamDetails({
+        url: constants.apiEndPoint.EXAM_LIST,
+        header: { ...constants.apiHeaders.HEADER, ...customHeader },
+        method: constants.httpMethod.PUT,
+        payload
+      })
+    )
+      .unwrap()
+      .then((res) => {
+        dispatch(
+          updateError({
+            errorType: res?.status,
+            errorMessage: res?.message,
+            flag: true
+          })
+        )
+        fetchExam()
+        setViewMode(true)
+      })
+      .catch((err) => {
+        console.error('Update failed', err)
+      })
   }
+
   return (
-    <AddItemForm label={'Course View'} style={{ flexDirection: 'column' }}>
+    <AddItemForm label={'Exam View'} style={{ flexDirection: 'column' }}>
       <Box display='flex' justifyContent='flex-end' gap={2} mb={2}>
         {viewMode ? (
           <Button variant='contained' onClick={handleEditToggle}>
@@ -121,25 +138,34 @@ const ExamDetails = () => {
         )}
       </Box>
 
-      {/* <Box display='flex' flexDirection='column' gap={2}>
-                <CollapsibleSection title='Basic Details' defaultExpand={true}>
-                    <ExamInfo isEdit={viewMode} />
-                </CollapsibleSection>
+      <Box display='flex' flexDirection='column' gap={2}>
+        <CollapsibleSection title='Basic Details' defaultExpand={true}>
+          <ExamBasicDetails isEdit={viewMode} />
+        </CollapsibleSection>
 
-                <CollapsibleSection title='Description' defaultExpand={false}>
-                    <ExamDescription isEdit={viewMode} />
-                </CollapsibleSection>
+        <CollapsibleSection title='Important Dates' defaultExpand={false}>
+          <ExamImportantDate isEdit={viewMode} />
+        </CollapsibleSection>
 
-                <CollapsibleSection title='Other Information' defaultExpand={false}>
-                    <ExamHighlights isEdit={viewMode} />
-                </CollapsibleSection>
+        <CollapsibleSection title='Eligibility & Fees' defaultExpand={false}>
+          <ExamEligibility isEdit={viewMode} />
+        </CollapsibleSection>
 
-                <CollapsibleSection title='Syllabus Details' defaultExpand={false}>
-                    <ExamConfig isEdit={viewMode} />
-                </CollapsibleSection>
-            </Box> */}
+        <CollapsibleSection title='Syllabus' defaultExpand={false}>
+          <ExamSyllabus isEdit={viewMode} />
+        </CollapsibleSection>
+        <CollapsibleSection title='Descriptions' defaultExpand={false}>
+          <ExamDescriptions isEdit={viewMode} />
+        </CollapsibleSection>
+        <CollapsibleSection title='Contact Info' defaultExpand={false}>
+          <ExamContactInfo isEdit={viewMode} />
+        </CollapsibleSection>
+        <CollapsibleSection title='Papers' defaultExpand={false}>
+          <ExamPapers isEdit={viewMode} />
+        </CollapsibleSection>
+      </Box>
     </AddItemForm>
   )
 }
 
-export default ExamDetails
+export default ExamDetailsContainer

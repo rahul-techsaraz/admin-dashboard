@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useFetchAllUserFeedback } from '../../hooks/useFetchAllUserFeedback'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import DataToDisplay from '../course_list/DataToDisplay'
 import AddItemForm from '../AddItemForm'
 
 const FeedbackDetails = () => {
@@ -25,7 +24,8 @@ const FeedbackDetails = () => {
   }, [feedback])
   return (
     <AddItemForm label={'Feedback Details'}>
-      <DataToDisplay dataToDisplay={feedback.length > 0 ? feedbackData() : []} admin={'admin'} />
+      {/* <DataToDisplay dataToDisplay={feedback.length > 0 ? feedbackData() : []} admin={'admin'} /> */}
+      <div>Feedback Details</div>
     </AddItemForm>
   )
 }

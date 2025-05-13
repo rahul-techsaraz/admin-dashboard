@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './Components/Header'
 import './assets/css/authentication.css'
 import './assets/css/blog.css'
@@ -26,13 +26,18 @@ import Loader from './Components/Loader/Loader'
 import CustomAllert from './utils/CommonComponents/CustomAllert'
 
 function App() {
+  const [isSnackBarOpen, setSnackBarOpen] = useState(false)
   const { activeSubHeader } = useSelector((state) => state.subheadermenu)
-  const { isLoading, isError, errorMessage, errorType } = useSelector((state) => state.common)
-
+  const { isLoading, isError, isOpenToast, errorMessage, errorType } = useSelector((state) => state.common)
+  console.log(isSnackBarOpen, isError, isOpenToast)
+  useEffect(() => {
+    const isOpen = isError || isOpenToast
+    setSnackBarOpen(isOpen)
+  }, [isOpenToast, isError])
   return (
     <>
       {isLoading && <Loader />}
-      {isError && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
+      {isSnackBarOpen && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
 
       <body className='theme-purple'>
         <Header />

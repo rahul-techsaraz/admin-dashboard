@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { updateError } from '../features/commonSlice'
 import { constants } from '../utils/constants'
-import { resetCourse } from '../features/courseSlice'
-import { fetchCourseList } from '../utils/reduxThunk/collegeThunk'
+import { resetCourseForm } from '../features/newCoursesSlice'
+import { fetchAllCourse } from '../utils/reduxThunk/courseThunk'
 
 export default function useCourseDetails() {
   const { allCourseDetails } = useSelector((state) => state.college)
   const dispatch = useDispatch()
   const fetchAllCourseDetails = async () => {
     try {
-      dispatch(resetCourse())
+      dispatch(resetCourseForm())
       const response = await dispatch(
-        fetchCourseList({
+        fetchAllCourse({
           url: constants.apiEndPoint.COURSE_DETAILS_COLLEGE,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
@@ -35,13 +35,7 @@ export default function useCourseDetails() {
         )
       }
     } catch (err) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-          flag: true
-        })
-      )
+      console.error(err)
     }
   }
 

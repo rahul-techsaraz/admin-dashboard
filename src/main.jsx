@@ -8,8 +8,8 @@ import { Provider } from 'react-redux'
 import store from './state/store'
 import 'react-toastify/dist/ReactToastify.css'
 import ErrorBoundary from './Components/ErrorBoundary'
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

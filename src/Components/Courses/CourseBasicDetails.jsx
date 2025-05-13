@@ -4,7 +4,7 @@ import { TextField, Box, MenuItem, Select, InputLabel, FormControl, InputAdornme
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { defaultState as courseInitialState, setBasicDetailField } from '../../features/newCoursesSlice'
 import { FIELDS } from '../../Constants/redux/courseFieldName'
-import { fetchExamList } from '../../utils/reduxThunk/examThunk'
+import { fetchAllExams } from '../../utils/reduxThunk/examThunk'
 import { fetchCategory } from '../../utils/reduxThunk/commonThunk'
 import { constants } from '../../utils/constants'
 import { useLocalStorageSync } from '../../hooks/useLocalStorageSync'
@@ -37,8 +37,8 @@ const CourseBasicDetails = ({ isEdit = false }) => {
     if (examList.length < 1) {
       //api call
       dispatch(
-        fetchExamList({
-          url: constants.apiEndPoint.EXAM_LIST + '?requestType=basicExamDetails',
+        fetchAllExams({
+          url: constants.apiEndPoint.EXAM_LIST,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
         })

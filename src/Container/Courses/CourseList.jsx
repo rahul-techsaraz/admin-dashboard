@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { setCourseDetails } from '../../features/newCoursesSlice'
 import { deepParseTypedJSON } from '../../utils/deepParseTypedJSON'
-import { deleteCourseBasicDetails, deleteCourseById, fetchAllCourse } from '../../utils/reduxThunk/courseThunk'
+import { deleteCourseById, fetchAllCourse } from '../../utils/reduxThunk/courseThunk'
 import { constants } from '../../utils/constants'
 import ItemList from '../../Components/ItemList'
 import { updateError } from '../../features/commonSlice'
@@ -10,7 +10,7 @@ import { updateError } from '../../features/commonSlice'
 export default function CourseList() {
   const dispatch = useDispatch()
   const { allCourseDetails } = useSelector((state) => state.newCourses)
-  console.log({ allCourseDetails })
+  const { userInfo } = useSelector((state) => state.user, shallowEqual)
 
   const addNewColumns = [
     {
@@ -23,10 +23,11 @@ export default function CourseList() {
   ]
   const deleteCourseListById = (courseId) => {
     const payload = { course_id: courseId }
+    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
     dispatch(
       deleteCourseById({
         url: constants.apiEndPoint.COURSE_DETAILS,
-        header: constants.apiHeaders.customHeader,
+        header: { ...constants.apiHeaders.HEADER, ...customHeader },
         method: constants.httpMethod.DELETE,
         payload
       })
@@ -53,13 +54,6 @@ export default function CourseList() {
       })
       .catch((err) => {
         console.error(err)
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.WARNING,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
       })
   }
   const fetchAllCourseDetails = () => {
@@ -70,19 +64,6 @@ export default function CourseList() {
         method: constants.httpMethod.GET
       })
     )
-      .then((res) => {
-        const courseData = res.payload.data.map((course) => deepParseTypedJSON(course))
-        dispatch(setCourseDetails({ data: courseData }))
-        console.log({ courseData })
-      })
-      .catch((err) => {
-        console.error(err)
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: err?.payload?.message ?? 'Something went wrong . Please try again',
-          flag: true
-        })
-      })
   }
 
   useEffect(() => {

@@ -17,7 +17,7 @@ const Courses = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const courses = useSelector((state) => state.newCourses, shallowEqual)
-  console.log({ courses })
+  const { userInfo } = useSelector((state) => state.user, shallowEqual)
 
   const isCompleteEnable =
     !courses.basicDetails[FIELDS.IS_VALIDATION_ERROR] &&
@@ -48,15 +48,18 @@ const Courses = () => {
       eligibility_criteria: courses.otherInfo[FIELDS.ELIGIBILITY_CRITERIA],
       syllabus_details: courses.syllabusDetails[FIELDS.SYLLABUS]
     }
+    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
+
     //CALL API
     dispatch(
       addNewCourse({
         url: constants.apiEndPoint.COURSE_DETAILS,
-        header: constants.apiHeaders.customHeader,
+        header: { ...constants.apiHeaders.HEADER, ...customHeader },
         method: constants.httpMethod.POST,
         payload: courseData
       })
     )
+      .unwrap()
       .then((res) => {
         dispatch(
           updateError({
@@ -71,11 +74,6 @@ const Courses = () => {
       })
       .catch((err) => {
         console.error(err)
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: err?.payload?.message ?? 'Something went wrong . Please try again',
-          flag: true
-        })
       })
   }
   const steps = [

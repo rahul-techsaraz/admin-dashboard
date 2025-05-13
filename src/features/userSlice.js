@@ -3,7 +3,7 @@ import { fetchAllAdminUserList, loginUsers } from '../utils/reduxThunk/commonThu
 
 const initialState = {
   isUserAuthenticated: false,
-  userToken: localStorage.getItem('token') ? localStorage.getItem('token') : '',
+  userToken: '',
   userInfo: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : '',
   userList: [],
   filteredUserList: []

@@ -24,10 +24,10 @@ export const constants = {
   apiHeaders: {
     HEADER: { 'Content-Type': 'Application/json' },
     HEADER_FORM_DATA: { 'Content-Type': 'multipart/form-data' },
-    customHeader: {
-      Authorization:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL3BocF9hdXRoX2FwaVwvIiwiYXVkIjoiaHR0cDpcL1wvbG9jYWxob3N0XC9waHBfYXV0aF9hcGlcLyIsImlhdCI6MTc0NzA3NDQ3OSwiZXhwIjoxNzQ3MDc4MDc5LCJkYXRhIjp7InVzZXJfaWQiOjF9fQ.JmSk7akT3kBpoo9Z84Yfy7rN2LynF5ylez-gojJ8De8',
-      'Content-Type': 'Application/json'
+    customHeader: (token) => {
+      return {
+        Authorization: token
+      }
     }
   },
   httpMethod: {

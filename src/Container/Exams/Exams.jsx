@@ -18,6 +18,8 @@ import { updateError } from '../../features/commonSlice'
 
 const ExamContainer = () => {
   const exams = useSelector((state) => state.newExam, shallowEqual)
+  const { userInfo } = useSelector((state) => state.user, shallowEqual)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isCompleteEnable =
@@ -103,11 +105,12 @@ const ExamContainer = () => {
       mock_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_MOCK_TEST_PAPERS],
       previous_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_PREVIOUS_TEST_PAPERS]
     }
+    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
 
     dispatch(
       addNewExams({
         url: constants.apiEndPoint.NEW_EXAM_API,
-        header: constants.apiHeaders.customHeader,
+        header: { ...constants.apiHeaders.HEADER, ...customHeader },
         method: constants.httpMethod.POST,
         payload
       })
@@ -125,13 +128,7 @@ const ExamContainer = () => {
         dispatch(resetExamForm())
       })
       .catch((err) => {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: err?.payload?.message ?? 'Something went wrong. Please try again',
-            flag: true
-          })
-        )
+        console.error(err)
       })
   }
 

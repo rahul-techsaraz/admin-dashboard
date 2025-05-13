@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { updateError } from '../features/commonSlice'
 import { constants } from '../utils/constants'
-import { fetchExamList } from '../utils/reduxThunk/examThunk'
+import { fetchAllExams } from '../utils/reduxThunk/examThunk'
 
 export const useFetchExamList = () => {
   const dispatch = useDispatch()
@@ -9,8 +9,8 @@ export const useFetchExamList = () => {
   const fetchAllExamList = async () => {
     try {
       const response = await dispatch(
-        fetchExamList({
-          url: constants.apiEndPoint.EXAM_LIST + '?requestType=basicExamDetails',
+        fetchAllExams({
+          url: constants.apiEndPoint.EXAM_LIST,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
         })
