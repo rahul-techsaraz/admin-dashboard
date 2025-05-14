@@ -7,9 +7,10 @@ import useCourseDetails from '../../hooks/useCourseDetails'
 
 const CollegeContainer = () => {
   const { fetchCategoryList } = useFetchCategoryList()
-  useCourseDetails()
+  const { getAllCourses } = useCourseDetails()
   useEffect(() => {
     fetchCategoryList()
+    getAllCourses()
   }, [])
   return (
     <AddItemForm label={'Add New College'}>

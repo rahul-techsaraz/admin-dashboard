@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
-import bgLogo from '../assets/images/login.jpg'
-import { Link, useNavigate } from 'react-router-dom'
+import '../style/signin.css'
+import logo from '../assets/images/logo.png'
+import eductionBanner2 from '../assets/images/sign-in-education2.png'
+
 import Navbar from './Navbar'
 import { constants } from '../utils/constants'
-import { httpCall } from '../utils/service'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { authenticateUsers, loginUsers } from '../utils/reduxThunk/commonThunk'
 import { updateError } from '../features/commonSlice'
 import CustomAllert from '../utils/CommonComponents/CustomAllert'
 import Loader from './Loader/Loader'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignIn() {
   const { isLoading, isError, errorMessage, errorType } = useSelector((state) => state.common)
@@ -99,60 +99,46 @@ export default function SignIn() {
       {isError && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
 
       {/* Navbar */}
-      <Navbar />
+      {/* <Navbar /> */}
       {/* End Navbar */}
-      <div className='page-header'>
-        <div className='page-header-image' style={{ backgroundImage: `url(${bgLogo})` }} />
-        <div className='container'>
-          <div className='col-md-12 content-center'>
-            <div className='card-plain'>
-              <form className='form' method action='#' style={{ width: '350px', margin: 'auto' }}>
-                <div className='header'>
-                  <div className='logo-container'>
-                    <img src={logo1} width={80} alt />
-                  </div>
-                  <h5>Log in</h5>
+      <section className='dashbord-login-page'>
+        <div className='dashbord-login-page-left-contact-form'>
+          <div className='dashbord-login-page-left-contact-form-logo-div'>
+            <img src={logo} alt='' />
+          </div>
+          <div className='dashbord-login-page-left-contact-form-contact-filed'>
+            <div className='dashbord-login-page-left-contact-form-contact-filed-form'>
+              <h3>
+                create an <span className='dashbord-login-page-left-contact-form-contact-filed-form-text-color-change'>account</span>
+              </h3>
+              <div className='dashbord-login-page-left-contact-form-contact-filed-gap-on'>
+                <div className='dashbord-login-page-left-contact-form-contact-filed-form-all-input gmail-name'>
+                  <label htmlFor='name' className='fullname'>
+                    Email
+                  </label>
+                  <input type='text' value={email} placeholder='admin@gmail.com' onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                <div className='content'>
-                  <div className='input-group'>
-                    <input
-                      type='email'
-                      className='form-control '
-                      placeholder='Enter Email'
-                      onChange={(event) => setEmail(event.target.value)}
-                    />
-                    <span className='input-group-addon'>
-                      <i className='zmdi zmdi-account-circle' />
-                    </span>
-                  </div>
-                  <div className='input-group'>
-                    <input
-                      type='password'
-                      placeholder='Password'
-                      className='form-control'
-                      onChange={(event) => setPass(event.target.value)}
-                    />
-                    <span className='input-group-addon'>
-                      <i className='zmdi zmdi-lock' />
-                    </span>
-                  </div>
+                <div className='dashbord-login-page-left-contact-form-contact-filed-form-all-input gmail-name'>
+                  <label htmlFor='name' className='fullname'>
+                    Password
+                  </label>
+                  <input type='password' value={pass} placeholder='admin@gmail.com' onChange={(e) => setPass(e.target.value)} />
                 </div>
-                <div className='footer text-center'>
-                  <Link className='btn btn-primary btn-round btn-lg btn-block btn-ad ' onClick={() => handleLogin()}>
-                    Login
-                  </Link>
-                  {/* <Link to={'/'} className="btn btn-primary btn-round btn-lg btn-block btn-ad">AS AGENT</Link> */}
-                </div>
-                <div>
-                  <h5>
-                    <Link className='link text-white'>Forgot Password?</Link>
-                  </h5>
-                </div>
-              </form>
+
+                <button
+                  style={{ cursor: 'pointer' }}
+                  className='dashbord-login-page-left-contact-form-contact-filed-form-all-input-button'
+                  onClick={handleLogin}
+                >
+                  Sign In
+                </button>
+                <span className='dashbord-login-page-left-contact-form-contact-filed-span-text'>Have ant account? Sign Up</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className='dashbord-login-page-right-imagebox'></div>
+      </section>
     </>
   )
 }

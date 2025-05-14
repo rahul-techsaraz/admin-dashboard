@@ -6,18 +6,12 @@ import CourseOtherDetails from '../../Components/Courses/CourseOtherDetails'
 import CourseSyllabus from '../../Components/Courses/CourseSyllabus'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { FIELDS } from '../../Constants/redux/courseFieldName'
-import { constants } from '../../utils/constants'
-import { addNewCourse } from '../../utils/reduxThunk/courseThunk'
 import { v4 as uuid } from 'uuid'
-import { updateError } from '../../features/commonSlice'
-import { resetCourseForm } from '../../features/newCoursesSlice'
-import { useNavigate } from 'react-router-dom'
+import useCourseDetails from '../../hooks/useCourseDetails'
 
 const Courses = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const courses = useSelector((state) => state.newCourses, shallowEqual)
-  const { userInfo } = useSelector((state) => state.user, shallowEqual)
+  const { createCourse } = useCourseDetails()
 
   const isCompleteEnable =
     !courses.basicDetails[FIELDS.IS_VALIDATION_ERROR] &&
@@ -48,33 +42,7 @@ const Courses = () => {
       eligibility_criteria: courses.otherInfo[FIELDS.ELIGIBILITY_CRITERIA],
       syllabus_details: courses.syllabusDetails[FIELDS.SYLLABUS]
     }
-    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
-
-    //CALL API
-    dispatch(
-      addNewCourse({
-        url: constants.apiEndPoint.COURSE_DETAILS,
-        header: { ...constants.apiHeaders.HEADER, ...customHeader },
-        method: constants.httpMethod.POST,
-        payload: courseData
-      })
-    )
-      .unwrap()
-      .then((res) => {
-        dispatch(
-          updateError({
-            errorType: res?.payload?.status,
-            errorMessage: res?.payload?.message,
-            flag: true
-          })
-        )
-        navigate('/course-list')
-        localStorage.removeItem('courseFormData')
-        dispatch(resetCourseForm())
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    createCourse(courseData)
   }
   const steps = [
     {

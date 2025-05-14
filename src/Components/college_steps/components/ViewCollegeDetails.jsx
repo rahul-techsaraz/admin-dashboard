@@ -58,7 +58,8 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { fetchCollegeList } = useFetchAllCollegeList()
-  useCourseDetails()
+  const { getAllCourses } = useCourseDetails()
+
   const { fetchCategoryList } = useFetchCategoryList()
 
   const handleChange = (activeAcordian) => {
@@ -216,6 +217,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
 
   useEffect(() => {
     fetchCategoryList()
+    getAllCourses()
     return () => {
       dispatch(resetCollege())
     }

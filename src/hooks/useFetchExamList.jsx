@@ -10,7 +10,7 @@ export const useFetchExamList = () => {
     try {
       const response = await dispatch(
         fetchAllExams({
-          url: constants.apiEndPoint.EXAM_LIST,
+          url: constants.apiEndPoint.EXAM,
           header: constants.apiHeaders.HEADER,
           method: constants.httpMethod.GET
         })

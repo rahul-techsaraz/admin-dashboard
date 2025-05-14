@@ -252,7 +252,7 @@ const examFormSlice = createSlice({
         [EXAM_FIELDS.EXAM_CONDUCTING_ADDRESS]: get(EXAM_FIELDS.EXAM_CONDUCTING_ADDRESS),
         [EXAM_FIELDS.EXAM_SUPPORT_CONTACTS]: get(EXAM_FIELDS.EXAM_SUPPORT_CONTACTS),
         [EXAM_FIELDS.EXAM_WEBSITE]: get(EXAM_FIELDS.EXAM_WEBSITE),
-        [EXAM_FIELDS.EXAM_CONDUCTED_BY]: get(EXAM_FIELDS.EXAM_CONDUCTED_BY)
+        [EXAM_FIELDS.EXAM_CONDUCTED_BY]: data.exam_conducting_by ?? ''
       }
       state.examPapers = {
         [EXAM_FIELDS.EXAM_MOCK_TEST_PAPERS]: data.exam_moc_test_paper || [],

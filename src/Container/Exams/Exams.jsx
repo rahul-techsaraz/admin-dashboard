@@ -1,6 +1,6 @@
 import React from 'react'
 import ExamBasicDetails from '../../Components/Exams/ExamBasicDetails'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useSelector } from 'react-redux'
 import { EXAM_FIELDS } from '../../Constants/redux/courseFieldName'
 import CustomStepper from '../../Components/CustomStepper'
 import ExamImportantDate from '../../Components/Exams/ExamImportantDate'
@@ -10,18 +10,11 @@ import ExamDescriptions from '../../Components/Exams/ExamDescriptions'
 import ExamContactInfo from '../../Components/Exams/ExamContactInfo'
 import ExamPapers from '../../Components/Exams/ExamPapers'
 import { v4 as uuid } from 'uuid'
-import { addNewExams } from '../../utils/reduxThunk/examThunk'
-import { constants } from '../../utils/constants'
-import { useNavigate } from 'react-router-dom'
-import { resetExamForm } from '../../features/newExamSlice'
-import { updateError } from '../../features/commonSlice'
+import useExamData from '../../hooks/useExamData'
 
 const ExamContainer = () => {
   const exams = useSelector((state) => state.newExam, shallowEqual)
-  const { userInfo } = useSelector((state) => state.user, shallowEqual)
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { createExam } = useExamData()
   const isCompleteEnable =
     !exams.examBasicDetails[EXAM_FIELDS.IS_VALIDATION_ERROR] &&
     !exams.examImportantDates[EXAM_FIELDS.IS_VALIDATION_ERROR] &&
@@ -105,31 +98,8 @@ const ExamContainer = () => {
       mock_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_MOCK_TEST_PAPERS],
       previous_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_PREVIOUS_TEST_PAPERS]
     }
-    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
 
-    dispatch(
-      addNewExams({
-        url: constants.apiEndPoint.NEW_EXAM_API,
-        header: { ...constants.apiHeaders.HEADER, ...customHeader },
-        method: constants.httpMethod.POST,
-        payload
-      })
-    )
-      .then((res) => {
-        dispatch(
-          updateError({
-            errorType: res?.payload?.status,
-            errorMessage: res?.payload?.message,
-            flag: true
-          })
-        )
-        navigate('/exam-list')
-        localStorage.removeItem('examsData')
-        dispatch(resetExamForm())
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    createExam(payload)
   }
 
   return <CustomStepper steps={steps} onComplete={handleFinish} formName={'examsData'} isCompleteEnable={isCompleteEnable} />

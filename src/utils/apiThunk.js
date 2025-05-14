@@ -2,18 +2,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { httpCall } from './service'
 
-export const createApiThunk = (type) =>
+export const createApiThunk = (type, httpHandler = httpCall) =>
   createAsyncThunk(type, async ({ url, method = 'GET', header = {}, payload }, thunkAPI) => {
     try {
-      console.log({ header })
-      const response = await httpCall(url, header, method, payload)
+      const response = await httpHandler(url, header, method, payload)
 
-      // const statusCodeOk = response?.status_code === 200
-      // const statusOk = response?.status === 200 || response?.status === 'success'
-
-      // if (!statusCodeOk || !statusOk) {
-      //   return thunkAPI.rejectWithValue(response)
-      // }
       const statusCodeOk = response?.status_code === 200
       const statusOk = response?.status === 200 || response?.status === 'success'
       const successOk = response?.success === 1 || response?.success === true

@@ -9,43 +9,22 @@ import AddItemForm from '../../Components/AddItemForm'
 import CollapsibleSection from '../../Components/CollapsibleSection'
 import { useParams } from 'react-router-dom'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { fetchCourseDetails, updateCourseDetails } from '../../utils/reduxThunk/courseThunk'
-import { constants } from '../../utils/constants'
-import { resetCourseForm, setCourseDataFromApi } from '../../features/newCoursesSlice'
+import { resetCourseForm } from '../../features/newCoursesSlice'
 import { FIELDS } from '../../Constants/redux/courseFieldName'
-import { updateError } from '../../features/commonSlice'
-import { deepParseTypedJSON } from '../../utils/deepParseTypedJSON'
+import useCourseDetails from '../../hooks/useCourseDetails'
 
 const CourseDetailsContainer = () => {
   const [viewMode, setViewMode] = useState(true)
   const courses = useSelector((state) => state.newCourses, shallowEqual)
-  const { userInfo } = useSelector((state) => state.user, shallowEqual)
-
   const { courseId } = useParams()
   const dispatch = useDispatch()
-
+  const { getCourseById, editCourseDetails } = useCourseDetails()
   const handleEditToggle = () => {
     setViewMode((prev) => !prev)
   }
 
-  const fetchCourse = () => {
-    dispatch(
-      fetchCourseDetails({
-        url: constants.apiEndPoint.COURSE_DETAILS + '?course_id=' + courseId,
-        header: constants.apiHeaders.HEADER,
-        method: constants.httpMethod.GET
-      })
-    )
-      .then((res) => {
-        const courseData = deepParseTypedJSON(res.payload.data)
-        dispatch(setCourseDataFromApi(courseData))
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
   useEffect(() => {
-    fetchCourse()
+    getCourseById(courseId)
     // Cleanup function to reset state on unmount
     return () => {
       localStorage.removeItem('courseFormData')
@@ -53,7 +32,7 @@ const CourseDetailsContainer = () => {
     }
   }, [dispatch, courseId])
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     // prepare payload
     const courseData = {
       course_id: courseId,
@@ -76,34 +55,9 @@ const CourseDetailsContainer = () => {
       eligibility_criteria: courses.otherInfo[FIELDS.ELIGIBILITY_CRITERIA],
       syllabus_details: courses.syllabusDetails[FIELDS.SYLLABUS]
     }
-    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
     //CALL API
-    dispatch(
-      updateCourseDetails({
-        url: constants.apiEndPoint.COURSE_DETAILS,
-        header: { ...constants.apiHeaders.HEADER, ...customHeader },
-        method: constants.httpMethod.PUT,
-        payload: courseData
-      })
-    )
-      .unwrap()
-      .then((res) => {
-        dispatch(
-          updateError({
-            errorType: res?.payload?.status,
-            errorMessage: res?.payload?.message,
-            flag: true
-          })
-        )
-        // navigate('/course-list')
-        fetchCourse()
-        setViewMode(true)
-        // localStorage.removeItem('courseFormData')
-        // dispatch(resetCourseForm())
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    await editCourseDetails(courseData)
+    setViewMode(true)
   }
 
   return (

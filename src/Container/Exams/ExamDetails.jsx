@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Box, Button } from '@mui/material'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchExamDetailById, updateExamDetails } from '../../utils/reduxThunk/examThunk'
-import { constants } from '../../utils/constants'
-import { deepParseTypedJSON } from '../../utils/deepParseTypedJSON'
-import { updateError } from '../../features/commonSlice'
-import { resetExamForm, setExamDataFromApi } from '../../features/newExamSlice'
+
+import { resetExamForm } from '../../features/newExamSlice'
 import { EXAM_FIELDS } from '../../Constants/redux/courseFieldName'
 import AddItemForm from '../../Components/AddItemForm'
 import ExamBasicDetails from '../../Components/Exams/ExamBasicDetails'
@@ -17,38 +14,22 @@ import ExamDescriptions from '../../Components/Exams/ExamDescriptions'
 import CollapsibleSection from '../../Components/CollapsibleSection'
 import ExamContactInfo from '../../Components/Exams/ExamContactInfo'
 import ExamPapers from '../../Components/Exams/ExamPapers'
+import useExamData from '../../hooks/useExamData'
 
 const ExamDetailsContainer = () => {
   const [viewMode, setViewMode] = useState(true)
   const exams = useSelector((state) => state.newExam, shallowEqual)
-  const { userInfo } = useSelector((state) => state.user, shallowEqual)
 
   const { examId } = useParams()
   const dispatch = useDispatch()
-  console.log({ examId })
+  const { editExamData, getExamById } = useExamData()
 
   const handleEditToggle = () => {
     setViewMode((prev) => !prev)
   }
 
-  const fetchExam = () => {
-    dispatch(
-      fetchExamDetailById({
-        url: constants.apiEndPoint.EXAM_LIST + '?exam_id=' + examId,
-        header: constants.apiHeaders.HEADER,
-        method: constants.httpMethod.GET
-      })
-    )
-      .then((res) => {
-        const examData = deepParseTypedJSON(res.payload.data)
-        dispatch(setExamDataFromApi(examData))
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
   useEffect(() => {
-    fetchExam()
+    getExamById(examId)
     // Cleanup function to reset state on unmount
     return () => {
       dispatch(resetExamForm())
@@ -92,31 +73,8 @@ const ExamDetailsContainer = () => {
       mock_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_MOCK_TEST_PAPERS],
       previous_test_papers_data: exams.examPapers[EXAM_FIELDS.EXAM_PREVIOUS_TEST_PAPERS]
     }
-    //CALL API
-    const customHeader = constants.apiHeaders.customHeader(userInfo.token)
-    dispatch(
-      updateExamDetails({
-        url: constants.apiEndPoint.EXAM_LIST,
-        header: { ...constants.apiHeaders.HEADER, ...customHeader },
-        method: constants.httpMethod.PUT,
-        payload
-      })
-    )
-      .unwrap()
-      .then((res) => {
-        dispatch(
-          updateError({
-            errorType: res?.status,
-            errorMessage: res?.message,
-            flag: true
-          })
-        )
-        fetchExam()
-        setViewMode(true)
-      })
-      .catch((err) => {
-        console.error('Update failed', err)
-      })
+    editExamData(payload)
+    setViewMode(true)
   }
 
   return (
