@@ -15,7 +15,7 @@ const durations = [1, 2, 3, 4, 5, 6] // Duration options 1-6
 const CourseBasicDetails = ({ isEdit = false }) => {
   const basicDetails = useSelector((state) => state.newCourses.basicDetails, shallowEqual)
   const { categoryData } = useSelector((state) => state.category, shallowEqual)
-  const { examList } = useSelector((state) => state.exam, shallowEqual)
+  const { examList } = useSelector((state) => state.newExam, shallowEqual)
   //useLocalStorageSync('courseFormData', 'basicDetails', basicDetails)
   useLocalStorageSync('courseFormData', 'basicDetails', basicDetails, courseInitialState)
 
