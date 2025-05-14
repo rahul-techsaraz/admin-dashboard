@@ -55,7 +55,7 @@ export const EXAM_FIELDS = {
   // Eligibility & Fees
 
   EXAM_ELIGIBILITY_CRITERIA: 'eligibility_criteria',
-  EXAM_FEE_STRUCTURE: 'exam_fee_structure ',
+  EXAM_FEE_STRUCTURE: 'exam_fee_structure',
   EXAM_FEE_ROW: {
     CATEGORY: 'category',
     MODE: 'mode',
