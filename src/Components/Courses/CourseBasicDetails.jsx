@@ -28,11 +28,13 @@ const CourseBasicDetails = ({ isEdit = false }) => {
   useEffect(() => {
     if (categoryData.length < 1) {
       //api call
-      fetchCategory({
-        url: constants.apiEndPoint.CATEGORY_LIST,
-        header: constants.apiHeaders.HEADER,
-        method: constants.httpMethod.GET
-      })
+      dispatch(
+        fetchCategory({
+          url: constants.apiEndPoint.CATEGORY_LIST,
+          header: constants.apiHeaders.HEADER,
+          method: constants.httpMethod.GET
+        })
+      )
     }
     if (examList.length < 1) {
       //api call
@@ -46,6 +48,9 @@ const CourseBasicDetails = ({ isEdit = false }) => {
     }
   }, [])
   // useLocalStorageSync('basicDetails', basicDetails)
+  useEffect(() => {
+    console.log(categoryData)
+  }, [categoryData])
 
   return (
     <Box className='container'>
