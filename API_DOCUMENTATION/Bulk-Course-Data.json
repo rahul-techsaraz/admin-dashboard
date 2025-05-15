@@ -1,0 +1,767 @@
+[
+    {
+        "course_id": "9912de07-c653-4a0e-bd35-1a39c269323b",
+        "course_name": "B Tech",
+        "sub_course_name": "Biochemical Engineering",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "cc90b9c2-6fe2-4a44-941b-e06f6703305b",
+        "course_name": "B Tech",
+        "sub_course_name": "Textile Engineering",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "df057c41-a0ec-4607-9a17-b5a58bd8dda5",
+        "course_name": "B Tech",
+        "sub_course_name": "Ceramic Engineering",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "659dbc4a-6ac8-48da-b70a-c05714932f2d",
+        "course_name": "B Tech",
+        "sub_course_name": "Instrumentation Engineering",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "39fbc688-0458-4590-8f7f-e5f6877da9d0",
+        "course_name": "B.com",
+        "sub_course_name": "General",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "719caa5d-28b0-4da8-bc8e-d33d55ce729e",
+        "course_name": "B Tech",
+        "sub_course_name": "Computer Science",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "ba4179aa-95d3-42ea-bada-e4adfda6e4af",
+        "course_name": "B Tech",
+        "sub_course_name": "Mechanical Engineering",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "bc6d28bd-6a25-494b-8dcb-b4654870a451",
+        "course_name": "B Tech",
+        "sub_course_name": "Electrical Engineering",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    },
+    {
+        "course_id": "4d753138-d7ca-4996-88de-79f6c63432df",
+        "course_name": "B.com",
+        "sub_course_name": "Honours",
+        "course_mode": "Hybrid",
+        "course_fee_min": 2050000,
+        "course_fee_max": 3050000,
+        "course_duration": 4,
+        "course_categories": [
+            "Engineering and Architecture"
+        ],
+        "course_accepting_exam": [
+            "MHT-CET",
+            "BITSAT"
+        ],
+        "course_descriptions": {
+            "coursePlacementDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseAdmissionProcessDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseEligibilityCriteriaDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>",
+            "courseDescription": "<p class=\"ql-align-justify\">B.Tech in Biochemical Engineering is a program that covers various subjects related to the chemical process, production and development of biochemical products. This branch of engineering comprises of various aspects of biology, technology and engineering in order to come up with groundbreaking research to help improve the quality of human lifestyle. Biochemical engineers learn about the development process of a variety of natural as well as artificial substances. These processes may include oil refining, ecological development, environmental changes, developing medicines, etc. B.Tech in Biochemical Engineering involves the study of various processes and technologies that can improve the quality of the healthcare sector, diagnostic processes, food processing, medicines, etc. After pursuing this course, graduates generally pursue jobs under chemists and biologists. Individuals who pursue B.Tech in Biochemical Engineering often take up research and go on to pursue their masters and Ph.D. in this field.</p>"
+        },
+        "exam_frequency": "Semester",
+        "course_standard": "UG",
+        "eligibility_criteria": "<p>10+2 : 70%</p>",
+        "syllabus_details": [
+            {
+                "id": 1747306202821,
+                "year": 2025,
+                "subjects": [
+                    "Test",
+                    "Test2",
+                    "Test3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747306272980,
+                "year": 2025,
+                "subjects": [
+                    "Subject 1",
+                    "Subject 2",
+                    "Subject 3"
+                ],
+                "type": "Semester"
+            },
+            {
+                "id": 1747314865247,
+                "year": 2026,
+                "subjects": [
+                    "Subject 4",
+                    "Subject 5",
+                    "Subject 6"
+                ],
+                "type": "Semester 3"
+            },
+            {
+                "id": 1747314900999,
+                "year": 2026,
+                "subjects": [
+                    "Subject 7",
+                    "Subject 8",
+                    "Subject 9"
+                ],
+                "type": "Semester 4"
+            },
+            {
+                "id": "1747315066848",
+                "year": 2027,
+                "subjects": [
+                    "Subject 10",
+                    "Subject 11"
+                ],
+                "type": "Semester 5"
+            },
+            {
+                "id": "1747315095190",
+                "year": 2027,
+                "subjects": [
+                    "Subject 12",
+                    "Subject 13"
+                ],
+                "type": "Semester 6"
+            }
+        ]
+    }
+]

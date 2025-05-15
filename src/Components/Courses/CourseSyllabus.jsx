@@ -18,6 +18,8 @@ const YearSemesterCard = ({
   handleDeleteYearSemester,
   handleAddSubject,
   yearData,
+  yearList,
+  isSemester,
   handleDeleteSubject,
   handleSubjectChange,
   handleYearChange,
@@ -28,7 +30,27 @@ const YearSemesterCard = ({
   const [type, setType] = useState(yearData.type || 'Yearly')
 
   const subjects = yearData.subjects || [] // Access subjects from the prop
-
+  const semesterList = () => {
+    if (year) {
+      const index = yearList.indexOf(year)
+      console.log(index)
+      switch (index) {
+        case 0:
+          return ["Semester 1", "Semester 2"]
+        case 1:
+          return ["Semester 3", "Semester 4"]
+        case 2:
+          return ["Semester 5", "Semester 6"]
+        case 3:
+          return ["Semester 7", "Semester 8"]
+        default:
+          return []
+      }
+    } else {
+      return ["Semester 1", "Semester 2"]
+    }
+  }
+  console.log(semesterList())
   return (
     <Grid item xs={12} className='year-semester-card' sx={{ marginBottom: 3 }}>
       <Box
@@ -45,19 +67,25 @@ const YearSemesterCard = ({
         {/* Year and Type Dropdown */}
         <Grid container spacing={2}>
           <Grid item xs={12} sm={5}>
-            <TextField
-              label='Year'
-              fullWidth
-              value={year}
-              onChange={(e) => {
-                setYear(e.target.value)
-                handleYearChange(syllabusIndex, e.target.value)
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={5}>
             <FormControl fullWidth>
-              <InputLabel>Year/Semester Type</InputLabel>
+              <InputLabel>Year</InputLabel>
+              <Select
+                value={year}
+                onChange={(e) => {
+                  setYear(e.target.value)
+                  handleYearChange(syllabusIndex, e.target.value)
+                }}
+                label='Year'
+              >
+                {yearList.map((y, index) => (
+                  <MenuItem value={y} key={index}>{y}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          {isSemester && <Grid item xs={12} sm={5}>
+            <FormControl fullWidth>
+              <InputLabel>Semester</InputLabel>
               <Select
                 value={type}
                 onChange={(e) => {
@@ -66,11 +94,12 @@ const YearSemesterCard = ({
                 }}
                 label='Year/Semester Type'
               >
-                <MenuItem value='Yearly'>Yearly</MenuItem>
-                <MenuItem value='Semester'>Semester</MenuItem>
+                {semesterList().map((s, i) => (
+                  <MenuItem value={s} key={i}>{s}</MenuItem>
+                ))}
               </Select>
             </FormControl>
-          </Grid>
+          </Grid>}
           <IconButton
             onClick={() => handleDeleteYearSemester(index)}
             sx={{
@@ -120,7 +149,14 @@ const YearSemesterCard = ({
 
 const CourseSyllabus = ({ isEdit = false }) => {
   const syllabusDetails = useSelector((state) => state.newCourses.syllabusDetails, shallowEqual)
+  const basicDetails = useSelector((state) => state.newCourses.basicDetails, shallowEqual)
+  const otherInfo = useSelector((state) => state.newCourses.otherInfo, shallowEqual)
   const syllabus = syllabusDetails[FIELDS.SYLLABUS]
+  const isSemester = otherInfo[FIELDS.EXAM_TYPE] === 'Semester' ? true : false
+  const courseDuration = basicDetails[FIELDS.COURSE_DURATION]
+  const currentYear = new Date().getFullYear();
+  const yearList = Array.from({ length: courseDuration }, (_, i) => currentYear + i)
+
 
   useLocalStorageSync('courseFormData', 'syllabusDetails', syllabusDetails, courseInitialState)
 
@@ -208,6 +244,8 @@ const CourseSyllabus = ({ isEdit = false }) => {
             syllabusIndex={index}
             index={yearData.id}
             yearData={yearData}
+            yearList={yearList}
+            isSemester={isSemester}
             handleDeleteYearSemester={handleDeleteYearSemester}
             handleAddSubject={handleAddSubject}
             handleDeleteSubject={handleDeleteSubject}
