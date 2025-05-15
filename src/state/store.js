@@ -10,8 +10,8 @@ import newCoursesSlice from '../features/newCoursesSlice'
 import newExamSlice from '../features/newExamSlice'
 
 const loggerMiddleware = (store) => (next) => (action) => {
-  console.log('Dispatching action:', action.type)
-  console.trace() // Shows the call stack to see which file/component called it
+  //console.log('Dispatching action:', action.type)
+  // console.trace() // Shows the call stack to see which file/component called it
   return next(action)
 }
 const reducers = combineReducers({
