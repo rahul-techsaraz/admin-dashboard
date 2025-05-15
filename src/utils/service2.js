@@ -11,4 +11,3 @@ export const httpCall2 = async (url, body, header) => {
 
   return { ...json, data: data.data, status: data.status }
 }
-

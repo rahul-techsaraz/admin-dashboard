@@ -18,7 +18,7 @@ import {
 } from '../utils/reduxThunk/collegeThunk'
 import { constants } from '../utils/constants'
 
-const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getItem('formData')) : {};
+const formData = localStorage.getItem('formData') ? JSON.parse(localStorage.getItem('formData')) : {}
 
 const initialState = {
   activeStep: 0,
@@ -48,10 +48,12 @@ const initialState = {
     college_type: formData?.college_type ? JSON.parse(localStorage.getItem('formData')).college_type : '',
     college_logo: formData?.college_logo ? JSON.parse(localStorage.getItem('formData')).college_logo[0] : '',
     college_thumbnail: formData?.college_thumbnail ? JSON.parse(localStorage.getItem('formData')).college_thumbnail[0] : '',
-    college_download_brochure_path: formData?.college_download_brochure_path ? JSON.parse(localStorage.getItem('formData')).college_download_brochure_path[0] : '',
+    college_download_brochure_path: formData?.college_download_brochure_path
+      ? JSON.parse(localStorage.getItem('formData')).college_download_brochure_path[0]
+      : '',
     message: '',
     account_name: '',
-    is_publish: '',
+    is_publish: ''
   },
   courseOffered: {
     isValitadeError: true,
@@ -68,11 +70,21 @@ const initialState = {
   collegeDescriptions: {
     isValitadeError: true,
     college_id: '',
-    college_description: formData?.collegeDescriptions?.college_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_description : '',
-    college_course_description: formData?.collegeDescriptions?.college_course_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_course_description : '',
-    college_highlights_description: formData?.collegeDescriptions?.college_highlights_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_highlights_description : '',
-    college_campus_description: formData?.collegeDescriptions?.college_campus_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_campus_description : '',
-    college_admission_description: formData?.collegeDescriptions?.college_admission_description ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_admission_description : '',
+    college_description: formData?.collegeDescriptions?.college_description
+      ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_description
+      : '',
+    college_course_description: formData?.collegeDescriptions?.college_course_description
+      ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_course_description
+      : '',
+    college_highlights_description: formData?.collegeDescriptions?.college_highlights_description
+      ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_highlights_description
+      : '',
+    college_campus_description: formData?.collegeDescriptions?.college_campus_description
+      ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_campus_description
+      : '',
+    college_admission_description: formData?.collegeDescriptions?.college_admission_description
+      ? JSON.parse(localStorage.getItem('formData'))?.collegeDescriptions?.college_admission_description
+      : ''
   },
   collegeHighlights: {
     isValitadeError: true,
@@ -105,7 +117,6 @@ const initialState = {
     isValitadeError: true,
     news_data: []
   }
-
 }
 const collegeSlice = createSlice({
   name: 'college',

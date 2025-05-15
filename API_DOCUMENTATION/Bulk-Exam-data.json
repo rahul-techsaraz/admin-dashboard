@@ -1,0 +1,875 @@
+[
+    {
+        "exam_id": "274fd685-8cc6-465d-b943-433bd4e09084",
+        "exam_name": "MHT-CET",
+        "exam_slug": "MHT-CET_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Engineering and Architecture"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "MHT-CET Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "b6241ad3-8f75-40eb-8743-4cd058747987",
+        "exam_name": "BITSAT",
+        "exam_slug": "BITSAT_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Engineering and Architecture"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "BITSAT Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "f923f726-6b18-418b-a9e9-351f363a530e",
+        "exam_name": "VITEEE",
+        "exam_slug": "VITEEE_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Computer Application and IT"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "MHT-CET Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "19651ccc-04bb-478b-a0fd-21ae95d8d692",
+        "exam_name": "SRMJEEE",
+        "exam_slug": "SRMJEEE_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Computer Application and IT"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "SRMJEEE Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "3e5af4f7-a2e8-46d3-bf93-05f2ad151572",
+        "exam_name": "JEE MAINS",
+        "exam_slug": "JEE MAINS_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Engineering and Architecture"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "JEE MAINS Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "b961aace-df16-46e4-bf9e-c99286f4fd43",
+        "exam_name": "COMEDK",
+        "exam_slug": "COMEDK_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Medicine and Allied Sciences"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "COMEDK Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "5747b23c-aab5-4f15-af43-1d57f95ace67",
+        "exam_name": "KIITEE",
+        "exam_slug": "KIITEE_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Medicine and Allied Sciences"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "KIITEE Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "9896d990-865c-4626-a657-1f394a089c91",
+        "exam_name": "WBJEE",
+        "exam_slug": "WBJEE_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Competition"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "WBJEE Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    },
+    {
+        "exam_id": "0d6016b9-f000-4d3d-861f-2de23e6d723e",
+        "exam_name": "MET",
+        "exam_slug": "MET_2025",
+        "exam_year": 2025,
+        "exam_duration": 3,
+        "exam_frequency": "Annually",
+        "exam_mode": "Online",
+        "exam_category": [
+            "Competition"
+        ],
+        "application_start_date": "14/05/2025",
+        "application_end_date": "21/05/2025",
+        "admit_card_release_date": "28/05/2025",
+        "exam_start_date": "05/06/2025",
+        "exam_end_date": "12/06/2025",
+        "result_declaration_date": "26/06/2025",
+        "counselling_date": "07/05/2025",
+        "exam_fee_structure": [
+            {
+                "category": "General",
+                "mode": "Online",
+                "application_fee": 1500,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "OBC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "SC",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "ST",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            },
+            {
+                "category": "PwD",
+                "mode": "Online",
+                "application_fee": 1000,
+                "currency": "Rupee",
+                "note": "Exam Fee"
+            }
+        ],
+        "eligibility_criteria": "<p>10+2 : 60%</p>",
+        "exam_conducting_address": "State Common Entrance Test Cell, Maharashtra State, Mumbai 8th Floor, New Excelsior Building, A.K.Nayak Marg, Fort, Mumbai-400001  Helpline Number (10:00 AM to 06:00 PM)  +91-9513850008",
+        "exam_support_contact": "support@mahacet.ac.in",
+        "exam_website": "https://cetcell.mahacet.org",
+        "exam_conducting_by": "2025-04-09",
+        "exam_descriptions": {
+            "exam_overview": "<p>-</p>",
+            "exam_important_notes": "",
+            "exam_important_dates": "<p>30 Dec '24 - 15 Feb '25</p><p>MHT CET 2025 Application Form ONGOING</p><p>16 Feb '25 - 22 Feb '25</p><p>MHT CET 2025 Application Form with late fee</p><p>09 Apr '25 - 17 Apr '25</p><p>MHT CET 2025 Exam for PCB Group</p><p>19 Apr '25 - 27 Apr '25</p><p>MHT CET 2025 Exam for PCM Group</p><p>May '25</p><p>MHT CET 2025 Answer Key</p><p>TENTATIVE</p><p>Jun '25</p><p>MHT CET 2025 Result</p><p>TENTATIVE</p>",
+            "exam_application_form": "<p class=\"ql-align-justify\">MHT CET Application Form 2025 - The Maharashtra CET Cell has started the MHT CET 2025 Registration. Candidates can fill the MHT CET form online using the link given on this page. MHT CET 2025 Registration date is December 30, 2024 to February 15, 2025. With a late fee, the MHT CET 2025 application form last date is February 22, 2025.</p>",
+            "exam_admit_card": "<p class=\"ql-align-justify\">The admit card of MHT CET 2025 will be released online on the official website for both PCM and PCB Groups. Candidates need to log in to the website using their registered email ID and password to download the hall ticket.</p>",
+            "exam_pattern": "<p class=\"ql-align-justify\">MHT CET Exam Pattern 2025 has been released by the Maharashtra Common Entrance Test Cell. As per the MHT CET Paper Pattern, the exam will be conducted online as a Computer Based Test. MHT CET question paper will consist of Multiple Choice Questions (MCQs) having four options with one correct. There will be no negative marking in MHT CET 2025 exam but the level of questions will be similar to JEE Main.</p>",
+            "exam_conducting_body": "<p>State Common Entrance Test Cell, Maharashtra</p>",
+            "exam_counselling": "<p>test</p>",
+            "exam_application_form_step1": "<p>Registration</p>",
+            "exam_application_form_step2": "<p>Filling personal and academic details, exam city preference, choice of paper (BTech/BPharma).</p>",
+            "exam_application_form_step3": "<p>Uploading documents</p>",
+            "exam_intimation_slip": "<p>Hall Ticket</p>",
+            "exam_session": "<p>1</p>",
+            "exam_center": "<p>Online as Computer Based Test (CBT)</p>",
+            "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>"
+        },
+        "exam_syllabus": "<p class=\"ql-align-justify\">MHT CET 2025 Syllabus pdf has been released by the Maharashtra State Common Entrance Test Cell. The candidates can download MHT CET Syllabus PDF PCM and PCB 2025 from the table below. The syllabus of MHT CET includes four subjects - Physics, Chemistry, Mathematics, and Biology. As per the MHT CET Syllabus 2025 Weightage PCM and PCB, all topics of class 12 will be covered in the exam whereas from class 11, only a few topics will be covered. The syllabus of MHT CET is similar to the class 11 and 12 syllabus released by the Maharashtra Board. As per the MHT CET syllabus 2025 with weightage PCM and PCB prescribed by the Maharashtra CET Cell, 20 percent weightage is given to the Class 11 topics and the remaining 80 percent to the Class 12 topics of the Maharashtra board.</p>",
+        "exam_papers_and_marks": "<p>Paper 1 (Mathematics - 50 Questions)</p><p>Paper 2 (Physics - 50 Questions + Chemistry - 50 Questions)</p><p>Paper 3 (Biology - 50 Questions)</p>",
+        "marking_scheme": "<p>1 Mark for each correct response in Physics, Chemistry, and Biology</p><p>2 Mark for each correct response in Mathematics No negative marking</p>",
+        "mock_test_papers_data": [
+            {
+                "id": 1747219999392,
+                "title": "Mock Test1",
+                "year": 2025,
+                "link": "dummylink"
+            }
+        ],
+        "previous_test_papers_data": [
+            {
+                "id": "1747220345339",
+                "title": "MET Paper",
+                "year": "2024",
+                "link": "dummylink"
+            }
+        ]
+    }
+]
