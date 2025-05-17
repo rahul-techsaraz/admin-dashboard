@@ -16,6 +16,8 @@ import { updateError } from '../../features/commonSlice'
 import { FileUpload } from '../../utils/FileUpload'
 import { createNewCollege } from '../../utils/reduxThunk/collegeThunk'
 import { useNavigate } from 'react-router-dom'
+import useCollegeData from '../../hooks/useCollegeData'
+import useFileUpload from '../../hooks/useFileUpload'
 
 const StepForm = () => {
   const { activeStep, collegeBasicDetails, courseOffered, collegeDescriptions, facilities, gallary, placements, news } = useSelector(
@@ -41,6 +43,8 @@ const StepForm = () => {
   } = useContext(FileUpload)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { createCollege } = useCollegeData()
+  const { createFilePayload } = useFileUpload()
 
   const handleSteps = (step) => {
     switch (step) {
@@ -142,50 +146,22 @@ const StepForm = () => {
         news: news?.news_data,
         gallary: gallary?.image_path
       }
-      const filePayload = new FormData()
-      filePayload.append('data', JSON.stringify(payload))
-      filePayload.append('college_logo[]', collegeLogo[0])
-      filePayload.append('college_thumbnail[]', collegeThumbnail[0])
-      filePayload.append('college_brochure[]', collegeBrochure[0])
-      for (let i = 0; i < collegeGallary.length; i++) {
-        filePayload.append('college_gallary[]', collegeGallary[i])
-      }
-      for (let i = 0; i < facultyImage.length; i++) {
-        const facultyId = facultyImage[i].name.split('.')[0] // Get the corresponding faculty_id
-        if (facultyId) {
-          filePayload.append(`faculty_image[${facultyId}]`, facultyImage[i])
-        }
-      }
-      const response = await dispatch(
-        createNewCollege({
-          url: constants.apiEndPoint.NEW_COLLEGE,
-          payload: filePayload,
-          header: { Authorization: userToken }
-        })
-      )
-      if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      } else {
-        localStorage.removeItem('formData')
-        dispatch(resetCollege())
-        setCollegeLogo([])
-        setCollegeLogoUrl([])
-        setCollegeThumbnail([])
-        setCollegeThumbnailUrl([])
-        setCollegeBrochure([])
-        setCollegeBrochureUrl([])
-        setCollegeGallary([])
-        setCollegeGallaryUrl([])
-        setFacultyImage([])
-        setFacultyImageUrl([])
-        navigate('/list-agent-college')
-      }
+      // const filePayload = new FormData()
+      // filePayload.append('data', JSON.stringify(payload))
+      // filePayload.append('college_logo[]', collegeLogo[0])
+      // filePayload.append('college_thumbnail[]', collegeThumbnail[0])
+      // filePayload.append('college_brochure[]', collegeBrochure[0])
+      // for (let i = 0; i < collegeGallary.length; i++) {
+      //   filePayload.append('college_gallary[]', collegeGallary[i])
+      // }
+      // for (let i = 0; i < facultyImage.length; i++) {
+      //   const facultyId = facultyImage[i].name.split('.')[0] // Get the corresponding faculty_id
+      //   if (facultyId) {
+      //     filePayload.append(`faculty_image[${facultyId}]`, facultyImage[i])
+      //   }
+      // }
+      const filePayload = createFilePayload(payload)
+      createCollege(filePayload)
     } catch (error) {
       dispatch(
         updateError({

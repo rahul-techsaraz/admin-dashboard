@@ -29,7 +29,7 @@ function App() {
   const [isSnackBarOpen, setSnackBarOpen] = useState(false)
   const { activeSubHeader } = useSelector((state) => state.subheadermenu)
   const { isLoading, isError, isOpenToast, errorMessage, errorType } = useSelector((state) => state.common)
-  console.log(isSnackBarOpen, isError, isOpenToast)
+  // console.log(isSnackBarOpen, isError, isOpenToast)
   useEffect(() => {
     const isOpen = isError || isOpenToast
     setSnackBarOpen(isOpen)
@@ -53,14 +53,14 @@ function App() {
               <div className='col-lg-9 col-md-9 col-sm-12 text-md-right'>
                 {activeSubHeader.length > 0
                   ? activeSubHeader[0]?.navMenu.map((itemsName) => (
-                      <ul className='breadcrumb float-md-right' style={{ marginRight: '16px' }} key={itemsName.labelName}>
-                        <li className='breadcrumb-item'>
-                          <Link to={itemsName.path}>
-                            <i className='zmdi zmdi-home'></i> {itemsName.labelName}
-                          </Link>
-                        </li>
-                      </ul>
-                    ))
+                    <ul className='breadcrumb float-md-right' style={{ marginRight: '16px' }} key={itemsName.labelName}>
+                      <li className='breadcrumb-item'>
+                        <Link to={itemsName.path}>
+                          <i className='zmdi zmdi-home'></i> {itemsName.labelName}
+                        </Link>
+                      </li>
+                    </ul>
+                  ))
                   : ''}
               </div>
             </div>
