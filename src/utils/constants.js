@@ -51,7 +51,7 @@ export const constants = {
   },
   sideBarMenu: [
     {
-      role: 'admin',
+      role: ['admin', 'super_admin'],
       heading: 'Dashboard',
       isOpen: false,
       list: [
@@ -73,7 +73,7 @@ export const constants = {
       ]
     },
     {
-      role: 'admin',
+      role: ['admin', 'super_admin'],
       heading: 'Admin',
       isOpen: false,
       list: [
@@ -100,7 +100,7 @@ export const constants = {
       ]
     },
     {
-      role: 'admin',
+      role: ['admin', 'super_admin'],
       heading: 'Trending',
       isOpen: false,
       list: [
@@ -122,8 +122,8 @@ export const constants = {
       ]
     },
     {
-      role: 'agent',
-      heading: 'Agents',
+      role: ['admin_partner'],
+      heading: 'Partner',
       isOpen: false,
       list: [
         {
@@ -134,7 +134,7 @@ export const constants = {
         {
           option_name: 'Add New College',
           option_path: '/add-college',
-          name: 'Add Agent'
+          name: 'Add Partner'
         }
       ]
     }

@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../utils/constants'
 import ItemList from '../../Components/ItemList'
 import useCourseDetails from '../../hooks/useCourseDetails'
+import { resetCourseForm } from '../../features/newCoursesSlice'
 
 export default function CourseList() {
+  const dispatch = useDispatch()
   const { allCourseDetails } = useSelector((state) => state.newCourses)
   const { getAllCourses, removeCourse } = useCourseDetails()
 
@@ -24,6 +26,10 @@ export default function CourseList() {
 
   useEffect(() => {
     getAllCourses()
+    return () => {
+      localStorage.removeItem('courseFormData')
+      dispatch(resetCourseForm())
+    }
   }, [])
 
   return (

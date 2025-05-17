@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomStepper from '../../Components/CustomStepper'
 import CourseBasicDetails from '../../Components/Courses/CourseBasicDetails'
 import CourseDescription from '../../Components/Courses/CourseDescription'
@@ -8,8 +8,11 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { FIELDS } from '../../Constants/redux/courseFieldName'
 import { v4 as uuid } from 'uuid'
 import useCourseDetails from '../../hooks/useCourseDetails'
+import { resetCourseForm } from '../../features/newCoursesSlice'
 
 const Courses = () => {
+  const dispatch = useDispatch()
+
   const courses = useSelector((state) => state.newCourses, shallowEqual)
   const { createCourse } = useCourseDetails()
 
@@ -66,6 +69,12 @@ const Courses = () => {
       isNextDisabled: courses.syllabusDetails[FIELDS.IS_VALIDATION_ERROR]
     }
   ]
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('courseFormData')
+      dispatch(resetCourseForm())
+    }
+  }, [])
   return <CustomStepper steps={steps} onComplete={handleFinish} formName={'Add New Course'} isCompleteEnable={isCompleteEnable} />
 }
 

@@ -9,7 +9,7 @@ import SignIn from '../Components/SignIn'
 import CollegeListImg from '../Components/CollegeListImg'
 import CollegeListImg2 from '../Components/CollegeListImg2'
 import CollegeDetail from '../Components/CollegeDetail'
-import Agent from '../Components/Agent'
+import Partner from '../Components/Partner'
 import AddAgent from '../Components/AddAgent'
 import AgentProfile from '../Components/AgentProfile'
 import SignUp from '../Components/SignUp'
@@ -135,7 +135,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/agent',
-          element: <Agent />
+          element: <Partner />
         },
         {
           path: '/add-agent',
