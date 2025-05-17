@@ -9,9 +9,11 @@ import ItemList from '../../ItemList'
 import MultySelect from '../../../utils/CommonComponents/MultySelect'
 import { Chip, Switch, Tooltip } from '@mui/material'
 import { updateCollegeInfo } from '../../../features/newCollegeSlice'
+import CourseDescriptionEditor from '../../CourseDescriptionEditor'
 
 const CourseOffered = ({ collegeId }) => {
-  const { allCourseDetails, courseOffered, isEdit } = useSelector((state) => state.newCollege)
+  const { courseOffered, isEdit } = useSelector((state) => state.newCollege)
+  const { allCourseDetails } = useSelector((state) => state.newCourses)
   const dispatch = useDispatch()
   const [isDisabled, setIsDisabled] = useState(true)
   const [allCourseDetailsIndex, setAllCourseDetailsIndex] = useState(0)
@@ -22,10 +24,10 @@ const CourseOffered = ({ collegeId }) => {
     course_accepting_exam: [],
     sub_course_fee: '',
     sub_course_duration: '',
-    eligibility_criteria: [],
+    eligibility_criteria: '',
     isHighlighted: false
   })
-  const [eligiblity, setEligibility] = useState('')
+  // const [eligiblity, setEligibility] = useState('')
 
   const handleFormData = () => {
     if (collegeId) {
@@ -39,30 +41,30 @@ const CourseOffered = ({ collegeId }) => {
     }
   }
 
-  const createEligibilityList = () => {
-    if (courseOfferedList.eligibility_criteria.includes(eligiblity)) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: 'Eligibility Criteria already added',
-          flag: true
-        })
-      )
-    } else {
-      const data = [...courseOfferedList?.eligibility_criteria, eligiblity]
-      setCourseOfferedList({ ...courseOfferedList, eligibility_criteria: data })
-      setEligibility('')
-    }
-  }
+  // const createEligibilityList = () => {
+  //   if (courseOfferedList.eligibility_criteria.includes(eligiblity)) {
+  //     dispatch(
+  //       updateError({
+  //         errorType: constants.apiResponseStatus.ERROR,
+  //         errorMessage: 'Eligibility Criteria already added',
+  //         flag: true
+  //       })
+  //     )
+  //   } else {
+  //     const data = [...courseOfferedList?.eligibility_criteria, eligiblity]
+  //     setCourseOfferedList({ ...courseOfferedList, eligibility_criteria: data })
+  //     setEligibility('')
+  //   }
+  // }
 
-  const handleDelete = (value) => {
-    const filteredData = courseOfferedList?.eligibility_criteria.filter((data) => data !== value)
-    setCourseOfferedList({ ...courseOfferedList, eligibility_criteria: filteredData })
-  }
+  // const handleDelete = (value) => {
+  //   const filteredData = courseOfferedList?.eligibility_criteria.filter((data) => data !== value)
+  //   setCourseOfferedList({ ...courseOfferedList, eligibility_criteria: filteredData })
+  // }
 
   const setindex = (value) => {
     if (value !== '' && value !== undefined && value !== null) {
-      const index = allCourseDetails.findIndex((i) => i.course_name === value)
+      const index = allCourseDetails.findIndex((i) => i.slug === value)
       setAllCourseDetailsIndex(index)
     }
   }
@@ -71,11 +73,11 @@ const CourseOffered = ({ collegeId }) => {
     const details = {
       college_id: '',
       course_id: allCourseDetails[allCourseDetailsIndex]?.course_id,
-      course_name: allCourseDetails[allCourseDetailsIndex]?.course_name,
-      course_accepting_exam: allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(','),
+      course_name: allCourseDetails[allCourseDetailsIndex]?.slug,
+      course_accepting_exam: allCourseDetails[allCourseDetailsIndex]?.course_accepting_exams,
       sub_course_fee: allCourseDetails[allCourseDetailsIndex]?.course_fee_min,
       sub_course_duration: allCourseDetails[allCourseDetailsIndex]?.course_duration,
-      eligibility_criteria: allCourseDetails[allCourseDetailsIndex]?.eligiblity_criteria.split(','),
+      eligibility_criteria: allCourseDetails[allCourseDetailsIndex]?.eligibility_criteria,
       isHighlighted: false
     }
     setCourseOfferedList(details)
@@ -128,9 +130,13 @@ const CourseOffered = ({ collegeId }) => {
     dispatch(updateCollegeInfo({ classKey: 'courseOffered', key: 'courses_offered', value: filteredData }))
   }
 
+  const handleEditorChange = (field) => (value) => {
+    setCourseOfferedList({ ...courseOfferedList, [field]: value })
+  }
+
   useEffect(() => {
     if (allCourseDetailsIndex > -1 && allCourseDetails.length > 0) {
-      setDetails('courseOffered', 'courses_offered')
+      setDetails()
     }
   }, [allCourseDetailsIndex])
 
@@ -151,7 +157,7 @@ const CourseOffered = ({ collegeId }) => {
       courseOfferedList.course_accepting_exam.length > 0 &&
       courseOfferedList.sub_course_fee !== '' &&
       courseOfferedList.sub_course_duration !== '' &&
-      courseOfferedList.eligibility_criteria.length > 0 &&
+      courseOfferedList.eligibility_criteria !== '' &&
       courseOfferedList.isHighlighted !== ''
     ) {
       setIsDisabled(false)
@@ -168,6 +174,10 @@ const CourseOffered = ({ collegeId }) => {
     courseOfferedList.isHighlighted
   ])
 
+  useEffect(() => {
+    console.log(courseOfferedList)
+  }, [courseOfferedList])
+
   return (
     <>
       <div
@@ -179,7 +189,7 @@ const CourseOffered = ({ collegeId }) => {
       >
         <SearchSelectBox
           label='Course Name'
-          options={allCourseDetails.length > 0 ? allCourseDetails.map((course) => course.course_name) : []}
+          options={allCourseDetails.length > 0 ? allCourseDetails.map((course) => course.slug) : []}
           onChange={(e, value) => setindex(value)}
           value={courseOfferedList?.course_name}
           disabled={collegeId && !isEdit ? true : false}
@@ -203,11 +213,11 @@ const CourseOffered = ({ collegeId }) => {
             />
             <MultySelect
               label='Exam Accepted'
-              options={allCourseDetails.length > 0 ? allCourseDetails[allCourseDetailsIndex]?.course_accepting_exam.split(',') : []}
+              options={allCourseDetails.length > 0 ? allCourseDetails[allCourseDetailsIndex]?.course_accepting_exams : []}
               onChange={(e, value) => setCourseOfferedList({ ...courseOfferedList, course_accepting_exam: value })}
               value={courseOfferedList?.course_accepting_exam}
             />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', gap: '40px' }}>
                 <InputFieldText
                   placeholder={`Eligibility Criteria`}
@@ -249,6 +259,12 @@ const CourseOffered = ({ collegeId }) => {
                     ))}
                 </div>
               )}
+            </div> */}
+            <div className='form-group'>
+              <CourseDescriptionEditor
+                value={courseOfferedList?.eligibility_criteria}
+                onChange={handleEditorChange('eligibility_criteria')}
+              />
             </div>
             <div>
               <label>{'Add to Highlight List'}</label>

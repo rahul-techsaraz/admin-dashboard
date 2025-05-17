@@ -23,17 +23,17 @@ const ParentWrapper = () => {
   const dispatch = useDispatch()
   const { collegeId, admin } = useParams()
 
-  useEffect(() => {
-    if (collegeId) {
-      dispatch(
-        fetchNewCollegeById({
-          url: constants.apiEndPoint.NEW_COLLEGE + '?college_id=' + collegeId,
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.GET
-        })
-      )
-    }
-  }, [collegeId])
+  // useEffect(() => {
+  //   if (collegeId) {
+  //     dispatch(
+  //       fetchNewCollegeById({
+  //         url: constants.apiEndPoint.NEW_COLLEGE + '?college_id=' + collegeId,
+  //         header: constants.apiHeaders.HEADER,
+  //         method: constants.httpMethod.GET
+  //       })
+  //     )
+  //   }
+  // }, [collegeId])
 
   return (
     <>

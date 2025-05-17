@@ -3,7 +3,7 @@ import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice'
-import { updateCollegeInfo } from '../features/collegeSlice'
+import { updateCollegeInfo } from '../features/newCollegeSlice'
 
 export default function Header() {
   const dispatch = useDispatch()

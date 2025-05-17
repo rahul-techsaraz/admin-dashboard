@@ -9,7 +9,6 @@ import Placements from './Placements'
 import News from './News'
 import FacilitiesFaculties from './FacilitiesFaculties'
 import CollegeGallary from './CollegeGallary'
-import { createNewCollege, updateCollegeById } from '../../../utils/reduxThunk/collegeThunk'
 import { useDispatch, useSelector } from 'react-redux'
 import { constants } from '../../../utils/constants'
 import { useFetchCategoryList } from '../../../hooks/useFetchCategoryList'
@@ -21,6 +20,8 @@ import { useNavigate } from 'react-router-dom'
 import { FileUpload } from '../../../utils/FileUpload'
 import CustomMessageModal from '../../../utils/CommonComponents/CustomMessageModal'
 import { useFetchAllCollegeList } from '../../../hooks/useFetchAllCollegeList'
+import useFileUpload from '../../../hooks/useFileUpload'
+import useCollegeData from '../../../hooks/useCollegeData'
 
 const ViewCollegeDetails = ({ collegeId, admin }) => {
   const [open, setOpen] = useState(false)
@@ -59,7 +60,8 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
   const navigate = useNavigate()
   const { fetchCollegeList } = useFetchAllCollegeList()
   const { getAllCourses } = useCourseDetails()
-
+  const { createFilePayload } = useFileUpload()
+  const { getAgentCollege, updateCollegeDataByID, updateMessage, getCollegeByID } = useCollegeData()
   const { fetchCategoryList } = useFetchCategoryList()
 
   const handleChange = (activeAcordian) => {
@@ -111,51 +113,8 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
         news: news?.news_data,
         gallary: gallary?.image_path
       }
-      const filePayload = new FormData()
-      filePayload.append('data', JSON.stringify(payload))
-      filePayload.append('college_logo[]', collegeLogo[0])
-      filePayload.append('college_thumbnail[]', collegeThumbnail[0])
-      filePayload.append('college_brochure[]', collegeBrochure[0])
-      for (let i = 0; i < collegeGallary.length; i++) {
-        filePayload.append('college_gallary[]', collegeGallary[i])
-      }
-      for (let i = 0; i < facultyImage.length; i++) {
-        const facultyId = facultyImage[i].name.split('.')[0]
-        if (facultyId) {
-          filePayload.append(`faculty_image[${facultyId}]`, facultyImage[i])
-        }
-      }
-      const response = await dispatch(
-        createNewCollege({
-          url: constants.apiEndPoint.NEW_COLLEGE + '?college_id=' + collegeBasicDetails?.college_id,
-          payload: filePayload,
-          header: { Authorization: userToken }
-        })
-      )
-      if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      } else {
-        dispatch(updateCollegeInfo({ classKey: 'isEdit', value: !isEdit }))
-        localStorage.removeItem('formData')
-        dispatch(resetCollege())
-        setCollegeLogo([])
-        setCollegeLogoUrl([])
-        setCollegeThumbnail([])
-        setCollegeThumbnailUrl([])
-        setCollegeBrochure([])
-        setCollegeBrochureUrl([])
-        setCollegeGallary([])
-        setCollegeGallaryUrl([])
-        setFacultyImage([])
-        setFacultyImageUrl([])
-        navigate('/list-agent-college')
-      }
+      const filePayload = createFilePayload(payload)
+      updateCollegeDataByID(filePayload, collegeId)
     } catch (error) {
       dispatch(
         updateError({
@@ -173,37 +132,18 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
   }
 
   const handleClose = () => {
-    updateMessage(whichBtn)
+    updateResponseMessage(whichBtn)
     setOpen(false)
   }
 
-  const updateMessage = async (status) => {
+  const updateResponseMessage = async (status) => {
     try {
       const statusPayload = {
         college_id: collegeBasicDetails.college_id,
         is_publish: status,
         message: message
       }
-      const response = await dispatch(
-        updateCollegeById({
-          url: constants.apiEndPoint.NEW_COLLEGE,
-          header: { ...constants.apiHeaders.HEADER, Authorization: userToken },
-          method: constants.httpMethod.PUT,
-          payload: statusPayload
-        })
-      )
-      if (response.payload.status !== constants.apiResponseStatus.SUCCESS) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-        return
-      }
-      fetchCollegeList()
-      navigate('/list-college')
+      updateMessage(statusPayload)
     } catch (error) {
       dispatch(
         updateError({
@@ -215,9 +155,17 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
     }
   }
 
+  const fetchData = async () => {
+    const response = await Promise.all([
+      fetchCategoryList(),
+      getAllCourses(),
+      getCollegeByID(collegeId)
+    ])
+    console.log(response)
+  }
+
   useEffect(() => {
-    fetchCategoryList()
-    getAllCourses()
+    fetchData()
     return () => {
       dispatch(resetCollege())
     }
@@ -252,12 +200,21 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Paper elevation={6} sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           {collegeId && !admin && (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '16px' }}>
               <CustomButton
                 lable={!isEdit ? 'Edit' : 'Close'}
                 onClick={() => dispatch(updateCollegeInfo({ classKey: 'isEdit', value: !isEdit }))}
                 styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
               />
+              {collegeId && isEdit && !admin && (
+                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                  <CustomButton
+                    lable={'Update'}
+                    onClick={() => handleSubmit()}
+                    styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
+                  />
+                </div>
+              )}
             </div>
           )}
           {admin && (
@@ -317,16 +274,6 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
           <CustomAccordian label={'Gallery'} expanded={expanded.gallery} onChange={() => handleChange('gallery')}>
             <CollegeGallary collegeId={collegeId} admin={admin} />
           </CustomAccordian>
-          {collegeId && isEdit && !admin && (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              <CustomButton
-                lable={'Submit'}
-                onClick={() => handleSubmit()}
-                styles={{ margin: '0px 30px', padding: '0px 20px', width: '300px', height: '40px' }}
-                isDisabled={isDisabled}
-              />
-            </div>
-          )}
         </Paper>
       </div>
       <CustomMessageModal

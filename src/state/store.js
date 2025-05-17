@@ -3,15 +3,14 @@ import categorySlice from '../features/categorySlice'
 import subHeaderMenuSlice from '../features/subHeaderMenuSlice'
 import userSlice from '../features/userSlice'
 import commonSlice from '../features/commonSlice'
-import collegeSlice from '../features/collegeSlice'
 import feedbackSlice from '../features/feedbackSlice'
 import newCollegeSlice from '../features/newCollegeSlice'
 import newCoursesSlice from '../features/newCoursesSlice'
 import newExamSlice from '../features/newExamSlice'
 
 const loggerMiddleware = (store) => (next) => (action) => {
-  console.log('Dispatching action:', action.type)
-  console.trace() // Shows the call stack to see which file/component called it
+  // console.log('Dispatching action:', action.type)
+  // console.trace() // Shows the call stack to see which file/component called it
   return next(action)
 }
 const reducers = combineReducers({
@@ -19,7 +18,6 @@ const reducers = combineReducers({
   subheadermenu: subHeaderMenuSlice,
   category: categorySlice,
   common: commonSlice,
-  college: collegeSlice,
   newCollege: newCollegeSlice,
   feedback: feedbackSlice,
   newCourses: newCoursesSlice,

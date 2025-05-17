@@ -218,7 +218,6 @@ const courseFormSlice = createSlice({
     builder.addCase(fetchAllCourse.fulfilled, (state, { payload }) => {
       if (payload.status === constants.apiResponseStatus.SUCCESS) {
         const parsePayload = payload.data.map((course) => deepParseTypedJSON(course))
-        console.log(parsePayload)
         state.allCourseDetails = parsePayload
       }
     })

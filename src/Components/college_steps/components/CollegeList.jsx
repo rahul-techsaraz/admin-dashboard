@@ -5,11 +5,13 @@ import { updateError } from '../../../features/commonSlice'
 import ItemList from '../../ItemList'
 import { deleteNewCollegeById, fetchAgentCollegeList } from '../../../utils/reduxThunk/collegeThunk'
 import { resetCollege } from '../../../features/newCollegeSlice'
+import useCollegeData from '../../../hooks/useCollegeData'
 
 const CollegeList = () => {
   const dispatch = useDispatch()
   const { userToken } = useSelector((state) => state.user)
   const { agentCollegeList } = useSelector((state) => state.newCollege)
+  const { getAgentCollege, deleteCollegebyId } = useCollegeData()
 
   const addNewColumns = [
     {
@@ -20,82 +22,14 @@ const CollegeList = () => {
       classname: 'deleteButton'
     }
   ]
+
   const deleteCollegeListById = async (collegeId, collegeName) => {
-    try {
-      const data = await dispatch(
-        deleteNewCollegeById({
-          url: constants.apiEndPoint.NEW_COLLEGE + `?college_id=${collegeId}&college_name=${collegeName}`,
-          header: { ...constants.apiHeaders.HEADER, Authorization: userToken },
-          method: constants.httpMethod.DELETE
-        })
-      )
-      if (data.payload.status === constants.apiResponseStatus.SUCCESS) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: 'College deleted successfully!',
-            flag: true
-          })
-        )
-        await fetchCollegeList()
-      } else {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.WARNING,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.WARNING,
-          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-          flag: true
-        })
-      )
-    }
+    deleteCollegebyId(collegeId, collegeName)
+    getAgentCollege()
   }
 
-  const fetchCollegeList = async () => {
-    try {
-      const response = await dispatch(
-        fetchAgentCollegeList({
-          url: constants.apiEndPoint.NEW_COLLEGE,
-          header: constants.apiHeaders.HEADER,
-          method: constants.httpMethod.GET
-        })
-      )
-      if (response.payload.status === constants.apiResponseStatus.SUCCESS) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.SUCCESS,
-            errorMessage: 'College List Fetched Successfully',
-            flag: true
-          })
-        )
-      } else {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-          flag: true
-        })
-      )
-    }
-  }
   useEffect(() => {
-    fetchCollegeList()
+    getAgentCollege()
     return () => {
       dispatch(resetCollege())
     }
