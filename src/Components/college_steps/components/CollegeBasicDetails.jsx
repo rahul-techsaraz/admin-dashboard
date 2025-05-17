@@ -7,80 +7,87 @@ import { constants } from '../../../utils/constants'
 import { fetchCityList, fetchStateList } from '../../../utils/reduxThunk/collegeThunk'
 import { updateCollegeInfo } from '../../../features/newCollegeSlice'
 import MultySelect from '../../../utils/CommonComponents/MultySelect'
+import useCollegeData from '../../../hooks/useCollegeData'
 
 const CollegeBasicDetails = ({ collegeId }) => {
-  const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
+  // const [searchSelectDisabled, setSearchSelectDisabled] = useState(true)
   const dispatch = useDispatch()
-  const { stateList, cityList, isEdit } = useSelector((state) => state.newCollege)
+  const { stateList, cityList, isEdit, searchSelectCity } = useSelector((state) => state.newCollege)
   const { college_name, location, affiliate_by, ratings, state, city, college_type, category_name, fee_starting, avg_first_year_fee } =
     useSelector((state) => state.newCollege.collegeBasicDetails, shallowEqual)
   const { categoryData } = useSelector((state) => state.category)
+  const { getAllState, getAllCity } = useCollegeData()
 
-  const fetchState = async () => {
-    try {
-      const response = await dispatch(
-        fetchStateList({
-          url: constants.apiEndPoint.STATE_LIST,
-          header: { 'X-CSCAPI-KEY': 'YW5VbnUwYURRYXhhU242R3VqMTVZZ1lHM0k0Wmo1TjY2ZUlVTTBQbA==' },
-          method: constants.httpMethod.GET
-        })
-      )
-      if (response.payload.length === 0) {
-        console.log('from state fetch')
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-          flag: true
-        })
-      )
-    }
-  }
+  // const fetchState = async () => {
+  //   try {
+  //     const response = await dispatch(
+  //       fetchStateList({
+  //         url: constants.apiEndPoint.STATE_LIST,
+  //         header: { 'X-CSCAPI-KEY': 'YW5VbnUwYURRYXhhU242R3VqMTVZZ1lHM0k0Wmo1TjY2ZUlVTTBQbA==' },
+  //         method: constants.httpMethod.GET
+  //       })
+  //     )
+  //     if (response.payload.length === 0) {
+  //       dispatch(
+  //         updateError({
+  //           errorType: constants.apiResponseStatus.ERROR,
+  //           errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //           flag: true
+  //         })
+  //       )
+  //     }
+  //   } catch (error) {
+  //     dispatch(
+  //       updateError({
+  //         errorType: constants.apiResponseStatus.ERROR,
+  //         errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //         flag: true
+  //       })
+  //     )
+  //   }
+  // }
 
-  const stateIso = (state) => {
-    return stateList.filter((data) => data.name === state)[0].iso2
-  }
+  // const stateIso = (state) => {
+  //   return stateList.filter((data) => data.name === state)[0].iso2
+  // }
 
-  const fetchCity = async () => {
-    try {
-      const response = await dispatch(
-        fetchCityList({
-          url: `${constants.apiEndPoint.CITY_LIST}${stateIso(state)}/cities`,
-          header: { 'X-CSCAPI-KEY': 'YW5VbnUwYURRYXhhU242R3VqMTVZZ1lHM0k0Wmo1TjY2ZUlVTTBQbA==' },
-          method: constants.httpMethod.GET
-        })
-      )
-      if (response.payload.length === 0) {
-        dispatch(
-          updateError({
-            errorType: constants.apiResponseStatus.ERROR,
-            errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-            flag: true
-          })
-        )
-        setSearchSelectDisabled(true)
-      } else {
-        setSearchSelectDisabled(false)
-      }
-    } catch (error) {
-      dispatch(
-        updateError({
-          errorType: constants.apiResponseStatus.ERROR,
-          errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
-          flag: true
-        })
-      )
-    }
-  }
+  // const fetchCity = async () => {
+  //   try {
+  //     const response = await dispatch(
+  //       fetchCityList({
+  //         url: `${constants.apiEndPoint.CITY_LIST}${stateIso(state)}/cities`,
+  //         header: { 'X-CSCAPI-KEY': 'YW5VbnUwYURRYXhhU242R3VqMTVZZ1lHM0k0Wmo1TjY2ZUlVTTBQbA==' },
+  //         method: constants.httpMethod.GET
+  //       })
+  //     )
+  //     if (response.payload.length === 0) {
+  //       dispatch(
+  //         updateError({
+  //           errorType: constants.apiResponseStatus.ERROR,
+  //           errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //           flag: true
+  //         })
+  //       )
+  //       // setSearchSelectDisabled(true)
+  //       dispatch(
+  //         updateCollegeInfo({ classKey: 'setSearchSelectDisabled', value: true })
+  //       )
+  //     } else {
+  //       // setSearchSelectDisabled(false)
+  //       dispatch(
+  //         updateCollegeInfo({ classKey: 'setSearchSelectDisabled', value: true })
+  //       )
+  //     }
+  //   } catch (error) {
+  //     dispatch(
+  //       updateError({
+  //         errorType: constants.apiResponseStatus.ERROR,
+  //         errorMessage: constants.apiResponseMessage.ERROR_MESSAGE,
+  //         flag: true
+  //       })
+  //     )
+  //   }
+  // }
 
   const handleFormData = (value, classKey, key) => {
     if (collegeId) {
@@ -111,23 +118,20 @@ const CollegeBasicDetails = ({ collegeId }) => {
     }
     delete formData?.collegeBasicDetails?.city
     localStorage.setItem('formData', JSON.stringify(formData))
-    setSearchSelectDisabled(true)
+    dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: '' }))
+    dispatch(updateCollegeInfo({ classKey: 'searchSelectCity', value: true }))
   }
 
   useEffect(() => {
-    fetchState()
-    if (state !== '' && state !== undefined && state !== null) {
-      fetchCity()
-    } else {
-      dispatch(updateCollegeInfo({ classKey: 'cityList', value: [] }))
-      handleFormData('', 'collegeBasicDetails', 'city')
-      setSearchSelectDisabled(true)
+    if (stateList.length < 1) {
+      getAllState()
     }
   }, [])
 
   useEffect(() => {
+    dispatch(updateCollegeInfo({ classKey: 'collegeBasicDetails', key: 'city', value: '' }))
     if (state !== '' && state !== undefined && state !== null) {
-      fetchCity()
+      getAllCity(state)
     } else {
       ifNoCity()
     }
@@ -203,7 +207,7 @@ const CollegeBasicDetails = ({ collegeId }) => {
             value ? handleFormData(value, 'collegeBasicDetails', 'city') : handleFormData('', 'collegeBasicDetails', 'city')
           }
           value={city}
-          disabled={searchSelectDisabled || (collegeId && !isEdit ? true : false)}
+          disabled={searchSelectCity || (collegeId && !isEdit ? true : false)}
         />
         <InputFieldText
           placeholder='College Location'

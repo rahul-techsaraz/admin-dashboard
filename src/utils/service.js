@@ -9,9 +9,13 @@ export const httpCall = async (url, headers, method, body) => {
     throw Error('Please pass the valid url')
   }
   const options = await prepareOption(headers, method, body)
-  const data = await fetch(url, options)
-  const json = await data.json()
-  return json
+  try {
+    const data = await fetch(url, options)
+    const json = await data.json()
+    return json
+  } catch (error) {
+    console.log(error)
+  }
 }
 const prepareOption = (headers, method, body) => {
   const options = {
