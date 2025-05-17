@@ -4,7 +4,7 @@ import avtimg1 from '../assets/images/xs/avatar5.jpg'
 import avtimg2 from '../assets/images/xs/avatar6.jpg'
 import avtimg3 from '../assets/images/xs/avatar7.jpg'
 
-export default function Agent() {
+export default function Partner() {
   return (
     <>
       <div className='container-fluid'>

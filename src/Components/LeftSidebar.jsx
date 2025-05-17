@@ -57,7 +57,7 @@ export default function LeftSidebar() {
                 </li>
                 <li className='header'>MAIN</li>
                 {constants.sideBarMenu
-                  .filter((menu) => menu.role === userInfo.user_role)
+                  .filter((menu) => menu.role.includes(userInfo.user_role))
                   .map((data, i) => (
                     <li>
                       <Link
@@ -96,7 +96,7 @@ export default function LeftSidebar() {
                     </div>
                     <div className='detail'>
                       <h4>Michael</h4>
-                      <small>Agent</small>
+                      <small>Partner</small>
                     </div>
                     <Link title='facebook' href='javascript:void(0);'>
                       <i className='zmdi zmdi-facebook' />

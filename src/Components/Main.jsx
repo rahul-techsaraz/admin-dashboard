@@ -132,7 +132,7 @@ export default function Main() {
                   <div className='body'>
                     <i className='zmdi zmdi-account text-success zmdi-hc-2x' />
                     <h4 className='mb-0'>2,55</h4>
-                    <span>Total Agent</span>
+                    <span>Total Partner</span>
                   </div>
                 </div>
               </div>
