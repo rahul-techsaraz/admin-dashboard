@@ -6,7 +6,9 @@ import useExamData from '../../hooks/useExamData'
 
 const ExamList = () => {
   const { examList } = useSelector((state) => state.newExam)
-  const { getAllExam, removeExam } = useExamData()
+  const { userInfo } = useSelector((state) => state.user)
+
+  const { getAllExam, removeExam, modifyExamTrending } = useExamData()
   const dispatch = useDispatch()
 
   const deleteExamListById = async (examId) => {
@@ -57,6 +59,8 @@ const ExamList = () => {
         path={'/add-exam-description/'}
         id={'exam_id'}
         isVewdetails={true}
+        dataType={['super_admin', 'admin'].includes(userInfo.user_role) ? 'exam' : ''}
+        onToggleTrending={(examId, isTrending) => modifyExamTrending(examId, isTrending)}
       />
     </>
   )

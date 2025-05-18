@@ -1,6 +1,13 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { constants } from '../utils/constants'
-import { addNewCourse, deleteCourseById, fetchAllCourse, fetchCourseDetails, updateCourseDetails } from '../utils/reduxThunk/courseThunk'
+import {
+  addNewCourse,
+  deleteCourseById,
+  fetchAllCourse,
+  fetchCourseDetails,
+  updateCourseDetails,
+  updateTrendingCourse
+} from '../utils/reduxThunk/courseThunk'
 import { deepParseTypedJSON } from '../utils/deepParseTypedJSON'
 import { resetCourseForm, setCourseDataFromApi } from '../features/newCoursesSlice'
 import { updateError } from '../features/commonSlice'
@@ -126,6 +133,34 @@ export default function useCourseDetails() {
         console.error(err)
       })
   }
+  const updateCourseTrending = (courseId, isTrending) => {
+    //CALL API
+    dispatch(
+      updateTrendingCourse({
+        url: constants.apiEndPoint.COURSE,
+        header: { ...constants.apiHeaders.HEADER, ...customHeader },
+        method: constants.httpMethod.PUT,
+        payload: { course_id: courseId, is_trending: isTrending }
+      })
+    )
+      .unwrap()
+      .then((res) => {
+        dispatch(
+          updateError({
+            errorType: res?.payload?.status,
+            errorMessage: res?.payload?.message ?? 'Course trending config updated successfully.',
+            flag: true
+          })
+        )
+        // navigate('/course-list')
+        getAllCourses()
+        // localStorage.removeItem('courseFormData')
+        // dispatch(resetCourseForm())
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
 
-  return { getAllCourses, getCourseById, editCourseDetails, removeCourse, createCourse }
+  return { getAllCourses, getCourseById, editCourseDetails, updateCourseTrending, removeCourse, createCourse }
 }

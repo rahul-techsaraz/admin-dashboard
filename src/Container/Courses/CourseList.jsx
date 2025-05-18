@@ -8,7 +8,9 @@ import { resetCourseForm } from '../../features/newCoursesSlice'
 export default function CourseList() {
   const dispatch = useDispatch()
   const { allCourseDetails } = useSelector((state) => state.newCourses)
-  const { getAllCourses, removeCourse } = useCourseDetails()
+  const { userInfo } = useSelector((state) => state.user)
+
+  const { getAllCourses, removeCourse, updateCourseTrending } = useCourseDetails()
 
   const addNewColumns = [
     {
@@ -42,6 +44,8 @@ export default function CourseList() {
         path={'/add-new-course/'}
         id={'course_id'}
         isVewdetails={true}
+        dataType={['super_admin', 'admin'].includes(userInfo.user_role) ? 'course' : ''}
+        onToggleTrending={(courseId, isTrending) => updateCourseTrending(courseId, isTrending)}
       />
     </>
   )

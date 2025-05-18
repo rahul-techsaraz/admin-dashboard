@@ -1,5 +1,12 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { addNewExams, deleteExamById, fetchAllExams, fetchExamDetailById, updateExamDetails } from '../utils/reduxThunk/examThunk'
+import {
+  addNewExams,
+  deleteExamById,
+  fetchAllExams,
+  fetchExamDetailById,
+  updateExamDetails,
+  updateExamTrending
+} from '../utils/reduxThunk/examThunk'
 import { constants } from '../utils/constants'
 import { updateError } from '../features/commonSlice'
 import { deepParseTypedJSON } from '../utils/deepParseTypedJSON'
@@ -115,6 +122,32 @@ const useExamData = () => {
         console.error(err)
       })
   }
-  return { getAllExam, removeExam, getExamById, editExamData, createExam }
+
+  const modifyExamTrending = (examId, isTrending) => {
+    //CALL API
+    dispatch(
+      updateExamTrending({
+        url: constants.apiEndPoint.EXAM,
+        header: { ...constants.apiHeaders.HEADER, ...customHeader },
+        method: constants.httpMethod.PUT,
+        payload: { exam_id: examId, is_trending: isTrending }
+      })
+    )
+      .unwrap()
+      .then((res) => {
+        dispatch(
+          updateError({
+            errorType: res?.payload?.status,
+            errorMessage: res?.payload?.message ?? 'Exam trending config updated successfully.',
+            flag: true
+          })
+        )
+        getAllExam()
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+  return { getAllExam, removeExam, getExamById, editExamData, createExam, modifyExamTrending }
 }
 export default useExamData

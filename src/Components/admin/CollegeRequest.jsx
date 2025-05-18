@@ -10,10 +10,11 @@ import { updateCollegeInfo } from '../../features/newCollegeSlice'
 
 export default function CollegeRequest() {
   const [activeLable, setActiveLable] = useState('not published')
-  const { fetchCollegeList } = useFetchAllCollegeList()
   const { allCollegeList, filteredCollegeList } = useSelector((state) => state.newCollege)
+  const { userInfo } = useSelector((state) => state.user)
+
   const dispatch = useDispatch()
-  const { deleteCollegebyId, getAllCollege } = useCollegeData()
+  const { deleteCollegebyId, getAllCollege, modifyCollegeTrending } = useCollegeData()
 
   const filterCollegeList = (filterBy) => {
     setActiveLable(filterBy)
@@ -47,7 +48,7 @@ export default function CollegeRequest() {
 
   const deleteCollegeListById = async (college_id) => {
     try {
-      deleteCollegebyId(college_id,)
+      deleteCollegebyId(college_id)
       getAllCollege()
     } catch (err) {
       dispatch(
@@ -116,6 +117,8 @@ export default function CollegeRequest() {
                       id={'college_id'}
                       admin={'admin'}
                       isVewdetails={true}
+                      dataType={['super_admin', 'admin'].includes(userInfo.user_role) ? 'college' : ''}
+                      onToggleTrending={(collegeId, isTrending) => modifyCollegeTrending(collegeId, isTrending)}
                     />
                   ) : (
                     <div>No Record Found</div>

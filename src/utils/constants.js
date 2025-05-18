@@ -100,28 +100,6 @@ export const constants = {
       ]
     },
     {
-      role: ['admin', 'super_admin'],
-      heading: 'Trending',
-      isOpen: false,
-      list: [
-        {
-          option_name: 'Colleges',
-          option_path: '/admin-dashboard',
-          name: 'Admin Users'
-        },
-        {
-          option_name: 'Courses',
-          option_path: '/list-college',
-          name: 'Admin Users'
-        },
-        {
-          option_name: 'Exams',
-          option_path: '/users-list',
-          name: 'Users'
-        }
-      ]
-    },
-    {
       role: ['admin_partner'],
       heading: 'Partner',
       isOpen: false,
