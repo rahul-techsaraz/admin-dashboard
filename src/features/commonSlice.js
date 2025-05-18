@@ -1,4 +1,5 @@
 import { isPending, isRejected, isFulfilled, createSlice } from '@reduxjs/toolkit'
+import { fetchAllUsersList, fetchUserByEmail } from '../utils/reduxThunk/commonThunk'
 
 const initialState = {
   isLoading: false,
@@ -25,25 +26,33 @@ const commonSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder
-      .addMatcher(isPending, (state) => {
-        state.isLoading = true
-      })
-      .addMatcher(
-        (action) => isFulfilled(action),
-        (state) => {
-          state.isLoading = false
-        }
-      )
-      .addMatcher(
-        (action) => isRejected(action),
-        (state, action) => {
-          state.isLoading = false
-          state.isError = true
-          state.errorMessage = action?.payload?.message ?? 'Something went wrong . Please try again'
-          state.errorType = 'error'
-        }
-      )
+    builder.addCase(fetchAllUsersList.fulfilled, (state, { payload }) => {
+      console.log(payload)
+      state.getAllUsersList = payload.userlist ?? []
+    }),
+      builder.addCase(fetchUserByEmail.fulfilled, (state, { payload }) => {
+        console.log(payload)
+        state.userDetailsByEmail = payload?.data ?? []
+      }),
+      builder
+        .addMatcher(isPending, (state) => {
+          state.isLoading = true
+        })
+        .addMatcher(
+          (action) => isFulfilled(action),
+          (state) => {
+            state.isLoading = false
+          }
+        )
+        .addMatcher(
+          (action) => isRejected(action),
+          (state, action) => {
+            state.isLoading = false
+            state.isError = true
+            state.errorMessage = action?.payload?.message ?? 'Something went wrong . Please try again'
+            state.errorType = 'error'
+          }
+        )
   }
 })
 export const { updateLoader, updateError } = commonSlice.actions

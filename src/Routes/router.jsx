@@ -1,7 +1,6 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
-import Main from '../Components/Main'
 import Header from '../Components/Header'
 import LeftSidebar from '../Components/LeftSidebar'
 import CategoryList from '../Components/category_list/CategoryList'
@@ -29,6 +28,7 @@ import CourseDetailsContainer from '../Container/Courses/CourseDetailsContainer'
 import ExamList from '../Container/Exams/ExamList'
 import ExamDetails from '../Container/Exams/ExamDetails'
 import ExamContainer from '../Container/Exams/Exams'
+import DashboardContainer from '../Components/AnalyticsDashBoard/DashboardContainer'
 
 export const appRouter = createBrowserRouter(
   [
@@ -42,7 +42,7 @@ export const appRouter = createBrowserRouter(
       children: [
         {
           path: '',
-          element: <Main />
+          element: <DashboardContainer />
         },
         {
           path: '/category-list',
