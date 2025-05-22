@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export default function UsersList() {
   const { fetchUsersList } = useFetchAllUsersList()
   const { getAllUsersList } = useSelector((state) => state.common)
+  console.log({ getAllUsersList })
   useEffect(() => {
     fetchUsersList()
   }, [])

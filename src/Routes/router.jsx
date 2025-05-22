@@ -1,7 +1,6 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
-import Main from '../Components/Main'
 import Header from '../Components/Header'
 import LeftSidebar from '../Components/LeftSidebar'
 import CategoryList from '../Components/category_list/CategoryList'
@@ -9,7 +8,7 @@ import SignIn from '../Components/SignIn'
 import CollegeListImg from '../Components/CollegeListImg'
 import CollegeListImg2 from '../Components/CollegeListImg2'
 import CollegeDetail from '../Components/CollegeDetail'
-import Agent from '../Components/Agent'
+import Partner from '../Components/Partner'
 import AddAgent from '../Components/AddAgent'
 import AgentProfile from '../Components/AgentProfile'
 import SignUp from '../Components/SignUp'
@@ -29,6 +28,8 @@ import CourseDetailsContainer from '../Container/Courses/CourseDetailsContainer'
 import ExamList from '../Container/Exams/ExamList'
 import ExamDetails from '../Container/Exams/ExamDetails'
 import ExamContainer from '../Container/Exams/Exams'
+import DashboardContainer from '../Components/AnalyticsDashBoard/DashboardContainer'
+import CreateNewAdmin from '../Components/super_admin/CreateNewAdmin'
 
 export const appRouter = createBrowserRouter(
   [
@@ -42,7 +43,7 @@ export const appRouter = createBrowserRouter(
       children: [
         {
           path: '',
-          element: <Main />
+          element: <DashboardContainer />
         },
         {
           path: '/category-list',
@@ -135,7 +136,7 @@ export const appRouter = createBrowserRouter(
         },
         {
           path: '/agent',
-          element: <Agent />
+          element: <Partner />
         },
         {
           path: '/add-agent',
@@ -148,6 +149,14 @@ export const appRouter = createBrowserRouter(
         {
           path: '/admin-dashboard',
           element: <AdminRequest />
+        },
+        {
+          path: '/admin-user-list',
+          element: <AdminRequest />
+        },
+        {
+          path: '/add-new-admin-user',
+          element: <CreateNewAdmin />
         }
       ],
       errorElement: (

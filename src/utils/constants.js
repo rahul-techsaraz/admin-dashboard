@@ -15,7 +15,11 @@ export const constants = {
     GET_ALL_USERS_USER_DETAILS: 'https://techsaraz.in//admission-cart/api/login/getAllUsers.php',
     FETCH_USER_DETAILS_BY_EMAIL: 'https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email=',
     USER_FEADBACK_RESPONSE: 'https://techsaraz.in//admission-cart/api/user.php?requestType=userFeedbackReport',
-    NEW_COLLEGE: 'https://techsaraz.in/admission-cart/api/newcollege.php'
+    NEW_COLLEGE: 'https://techsaraz.in/admission-cart/api/newcollege.php',
+    FORGOT_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/forgotpassword.php',
+    SENDMAIL: 'https://techsaraz.in/mail/newsendmail.php',
+    CHANGE_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/updatepassword.php',
+    RESET_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/resetadminpassword.php',
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   newImageAbsolutePath: 'https://techsaraz.in/admission-cart/api/',
@@ -49,9 +53,22 @@ export const constants = {
     REVISION: 'Revision',
     NOTPUBLISHED: 'NOT PUBLISHED'
   },
+  rolesForSuperAdmin: ['super_admin', 'admin', 'sub_user', 'admin_partner'],
   sideBarMenu: [
     {
-      role: 'admin',
+      role: ['super_admin'],
+      heading: 'Super Admin',
+      isOpen: false,
+      list: [
+        {
+          option_name: 'Admin User List',
+          option_path: '/admin-user-list',
+          name: 'Super Admin'
+        }
+      ]
+    },
+    {
+      role: ['admin', 'super_admin'],
       heading: 'Dashboard',
       isOpen: false,
       list: [
@@ -73,7 +90,7 @@ export const constants = {
       ]
     },
     {
-      role: 'admin',
+      role: ['admin', 'super_admin'],
       heading: 'Admin',
       isOpen: false,
       list: [
@@ -100,30 +117,8 @@ export const constants = {
       ]
     },
     {
-      role: 'admin',
-      heading: 'Trending',
-      isOpen: false,
-      list: [
-        {
-          option_name: 'Colleges',
-          option_path: '/admin-dashboard',
-          name: 'Admin Users'
-        },
-        {
-          option_name: 'Courses',
-          option_path: '/list-college',
-          name: 'Admin Users'
-        },
-        {
-          option_name: 'Exams',
-          option_path: '/users-list',
-          name: 'Users'
-        }
-      ]
-    },
-    {
-      role: 'agent',
-      heading: 'Agents',
+      role: ['admin_partner'],
+      heading: 'Partner',
       isOpen: false,
       list: [
         {
@@ -134,12 +129,25 @@ export const constants = {
         {
           option_name: 'Add New College',
           option_path: '/add-college',
-          name: 'Add Agent'
+          name: 'Add Partner'
         }
       ]
     }
   ],
   subHeaderMenu: [
+    {
+      name: 'Super Admin',
+      navMenu: [
+        {
+          labelName: 'Admin User List',
+          path: 'admin-user-list'
+        },
+        {
+          labelName: 'Create New Admin',
+          path: 'add-new-admin-user'
+        }
+      ]
+    },
     {
       name: 'Category',
       navMenu: [
@@ -491,8 +499,8 @@ export const constants = {
     { label: 'Semester 8', value: 'Semester 8' }
   ],
   courseIsPublished: {
-    notPublished: 0,
-    published: 1
+    notPublished: 'NOT PUBLISHED',
+    published: 'PUBLISHED'
   },
   SyllabusDetailsUserColumns: [
     {
@@ -729,6 +737,38 @@ export const constants = {
       field: 'content',
       headerName: 'Content',
       width: 300
+    }
+  ],
+  AdminUserColumns: [
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 50
+    },
+    {
+      field: 'first_name',
+      headerName: 'First Name',
+      width: 150
+    },
+    {
+      field: 'last_name',
+      headerName: 'Last Name',
+      width: 150
+    },
+    {
+      field: 'email',
+      headerName: 'E-mail',
+      width: 200
+    },
+    {
+      field: 'user_role',
+      headerName: 'User Role',
+      width: 150
+    },
+    {
+      field: 'user_status',
+      headerName: 'User Status',
+      width: 150
     }
   ],
   collegeStepsLabel: [

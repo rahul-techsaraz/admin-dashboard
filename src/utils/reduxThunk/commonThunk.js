@@ -1,4 +1,5 @@
 import { createApiThunk } from '../apiThunk'
+import { httpCall2 } from '../service2'
 
 export const authenticateUsers = createApiThunk('auth/authenticateUser')
 export const loginUsers = createApiThunk('login/loginUsers')
@@ -10,3 +11,8 @@ export const fetchAllAdminUserList = createApiThunk('users/fetchAllAdminUserList
 export const fetchAllUsersList = createApiThunk('users/fetchAllUsersList')
 export const fetchUserByEmail = createApiThunk('users/fetchUserByEmail')
 export const approveUser = createApiThunk('users/approveUser')
+export const addNewAdmin = createApiThunk('user/addNewAdmin')
+export const forgotPassword = createApiThunk('users/forgotPassword')
+export const sendMail = createApiThunk('users/sendMail', httpCall2)
+export const updatePassword = createApiThunk('users/updatePassword')
+export const resetPassword = createApiThunk('user/resetPassword')
