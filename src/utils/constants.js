@@ -15,7 +15,10 @@ export const constants = {
     GET_ALL_USERS_USER_DETAILS: 'https://techsaraz.in//admission-cart/api/login/getAllUsers.php',
     FETCH_USER_DETAILS_BY_EMAIL: 'https://techsaraz.in//admission-cart/api/user.php?requestType=getAllUserDetails&email=',
     USER_FEADBACK_RESPONSE: 'https://techsaraz.in//admission-cart/api/user.php?requestType=userFeedbackReport',
-    NEW_COLLEGE: 'https://techsaraz.in/admission-cart/api/newcollege.php'
+    NEW_COLLEGE: 'https://techsaraz.in/admission-cart/api/newcollege.php',
+    FORGOT_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/forgotpassword.php',
+    SENDMAIL: 'https://techsaraz.in/mail/newsendmail.php',
+    CHANGE_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/updatepassword.php'
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   newImageAbsolutePath: 'https://techsaraz.in/admission-cart/api/',
