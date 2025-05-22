@@ -29,6 +29,7 @@ import ExamList from '../Container/Exams/ExamList'
 import ExamDetails from '../Container/Exams/ExamDetails'
 import ExamContainer from '../Container/Exams/Exams'
 import DashboardContainer from '../Components/AnalyticsDashBoard/DashboardContainer'
+import CreateNewAdmin from '../Components/super_admin/CreateNewAdmin'
 
 export const appRouter = createBrowserRouter(
   [
@@ -148,6 +149,14 @@ export const appRouter = createBrowserRouter(
         {
           path: '/admin-dashboard',
           element: <AdminRequest />
+        },
+        {
+          path: '/admin-user-list',
+          element: <AdminRequest />
+        },
+        {
+          path: '/add-new-admin-user',
+          element: <CreateNewAdmin />
         }
       ],
       errorElement: (

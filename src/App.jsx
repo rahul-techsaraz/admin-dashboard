@@ -24,11 +24,14 @@ import { Link, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Loader from './Components/Loader/Loader'
 import CustomAllert from './utils/CommonComponents/CustomAllert'
+import SettingsPopUp from './Components/PopUp/SettingsPopUp'
+import ChangePassword from './Components/PopUp/ChangePassword'
 
 function App() {
   const [isSnackBarOpen, setSnackBarOpen] = useState(false)
   const { activeSubHeader } = useSelector((state) => state.subheadermenu)
   const { isLoading, isError, isOpenToast, errorMessage, errorType } = useSelector((state) => state.common)
+  const { isSettingPopup, isChangePassword } = useSelector((state) => state.user)
   // console.log(isSnackBarOpen, isError, isOpenToast)
   useEffect(() => {
     const isOpen = isError || isOpenToast
@@ -38,7 +41,8 @@ function App() {
     <>
       {isLoading && <Loader />}
       {isSnackBarOpen && <CustomAllert isError={isError} errorMessage={errorMessage} errorType={errorType} />}
-
+      {isSettingPopup && <SettingsPopUp />}
+      {isChangePassword && <ChangePassword />}
       <body className='theme-purple'>
         <Header />
         <LeftSidebar />
