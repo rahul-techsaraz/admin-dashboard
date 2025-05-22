@@ -1,17 +1,18 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { forgotPassword, sendMail, updatePassword } from '../utils/reduxThunk/commonThunk'
+import { useDispatch, useSelector } from 'react-redux'
+import { forgotPassword, resetPassword, sendMail, updatePassword } from '../utils/reduxThunk/commonThunk'
 import { constants } from '../utils/constants'
 
 const usePasswordManage = () => {
   const dispatch = useDispatch()
-  const manageFoegotPassword = (email, otp) => {
+  const { userInfo } = useSelector(state => state.user)
+  const manageFoegotPassword = (email) => {
     return dispatch(
       forgotPassword({
         url: constants.apiEndPoint.FORGOT_PASSWORD,
         header: { ...constants.apiHeaders.HEADER },
         method: constants.httpMethod.POST,
-        payload: { email, otp }
+        payload: { email }
       })
     )
   }
@@ -54,7 +55,17 @@ const usePasswordManage = () => {
       })
     )
   }
-  return { manageFoegotPassword, sendEmail, generate4DigitOTP, changePassword }
+  const modifyCurrentPassword = (payload) => {
+    return dispatch(
+      resetPassword({
+        url: constants.apiEndPoint.RESET_PASSWORD,
+        header: { ...constants.apiHeaders.HEADER, ...constants.apiHeaders.customHeader(userInfo.token) },
+        method: constants.httpMethod.POST,
+        payload
+      })
+    )
+  }
+  return { manageFoegotPassword, sendEmail, generate4DigitOTP, changePassword, modifyCurrentPassword }
 }
 
 export default usePasswordManage

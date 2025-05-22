@@ -1,23 +1,13 @@
 import React from 'react'
 import logo1 from '../assets/images/imgpsh_fullsize_anim.jpeg'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { handleUserAuthentication, updateUserInfo, updateUserToken } from '../features/userSlice'
-import { updateCollegeInfo } from '../features/newCollegeSlice'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateAdminData } from '../features/userSlice'
 
 export default function Header() {
+  const { isSettingPopup } = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  const handleLogout = () => {
-    if (window.confirm('Are you sure you want to logout?')) {
-      // localStorage.clear(); // Clear local storage
-      localStorage.removeItem('token')
-      localStorage.removeItem('userData')
-      dispatch(handleUserAuthentication({ flag: false }))
-      dispatch(updateUserToken({ token: '' }))
-      dispatch(updateUserInfo({ userInfo: {} }))
-      dispatch(updateCollegeInfo({ classKey: 'activeStep', value: 0 }))
-    }
-  }
+
 
   return (
     <>
@@ -110,9 +100,9 @@ export default function Header() {
           </li>
 
           <li className='float-right' style={{ padding: '1rem' }}>
-            <Link to={'/'} className='mega-menu' data-close='true'>
-              <i className='zmdi zmdi-power' onClick={() => handleLogout()}></i>
-            </Link>
+            {/* <Link to={'/'} className='mega-menu' data-close='true'> */}
+            <i className="zmdi zmdi-settings" style={{ color: '#FFFFFF' }} onClick={() => dispatch(UpdateAdminData({ classKey: 'isSettingPopup', value: !isSettingPopup }))}></i>
+            {/* </Link> */}
           </li>
         </ul>
       </nav>

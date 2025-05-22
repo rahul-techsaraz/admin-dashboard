@@ -7,21 +7,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import { approveUser, fetchAllAdminUserList } from '../../utils/reduxThunk/commonThunk'
 import { updateError } from '../../features/commonSlice'
 import { updatefilteredUserList } from '../../features/userSlice'
+import AddItemForm from '../AddItemForm'
+import ItemList from '../ItemList'
+import CustomModalAdminRole from '../../utils/CommonComponents/CustomModalAdminRole'
 
 export default function AdminRequest() {
-  // const [userList, setUserList] = useState([]);
-  // const [filteredUserList,setFilteredUserList] = useState([])
-  const [activeLable, setActiveLable] = useState('Pending')
-  const { userList, filteredUserList } = useSelector((state) => state.user)
+  const [open, setOpen] = useState(false)
+  const [adminData, setAdminData] = useState({})
+  const { userList, userInfo } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  const options = [
-    { label: 'User Status', value: '' },
-    { label: 'Active', value: 'active' },
-    { label: 'Inactive', value: 'inactive' },
-    { label: 'Decline', value: 'decline' }
+  const addNewColumns = [
+    {
+      label: 'Change Permission',
+      handleClick: (rowData) => {
+        modifyUser(rowData)
+      },
+      classname: 'deleteButton'
+    }
   ]
-
+  const modifyUser = (rowData) => {
+    setAdminData(rowData)
+    setOpen(true)
+  }
   const fetchAdminUserList = async () => {
     try {
       const response = await dispatch(
@@ -58,25 +66,17 @@ export default function AdminRequest() {
       )
     }
   }
-  const filterUserList = (filterBy) => {
-    setActiveLable(filterBy)
-    if (filterBy === 'all') {
-      dispatch(updatefilteredUserList({ filteredUserList: userList }))
-      return
-    }
-    const filterUser = userList.filter((user) => filterBy.toLowerCase() === user.user_status.toLowerCase())
-    dispatch(updatefilteredUserList({ filteredUserList: filterUser }))
-  }
+
   useEffect(() => {
     fetchAdminUserList()
   }, [])
 
-  const handleApprovedApi = async (userData, requestType) => {
+  const handleApprovedApi = async () => {
     const payloadData = await {
-      email: userData.email,
-      user_status: requestType.toLowerCase() === 'approved' ? userData.user_status.value : 'decline',
-      approvedBy: userData.approvedBy.first_name + ' ' + userData.approvedBy.last_name,
-      user_role: userData.user_role.value
+      email: adminData.email,
+      user_status: adminData.user_status,
+      user_role: adminData.user_role,
+      approvedBy: userInfo.first_name + ' ' + userInfo.last_name,
     }
     const response = await dispatch(
       approveUser({
@@ -87,6 +87,7 @@ export default function AdminRequest() {
       })
     )
     if (response.payload.success === 1) {
+      setOpen(false)
       fetchAdminUserList()
     } else {
       dispatch(
@@ -102,48 +103,25 @@ export default function AdminRequest() {
   return (
     <>
       <ToastContainer />
-      <div className='container-fluid'>
-        <div className='row clearfix'>
-          <div className='col-lg-12'>
-            <div className='card'>
-              <div className='header'>
-                {/* <h2><strong>Basic</strong> Information <small>Description text here...</small> </h2> */}
-                <div className='row align-items-center justify-content-between'>
-                  <h2 className='admin-h '>{activeLable[0].toUpperCase() + activeLable.slice(1).toLowerCase()} Request</h2>
-                  <div className='d-flex justify-end'>
-                    <button className=' btn btn-outline-primary btn btn-primary ' onClick={() => filterUserList('inactive')}>
-                      PENDING
-                    </button>
-                    <button className=' btn btn-outline-primary btn btn-success ' onClick={() => filterUserList('active')}>
-                      APPROVED
-                    </button>
-                    <button className=' btn btn-outline-primary btn btn-danger ' onClick={() => filterUserList('decline')}>
-                      DECLINED
-                    </button>
-                    <button className=' btn btn-outline-primary btn btn-info ' onClick={() => filterUserList('all')}>
-                      USERLIST
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className='body'>
-                {/* <h2 className='admin-h text-right'>Pending Request</h2> */}
-                <div className='row'>
-                  {filteredUserList.length > 0 ? (
-                    <UserListTable
-                      userList={filteredUserList}
-                      onClick={(data, requestType) => handleApprovedApi(data, requestType)}
-                      options={options}
-                    />
-                  ) : (
-                    <div>No Record Found</div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AddItemForm label={'Admin List'}>
+        {userList.length > 0 &&
+          <ItemList
+            userColumns={constants.AdminUserColumns}
+            categoryData={userList.map((data, index) => { return { ...data, id: index } })}
+            addNewColumns={addNewColumns}
+            labe={'User Listing'}
+            isVewdetails={false}
+          />
+        }
+      </AddItemForm>
+      <CustomModalAdminRole
+        open={open}
+        handleClose={() => setOpen(!open)}
+        data={adminData}
+        roleChange={(e) => setAdminData({ ...adminData, user_role: e.target.value })}
+        statusChange={(e) => setAdminData({ ...adminData, user_status: e.target.value })}
+        handleSubmit={() => handleApprovedApi()}
+      />
     </>
   )
 }

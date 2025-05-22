@@ -217,12 +217,15 @@ export default function SignIn() {
     }
 
     try {
-      const [forgotPasswordResponse, emailResponse] = await Promise.all([manageFoegotPassword(email, otp), sendEmail(mailPayload)])
-
-      const successForgot = forgotPasswordResponse?.payload?.success === 1
-      const successEmail = emailResponse?.payload?.data?.success
-
-      if (successForgot && successEmail) {
+      const response = await manageFoegotPassword(email)
+      if (response.payload.success === 1) {
+        dispatch(
+          updateError({
+            errorType: constants.apiResponseStatus.ERROR,
+            errorMessage: 'OTP send to Email Sucessfully',
+            flag: true
+          })
+        )
         setForgotModal(true)
       } else {
         dispatch(

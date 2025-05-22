@@ -3,10 +3,24 @@ import { fetchAllAdminUserList, loginUsers } from '../utils/reduxThunk/commonThu
 
 const initialState = {
   isUserAuthenticated: false,
+  isSettingPopup: false,
+  isChangePassword: false,
   userToken: '',
   userInfo: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : '',
   userList: [],
-  filteredUserList: []
+  filteredUserList: [],
+  isDisabled: true,
+  newAdmin: {
+    first_name: '',
+    last_name: '',
+    phone_number: '',
+    email: '',
+    password: '',
+    account_name: '',
+    institute_name: '',
+    designation: '',
+    user_role: '',
+  }
 }
 
 const userSlice = createSlice({
@@ -27,6 +41,13 @@ const userSlice = createSlice({
     },
     updatefilteredUserList: (state, { payload }) => {
       state.filteredUserList = payload.filteredUserList
+    },
+    UpdateAdminData: (state, { payload }) => {
+      if (payload.key !== undefined) {
+        state[payload.classKey][payload.key] = payload.value
+      } else {
+        state[payload.classKey] = payload.value
+      }
     }
   },
   extraReducers: (builder) => {
@@ -45,6 +66,6 @@ const userSlice = createSlice({
   }
 })
 
-export const { handleUserAuthentication, updateUserToken, updateUserInfo, updateUserList, updatefilteredUserList } = userSlice.actions
+export const { handleUserAuthentication, updateUserToken, updateUserInfo, updateUserList, updatefilteredUserList, UpdateAdminData } = userSlice.actions
 
 export default userSlice.reducer
