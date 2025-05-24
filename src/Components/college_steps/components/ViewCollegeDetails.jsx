@@ -138,12 +138,42 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
 
   const updateResponseMessage = async (status) => {
     try {
-      const statusPayload = {
-        college_id: collegeBasicDetails.college_id,
+      const payload = {
+        college_id: collegeBasicDetails?.college_id,
+        college_name: collegeBasicDetails?.college_name,
+        location: collegeBasicDetails?.location,
+        affiliate_by: collegeBasicDetails?.affiliate_by,
+        ratings: collegeBasicDetails?.ratings,
+        state: collegeBasicDetails?.state,
+        city: collegeBasicDetails?.city,
+        category_name: collegeBasicDetails?.category_name,
+        college_type: collegeBasicDetails?.college_type,
+        college_logo: collegeBasicDetails?.college_logo,
+        college_thumbnail: collegeBasicDetails?.college_thumbnail,
+        college_download_brochure_path: collegeBasicDetails?.college_download_brochure_path,
+        fee_starting: collegeBasicDetails?.fee_starting,
+        avg_first_year_fee: collegeBasicDetails?.avg_first_year_fee,
+        message: message,
+        account_name: JSON.parse(localStorage.getItem('userData')).account_name,
         is_publish: status,
-        message: message
+        courseOffered: courseOffered?.courses_offered,
+        collegeDescriptions: {
+          college_description: collegeDescriptions?.college_description,
+          college_course_description: collegeDescriptions?.college_course_description,
+          college_highlights_description: collegeDescriptions?.college_highlights_description,
+          college_campus_description: collegeDescriptions?.college_campus_description,
+          college_admission_description: collegeDescriptions?.college_admission_description
+        },
+        facilities: {
+          facilities: facilities?.facilities,
+          faculty_data: facilities?.faculty_data
+        },
+        placements: placements?.placement_data,
+        news: news?.news_data,
+        gallary: gallary?.image_path
       }
-      updateMessage(statusPayload)
+      const filePayload = createFilePayload(payload)
+      updateCollegeDataByID(filePayload, collegeId)
     } catch (error) {
       dispatch(
         updateError({

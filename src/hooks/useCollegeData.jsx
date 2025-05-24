@@ -164,12 +164,12 @@ const useCollegeData = () => {
     }
   }
 
-  const updateMessage = async (payload) => {
+  const updateMessage = async (payload, collegeID) => {
     const response = await dispatch(
       updateNewMessage({
-        url: constants.apiEndPoint.NEW_COLLEGE,
+        url: `${constants.apiEndPoint.NEW_COLLEGE}?college_id=${collegeID}`,
         header: { ...customHeader, ...constants.apiHeaders.HEADER },
-        method: constants.httpMethod.PUT,
+        method: constants.httpMethod.POST,
         payload: payload
       })
     )
