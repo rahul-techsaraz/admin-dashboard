@@ -44,15 +44,15 @@ const AddCustomColumns = ({ actionItem = [], params, path, id, admin, isVewdetai
     ...actionItem,
     ...(isVewdetails
       ? [
-          {
-            label: 'View Details',
-            handleClick: () => {
-              const targetPath = admin ? `${path}${params.row[id]}/${admin}` : `${path}${params.row[id]}`
-              navigate(targetPath)
-            },
-            disabled: false
-          }
-        ]
+        {
+          label: 'View Details',
+          handleClick: () => {
+            const targetPath = admin ? `${path}${params.row[id]}/${admin}` : `${path}${params.row[id]}`
+            navigate(targetPath)
+          },
+          disabled: false
+        }
+      ]
       : [])
   ]
 
@@ -133,7 +133,6 @@ export default function CustomTableData({
 }) {
   const [searchText, setSearchText] = useState('')
   const showTrendingToggle = ['course', 'exam', 'college'].includes(dataType)
-  console.log({ dataType })
   const trendingToggleColumn = {
     field: 'isTrending',
     headerName: 'Trending',
