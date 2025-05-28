@@ -48,7 +48,6 @@ export default function SignIn() {
         })
       )
       if (response.payload.success === 1) {
-        console.log(response.payload)
         dispatch(handleUserAuthentication({ flag: true }))
         localStorage.setItem('token', response.payload.token)
         dispatch(updateUserToken({ token: response.payload.token }))
@@ -221,7 +220,7 @@ export default function SignIn() {
       if (response.payload.success === 1) {
         dispatch(
           updateError({
-            errorType: constants.apiResponseStatus.ERROR,
+            errorType: constants.apiResponseStatus.SUCCESS,
             errorMessage: 'OTP send to Email Sucessfully',
             flag: true
           })
