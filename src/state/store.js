@@ -4,6 +4,7 @@ import subHeaderMenuSlice from '../features/subHeaderMenuSlice'
 import userSlice from '../features/userSlice'
 import commonSlice from '../features/commonSlice'
 import feedbackSlice from '../features/feedbackSlice'
+import callbackRequestSlice from '../features/callbackrequestSlice'
 import newCollegeSlice from '../features/newCollegeSlice'
 import newCoursesSlice from '../features/newCoursesSlice'
 import newExamSlice from '../features/newExamSlice'
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   common: commonSlice,
   newCollege: newCollegeSlice,
   feedback: feedbackSlice,
+  callbackrequest: callbackRequestSlice,
   newCourses: newCoursesSlice,
   newExam: newExamSlice
 })

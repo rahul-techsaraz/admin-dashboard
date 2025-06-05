@@ -1,6 +1,6 @@
 import React, { memo, useContext, useEffect, useState } from 'react'
 import AddItemForm from '../../AddItemForm'
-import { Paper } from '@mui/material'
+import { Button, Paper } from '@mui/material'
 import CustomAccordian from '../../../utils/CommonComponents/CustomAccordian'
 import CollegeBasicDetails from './CollegeBasicDetails'
 import CourseOffered from './CourseOffered'
@@ -186,11 +186,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
   }
 
   const fetchData = async () => {
-    const response = await Promise.all([
-      fetchCategoryList(),
-      getAllCourses(),
-      getCollegeByID(collegeId)
-    ])
+    const response = await Promise.all([fetchCategoryList(), getAllCourses(), getCollegeByID(collegeId)])
     console.log(response)
   }
 
@@ -251,22 +247,42 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1rem' }}>
               {collegeBasicDetails.is_publish === constants.collegeStatus.NOTPUBLISHED && (
                 <>
-                  <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.APPROVED)}>
+                  <Button
+                    variant='contained'
+                    color='success'
+                    className='edit-btn'
+                    onClick={() => handleOpen(constants.collegeStatus.APPROVED)}
+                  >
                     Approve
-                  </button>
-                  <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.DECLINED)}>
+                  </Button>
+                  <Button
+                    variant='outlined'
+                    color='error'
+                    className='edit-btn'
+                    onClick={() => handleOpen(constants.collegeStatus.DECLINED)}
+                  >
                     Decline
-                  </button>
-                  <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.REVISION)}>
+                  </Button>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    className='edit-btn'
+                    onClick={() => handleOpen(constants.collegeStatus.REVISION)}
+                  >
                     {constants.collegeStatus.REVISION}
-                  </button>
+                  </Button>
                 </>
               )}
               {collegeBasicDetails.is_publish === constants.collegeStatus.APPROVED && (
                 <>
-                  <button className='edit-btn' onClick={() => handleOpen(constants.collegeStatus.REVISION)}>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    className='edit-btn'
+                    onClick={() => handleOpen(constants.collegeStatus.REVISION)}
+                  >
                     {constants.collegeStatus.REVISION}
-                  </button>
+                  </Button>
                 </>
               )}
             </div>
