@@ -173,7 +173,7 @@ const ViewCollegeDetails = ({ collegeId, admin }) => {
         gallary: gallary?.image_path
       }
       const filePayload = createFilePayload(payload)
-      updateCollegeDataByID(filePayload, collegeId)
+      updateCollegeDataByID(filePayload, collegeId, admin)
     } catch (error) {
       dispatch(
         updateError({

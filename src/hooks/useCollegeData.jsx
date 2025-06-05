@@ -139,7 +139,7 @@ const useCollegeData = () => {
     }
   }
 
-  const updateCollegeDataByID = async (payload, collegeId) => {
+  const updateCollegeDataByID = async (payload, collegeId, admin) => {
     const response = await dispatch(
       updateNewCollegeById({
         url: `${constants.apiEndPoint.NEW_COLLEGE}?college_id=${collegeId}`,
@@ -148,6 +148,11 @@ const useCollegeData = () => {
       })
     )
     if (response.payload.data.status === constants.apiResponseStatus.SUCCESS) {
+      dispatch(updateError({
+        errorType: constants.apiResponseStatus.SUCCESS,
+        errorMessage: response?.payload?.data?.message,
+        flag: true
+      }))
       localStorage.removeItem('formData')
       dispatch(resetCollege())
       setCollegeLogo([])
@@ -160,7 +165,7 @@ const useCollegeData = () => {
       setCollegeGallaryUrl([])
       setFacultyImage([])
       setFacultyImageUrl([])
-      navigate('/list-agent-college')
+      navigate(admin ? '/list-college' : '/list-agent-college')
     }
   }
 
