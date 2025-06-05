@@ -30,6 +30,9 @@ import ExamDetails from '../Container/Exams/ExamDetails'
 import ExamContainer from '../Container/Exams/Exams'
 import DashboardContainer from '../Components/AnalyticsDashBoard/DashboardContainer'
 import CreateNewAdmin from '../Components/super_admin/CreateNewAdmin'
+import CallbackRequest from '../Components/callback-request/CallbackRequest'
+import CallBackRequestDetails from '../Components/callback-request/CallbackRequestDetails'
+import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary'
 
 export const appRouter = createBrowserRouter(
   [
@@ -76,6 +79,14 @@ export const appRouter = createBrowserRouter(
         {
           path: '/feedback-list',
           element: <FeedbackList />
+        },
+        {
+          path: '/users-callback-request-list',
+          element: <CallbackRequest />
+        },
+        {
+          path: '/users-callback-request-list/:email',
+          element: <CallBackRequestDetails />
         },
         {
           path: '/feedback-list/:email',
@@ -164,7 +175,7 @@ export const appRouter = createBrowserRouter(
           <body className='theme-purple'>
             <Header />
             <LeftSidebar />
-            <div style={{ margin: 300 }}>Error</div>
+            <ErrorBoundary />
           </body>
         </>
       )

@@ -20,6 +20,7 @@ export const constants = {
     SENDMAIL: 'https://techsaraz.in/mail/newsendmail.php',
     CHANGE_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/updatepassword.php',
     RESET_PASSWORD: 'https://techsaraz.in/admission-cart/api/login/adminlogin/resetadminpassword.php',
+    USER_CALL_BACK_REQUEST: 'https://techsaraz.in/admission-cart/api/user.php?requestType=callBackRequest'
   },
   imageAbsolutePath: 'https://techsaraz.in/admission-cart/api/fileupload/',
   newImageAbsolutePath: 'https://techsaraz.in/admission-cart/api/',
@@ -113,6 +114,11 @@ export const constants = {
           option_name: 'Users Feedback',
           option_path: '/feedback-list',
           name: 'Users Feedback'
+        },
+        {
+          option_name: 'Callback Request',
+          option_path: '/users-callback-request-list',
+          name: 'Callback Request'
         }
       ]
     },
@@ -572,6 +578,28 @@ export const constants = {
     {
       field: 'feedback',
       headerName: 'Feedback',
+      width: 200
+    }
+  ],
+  allUserCallbackRequest: [
+    {
+      field: 'name',
+      headerName: 'Full Name',
+      width: 200
+    },
+    {
+      field: 'email',
+      headerName: 'E-mail',
+      width: 150
+    },
+    {
+      field: 'mobile',
+      headerName: 'Mobile',
+      width: 150
+    },
+    {
+      field: 'query_for',
+      headerName: 'Query',
       width: 200
     }
   ],

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { constants } from '../../utils/constants'
-import UserListTable from './UserListTable'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { approveUser, fetchAllAdminUserList } from '../../utils/reduxThunk/commonThunk'
 import { updateError } from '../../features/commonSlice'
-import { updatefilteredUserList } from '../../features/userSlice'
 import AddItemForm from '../AddItemForm'
 import ItemList from '../ItemList'
 import CustomModalAdminRole from '../../utils/CommonComponents/CustomModalAdminRole'
@@ -76,7 +74,7 @@ export default function AdminRequest() {
       email: adminData.email,
       user_status: adminData.user_status,
       user_role: adminData.user_role,
-      approvedBy: userInfo.first_name + ' ' + userInfo.last_name,
+      approvedBy: userInfo.first_name + ' ' + userInfo.last_name
     }
     const response = await dispatch(
       approveUser({
@@ -104,15 +102,17 @@ export default function AdminRequest() {
     <>
       <ToastContainer />
       <AddItemForm label={'Admin List'}>
-        {userList.length > 0 &&
+        {userList.length > 0 && (
           <ItemList
             userColumns={constants.AdminUserColumns}
-            categoryData={userList.map((data, index) => { return { ...data, id: index } })}
+            categoryData={userList.map((data, index) => {
+              return { ...data, id: index }
+            })}
             addNewColumns={addNewColumns}
             labe={'User Listing'}
             isVewdetails={false}
           />
-        }
+        )}
       </AddItemForm>
       <CustomModalAdminRole
         open={open}
